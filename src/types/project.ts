@@ -207,13 +207,16 @@ export interface ProjectMetadata {
 }
 
 export * from './feasibility';
+export * from './marketIntelligence';
 import type { FeasibilityReport } from './feasibility';
+import type { MarketIntelligenceReport } from './marketIntelligence';
 
 export interface ProjectState {
   project: ProjectMetadata;
   idea: IdeaData;
   businessModel: BusinessModelData;
   feasibility?: FeasibilityReport;
+  marketIntelligence?: MarketIntelligenceReport;
   workflow: WorkflowData;
 }
 

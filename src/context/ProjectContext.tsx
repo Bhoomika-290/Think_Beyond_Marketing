@@ -12,12 +12,18 @@ import type {
   InterviewMessage,
   FeasibilityReport,
   FeasibilityDimensionId,
+  MarketIntelligenceReport,
+  CompetitorItem,
+  PositioningAxis,
+  MarketSpecialistMessage,
 } from '../types/project';
 import { STAGES } from '../types/project';
 import { generateFeasibilityReport } from '../services/feasibilityEngine';
+import { generateMarketIntelligenceReport } from '../services/marketIntelligenceEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
+const SPECIALIST_MESSAGES_KEY = 'think_beyond_marketing_specialist_messages_v1';
 
 const INITIAL_PROJECT_STATE: ProjectState = {
   project: {
@@ -70,6 +76,8 @@ interface ProjectContextValue {
   state: ProjectState;
   messages: InterviewMessage[];
   feasibilityReport: FeasibilityReport;
+  marketReport: MarketIntelligenceReport;
+  specialistMessages: MarketSpecialistMessage[];
   updateProject: (partial: Partial<ProjectMetadata>) => void;
   updateIdea: (partial: Partial<IdeaData>) => void;
   updateBusinessModel: (partial: Partial<BusinessModelData>) => void;
@@ -88,6 +96,11 @@ interface ProjectContextValue {
   saveFeasibilityReport: (report: FeasibilityReport) => void;
   toggleValidationTask: (taskId: string) => void;
   addCustomValidationTask: (task: { title: string; action: string; dimension: FeasibilityDimensionId }) => void;
+  refreshMarketIntelligence: () => void;
+  saveMarketIntelligenceReport: (report: MarketIntelligenceReport) => void;
+  addCompetitor: (competitor: Omit<CompetitorItem, 'id' | 'provenance'>) => void;
+  updatePositioningAxes: (xAxis: PositioningAxis, yAxis: PositioningAxis) => void;
+  sendSpecialistQuery: (queryOrAction: string) => void;
   loadSampleVenture: (sampleType: 'coffee_d2c' | 'ai_saas') => void;
 }
 
@@ -309,6 +322,13 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     if (stageId === 'feasibility') {
       return hasMinimumDiscovery || state.workflow.completedStages.includes('idea-lab');
     }
+    if (stageId === 'market-intelligence') {
+      return (
+        state.workflow.completedStages.includes('feasibility') ||
+        state.workflow.completedStages.includes('idea-lab') ||
+        hasMinimumDiscovery
+      );
+    }
     const stage = STAGES.find((s) => s.id === stageId);
     if (!stage || !stage.requiredStageId) return false;
     return state.workflow.completedStages.includes(stage.requiredStageId);
@@ -488,6 +508,9 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const report = generateFeasibilityReport(sampleState);
       sampleState.feasibility = report;
       sampleState.workflow.stageOutputs.feasibility = report;
+      const mktReport = generateMarketIntelligenceReport(sampleState);
+      sampleState.marketIntelligence = mktReport;
+      sampleState.workflow.stageOutputs.marketIntelligence = mktReport;
       setState(sampleState);
     } else {
       const sampleState: ProjectState = {
@@ -539,9 +562,185 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const report = generateFeasibilityReport(sampleState);
       sampleState.feasibility = report;
       sampleState.workflow.stageOutputs.feasibility = report;
+      const mktReport = generateMarketIntelligenceReport(sampleState);
+      sampleState.marketIntelligence = mktReport;
+      sampleState.workflow.stageOutputs.marketIntelligence = mktReport;
       setState(sampleState);
     }
   }, []);
+
+  // Market Intelligence State & Specialist Chatbot
+  const [customCompetitors, setCustomCompetitors] = useState<CompetitorItem[]>([]);
+  const [customAxes, setCustomAxes] = useState<{ xAxis: PositioningAxis; yAxis: PositioningAxis } | undefined>(undefined);
+
+  const [specialistMessages, setSpecialistMessages] = useState<MarketSpecialistMessage[]>(() => {
+    try {
+      const saved = localStorage.getItem(SPECIALIST_MESSAGES_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to load specialist messages:', e);
+    }
+    return [
+      {
+        id: 'spec_welcome',
+        sender: 'ai',
+        specialistName: 'Market Intelligence Lead',
+        text: "Welcome to Market Intelligence. I analyze your venture's market landscape, customer segments, and competitor whitespace based on your Stage 01 & 02 findings.\n\nUse the quick actions below or ask any strategic question about your positioning.",
+        timestamp: new Date().toISOString(),
+      },
+    ];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(SPECIALIST_MESSAGES_KEY, JSON.stringify(specialistMessages));
+    } catch (e) {
+      console.error('Failed to save specialist messages:', e);
+    }
+  }, [specialistMessages]);
+
+  const marketReport = useMemo(() => {
+    if (state.marketIntelligence) {
+      return state.marketIntelligence;
+    }
+    return generateMarketIntelligenceReport(state, customCompetitors, customAxes);
+  }, [state, customCompetitors, customAxes]);
+
+  const refreshMarketIntelligence = useCallback(() => {
+    const fresh = generateMarketIntelligenceReport(state, customCompetitors, customAxes);
+    setState((prev) => ({
+      ...prev,
+      marketIntelligence: fresh,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          marketIntelligence: fresh,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, [state, customCompetitors, customAxes]);
+
+  const saveMarketIntelligenceReport = useCallback((report: MarketIntelligenceReport) => {
+    setState((prev) => ({
+      ...prev,
+      marketIntelligence: report,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          marketIntelligence: report,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, []);
+
+  const addCompetitor = useCallback(
+    (competitor: Omit<CompetitorItem, 'id' | 'provenance'>) => {
+      const newComp: CompetitorItem = {
+        ...competitor,
+        id: `comp_user_${Date.now()}`,
+        provenance: 'USER_PROVIDED',
+        isUserAdded: true,
+      };
+      setCustomCompetitors((prev) => [newComp, ...prev]);
+    },
+    []
+  );
+
+  const updatePositioningAxes = useCallback(
+    (xAxis: PositioningAxis, yAxis: PositioningAxis) => {
+      setCustomAxes({ xAxis, yAxis });
+    },
+    []
+  );
+
+  const sendSpecialistQuery = useCallback(
+    (queryOrAction: string) => {
+      const userMsg: MarketSpecialistMessage = {
+        id: `usr_${Date.now()}`,
+        sender: 'user',
+        text: queryOrAction,
+        timestamp: new Date().toISOString(),
+      };
+
+      const ventureName = state.idea.name || state.project.name || 'your venture';
+      const category = state.businessModel.productType || 'venture';
+      const audience = state.idea.targetAudience || 'target audience';
+      const diff = state.idea.differentiation || 'core transparency';
+      const problem = state.idea.problem || 'stated problem';
+
+      let replyText = '';
+      let specialistName = 'Business Specialist';
+
+      switch (queryOrAction) {
+        case 'Analyze Market':
+          replyText = `**Market Intelligence Analysis for ${ventureName}:**\nThe ${category.toUpperCase()} market is polarized between mass commodity providers (high volume, low trust) and high-friction legacy tools. For ${audience}, the buying window opens when friction around "${problem.slice(0, 50)}..." becomes intolerable. Your primary opportunity is capturing the underserved mid-market through verified craft and operational transparency.`;
+          specialistName = 'Market Intelligence Lead';
+          break;
+
+        case 'Compare Competitors':
+          replyText = `**Competitive Landscape Breakdown:**\nDirect mass incumbents rely on inertia and broad brand awareness, but fail on personal craft. High-end bespoke alternatives impose prohibitive price tags and slow turnarounds. ${ventureName}'s proposed wedge ("${diff.slice(0, 50)}...") directly attacks this gap by offering high quality with modern, accessible distribution.`;
+          specialistName = 'Venture Strategist';
+          break;
+
+        case 'Find Market Gaps':
+          replyText = `**Strategic Whitespace Identified:**\nThe clearest unserved whitespace is the **Prime Opportunity Quadrant**—customers who demand verified quality and rapid time-to-value, but refuse to deal with enterprise bloat. This gap is currently vacant because incumbents treat this segment as too small for mass production and too accessible for boutique retainers.`;
+          specialistName = 'Brand Strategist';
+          break;
+
+        case 'Analyze Customer Segments':
+          replyText = `**Target Segment Dynamics:**\n1. **Core Adopters (${audience.slice(0, 30)}):** 92% fit. Experiencing active pain right now; purchase trigger is finding a dependable, transparent solution.\n2. **Discerning Practitioners:** 78% fit. Looking for unit margin or craft benchmarks.\n3. **Adjacent Curious Buyers:** 55% fit. Will adopt once word-of-mouth establishes social proof. Focus strictly on Core Adopters for initial beachhead.`;
+          specialistName = 'Growth Specialist';
+          break;
+
+        case 'Challenge My Positioning':
+          replyText = `**Challenger Red Team Critique:**\nHere is your real vulnerability: Customer inertia. If prospects have lived with this problem for months using free workarounds, why will they switch to ${ventureName} on Day 1? You must prove that your value proposition creates an immediate 10x perception shift within the first 60 seconds of onboarding.`;
+          specialistName = 'Challenger / Red Team';
+          break;
+
+        case 'Explain Market Risk':
+          replyText = `**Primary Market Failure Modes:**\n1. **Customer Switching Inertia (High Impact):** Overcoming status quo habits requires a friction-free trial or undeniable proof point.\n2. **Paid CAC Saturation (High Impact):** Bidding against established players will burn runway. You must build founder-led or community-driven acquisition loops before spending on broad digital ads.`;
+          specialistName = 'Risk & Compliance Lead';
+          break;
+
+        case 'Identify Missing Evidence':
+          replyText = `**Evidence Gaps to Validate:**\n1. Real customer willingness-to-pay has not been validated with pre-orders or deposit commitments.\n2. Competitive pricing moats require direct prospect interviews.\n3. Supplier SLAs and delivery turnaround need live test confirmation in your operating geography.`;
+          specialistName = 'Evaluator';
+          break;
+
+        case 'Prepare Brand Inputs':
+          replyText = `**Handoff to Stage 04 (Brand Roadmap):**\nMarket intelligence indicates your brand archetype should be **The Craftsman / Sage** (uncompromising quality + radical transparency). Your positioning statement must directly contrast against the opaque mass-market habit, establishing ${ventureName} as the authentic benchmark for ${audience}.`;
+          specialistName = 'Brand Architect';
+          break;
+
+        default:
+          replyText = `Based on your venture context for **${ventureName}** (${category}), addressing **${audience}**: regarding "${queryOrAction}", our market analysis indicates you should maintain focus on validating customer willingness-to-pay and highlighting "${diff.slice(0, 40)}..." as your key differentiator against legacy alternatives.`;
+          specialistName = 'Business Specialist';
+          break;
+      }
+
+      const aiMsg: MarketSpecialistMessage = {
+        id: `ai_${Date.now() + 1}`,
+        sender: 'ai',
+        specialistName,
+        text: replyText,
+        actionUsed: queryOrAction,
+        timestamp: new Date().toISOString(),
+      };
+
+      setSpecialistMessages((prev) => [...prev, userMsg, aiMsg]);
+    },
+    [state]
+  );
 
   return (
     <ProjectContext.Provider
@@ -549,6 +748,8 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         state,
         messages,
         feasibilityReport,
+        marketReport,
+        specialistMessages,
         updateProject,
         updateIdea,
         updateBusinessModel,
@@ -567,6 +768,11 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         saveFeasibilityReport,
         toggleValidationTask,
         addCustomValidationTask,
+        refreshMarketIntelligence,
+        saveMarketIntelligenceReport,
+        addCompetitor,
+        updatePositioningAxes,
+        sendSpecialistQuery,
         loadSampleVenture,
       }}
     >

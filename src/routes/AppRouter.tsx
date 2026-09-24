@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppShell } from '../components/layout/AppShell';
 import { IdeaLabPage } from '../pages/IdeaLabPage';
 import { FeasibilityPage } from '../pages/FeasibilityPage';
+import { MarketIntelligencePage } from '../pages/MarketIntelligencePage';
 import {
-  MarketIntelligencePage,
   BrandRoadmapPage,
   BuildPage,
   ExecutionPage,

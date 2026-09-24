@@ -67,7 +67,7 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 | :--- | :--- | :--- | :--- |
 | **01. Idea Lab** | `/idea-lab` | **IMPLEMENTED (Scrum 01)** | Active discovery workspace with founder interview, venture classification, footprint capture, and idea snapshot synthesis. |
 | **02. Feasibility & Viability** | `/feasibility` | **IMPLEMENTED (Scrum 02)** | Staged decision-support engine evaluating 9 feasibility dimensions, categorized risks, assumptions, open questions, validation plan, and Stage 03 handoff. |
-| **03. Market Intelligence** | `/market-intelligence` | *LOCKED / UPCOMING* | Architectural placeholder consuming upstream feasibility handoff vectors. |
+| **03. Market Intelligence** | `/market-intelligence` | **IMPLEMENTED (Scrum 03)** | Visual macro intelligence command center with dynamic 2-axis positioning matrix, real competitor verification, customer clusters, opportunity whitespace map, zero-fake TAM/SAM/SOM sizing, 3x3 risk heatmap, AI Council synthesis, Business Specialist chatbot, and Stage 04 Brand Brief handoff. |
 | **04. Brand Roadmap** | `/brand-roadmap` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **05. Build & Architecture** | `/build` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **06. Execution Intelligence** | `/execution` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
@@ -127,6 +127,28 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 - **Stage 02 → Stage 03 Handoff Dossier**: Synthesizes what looks promising, critical uncertainties, potential fatal blockers, and structures competitor and pricing research objectives for Stage 03 (Market Intelligence).
 - **Seed Venture Test Cases**: One-click loaders for Coffee D2C (Physical Goods) and Attribution SaaS (Digital/B2B) for end-to-end evaluation testing.
 
+### Stage 03 — Market Intelligence (`/market-intelligence`)
+- **Core Decision Question**: *"Now that we know what the business is and whether the concept is feasible, what does the actual market look like?"*
+- **Visual-First Command Center**: 80% visual / 20% text density with scannable charts, interactive node canvas, and filter view pills (`[All Views] [Positioning] [Segments] [Whitespace] [Risks] [AI Council & Chat]`).
+- **Continuous Grounding (Stages 01 + 02 → 03)**: Consumes structured idea definitions, category models, problem/audience alignment, feasibility scores, and open validation questions.
+- **Zero-Fake Data Integrity**: Zero fabricated competitors, TAM/SAM/SOM dollar figures, or growth statistics. Every data point carries explicit provenance (`USER_PROVIDED`, `VERIFIED_SOURCE`, `AI_INFERENCE`, `ASSUMPTION`, or `NEEDS_VALIDATION`).
+- **Dynamic 2-Axis Positioning Matrix**:
+  - Category-tailored dynamic axes (Price/Value, Domain Specialization, Delivery Model Mechanics, Sourcing Transparency).
+  - Dynamic axis selectors allowing founders to switch X and Y dimensions in real-time.
+  - Interactive competitor nodes with detailed inspection drawers.
+  - "Add Real Competitor" inline modal saving verified market players as `USER_PROVIDED`.
+- **Competitor Comparative Profiles**: Compact visual comparison cards with price tiers, core positioning, verified strengths, and vulnerable gaps.
+- **Customer Segmentation & Audience Signals**: 3 dynamic customer clusters (Beachhead, Secondary, Expansion) with derived 0–100 relevance score bars, pain intensity ratings, buying triggers, adoption barriers, and validation interview prompts.
+- **Market Opportunity & Whitespace Gap Analysis**:
+  - 4-quadrant demand vs. competition map (Prime Opportunity, Crowded, Specialized Niche, Low Priority).
+  - Visual contrast bars: Unmet Customer Need vs. Current Solutions vs. Open Whitespace Gap.
+- **TAM / SAM / SOM Sizing Framework**: Concentric layer visualization with mathematical formula requirements and inline founder input drawer (marked `NEEDS_VALIDATION` until verified by founder).
+- **Market Forces & Vector Signals**: Trend vector cards with direction indicators (rising, emerging, stable, declining, uncertain), confidence, and verified sources.
+- **3×3 Risk Heatmap Matrix**: Likelihood (L, M, H) vs. Impact (L, M, H) heatmap with color-coded severity cells and interactive drill-down inspector.
+- **AI Strategic Council**: Multi-agent consensus synthesis (Consensus, Critical Divergence, Founder Action Directive) with expandable debate inspection across 6 council roles.
+- **Market Intelligence Business Specialist Chatbot**: Grounded conversational specialist with 8 quick-action prompts (`Analyze Market`, `Compare Competitors`, `Find Market Gaps`, `Customer Segments`, `Challenge Positioning`, `Explain Market Risk`, `Missing Evidence`, `Prepare Brand Inputs`).
+- **Stage 03 → Stage 04 Handoff**: Synthesizes a structured `MarketIntelligenceBrief` persisted directly into `state.workflow.stageOutputs.marketIntelligence` with one-click transition to Stage 04 (Brand Roadmap).
+
 ---
 
 ## Source Architecture
@@ -136,19 +158,24 @@ The repository enforces a clean separation of concerns:
 ```
 src/
 ├── components/
-│   ├── common/         # Stateless UI primitives (Button, Card, Badge, Input, Textarea)
-│   ├── layout/         # Shell components (AppShell, AppHeader, AppSidebar, StagePlaceholder)
-│   ├── idea-lab/       # Stage 01 modules (HeroTransformation, FAQEntryPrompts,
-│   │                   # InterviewerChat, ProductTypeSelector, LocationContext,
-│   │                   # DiscoveryFlow, IdeaSnapshot)
-│   └── feasibility/    # Stage 02 modules (FeasibilityHeader, FeasibilityOverview,
-│                       # FeasibilityMatrix, RiskMatrix, AssumptionsAndQuestions,
-│                       # ValidationPlan, DecisionAndHandoff)
-├── context/            # Centralized project state (ProjectContext.tsx)
-├── pages/              # Route views (IdeaLabPage, FeasibilityPage, StagePages, NotFoundPage)
-├── routes/             # Client-side router configuration (AppRouter.tsx)
-├── services/           # Deterministic analytical engines (feasibilityEngine.ts)
-└── types/              # Domain TypeScript interfaces (project.ts, feasibility.ts)
+│   ├── common/             # Stateless UI primitives (Button, Card, Badge, Input, Textarea)
+│   ├── layout/             # Shell components (AppShell, AppHeader, AppSidebar, StagePlaceholder)
+│   ├── idea-lab/           # Stage 01 modules (HeroTransformation, FAQEntryPrompts,
+│   │                       # InterviewerChat, ProductTypeSelector, LocationContext,
+│   │                       # DiscoveryFlow, IdeaSnapshot)
+│   ├── feasibility/        # Stage 02 modules (FeasibilityHeader, FeasibilityOverview,
+│   │                       # FeasibilityMatrix, RiskMatrix, AssumptionsAndQuestions,
+│   │                       # ValidationPlan, DecisionAndHandoff)
+│   └── market-intelligence/# Stage 03 modules (MarketHeader, PositioningMatrix,
+│                           # CompetitorComparisonView, CustomerSegmentsView,
+│                           # OpportunityWhitespaceMap, MarketSizeFrameworkView,
+│                           # MarketTrendsView, MarketRiskHeatmap, AICouncilPanel,
+│                           # MarketSpecialistChat, MarketDecisionAndHandoff)
+├── context/                # Centralized project state (ProjectContext.tsx)
+├── pages/                  # Route views (IdeaLabPage, FeasibilityPage, MarketIntelligencePage, StagePages, NotFoundPage)
+├── routes/                 # Client-side router configuration (AppRouter.tsx)
+├── services/               # Deterministic analytical engines (feasibilityEngine.ts, marketIntelligenceEngine.ts)
+└── types/                  # Domain TypeScript interfaces (project.ts, feasibility.ts, marketIntelligence.ts)
 ```
 
 ---
@@ -195,6 +222,20 @@ ProjectState
 │   ├── criticalUncertainties: string[]
 │   ├── potentialBlockers: string[]
 │   └── handoffToMarketIntelligence: MarketIntelligenceHandoff
+├── marketIntelligence?
+│   ├── id: string
+│   ├── generatedAt: string
+│   ├── signals: { marketSignal; customerSignal; competitiveSignal; opportunitySignal }
+│   ├── competitors: CompetitorItem[]
+│   ├── availableAxes: PositioningAxis[]
+│   ├── selectedAxes: { xAxis: PositioningAxis; yAxis: PositioningAxis }
+│   ├── customerSegments: CustomerSegment[]
+│   ├── opportunityGaps: MarketOpportunityGap[]
+│   ├── marketSize: MarketSizeFramework
+│   ├── trends: MarketTrendSignal[]
+│   ├── riskHeatmap: MarketRiskItem[]
+│   ├── aiCouncil: AICouncilSynthesis
+│   └── brief: MarketIntelligenceBrief
 └── workflow
     ├── currentStage: StageId
     ├── completedStages: StageId[]
