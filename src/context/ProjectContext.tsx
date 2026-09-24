@@ -16,10 +16,15 @@ import type {
   CompetitorItem,
   PositioningAxis,
   MarketSpecialistMessage,
+  BrandRoadmapReport,
+  BrandDNANode,
+  PositioningStatement,
+  LogoConcept,
 } from '../types/project';
 import { STAGES } from '../types/project';
 import { generateFeasibilityReport } from '../services/feasibilityEngine';
 import { generateMarketIntelligenceReport } from '../services/marketIntelligenceEngine';
+import { generateBrandRoadmapReport } from '../services/brandRoadmapEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
@@ -102,6 +107,19 @@ interface ProjectContextValue {
   updatePositioningAxes: (xAxis: PositioningAxis, yAxis: PositioningAxis) => void;
   sendSpecialistQuery: (queryOrAction: string) => void;
   loadSampleVenture: (sampleType: 'coffee_d2c' | 'ai_saas') => void;
+  brandReport: BrandRoadmapReport;
+  refreshBrandRoadmap: () => void;
+  saveBrandRoadmapReport: (report: BrandRoadmapReport) => void;
+  updateBrandPersonality: (traitId: string, userValue: number) => void;
+  toggleBrandVoice: (attributeId: string) => void;
+  updatePositioningStatement: (field: keyof PositioningStatement, value: string) => void;
+  selectDifferentiator: (differentiatorId: string, customText?: string) => void;
+  updateVoiceTransformation: (newVoiceMessage: string) => void;
+  selectTagline: (taglineId: string, customText?: string) => void;
+  selectLogoConcept: (conceptId: string) => void;
+  customizeLogo: (customization: Partial<LogoConcept['customization']>) => void;
+  updateColorSwatch: (swatchId: string, hex: string) => void;
+  selectTypography: (pairId: string) => void;
 }
 
 const ProjectContext = createContext<ProjectContextValue | undefined>(undefined);
@@ -329,6 +347,18 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         hasMinimumDiscovery
       );
     }
+    if (stageId === 'brand-roadmap') {
+      return (
+        state.workflow.completedStages.includes('market-intelligence') ||
+        state.workflow.completedStages.includes('feasibility') ||
+        state.workflow.completedStages.includes('idea-lab') ||
+        hasMinimumDiscovery
+      );
+    }
+    if (stageId === 'build') {
+      const br = state.brandRoadmap || generateBrandRoadmapReport(state);
+      return br.stage05Handoff.isReady || state.workflow.completedStages.includes('brand-roadmap');
+    }
     const stage = STAGES.find((s) => s.id === stageId);
     if (!stage || !stage.requiredStageId) return false;
     return state.workflow.completedStages.includes(stage.requiredStageId);
@@ -511,6 +541,10 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const mktReport = generateMarketIntelligenceReport(sampleState);
       sampleState.marketIntelligence = mktReport;
       sampleState.workflow.stageOutputs.marketIntelligence = mktReport;
+      const brReport = generateBrandRoadmapReport(sampleState);
+      sampleState.brandRoadmap = brReport;
+      sampleState.workflow.stageOutputs.brandRoadmap = brReport;
+      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence'];
       setState(sampleState);
     } else {
       const sampleState: ProjectState = {
@@ -565,6 +599,10 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const mktReport = generateMarketIntelligenceReport(sampleState);
       sampleState.marketIntelligence = mktReport;
       sampleState.workflow.stageOutputs.marketIntelligence = mktReport;
+      const brReport = generateBrandRoadmapReport(sampleState);
+      sampleState.brandRoadmap = brReport;
+      sampleState.workflow.stageOutputs.brandRoadmap = brReport;
+      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence'];
       setState(sampleState);
     }
   }, []);
@@ -742,6 +780,421 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     [state]
   );
 
+  const brandReport = useMemo(() => {
+    if (state.brandRoadmap) {
+      return state.brandRoadmap;
+    }
+    return generateBrandRoadmapReport(state);
+  }, [state]);
+
+  const refreshBrandRoadmap = useCallback(() => {
+    const fresh = generateBrandRoadmapReport(state);
+    setState((prev) => ({
+      ...prev,
+      brandRoadmap: fresh,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          brandRoadmap: fresh,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, [state]);
+
+  const saveBrandRoadmapReport = useCallback((report: BrandRoadmapReport) => {
+    setState((prev) => ({
+      ...prev,
+      brandRoadmap: report,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          brandRoadmap: report,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, []);
+
+  const updateBrandPersonality = useCallback((traitId: string, userValue: number) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const updatedTraits = current.personalityTraits.map((t) =>
+        t.id === traitId ? { ...t, userValue, isUserModified: true } : t
+      );
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        personalityTraits: updatedTraits,
+        brandBoard: {
+          ...current.brandBoard,
+          personalityProfile: updatedTraits.map((t) => `${t.leftLabel} vs ${t.rightLabel} (${t.userValue}%)`),
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const toggleBrandVoice = useCallback((attributeId: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const updatedAttributes = current.brandVoice.attributes.map((attr) =>
+        attr.id === attributeId ? { ...attr, selected: !attr.selected } : attr
+      );
+      const selectedNames = updatedAttributes.filter((a) => a.selected).map((a) => a.name);
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        brandVoice: {
+          ...current.brandVoice,
+          attributes: updatedAttributes,
+          preview: {
+            ...current.brandVoice.preview,
+            headline:
+              selectedNames.length > 0
+                ? `${selectedNames.slice(0, 2).join(' & ')}: The future of ${prev.project.name || 'our craft'}.`
+                : current.brandVoice.preview.headline,
+          },
+        },
+        brandBoard: {
+          ...current.brandBoard,
+          voiceCharacteristics: selectedNames,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const updatePositioningStatement = useCallback((field: keyof PositioningStatement, value: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const updatedPos: PositioningStatement = {
+        ...current.positioningStatement,
+        [field]: value,
+      };
+      updatedPos.fullStatement = `For ${updatedPos.forTarget}, who ${updatedPos.whoProblem}, our brand is a ${updatedPos.category} that ${updatedPos.valuePromise}, unlike ${updatedPos.unlikeAlternative}, because ${updatedPos.becauseDifferentiator}.`;
+
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        positioningStatement: updatedPos,
+        brandBoard: {
+          ...current.brandBoard,
+          positioningStatement: updatedPos.fullStatement,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const selectDifferentiator = useCallback((differentiatorId: string, customText?: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const targetDiff = current.differentiatorChain.candidates.find((c) => c.id === differentiatorId);
+      if (!targetDiff) return prev;
+
+      const diffText = customText !== undefined ? customText : targetDiff.differentiator;
+
+      const updatedCandidates = current.differentiatorChain.candidates.map((c) => ({
+        ...c,
+        differentiator: c.id === differentiatorId && customText ? customText : c.differentiator,
+        isSelected: c.id === differentiatorId,
+      }));
+
+      const updatedPos: PositioningStatement = {
+        ...current.positioningStatement,
+        becauseDifferentiator: diffText,
+      };
+      updatedPos.fullStatement = `For ${updatedPos.forTarget}, who ${updatedPos.whoProblem}, our brand is a ${updatedPos.category} that ${updatedPos.valuePromise}, unlike ${updatedPos.unlikeAlternative}, because ${updatedPos.becauseDifferentiator}.`;
+
+      const updatedNodes = current.brandDnaNodes.map((n) =>
+        n.id === 'dna_diff'
+          ? {
+              ...n,
+              value: diffText,
+              evidenceState: (targetDiff.evidenceState === 'INFERRED' ? 'AI INFERENCE' : targetDiff.evidenceState) as BrandDNANode['evidenceState'],
+            }
+          : n
+      );
+
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        differentiatorChain: {
+          ...current.differentiatorChain,
+          activeDifferentiatorId: differentiatorId,
+          candidates: updatedCandidates,
+        },
+        positioningStatement: updatedPos,
+        brandDnaNodes: updatedNodes,
+        brandBoard: {
+          ...current.brandBoard,
+          positioningStatement: updatedPos.fullStatement,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const updateVoiceTransformation = useCallback((newVoiceMessage: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        brandVoice: {
+          ...current.brandVoice,
+          transformation: {
+            ...current.brandVoice.transformation,
+            brandVoiceMessage: newVoiceMessage,
+          },
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const selectTagline = useCallback((taglineId: string, customText?: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const updatedDirections = current.taglineWorkspace.directions.map((d) => {
+        if (d.id === taglineId) {
+          return {
+            ...d,
+            tagline: customText !== undefined ? customText : d.tagline,
+            isSelected: true,
+          };
+        }
+        return { ...d, isSelected: false };
+      });
+      const selected = updatedDirections.find((d) => d.isSelected);
+      const activeTagline = selected ? selected.tagline : current.taglineWorkspace.activeTagline;
+
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        taglineWorkspace: {
+          ...current.taglineWorkspace,
+          activeTagline,
+          directions: updatedDirections,
+        },
+        brandBoard: {
+          ...current.brandBoard,
+          tagline: activeTagline,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const selectLogoConcept = useCallback((conceptId: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const targetConcept = current.logoGenerator.concepts.find((c) => c.id === conceptId);
+      if (!targetConcept) return prev;
+
+      const updatedConcepts = current.logoGenerator.concepts.map((c) => ({
+        ...c,
+        status: c.id === conceptId ? ('selected' as const) : ('candidate' as const),
+      }));
+
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        logoGenerator: {
+          ...current.logoGenerator,
+          selectedConceptId: conceptId,
+          concepts: updatedConcepts,
+        },
+        brandBoard: {
+          ...current.brandBoard,
+          selectedMark: targetConcept,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const customizeLogo = useCallback((customization: Partial<LogoConcept['customization']>) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const activeId = current.logoGenerator.selectedConceptId;
+      const updatedConcepts = current.logoGenerator.concepts.map((c) => {
+        if (c.id === activeId) {
+          return {
+            ...c,
+            customization: {
+              ...c.customization,
+              ...customization,
+            },
+          };
+        }
+        return c;
+      });
+      const selected = updatedConcepts.find((c) => c.id === activeId);
+
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        logoGenerator: {
+          ...current.logoGenerator,
+          concepts: updatedConcepts,
+        },
+        brandBoard: {
+          ...current.brandBoard,
+          selectedMark: selected || current.brandBoard.selectedMark,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const updateColorSwatch = useCallback((swatchId: string, hex: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const updatedSwatches = current.colorSystem.swatches.map((s) => {
+        if (s.id === swatchId) {
+          return { ...s, hex };
+        }
+        return s;
+      });
+
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        colorSystem: {
+          ...current.colorSystem,
+          swatches: updatedSwatches,
+        },
+        brandBoard: {
+          ...current.brandBoard,
+          colorPalette: updatedSwatches,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const selectTypography = useCallback((pairId: string) => {
+    setState((prev) => {
+      const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
+      const targetPair = current.typographySystem.pairs.find((p) => p.id === pairId);
+      if (!targetPair) return prev;
+
+      const updatedReport: BrandRoadmapReport = {
+        ...current,
+        typographySystem: {
+          ...current.typographySystem,
+          selectedPairId: pairId,
+        },
+        brandBoard: {
+          ...current.brandBoard,
+          typography: targetPair,
+        },
+      };
+      return {
+        ...prev,
+        brandRoadmap: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            brandRoadmap: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
   return (
     <ProjectContext.Provider
       value={{
@@ -750,6 +1203,7 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         feasibilityReport,
         marketReport,
         specialistMessages,
+        brandReport,
         updateProject,
         updateIdea,
         updateBusinessModel,
@@ -774,6 +1228,18 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         updatePositioningAxes,
         sendSpecialistQuery,
         loadSampleVenture,
+        refreshBrandRoadmap,
+        saveBrandRoadmapReport,
+        updateBrandPersonality,
+        toggleBrandVoice,
+        updatePositioningStatement,
+        selectDifferentiator,
+        updateVoiceTransformation,
+        selectTagline,
+        selectLogoConcept,
+        customizeLogo,
+        updateColorSwatch,
+        selectTypography,
       }}
     >
       {children}

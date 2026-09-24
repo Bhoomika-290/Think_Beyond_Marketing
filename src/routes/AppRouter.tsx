@@ -4,8 +4,8 @@ import { AppShell } from '../components/layout/AppShell';
 import { IdeaLabPage } from '../pages/IdeaLabPage';
 import { FeasibilityPage } from '../pages/FeasibilityPage';
 import { MarketIntelligencePage } from '../pages/MarketIntelligencePage';
+import { BrandRoadmapPage } from '../pages/BrandRoadmapPage';
 import {
-  BrandRoadmapPage,
   BuildPage,
   ExecutionPage,
   SimulationPage,

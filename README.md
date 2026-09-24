@@ -68,7 +68,7 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 | **01. Idea Lab** | `/idea-lab` | **IMPLEMENTED (Scrum 01)** | Active discovery workspace with founder interview, venture classification, footprint capture, and idea snapshot synthesis. |
 | **02. Feasibility & Viability** | `/feasibility` | **IMPLEMENTED (Scrum 02)** | Staged decision-support engine evaluating 9 feasibility dimensions, categorized risks, assumptions, open questions, validation plan, and Stage 03 handoff. |
 | **03. Market Intelligence** | `/market-intelligence` | **IMPLEMENTED (Scrum 03)** | Visual macro intelligence command center with dynamic 2-axis positioning matrix, real competitor verification, customer clusters, opportunity whitespace map, zero-fake TAM/SAM/SOM sizing, 3x3 risk heatmap, AI Council synthesis, Business Specialist chatbot, and Stage 04 Brand Brief handoff. |
-| **04. Brand Roadmap** | `/brand-roadmap` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
+| **04. Brand Roadmap** | `/brand-roadmap` | **IMPLEMENTED (Scrum 04)** | Strategic Brand System & Visual Identity Workspace featuring Brand DNA Node Map, Gap-to-Differentiator Flow, Dynamic 2-Axis Positioning Matrix, Live Positioning Statement Builder, 7-Spectrum Personality Sliders, Voice Guidelines & Copy Transformer, Tagline Workspace, Parametric Vector Logo Generator & Customizer, 8-Color System with WCAG contrast ratings, Typography Specimen Scale, Unified Brand Identity Board, 7-Stage Customer Experience Map, Roadmap Timeline, Brand Decision Board, and Stage 05 Build Dossier Handoff. |
 | **05. Build & Architecture** | `/build` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **06. Execution Intelligence** | `/execution` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **07. Experience Simulation** | `/simulation` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
@@ -149,6 +149,28 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 - **Market Intelligence Business Specialist Chatbot**: Grounded conversational specialist with 8 quick-action prompts (`Analyze Market`, `Compare Competitors`, `Find Market Gaps`, `Customer Segments`, `Challenge Positioning`, `Explain Market Risk`, `Missing Evidence`, `Prepare Brand Inputs`).
 - **Stage 03 → Stage 04 Handoff**: Synthesizes a structured `MarketIntelligenceBrief` persisted directly into `state.workflow.stageOutputs.marketIntelligence` with one-click transition to Stage 04 (Brand Roadmap).
 
+### Stage 04 — Brand Roadmap & Visual Identity System (`/brand-roadmap`)
+- **Core Decision Question**: *"How do we turn this validated business idea and market intelligence into a distinctive, recognizable, and strategic brand system?"*
+- **Visual-First Strategy Operating System**: Node diagrams, 2D positioning map, causal flows, parametric SVG logo generator, color swatches with contrast ratings, typography specimen scale, mini brand identity board, customer journey map, and roadmap timeline with view switcher filter pills.
+- **Continuous Grounding (Stages 01 + 02 + 03 → 04)**: Directly synthesizes inputs from Idea Lab (problem, target audience, differentiators), Feasibility (validated moats, unit constraints), and Market Intelligence (competitor landscape, audience clusters, market gaps).
+- **16 Connected Strategic & Visual Modules**:
+  1. **Brand DNA Node Map**: 9 interconnected strategic nodes (Problem, Customer, Need, Purpose, Promise, Core Value, Differentiator, Market Gap, Perception) with an interactive inspection drawer detailing provenance, originating stage, and concrete brand impact.
+  2. **Market Gap → Brand Differentiator Flow**: Visual causal flow ("What are competitors doing?" → "What are they missing?" → "What gap exists?" → "What can MY brand do differently?") with interactive candidate selection and inline custom differentiator editing.
+  3. **Dynamic Brand Positioning Map**: 2D coordinate matrix plotting competitors from Stage 03 against the focal venture with dynamic X/Y axis selection (e.g., Price vs. Specialization, Tech vs. Human) and custom competitor addition.
+  4. **Live Positioning Statement Builder**: Geoffrey Moore formula (*For [Audience] who [Need], [Brand] is a [Category] that [Benefit] because [Reason], unlike [Alternative], we [Differentiator]*) with interactive component editing and live compiled pitch card.
+  5. **Brand Personality Spectrum**: 7 calibrated dimensional sliders (Professional vs. Playful, Minimal vs. Expressive, Premium vs. Accessible, Bold vs. Calm, Traditional vs. Modern, Technical vs. Human, Serious vs. Energetic) with real-time AI baseline comparisons.
+  6. **Dynamic Brand Voice System**: Selected voice traits, DO guidelines, DON'T pitfalls, and an interactive Before/After copy transformation editor demonstrating generic vs. brand voice execution.
+  7. **Tagline Workspace**: 6 strategic angles (Benefit-Led, Emotional, Challenger, Premium, Functional, Aspirational) with deterministic regeneration, inline copy editing, and active selection.
+  8. **Parametric SVG Logo Generator**: Real SVG vector generator producing distinct geometric and typographic concepts based on venture identity with zero external API dependencies or fake claims.
+  9. **Interactive Logo Customizer**: Live fine-tuning of layout (stacked, horizontal, icon-only, wordmark-only), symbol scale, primary/secondary colors, background, corner radius, and font treatment with instant visual re-rendering.
+  10. **Tokenized Color System**: 8 semantic color swatches (Primary, Secondary, Accent, Background, Surface, Text, Success, Warning) with interactive hex color pickers, WCAG contrast ratios, and continuous color strip.
+  11. **Typography Specimen Scale**: 4-tier typographic preview (Display, Heading, Body, Caption/UI) rendering actual brand name, active tagline, and sample marketing copy.
+  12. **Unified Brand Identity Board**: A cohesive mini brand board consolidating Logo, Name, Tagline, Color Swatches, Typography, Personality, Voice, Positioning, and Differentiator into a presentation-ready identity artifact.
+  13. **Customer Experience Map**: 7 customer journey stages (Discover, Consider, Sign Up/Buy, Onboard, Use, Retain, Advocate) with expandable cards detailing customer expectation, brand touchpoint, desired emotion, brand behavior, and growth opportunity.
+  14. **Brand Roadmap Timeline**: 6 phased implementation milestones (Foundation, Positioning, Identity, Touchpoints, Launch, Optimization) with deliverables and status indicators.
+  15. **Brand Decision Board**: Transparent 4-quadrant tracking matrix categorizing choices into *Decided*, *Needs Review*, *Open Question*, and *Validation Required*.
+  16. **Stage 05 Build Dossier Handoff**: Comprehensive 10-point audit checklist summarizing transferred brand decisions and providing a direct unlocking link to Stage 05 (Build & Architecture).
+
 ---
 
 ## Source Architecture
@@ -166,16 +188,24 @@ src/
 │   ├── feasibility/        # Stage 02 modules (FeasibilityHeader, FeasibilityOverview,
 │   │                       # FeasibilityMatrix, RiskMatrix, AssumptionsAndQuestions,
 │   │                       # ValidationPlan, DecisionAndHandoff)
-│   └── market-intelligence/# Stage 03 modules (MarketHeader, PositioningMatrix,
-│                           # CompetitorComparisonView, CustomerSegmentsView,
-│                           # OpportunityWhitespaceMap, MarketSizeFrameworkView,
-│                           # MarketTrendsView, MarketRiskHeatmap, AICouncilPanel,
-│                           # MarketSpecialistChat, MarketDecisionAndHandoff)
+│   ├── market-intelligence/# Stage 03 modules (MarketHeader, PositioningMatrix,
+│   │                       # CompetitorComparisonView, CustomerSegmentsView,
+│   │                       # OpportunityWhitespaceMap, MarketSizeFrameworkView,
+│   │                       # MarketTrendsView, MarketRiskHeatmap, AICouncilPanel,
+│   │                       # MarketSpecialistChat, MarketDecisionAndHandoff)
+│   └── brand-roadmap/      # Stage 04 modules (BrandRoadmapHeader, BrandDNAMap,
+│                           # MarketGapDifferentiator, BrandPositioningMap,
+│                           # PositioningStatementBuilder, BrandPersonality,
+│                           # BrandVoice, TaglineBuilder, LogoGenerator,
+│                           # LogoCustomizer, LogoConceptCard, ColorSystem,
+│                           # TypographySystem, BrandIdentityBoard,
+│                           # CustomerExperienceMap, BrandRoadmapTimeline,
+│                           # BrandDecisionBoard, BrandHandoff)
 ├── context/                # Centralized project state (ProjectContext.tsx)
-├── pages/                  # Route views (IdeaLabPage, FeasibilityPage, MarketIntelligencePage, StagePages, NotFoundPage)
+├── pages/                  # Route views (IdeaLabPage, FeasibilityPage, MarketIntelligencePage, BrandRoadmapPage, StagePages, NotFoundPage)
 ├── routes/                 # Client-side router configuration (AppRouter.tsx)
-├── services/               # Deterministic analytical engines (feasibilityEngine.ts, marketIntelligenceEngine.ts)
-└── types/                  # Domain TypeScript interfaces (project.ts, feasibility.ts, marketIntelligence.ts)
+├── services/               # Deterministic analytical engines (feasibilityEngine.ts, marketIntelligenceEngine.ts, brandRoadmapEngine.ts)
+└── types/                  # Domain TypeScript interfaces (project.ts, feasibility.ts, marketIntelligence.ts, brandRoadmap.ts)
 ```
 
 ---
@@ -236,6 +266,24 @@ ProjectState
 │   ├── riskHeatmap: MarketRiskItem[]
 │   ├── aiCouncil: AICouncilSynthesis
 │   └── brief: MarketIntelligenceBrief
+├── brandReport?
+│   ├── id: string
+│   ├── generatedAt: string
+│   ├── dnaNodes: BrandDNANode[]
+│   ├── gapDifferentiatorChain: DifferentiatorChainSystem
+│   ├── positioningMap: { competitors; focalPosition; availableAxes; selectedAxes }
+│   ├── positioningStatement: PositioningStatement
+│   ├── personality: BrandPersonalityTrait[]
+│   ├── voice: BrandVoiceSystem
+│   ├── taglines: TaglineWorkspace
+│   ├── logoGenerator: LogoGeneratorSystem
+│   ├── colors: ColorPaletteSystem
+│   ├── typography: TypographySystem
+│   ├── brandBoard: VisualBrandBoard
+│   ├── customerExperience: CustomerTouchpoint[]
+│   ├── roadmapTimeline: RoadmapMilestone[]
+│   ├── decisionBoard: BrandDecisionBoardSystem
+│   └── handoff: Stage05HandoffDossier
 └── workflow
     ├── currentStage: StageId
     ├── completedStages: StageId[]
@@ -316,5 +364,5 @@ In subsequent Scrums, the application will introduce an AI orchestration layer:
 
 ## Current Status
 
-**Scrum 02 Complete.**
-Stage 01 (Idea Lab) and Stage 02 (Feasibility & Viability Engine) are fully implemented and integrated with continuous state flow, passing all TypeScript compilation, Oxlint static analysis, and Vite production bundle builds, and awaiting human review before any commit is made.
+**Scrum 04 Complete.**
+Stage 01 (Idea Lab), Stage 02 (Feasibility & Viability Engine), Stage 03 (Market Intelligence), and Stage 04 (Brand Roadmap & Visual Identity System) are fully implemented and integrated with continuous state flow, passing all TypeScript compilation, Oxlint static analysis, and Vite production bundle builds, and awaiting human review before any commit is made.

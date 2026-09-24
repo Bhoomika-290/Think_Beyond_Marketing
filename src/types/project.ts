@@ -208,8 +208,10 @@ export interface ProjectMetadata {
 
 export * from './feasibility';
 export * from './marketIntelligence';
+export * from './brandRoadmap';
 import type { FeasibilityReport } from './feasibility';
 import type { MarketIntelligenceReport } from './marketIntelligence';
+import type { BrandRoadmapReport } from './brandRoadmap';
 
 export interface ProjectState {
   project: ProjectMetadata;
@@ -217,6 +219,7 @@ export interface ProjectState {
   businessModel: BusinessModelData;
   feasibility?: FeasibilityReport;
   marketIntelligence?: MarketIntelligenceReport;
+  brandRoadmap?: BrandRoadmapReport;
   workflow: WorkflowData;
 }
 

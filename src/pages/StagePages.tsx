@@ -4,11 +4,7 @@ import { STAGES } from '../types/project';
 
 // Stage 02 (FeasibilityPage) is implemented in dedicated src/pages/FeasibilityPage.tsx
 // Stage 03 (MarketIntelligencePage) is implemented in dedicated src/pages/MarketIntelligencePage.tsx
-
-export const BrandRoadmapPage: React.FC = () => {
-  const stage = STAGES.find((s) => s.id === 'brand-roadmap') || STAGES[3];
-  return <StagePlaceholder stage={stage} />;
-};
+// Stage 04 (BrandRoadmapPage) is implemented in dedicated src/pages/BrandRoadmapPage.tsx
 
 export const BuildPage: React.FC = () => {
   const stage = STAGES.find((s) => s.id === 'build') || STAGES[4];
