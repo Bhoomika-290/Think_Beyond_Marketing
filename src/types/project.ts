@@ -6,8 +6,7 @@ export type StageId =
   | 'build'
   | 'execution'
   | 'simulation'
-  | 'launch-growth'
-  | 'report';
+  | 'launch-growth';
 
 export interface StageDefinition {
   id: StageId;
@@ -90,15 +89,6 @@ export const STAGES: StageDefinition[] = [
     path: '/launch-growth',
     description: 'Go-to-market mechanics, distribution channels, and growth loops.',
     requiredStageId: 'simulation',
-  },
-  {
-    id: 'report',
-    number: '09',
-    shortName: 'REPORT',
-    fullName: 'Brand Intelligence Report',
-    path: '/report',
-    description: 'Comprehensive, publication-grade executive dossier synthesizing all stages.',
-    requiredStageId: 'launch-growth',
   },
 ];
 
@@ -209,9 +199,11 @@ export interface ProjectMetadata {
 export * from './feasibility';
 export * from './marketIntelligence';
 export * from './brandRoadmap';
+export * from './buildArchitecture';
 import type { FeasibilityReport } from './feasibility';
 import type { MarketIntelligenceReport } from './marketIntelligence';
 import type { BrandRoadmapReport } from './brandRoadmap';
+import type { BuildArchitectureReport } from './buildArchitecture';
 
 export interface ProjectState {
   project: ProjectMetadata;
@@ -220,6 +212,7 @@ export interface ProjectState {
   feasibility?: FeasibilityReport;
   marketIntelligence?: MarketIntelligenceReport;
   brandRoadmap?: BrandRoadmapReport;
+  buildArchitecture?: BuildArchitectureReport;
   workflow: WorkflowData;
 }
 

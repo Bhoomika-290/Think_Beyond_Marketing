@@ -20,15 +20,22 @@ import type {
   BrandDNANode,
   PositioningStatement,
   LogoConcept,
+  BuildArchitectureReport,
+  MVPFeatureItem,
+  MVPFeaturePriority,
+  BuildDecisionQuadrant,
+  BuildSpecialistMessage,
 } from '../types/project';
 import { STAGES } from '../types/project';
 import { generateFeasibilityReport } from '../services/feasibilityEngine';
 import { generateMarketIntelligenceReport } from '../services/marketIntelligenceEngine';
 import { generateBrandRoadmapReport } from '../services/brandRoadmapEngine';
+import { generateBuildArchitectureReport } from '../services/buildArchitectureEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
 const SPECIALIST_MESSAGES_KEY = 'think_beyond_marketing_specialist_messages_v1';
+const BUILD_SPECIALIST_MESSAGES_KEY = 'think_beyond_marketing_build_specialist_messages_v1';
 
 const INITIAL_PROJECT_STATE: ProjectState = {
   project: {
@@ -120,6 +127,19 @@ interface ProjectContextValue {
   customizeLogo: (customization: Partial<LogoConcept['customization']>) => void;
   updateColorSwatch: (swatchId: string, hex: string) => void;
   selectTypography: (pairId: string) => void;
+  buildReport: BuildArchitectureReport;
+  refreshBuildArchitecture: () => void;
+  saveBuildArchitectureReport: (report: BuildArchitectureReport) => void;
+  updateFeaturePriority: (featureId: string, priority: MVPFeaturePriority) => void;
+  updateFeatureDetails: (featureId: string, patch: Partial<MVPFeatureItem>) => void;
+  addCustomFeature: (feature: Omit<MVPFeatureItem, 'id' | 'provenance'>) => void;
+  updateTechStackItem: (itemId: string, selectedTech: string) => void;
+  toggleBuildTask: (taskId: string) => void;
+  addCustomBuildTask: (task: { phaseId: string; title: string; rationale: string; priority: 'High' | 'Medium' | 'Low'; roleOwner: string }) => void;
+  moveBuildDecision: (decisionId: string, targetQuadrant: BuildDecisionQuadrant) => void;
+  addBuildDecision: (decision: { title: string; quadrant: BuildDecisionQuadrant; connectedFeature: string; assumption: string }) => void;
+  sendBuildSpecialistQuery: (queryOrAction: string) => void;
+  buildSpecialistMessages: BuildSpecialistMessage[];
 }
 
 const ProjectContext = createContext<ProjectContextValue | undefined>(undefined);
@@ -359,6 +379,10 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const br = state.brandRoadmap || generateBrandRoadmapReport(state);
       return br.stage05Handoff.isReady || state.workflow.completedStages.includes('brand-roadmap');
     }
+    if (stageId === 'execution') {
+      const ba = state.buildArchitecture || generateBuildArchitectureReport(state);
+      return ba.handoff.isReady || state.workflow.completedStages.includes('build');
+    }
     const stage = STAGES.find((s) => s.id === stageId);
     if (!stage || !stage.requiredStageId) return false;
     return state.workflow.completedStages.includes(stage.requiredStageId);
@@ -544,7 +568,10 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const brReport = generateBrandRoadmapReport(sampleState);
       sampleState.brandRoadmap = brReport;
       sampleState.workflow.stageOutputs.brandRoadmap = brReport;
-      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence'];
+      const baReport = generateBuildArchitectureReport(sampleState);
+      sampleState.buildArchitecture = baReport;
+      sampleState.workflow.stageOutputs.buildArchitecture = baReport;
+      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence', 'brand-roadmap'];
       setState(sampleState);
     } else {
       const sampleState: ProjectState = {
@@ -602,7 +629,10 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const brReport = generateBrandRoadmapReport(sampleState);
       sampleState.brandRoadmap = brReport;
       sampleState.workflow.stageOutputs.brandRoadmap = brReport;
-      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence'];
+      const baReport = generateBuildArchitectureReport(sampleState);
+      sampleState.buildArchitecture = baReport;
+      sampleState.workflow.stageOutputs.buildArchitecture = baReport;
+      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence', 'brand-roadmap'];
       setState(sampleState);
     }
   }, []);
@@ -1195,6 +1225,433 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     });
   }, []);
 
+  // Stage 05 — Build & Architecture State & Specialist Chatbot
+  const [buildSpecialistMessages, setBuildSpecialistMessages] = useState<BuildSpecialistMessage[]>(() => {
+    try {
+      const saved = localStorage.getItem(BUILD_SPECIALIST_MESSAGES_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to load build specialist messages:', e);
+    }
+    return [
+      {
+        id: 'msg_build_welcome',
+        sender: 'specialist',
+        text: "Welcome to the Build & Architecture Command Center.\n\nI have synthesized your complete upstream intelligence from Idea Lab, Feasibility, Market Intelligence, and Brand Roadmap into an actionable technical blueprint.\n\nSelect an action prompt below or ask any technical build question.",
+        timestamp: new Date().toISOString(),
+        actionLinks: [
+          'Review Architecture Fit',
+          'Challenge MVP Scope',
+          'Database Schema Review',
+          'API & Vendor Lock-in',
+          'Estimate Build Complexity',
+          'Validate Tech Stack Choices',
+          'Identify Critical Blockers',
+          'Prepare Execution Handoff',
+        ],
+      },
+    ];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(BUILD_SPECIALIST_MESSAGES_KEY, JSON.stringify(buildSpecialistMessages));
+    } catch (e) {
+      console.error('Failed to save build specialist messages:', e);
+    }
+  }, [buildSpecialistMessages]);
+
+  const buildReport = useMemo(() => {
+    if (state.buildArchitecture) {
+      return state.buildArchitecture;
+    }
+    return generateBuildArchitectureReport(state);
+  }, [state]);
+
+  const refreshBuildArchitecture = useCallback(() => {
+    const fresh = generateBuildArchitectureReport(state);
+    setState((prev) => ({
+      ...prev,
+      buildArchitecture: fresh,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          buildArchitecture: fresh,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, [state]);
+
+  const saveBuildArchitectureReport = useCallback((report: BuildArchitectureReport) => {
+    setState((prev) => ({
+      ...prev,
+      buildArchitecture: report,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          buildArchitecture: report,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, []);
+
+  const updateFeaturePriority = useCallback((featureId: string, priority: MVPFeaturePriority) => {
+    setState((prev) => {
+      const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+      const updatedFeatures = current.mvpScope.features.map((f) =>
+        f.id === featureId ? { ...f, priority } : f
+      );
+      const updatedReport: BuildArchitectureReport = {
+        ...current,
+        mvpScope: {
+          ...current.mvpScope,
+          features: updatedFeatures,
+          matrixSummary: {
+            mustCount: updatedFeatures.filter((f) => f.priority === 'must').length,
+            shouldCount: updatedFeatures.filter((f) => f.priority === 'should').length,
+            couldCount: updatedFeatures.filter((f) => f.priority === 'could').length,
+            notNowCount: updatedFeatures.filter((f) => f.priority === 'not_now').length,
+            mvpEffortWeeks: Math.max(3, Math.round(updatedFeatures.filter((f) => f.priority === 'must').length * 1.2)),
+          },
+        },
+      };
+      return {
+        ...prev,
+        buildArchitecture: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            buildArchitecture: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const updateFeatureDetails = useCallback((featureId: string, patch: Partial<MVPFeatureItem>) => {
+    setState((prev) => {
+      const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+      const updatedFeatures = current.mvpScope.features.map((f) =>
+        f.id === featureId ? { ...f, ...patch } : f
+      );
+      const updatedReport: BuildArchitectureReport = {
+        ...current,
+        mvpScope: {
+          ...current.mvpScope,
+          features: updatedFeatures,
+        },
+      };
+      return {
+        ...prev,
+        buildArchitecture: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            buildArchitecture: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const addCustomFeature = useCallback((feature: Omit<MVPFeatureItem, 'id' | 'provenance'>) => {
+    setState((prev) => {
+      const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+      const newFeature: MVPFeatureItem = {
+        ...feature,
+        id: `feat_custom_${Date.now()}`,
+        provenance: 'USER_PROVIDED',
+      };
+      const updatedFeatures = [...current.mvpScope.features, newFeature];
+      const updatedReport: BuildArchitectureReport = {
+        ...current,
+        mvpScope: {
+          ...current.mvpScope,
+          features: updatedFeatures,
+          matrixSummary: {
+            mustCount: updatedFeatures.filter((f) => f.priority === 'must').length,
+            shouldCount: updatedFeatures.filter((f) => f.priority === 'should').length,
+            couldCount: updatedFeatures.filter((f) => f.priority === 'could').length,
+            notNowCount: updatedFeatures.filter((f) => f.priority === 'not_now').length,
+            mvpEffortWeeks: Math.max(3, Math.round(updatedFeatures.filter((f) => f.priority === 'must').length * 1.2)),
+          },
+        },
+      };
+      return {
+        ...prev,
+        buildArchitecture: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            buildArchitecture: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const updateTechStackItem = useCallback((itemId: string, selectedTech: string) => {
+    setState((prev) => {
+      const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+      const updatedItems = current.techStack.items.map((item) =>
+        item.id === itemId ? { ...item, currentTech: selectedTech, provenance: 'USER_PROVIDED' as const } : item
+      );
+      const updatedReport: BuildArchitectureReport = {
+        ...current,
+        techStack: {
+          ...current.techStack,
+          items: updatedItems,
+        },
+      };
+      return {
+        ...prev,
+        buildArchitecture: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            buildArchitecture: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const toggleBuildTask = useCallback((taskId: string) => {
+    setState((prev) => {
+      const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+      const updatedPhases = current.roadmap.phases.map((phase) => ({
+        ...phase,
+        tasks: phase.tasks.map((task) =>
+          task.id === taskId
+            ? { ...task, status: (task.status === 'DONE' ? 'TODO' : 'DONE') as 'TODO' | 'DONE' }
+            : task
+        ),
+      }));
+      const totalTasks = updatedPhases.reduce((acc, p) => acc + p.tasks.length, 0);
+      const completedTasks = updatedPhases.reduce(
+        (acc, p) => acc + p.tasks.filter((t) => t.status === 'DONE').length,
+        0
+      );
+      const updatedReport: BuildArchitectureReport = {
+        ...current,
+        roadmap: {
+          ...current.roadmap,
+          phases: updatedPhases,
+          totalTasksCount: totalTasks,
+          completedTasksCount: completedTasks,
+        },
+      };
+      return {
+        ...prev,
+        buildArchitecture: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            buildArchitecture: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const addCustomBuildTask = useCallback(
+    (task: { phaseId: string; title: string; rationale: string; priority: 'High' | 'Medium' | 'Low'; roleOwner: string }) => {
+      setState((prev) => {
+        const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+        const newTask = {
+          id: `task_custom_${Date.now()}`,
+          phaseId: task.phaseId,
+          title: task.title,
+          rationale: task.rationale,
+          dependencies: [],
+          estimatedComplexity: 'Medium' as const,
+          priority: task.priority,
+          roleOwner: task.roleOwner,
+          status: 'TODO' as const,
+          relatedFeature: 'Custom Task',
+          isCustom: true,
+        };
+        const updatedPhases = current.roadmap.phases.map((phase) =>
+          phase.id === task.phaseId ? { ...phase, tasks: [...phase.tasks, newTask] } : phase
+        );
+        const totalTasks = updatedPhases.reduce((acc, p) => acc + p.tasks.length, 0);
+        const completedTasks = updatedPhases.reduce(
+          (acc, p) => acc + p.tasks.filter((t) => t.status === 'DONE').length,
+          0
+        );
+        const updatedReport: BuildArchitectureReport = {
+          ...current,
+          roadmap: {
+            ...current.roadmap,
+            phases: updatedPhases,
+            totalTasksCount: totalTasks,
+            completedTasksCount: completedTasks,
+          },
+        };
+        return {
+          ...prev,
+          buildArchitecture: updatedReport,
+          workflow: {
+            ...prev.workflow,
+            stageOutputs: {
+              ...prev.workflow.stageOutputs,
+              buildArchitecture: updatedReport,
+            },
+          },
+        };
+      });
+    },
+    []
+  );
+
+  const moveBuildDecision = useCallback((decisionId: string, targetQuadrant: BuildDecisionQuadrant) => {
+    setState((prev) => {
+      const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+      const updatedDecisions = current.decisionBoard.decisions.map((d) =>
+        d.id === decisionId ? { ...d, quadrant: targetQuadrant, provenance: 'USER_PROVIDED' as const } : d
+      );
+      const updatedReport: BuildArchitectureReport = {
+        ...current,
+        decisionBoard: {
+          ...current.decisionBoard,
+          decisions: updatedDecisions,
+        },
+      };
+      return {
+        ...prev,
+        buildArchitecture: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            buildArchitecture: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const addBuildDecision = useCallback(
+    (decision: { title: string; quadrant: BuildDecisionQuadrant; connectedFeature: string; assumption: string }) => {
+      setState((prev) => {
+        const current = prev.buildArchitecture || generateBuildArchitectureReport(prev);
+        const newDecision = {
+          id: `dec_custom_${Date.now()}`,
+          title: decision.title,
+          quadrant: decision.quadrant,
+          connectedFeature: decision.connectedFeature,
+          assumption: decision.assumption,
+          evidence: 'Founder logged decision',
+          provenance: 'USER_PROVIDED' as const,
+        };
+        const updatedReport: BuildArchitectureReport = {
+          ...current,
+          decisionBoard: {
+            ...current.decisionBoard,
+            decisions: [...current.decisionBoard.decisions, newDecision],
+          },
+        };
+        return {
+          ...prev,
+          buildArchitecture: updatedReport,
+          workflow: {
+            ...prev.workflow,
+            stageOutputs: {
+              ...prev.workflow.stageOutputs,
+              buildArchitecture: updatedReport,
+            },
+          },
+        };
+      });
+    },
+    []
+  );
+
+  const sendBuildSpecialistQuery = useCallback(
+    (queryOrAction: string) => {
+      const ventureName = state.idea.name || state.project.name || 'Untitled Venture';
+      const isPhysical = state.businessModel.productType === 'physical';
+
+      const userMsg: BuildSpecialistMessage = {
+        id: `user_bmsg_${Date.now()}`,
+        sender: 'user',
+        text: queryOrAction,
+        timestamp: new Date().toISOString(),
+      };
+
+      let replyText = '';
+
+      switch (queryOrAction) {
+        case 'Review Architecture Fit':
+          replyText = isPhysical
+            ? `**Architecture Fit Analysis for ${ventureName} (Physical D2C):**\nYour Jamstack Headless Storefront paired with Next.js edge functions and Supabase PostgreSQL is ideal. It decouples high-traffic browsing from transactional inventory reservations, ensuring the site remains sub-second fast on mobile without server crashes during marketing surges.`
+            : `**Architecture Fit Analysis for ${ventureName} (SaaS):**\nYour edge-ingested event buffer + PostgreSQL/ClickHouse architecture is well-suited. Decoupling HTTP beacon ingestion (<20ms) from analytical multi-touch queries guarantees your clients never experience page slowdowns from your tracking script.`;
+          break;
+
+        case 'Challenge MVP Scope':
+          replyText = `**MVP Scope Challenge:**\nYou currently have ${buildReport.mvpScope.matrixSummary.mustCount} Must-Have features estimated at ~${buildReport.mvpScope.matrixSummary.mvpEffortWeeks} weeks of engineering effort.\n\n*Strategic Recommendation:* Resist adding advanced predictive ML or wholesale B2B portals until at least 25 customers have actively completed the core loop. Cut any feature that does not directly validate customer willingness to pay.`;
+          break;
+
+        case 'Database Schema Review':
+          replyText = isPhysical
+            ? `**Data Schema Audit:**\nYour 4 core entities (Customer, ProductVariant, RoasterBatch, Order) enforce strict referential integrity. Ensure you add an atomic inventory decrement lock (\`UPDATE roaster_batches SET inventory = inventory - 1 WHERE id = ... AND inventory > 0\`) to eliminate double-selling during flash drops.`
+            : `**Data Schema Audit:**\nYour multi-tenant schema with \`org_id\` foreign keys on \`TrackingEvent\` is solid. Ensure PostgreSQL Row-Level Security (RLS) is enabled and you create a composite index on \`(org_id, timestamp DESC)\` to keep time-range dashboard queries sub-50ms.`;
+          break;
+
+        case 'API & Vendor Lock-in':
+          replyText = `**Vendor Lock-in Audit:**\n• **Stripe:** Moderate lock-in (card tokens), but industry-standard with portable export rights.\n• **Supabase (Postgres):** Zero lock-in (standard SQL dump can be restored on any AWS RDS or local Docker instance).\n• **Resend:** Low lock-in; swapping to Postmark or SES requires only updating one API key and SMTP helper function.`;
+          break;
+
+        case 'Estimate Build Complexity':
+          replyText = `**Build Complexity & Timeline:**\nYour critical path spans ${buildReport.dependencyGraph.totalEstimatedBuildDays} working days (~4.5 weeks) across ${buildReport.roadmap.totalTasksCount} granular roadmap tasks.\n\n*Critical Bottleneck:* The primary risk lies in the third-party payment & webhook reconciliation phase. Build the end-to-end checkout loop first before polishing secondary settings screens.`;
+          break;
+
+        case 'Validate Tech Stack Choices':
+          replyText = `**Tech Stack Audit:**\n• **Next.js 15:** Excellent for SEO + developer velocity.\n• **Tailwind CSS:** Eliminates CSS bundle bloat.\n• **PostgreSQL:** Uncompromising ACID transaction guarantees.\n• **PostHog:** Full telemetry instrumentation with zero upfront software licensing cost.\n\n*Verdict:* 100% appropriate for an early-stage startup targeting capital efficiency and velocity.`;
+          break;
+
+        case 'Identify Critical Blockers':
+          replyText = buildReport.handoff.blockingItems.length > 0
+            ? `**Active Build Blockers for ${ventureName}:**\n${buildReport.handoff.blockingItems.map((b, i) => `${i + 1}. ${b}`).join('\n')}\n\nResolve these inputs to unlock Stage 06 — Execution Intelligence.`
+            : `**No Critical Blockers Detected!** All 12 operational criteria for Stage 06 handoff are satisfied. Your build readiness score is ${buildReport.handoff.readinessScore}%.`;
+          break;
+
+        case 'Prepare Execution Handoff':
+          replyText = `**Handoff to Stage 06 (Execution Intelligence):**\nYour engineering specifications, MoSCoW MVP feature backlog, relational schemas, and 6-phase roadmap are ready. Once you review and lock your tech stack and task owners, you can proceed directly to sprint planning and resource allocation.`;
+          break;
+
+        default:
+          replyText = `Regarding "${queryOrAction}" for **${ventureName}** (${state.businessModel.productType || 'venture'}): Our technical recommendation is to maintain strict adherence to your MVP perimeter (${buildReport.mvpScope.matrixSummary.mustCount} core features), prioritize database indexing for your primary entities, and rely on managed serverless primitives to keep fixed overhead near zero until revenue traction is proven.`;
+          break;
+      }
+
+      const aiMsg: BuildSpecialistMessage = {
+        id: `spec_bmsg_${Date.now() + 1}`,
+        sender: 'specialist',
+        text: replyText,
+        timestamp: new Date().toISOString(),
+      };
+
+      setBuildSpecialistMessages((prev) => [...prev, userMsg, aiMsg]);
+    },
+    [state, buildReport]
+  );
+
   return (
     <ProjectContext.Provider
       value={{
@@ -1240,6 +1697,19 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         customizeLogo,
         updateColorSwatch,
         selectTypography,
+        buildReport,
+        refreshBuildArchitecture,
+        saveBuildArchitectureReport,
+        updateFeaturePriority,
+        updateFeatureDetails,
+        addCustomFeature,
+        updateTechStackItem,
+        toggleBuildTask,
+        addCustomBuildTask,
+        moveBuildDecision,
+        addBuildDecision,
+        sendBuildSpecialistQuery,
+        buildSpecialistMessages,
       }}
     >
       {children}

@@ -51,7 +51,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
             Venture Journey
           </div>
           <div className="text-xs font-semibold text-[#F3F4F6] mt-0.5 flex items-center gap-1.5">
-            <span>9-Stage Intelligence Matrix</span>
+            <span>8-Stage Intelligence Matrix</span>
           </div>
         </div>
         {/* Mobile close button */}

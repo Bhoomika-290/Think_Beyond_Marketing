@@ -68,8 +68,8 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 | **01. Idea Lab** | `/idea-lab` | **IMPLEMENTED (Scrum 01)** | Active discovery workspace with founder interview, venture classification, footprint capture, and idea snapshot synthesis. |
 | **02. Feasibility & Viability** | `/feasibility` | **IMPLEMENTED (Scrum 02)** | Staged decision-support engine evaluating 9 feasibility dimensions, categorized risks, assumptions, open questions, validation plan, and Stage 03 handoff. |
 | **03. Market Intelligence** | `/market-intelligence` | **IMPLEMENTED (Scrum 03)** | Visual macro intelligence command center with dynamic 2-axis positioning matrix, real competitor verification, customer clusters, opportunity whitespace map, zero-fake TAM/SAM/SOM sizing, 3x3 risk heatmap, AI Council synthesis, Business Specialist chatbot, and Stage 04 Brand Brief handoff. |
-| **04. Brand Roadmap** | `/brand-roadmap` | **IMPLEMENTED (Scrum 04)** | Strategic Brand System & Visual Identity Workspace featuring Brand DNA Node Map, Gap-to-Differentiator Flow, Dynamic 2-Axis Positioning Matrix, Live Positioning Statement Builder, 7-Spectrum Personality Sliders, Voice Guidelines & Copy Transformer, Tagline Workspace, Parametric Vector Logo Generator & Customizer, 8-Color System with WCAG contrast ratings, Typography Specimen Scale, Unified Brand Identity Board, 7-Stage Customer Experience Map, Roadmap Timeline, Brand Decision Board, and Stage 05 Build Dossier Handoff. |
-| **05. Build & Architecture** | `/build` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
+| **04. Brand Roadmap** | `/brand-roadmap` | **IMPLEMENTED (Scrum 04 & 05.1)** | Visual Brand Intelligence Workspace featuring 7-node Brand Strategy Pipeline, Market Whitespace Map, 6-node Causal Chain Differentiator, Cross-Orbit Brand DNA Diagram, 6-step Positioning Builder, Voice Spectrums, Parametric Logo Generator, Color & Typography Systems, 7-Stage Customer Journey Line, Milestone Timeline, Decision Board, and Stage 05 Build Dossier Handoff. |
+| **05. Build & Architecture** | `/build` | **IMPLEMENTED (Scrum 05 & 05.1)** | Product Architecture Command Center: Build Readiness Overview with SVG circular dials, Product Blueprint Causal Chain, MVP Scope Prioritization Matrix (MoSCoW with 2D Value vs Complexity Canvas), Feature Tree, Multi-Tier System Architecture Visualizer, Tech Stack Builder, Data Entity Model (ERD), User Flow Specs, Screen Sitemap, API Integration Network, 8-Stage AI Cognitive Loop, 5-Stage Multi-Agent Build Council, Build Dependency Graph (DAG), 3-Phase Roadmap, 2D Visual Build Risk Matrix (Probability × Impact), Brand → Product Consistency Bridge, Architecture Challenger Stress Tests, Specialist Chat, and Stage 06 Handoff Dossier. |
 | **06. Execution Intelligence** | `/execution` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **07. Experience Simulation** | `/simulation` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **08. Launch & Growth** | `/launch-growth` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
@@ -171,6 +171,33 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
   15. **Brand Decision Board**: Transparent 4-quadrant tracking matrix categorizing choices into *Decided*, *Needs Review*, *Open Question*, and *Validation Required*.
   16. **Stage 05 Build Dossier Handoff**: Comprehensive 10-point audit checklist summarizing transferred brand decisions and providing a direct unlocking link to Stage 05 (Build & Architecture).
 
+### Stage 05 — Build & Architecture Intelligence System (`/build`)
+- **Core Decision Question**: *"We have validated the idea, understood the market, and established the brand. Now exactly what are we building, how will it work, what belongs in the Day-1 MVP, what technology stack will support it, and what is the execution roadmap?"*
+- **Visual-First Command Center**: Highly visual workspace featuring architecture flow diagrams, 2D MoSCoW scatter matrix, entity relationship diagrams (ERD), hierarchical feature trees, directed acyclic dependency graphs (DAG), implementation phase timelines, 8-dimension risk matrices, 4-quadrant decision boards, and brand-product UI token bridges.
+- **Continuous Cross-Stage Grounding (Stages 01 + 02 + 03 + 04 → 05)**: Dynamically synthesizes inputs from Idea Lab (core problem, target persona, venture classification), Feasibility (technical, financial, and operational risks), Market Intelligence (differentiation factors, whitespace gaps, customer expectations), and Brand Roadmap (colors, typography pairs, voice profiles, positioning statements).
+- **Zero-Fake Data Integrity**: Zero placeholder mockups or hardcoded generic SaaS templates. Automatically tailors architecture to the venture archetype (e.g. physical coffee e-commerce vs. high-throughput SaaS attribution), marking any unresolved prerequisites as `NEEDS_INPUT` or `NEEDS_VALIDATION`.
+- **20 Connected Engineering & Technical Modules**:
+  1. **Build Readiness Overview**: 9 derived maturity indicators (Product, Customer, Market, Differentiation, Brand, Technical, Operational, Data, MVP) with an overall maturity score and status badges.
+  2. **Product Blueprint**: Visual 6-node causal pipeline (`Problem` → `Target User` → `Core Job to be Done` → `Core Solution` → `Product Experience` → `Business Outcome`) with deep-dive inspection drawer.
+  3. **Interactive MVP Scope Engine & MoSCoW Matrix**: Interactive 2D scatter matrix (Customer Value vs. Technical Complexity) with MoSCoW tier filtering (`Must Have`, `Should Have`, `Could Have`, `Not Now`), priority mutators, and modal for adding verified custom features.
+  4. **Feature Architecture Tree**: Hierarchical component tree mapping feature requirements to dependent UI components, database schemas, and external APIs.
+  5. **System Architecture Visualizer**: Multi-tier visualizer (`Presentation Tier`, `API / Edge Ingestion`, `Data & Storage Tier`, `External Services`) with architecture layer inspection.
+  6. **Dynamic Technology Stack Builder**: 10 categorized technology selectors (Frontend, Backend, Database, Auth, Storage, Analytics, Billing, Communications, Deployment, Monitoring) with alternative dropdown selectors, lock-in evaluations, and cloud cost estimations.
+  7. **Data & Entity Relational Model (ERD)**: Interactive entity schemas detailing primary/foreign keys, attribute data types, and referencing features.
+  8. **Product User Flow / Lifecycle Journey**: 8-step lifecycle journey (`Discover`, `Landing Page`, `Sign Up`, `Onboarding`, `Core Value Action`, `Value Moment`, `Retention`, `Advocacy`) with required screens, backend tasks, and telemetry triggers.
+  9. **Screen Architecture & Route Sitemap**: Complete route sitemap with component dependencies, MVP flags, and target user personas.
+  10. **API & External Integration Map**: Audit of all third-party integrations with data exchanged, vendor lock-in risks, and fallback architectural mitigations.
+  11. **AI / Intelligence Architecture Pipeline**: Multi-step structured pipeline for AI-centric ventures or craft automation justification for physical goods.
+  12. **Build & Architecture Specialist Chat**: Dedicated conversational advisor with complete venture awareness across Stages 01–05 and 8 quick-action prompts.
+  13. **Multi-Agent AI Council (Build Edition)**: 6 specialist perspectives (Product Strategist, Technical Architect, Business Specialist, UX Specialist, Security Specialist, Growth Specialist) with unanimous consensus, key divergence, and founder action directives.
+  14. **Architecture Challenger & Stress Tests**: Production failure mode evaluations grounded in Stage 02 feasibility risks with engineering mitigations and validation experiments.
+  15. **Build Dependency Graph (DAG)**: Blockers and prerequisite graph highlighting the critical path sequence from foundation to production cutover.
+  16. **Build Implementation Roadmap Board**: 6 execution phases (`Foundation`, `Core MVP`, `Advanced Intelligence`, `QA & Testing`, `Launch Preparation`, `Post-Launch Optimization`) with interactive task checkboxes and custom task creator.
+  17. **Build Risk Matrix (8 Dimensions)**: Comprehensive risk matrix spanning Technical, Product, Data, Security, Operational, Financial, Dependency, and Scalability dimensions with interactive filters.
+  18. **Build Decision Board**: 4-quadrant certainty board (`Decided`, `Needs Review`, `Open Question`, `Validation Required`) with interactive quadrant move controls.
+  19. **Brand → Product Consistency Bridge**: Visual design token bridge translating Stage 04 brand colors, typography, voice tone, and differentiators directly into UI classes, button states, and microcopy samples.
+  20. **Stage 06 Execution Handoff**: 12-point audit dossier that evaluates genuine venture readiness and unlocks Stage 06 (`/execution`).
+
 ---
 
 ## Source Architecture
@@ -193,19 +220,27 @@ src/
 │   │                       # OpportunityWhitespaceMap, MarketSizeFrameworkView,
 │   │                       # MarketTrendsView, MarketRiskHeatmap, AICouncilPanel,
 │   │                       # MarketSpecialistChat, MarketDecisionAndHandoff)
-│   └── brand-roadmap/      # Stage 04 modules (BrandRoadmapHeader, BrandDNAMap,
-│                           # MarketGapDifferentiator, BrandPositioningMap,
-│                           # PositioningStatementBuilder, BrandPersonality,
-│                           # BrandVoice, TaglineBuilder, LogoGenerator,
-│                           # LogoCustomizer, LogoConceptCard, ColorSystem,
-│                           # TypographySystem, BrandIdentityBoard,
-│                           # CustomerExperienceMap, BrandRoadmapTimeline,
-│                           # BrandDecisionBoard, BrandHandoff)
+│   ├── brand-roadmap/      # Stage 04 modules (BrandRoadmapHeader, BrandDNAMap,
+│   │                       # MarketGapDifferentiator, BrandPositioningMap,
+│   │                       # PositioningStatementBuilder, BrandPersonality,
+│   │                       # BrandVoice, TaglineBuilder, LogoGenerator,
+│   │                       # LogoCustomizer, LogoConceptCard, ColorSystem,
+│   │                       # TypographySystem, BrandIdentityBoard,
+│   │                       # CustomerExperienceMap, BrandRoadmapTimeline,
+│   │                       # BrandDecisionBoard, BrandHandoff)
+│   └── build-architecture/ # Stage 05 modules (BuildHeader, BuildReadinessOverview,
+│                           # ProductBlueprint, MVPScopeMatrix, FeatureArchitectureTree,
+│                           # SystemArchitectureVisualizer, TechStackBuilder, DataEntityModel,
+│                           # ProductUserFlow, ScreenArchitecture, APIIntegrationMap,
+│                           # AIArchitectureDiagram, BuildSpecialistChat, AICouncilBuildPanel,
+│                           # ArchitectureChallenger, BuildDependencyGraph, BuildRoadmapBoard,
+│                           # BuildRiskMatrix, BuildDecisionBoard, BrandProductConsistency,
+│                           # BuildHandoff)
 ├── context/                # Centralized project state (ProjectContext.tsx)
-├── pages/                  # Route views (IdeaLabPage, FeasibilityPage, MarketIntelligencePage, BrandRoadmapPage, StagePages, NotFoundPage)
+├── pages/                  # Route views (IdeaLabPage, FeasibilityPage, MarketIntelligencePage, BrandRoadmapPage, BuildPage, StagePages, NotFoundPage)
 ├── routes/                 # Client-side router configuration (AppRouter.tsx)
-├── services/               # Deterministic analytical engines (feasibilityEngine.ts, marketIntelligenceEngine.ts, brandRoadmapEngine.ts)
-└── types/                  # Domain TypeScript interfaces (project.ts, feasibility.ts, marketIntelligence.ts, brandRoadmap.ts)
+├── services/               # Deterministic analytical engines (feasibilityEngine.ts, marketIntelligenceEngine.ts, brandRoadmapEngine.ts, buildArchitectureEngine.ts)
+└── types/                  # Domain TypeScript interfaces (project.ts, feasibility.ts, marketIntelligence.ts, brandRoadmap.ts, buildArchitecture.ts)
 ```
 
 ---
@@ -284,6 +319,28 @@ ProjectState
 │   ├── roadmapTimeline: RoadmapMilestone[]
 │   ├── decisionBoard: BrandDecisionBoardSystem
 │   └── handoff: Stage05HandoffDossier
+├── buildArchitecture?
+│   ├── id: string
+│   ├── generatedAt: string
+│   ├── readinessOverview: BuildReadinessOverview
+│   ├── blueprint: ProductBlueprint
+│   ├── mvpScope: MVPScopeSystem
+│   ├── featureTree: FeatureArchitectureTree
+│   ├── systemArchitecture: SystemArchitectureSystem
+│   ├── techStack: TechStackSystem
+│   ├── dataModel: DataModelSystem
+│   ├── userJourney: ProductJourneySystem
+│   ├── screenArchitecture: ScreenArchitectureSystem
+│   ├── apiIntegrations: APIIntegrationMap
+│   ├── aiArchitecture: AIArchitectureSystem
+│   ├── councilDiscussion: AICouncilBuildSynthesis
+│   ├── challengerTests: ChallengerEvaluatorSystem
+│   ├── dependencyGraph: BuildDependencyGraphSystem
+│   ├── roadmap: BuildRoadmapSystem
+│   ├── riskMatrix: BuildRiskMatrixSystem
+│   ├── decisionBoard: BuildDecisionBoardSystem
+│   ├── brandConsistency: BrandProductConsistencySystem
+│   └── handoff: BuildHandoffDossier
 └── workflow
     ├── currentStage: StageId
     ├── completedStages: StageId[]
@@ -364,5 +421,5 @@ In subsequent Scrums, the application will introduce an AI orchestration layer:
 
 ## Current Status
 
-**Scrum 04 Complete.**
-Stage 01 (Idea Lab), Stage 02 (Feasibility & Viability Engine), Stage 03 (Market Intelligence), and Stage 04 (Brand Roadmap & Visual Identity System) are fully implemented and integrated with continuous state flow, passing all TypeScript compilation, Oxlint static analysis, and Vite production bundle builds, and awaiting human review before any commit is made.
+**Scrum 05.1 Complete (Stage 04 & Stage 05 Visual Intelligence Refactor).**
+Stage 01 (Idea Lab), Stage 02 (Feasibility & Viability Engine), Stage 03 (Market Intelligence), Stage 04 (Brand Roadmap & Visual Identity System), and Stage 05 (Build & Architecture Intelligence Command Center) are fully implemented, connected via continuous reactive state flow in `ProjectContext`, and completely refactored with visual-first intelligence components (SVG progress dials, causal chain pipelines, 2D coordinate matrices, interactive ERD topology diagrams, multi-agent debate workflows, and brand-to-product design token bridges). All TypeScript types, Oxlint static analysis rules, and Vite production builds pass with 0 errors and 0 warnings, strictly preserved in a dark-only visual workspace, and awaiting human review before any commit is made.

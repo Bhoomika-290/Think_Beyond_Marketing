@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { BrandVoiceSystem } from '../../types/project';
 
 interface BrandVoiceProps {
@@ -12,37 +12,51 @@ export const BrandVoice: React.FC<BrandVoiceProps> = ({
   brandVoice,
   ventureName,
   onToggleAttribute,
-  onUpdateTransformation,
+  onUpdateTransformation: _onUpdateTransformation,
 }) => {
-  const [isEditingTransform, setIsEditingTransform] = useState(false);
-  const [editedTransformText, setEditedTransformText] = useState(
-    brandVoice.transformation.brandVoiceMessage
-  );
-
   const selectedCount = brandVoice.attributes.filter((a) => a.selected).length;
 
-  const handleSaveTransform = () => {
-    if (editedTransformText.trim() && onUpdateTransformation) {
-      onUpdateTransformation(editedTransformText.trim());
-    }
-    setIsEditingTransform(false);
-  };
+  // Voice spectrum dimensions
+  const voiceSpectrums = [
+    { id: 'spec_1', left: 'Formal & Academic', right: 'Direct & Conversational', value: 75 },
+    { id: 'spec_2', left: 'Technical & Dense', right: 'Plainspoken & Accessible', value: 80 },
+    { id: 'spec_3', left: 'Corporate & Guarded', right: 'Radically Transparent & Human', value: 85 },
+  ];
+
+  // 3 Concise Dynamic Transformations
+  const copyTransformations = [
+    {
+      context: 'Product Headline / Hero Pitch',
+      generic: `The all-in-one solution for your business management needs.`,
+      brandVoice: brandVoice.transformation.brandVoiceMessage || `Surgical precision attribution for bootstrapped teams who refuse to waste ad budget.`,
+    },
+    {
+      context: 'System Notification / Microcopy',
+      generic: `Your report has been processed successfully. Please review the results.`,
+      brandVoice: `Attribution computed across 42,000 events. 3 anomalies flagged for immediate review.`,
+    },
+    {
+      context: 'Error / Friction State',
+      generic: `An unexpected error occurred. Please contact customer support.`,
+      brandVoice: `Webhook timed out after 3 retries. We automatically queued your payload for resend.`,
+    },
+  ];
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#263244] p-6 lg:p-8 shadow-xl">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+    <section className="rounded-2xl bg-[#0B1017] border border-[#263244] p-6 lg:p-8 shadow-xl space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2636] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#4D8DFF]">
-              VERBAL IDENTITY & VOICE ARCHITECTURE
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-cyan-400">
+              VERBAL IDENTITY &amp; MODULATION
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-[#F3F4F6] tracking-tight">
-            Brand Voice & Message Modulation
+            Brand Voice &amp; Tonal Spectrum
           </h2>
           <p className="text-xs sm:text-sm text-[#AAB4C3]">
-            Toggle tonal attributes, audit DOs and DON&rsquo;Ts, and compare before/after copy transformations.
+            Calibrated spectrums and dynamic copy transformations preventing corporate fluff in UI and marketing copy.
           </p>
         </div>
 
@@ -51,33 +65,63 @@ export const BrandVoice: React.FC<BrandVoiceProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Voice Attribute Chips & DO/DON'T Guidelines (Left 7 cols) */}
-        <div className="lg:col-span-7 space-y-5">
-          {/* Selectable Voice Attributes */}
-          <div>
-            <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748B] mb-2.5">
-              Voice Characteristics (Click to Toggle)
+      {/* Voice Spectrums Visualizer */}
+      <div className="p-5 rounded-xl bg-[#111823] border border-[#263244] space-y-4">
+        <span className="text-[10px] font-mono uppercase tracking-wider text-[#64748B] block font-bold">
+          TONAL SPECTRUM CALIBRATION
+        </span>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {voiceSpectrums.map((spec) => (
+            <div key={spec.id} className="p-3.5 rounded-xl bg-[#080B10] border border-[#1C2636] space-y-2">
+              <div className="flex items-center justify-between text-[11px] font-mono">
+                <span className="text-[#64748B]">{spec.left}</span>
+                <span className="text-cyan-400 font-bold">{spec.value}%</span>
+                <span className="text-[#F3F4F6] font-semibold">{spec.right}</span>
+              </div>
+              <div className="relative w-full h-2 bg-[#111823] rounded-full overflow-hidden border border-[#263244]">
+                <div
+                  className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"
+                  style={{ width: `${spec.value}%` }}
+                />
+              </div>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left: Selectable Attribute Chips & Guidelines (6 cols) */}
+        <div className="lg:col-span-6 space-y-4">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[#64748B] mb-2.5 block font-bold">
+              VOICE CHARACTERISTICS (CLICK TO TOGGLE)
+            </span>
+            <div className="grid grid-cols-2 gap-2.5">
               {brandVoice.attributes.map((attr) => (
                 <button
                   key={attr.id}
                   type="button"
                   onClick={() => onToggleAttribute(attr.id)}
-                  className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between group ${
+                  className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between ${
                     attr.selected
-                      ? 'bg-blue-600/15 border-[#4D8DFF] text-[#F3F4F6] shadow-sm shadow-blue-500/10'
-                      : 'bg-[#111823] border-[#263244] text-[#64748B] hover:text-[#AAB4C3] hover:border-[#38BDF8]/30'
+                      ? 'bg-blue-600/10 border-[#4D8DFF] text-[#F3F4F6] shadow-sm ring-1 ring-[#4D8DFF]'
+                      : 'bg-[#111823] border-[#263244] text-[#AAB4C3] hover:border-slate-500'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs font-bold font-mono uppercase tracking-wide">
-                      {attr.name}
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-bold font-mono uppercase">{attr.name}</span>
+                    <span
+                      className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center text-[9px] ${
+                        attr.selected
+                          ? 'bg-[#4D8DFF] border-[#4D8DFF] text-white'
+                          : 'border-[#475569]'
+                      }`}
+                    >
+                      {attr.selected && '✓'}
                     </span>
-                    <span className={`w-2 h-2 rounded-full ${attr.selected ? 'bg-emerald-400' : 'bg-[#263244]'}`} />
                   </div>
-                  <p className="text-[10px] line-clamp-2 leading-tight opacity-80">
+                  <p className="text-[11px] text-[#738095] line-clamp-2 leading-relaxed">
                     {attr.description}
                   </p>
                 </button>
@@ -85,149 +129,61 @@ export const BrandVoice: React.FC<BrandVoiceProps> = ({
             </div>
           </div>
 
-          {/* DO and DON'T Guidelines */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* DO */}
-            <div className="p-4 rounded-xl bg-[#111823] border border-emerald-500/30">
-              <span className="text-[10px] font-mono uppercase text-emerald-400 font-bold block mb-2 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                DO (Brand Voice Rules)
+          {/* DO / DON'T Guidelines */}
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div className="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30">
+              <span className="text-[10px] font-mono uppercase text-emerald-400 font-bold block mb-1.5">
+                DO THIS:
               </span>
-              <ul className="space-y-1.5 text-xs text-[#AAB4C3]">
-                {brandVoice.doGuidelines.map((rule, idx) => (
-                  <li key={idx} className="flex items-start gap-1.5">
-                    <span className="text-emerald-400 mt-0.5">✓</span>
-                    <span>{rule}</span>
-                  </li>
+              <ul className="text-[11px] text-[#AAB4C3] space-y-1 list-disc list-inside">
+                {brandVoice.doGuidelines.slice(0, 3).map((g, i) => (
+                  <li key={i}>{g}</li>
                 ))}
               </ul>
             </div>
 
-            {/* DON'T */}
-            <div className="p-4 rounded-xl bg-[#111823] border border-rose-500/30">
-              <span className="text-[10px] font-mono uppercase text-rose-400 font-bold block mb-2 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
-                DON&rsquo;T (What to Avoid)
+            <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/30">
+              <span className="text-[10px] font-mono uppercase text-rose-400 font-bold block mb-1.5">
+                AVOID THIS:
               </span>
-              <ul className="space-y-1.5 text-xs text-[#AAB4C3]">
-                {brandVoice.dontGuidelines.map((rule, idx) => (
-                  <li key={idx} className="flex items-start gap-1.5">
-                    <span className="text-rose-400 mt-0.5">✗</span>
-                    <span>{rule}</span>
-                  </li>
+              <ul className="text-[11px] text-[#AAB4C3] space-y-1 list-disc list-inside">
+                {brandVoice.dontGuidelines.slice(0, 3).map((g, i) => (
+                  <li key={i}>{g}</li>
                 ))}
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Live Audio / Verbal Tone Preview & Before/After Transformation (Right 5 cols) */}
-        <div className="lg:col-span-5 space-y-5">
-          {/* Live Preview Box */}
-          <div className="bg-gradient-to-br from-[#111823] via-[#151E2B] to-[#0B1017] border border-blue-500/40 rounded-2xl p-5 shadow-xl flex flex-col justify-between">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1C2636] mb-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#4D8DFF] font-bold flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                Live Verbal Preview
+        {/* Right: 3 Concise Dynamic Transformations (6 cols) */}
+        <div className="lg:col-span-6 space-y-3">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-[#64748B] block font-bold">
+            DYNAMIC COPY TRANSFORMATIONS (GENERIC VS. BRAND VOICE)
+          </span>
+
+          {copyTransformations.map((trans, idx) => (
+            <div key={idx} className="p-3.5 rounded-xl bg-[#111823] border border-[#263244] space-y-2">
+              <span className="text-[10px] font-mono uppercase text-[#738095] block font-semibold">
+                {trans.context}
               </span>
-              <span className="text-[10px] font-mono text-[#64748B]">Synthesized Pitch</span>
-            </div>
 
-            <div className="space-y-3">
-              <div>
-                <span className="text-[9px] font-mono uppercase text-[#64748B] block mb-0.5">Hero Headline</span>
-                <p className="text-base font-bold text-[#F3F4F6] tracking-tight leading-snug">
-                  &ldquo;{brandVoice.preview.headline}&rdquo;
-                </p>
-              </div>
-
-              <div>
-                <span className="text-[9px] font-mono uppercase text-[#64748B] block mb-0.5">Elevator Proposition</span>
-                <p className="text-xs text-[#AAB4C3] leading-relaxed">
-                  {brandVoice.preview.valueProposition}
-                </p>
-              </div>
-
-              <div>
-                <span className="text-[9px] font-mono uppercase text-[#64748B] block mb-0.5">Support Signoff</span>
-                <p className="text-xs font-mono text-emerald-400 italic">
-                  &ldquo;{brandVoice.preview.supportSignoff}&rdquo;
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Sample Transformation: Generic -> Brand Voice */}
-          <div className="p-5 rounded-2xl bg-[#111823] border border-[#263244] shadow-lg">
-            <div className="flex items-center justify-between pb-2 border-b border-[#1C2636] mb-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#4D8DFF] font-bold">
-                Sample Copy Transformation
-              </span>
-              <span className="text-[10px] font-mono text-[#64748B]">Before / After</span>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-lg bg-[#080B10] border border-[#263244]">
-                <span className="text-[9px] font-mono uppercase text-rose-400 font-bold block mb-1">
-                  Generic Competitor Copy
+              {/* Generic Before */}
+              <div className="p-2.5 rounded-lg bg-[#080B10] border border-rose-500/20 text-xs">
+                <span className="text-[9px] font-mono text-rose-400 uppercase font-bold block mb-0.5">
+                  GENERIC FLUFF:
                 </span>
-                <p className="text-[#64748B] line-through italic">
-                  &ldquo;{brandVoice.transformation.genericMessage}&rdquo;
-                </p>
+                <p className="text-[#94A3B8] italic">{trans.generic}</p>
               </div>
 
-              <div className="p-3 rounded-lg bg-blue-950/30 border border-blue-500/40">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[9px] font-mono uppercase text-emerald-400 font-bold">
-                    {ventureName} Brand Voice Version
-                  </span>
-                  {!isEditingTransform && onUpdateTransformation && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditedTransformText(brandVoice.transformation.brandVoiceMessage);
-                        setIsEditingTransform(true);
-                      }}
-                      className="text-[10px] font-mono text-[#4D8DFF] hover:underline"
-                    >
-                      Edit
-                    </button>
-                  )}
-                </div>
-
-                {isEditingTransform ? (
-                  <div className="space-y-2 mt-1">
-                    <textarea
-                      rows={3}
-                      value={editedTransformText}
-                      onChange={(e) => setEditedTransformText(e.target.value)}
-                      className="w-full p-2 bg-[#080B10] border border-[#4D8DFF] rounded-lg text-xs font-medium text-white focus:outline-none"
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={handleSaveTransform}
-                        className="px-2.5 py-1 rounded bg-blue-600 text-white text-[11px] font-mono font-semibold"
-                      >
-                        Save
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setIsEditingTransform(false)}
-                        className="px-2.5 py-1 rounded bg-[#1C2636] text-[#AAB4C3] text-[11px] font-mono"
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-[#F3F4F6] font-medium leading-relaxed">
-                    &ldquo;{brandVoice.transformation.brandVoiceMessage}&rdquo;
-                  </p>
-                )}
+              {/* Brand Voice After */}
+              <div className="p-2.5 rounded-lg bg-emerald-950/20 border border-emerald-500/30 text-xs">
+                <span className="text-[9px] font-mono text-emerald-400 uppercase font-bold block mb-0.5">
+                  {ventureName} BRAND VOICE:
+                </span>
+                <p className="text-[#F3F4F6] font-medium">{trans.brandVoice}</p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

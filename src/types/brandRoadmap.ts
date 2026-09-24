@@ -219,6 +219,99 @@ export interface IdentityAuditStatus {
   readinessStatus: 'READY' | 'IN PROGRESS';
 }
 
+export interface CompetitorRoadmapStage {
+  stageName: 'FOUNDING' | 'EARLY PRODUCT' | 'POSITIONING' | 'BRAND' | 'MARKET ENTRY' | 'EXPANSION' | 'GROWTH';
+  yearOrPhase: string;
+  focus: string;
+  milestone: string;
+  strategicPivot?: string;
+}
+
+export interface CompetitorTakeaways {
+  positioningLesson: string;
+  sequencingLesson: string;
+  productToBrandTransition: string;
+  customerAcquisitionLesson: string;
+  distributionLesson: string;
+  expansionLesson: string;
+  brandIdentityLesson: string;
+  whatNotToCopy: string;
+  sequencingLessons?: string;
+  positioningDecisions?: string;
+  distributionStrategy?: string;
+  mistakesAndRisks?: string;
+}
+
+export interface CompetitorPatternComparison {
+  competitorName: string;
+  category: string;
+  positioningWedge: string;
+  positioningScore: number; // 1 to 3
+  brandShiftMoment: string;
+  brandShiftScore: number;
+  initialDistribution: string;
+  distributionScore: number;
+  expansionVector: string;
+  expansionScore: number;
+  founderSynthesis: string;
+}
+
+export interface CompetitorRoadmapItem {
+  id: string;
+  competitorName: string;
+  category: string;
+  evolutionTrajectory: string;
+  validationStatus: 'VERIFIED' | 'NEEDS VALIDATION';
+  sourceEvidence: string;
+  stages: CompetitorRoadmapStage[];
+  takeaways: CompetitorTakeaways;
+}
+
+export interface FounderLearningResource {
+  id: string;
+  title: string;
+  category: string;
+  type: 'video' | 'case_study' | 'framework' | 'playbook';
+  source: string;
+  durationOrReadTime: string;
+  takeaway: string;
+  relevanceTag: string;
+  urlPlaceholder?: string;
+}
+
+export interface BrandTransformationMilestone {
+  id: string;
+  stepNumber: number;
+  stageKey: 'IDEA' | 'VALIDATION' | 'POSITIONING' | 'DIFFERENTIATION' | 'BRAND_DNA' | 'IDENTITY' | 'CUSTOMER_EXP' | 'LAUNCH' | 'GROWTH';
+  title: string;
+  subtitle: string;
+  objective: string;
+  founderAction: string;
+  keyMilestone: string;
+  expectedOutcome: string;
+  dependency: string;
+  decisionGate: string;
+  status: 'READY' | 'IN PROGRESS' | 'PLANNED';
+  groundedDetail: string;
+  whatItIs?: string;
+  whyItMatters?: string;
+  concreteOutput?: string;
+  recommendedNextStep?: string;
+}
+
+export interface BrandStrategicDecisionsData {
+  recommendedPositioningDirection: string;
+  differentiationTerritory: string;
+  strategicPriorities: string[];
+  brandRisks: {
+    risk: string;
+    severity: 'High' | 'Medium' | 'Low';
+    impact: string;
+    mitigation: string;
+  }[];
+  sequencingStrategy: string;
+}
+
 export interface BrandRoadmapReport {
   id: string;
   ventureName: string;
@@ -239,4 +332,10 @@ export interface BrandRoadmapReport {
   roadmapTimeline: RoadmapTimelineSystem;
   decisionBoard: BrandDecisionBoardSystem;
   stage05Handoff: Stage05HandoffDossier;
+  transformationRoadmap: BrandTransformationMilestone[];
+  competitorRoadmaps: CompetitorRoadmapItem[];
+  competitorComparisons: CompetitorPatternComparison[];
+  learningResources: FounderLearningResource[];
+  strategicDecisions: BrandStrategicDecisionsData;
 }
+
