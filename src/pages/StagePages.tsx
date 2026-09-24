@@ -4,10 +4,7 @@ import { STAGES } from '../types/project';
 import { useProject } from '../context/ProjectContext';
 import { FileText, Download, X, ShieldCheck, Printer } from 'lucide-react';
 
-export const ExecutionPage: React.FC = () => {
-  const stage = STAGES.find((s) => s.id === 'execution') || STAGES[5];
-  return <StagePlaceholder stage={stage} />;
-};
+
 
 export const SimulationPage: React.FC = () => {
   const stage = STAGES.find((s) => s.id === 'simulation') || STAGES[6];

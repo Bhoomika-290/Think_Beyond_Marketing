@@ -6,8 +6,8 @@ import { FeasibilityPage } from '../pages/FeasibilityPage';
 import { MarketIntelligencePage } from '../pages/MarketIntelligencePage';
 import { BrandRoadmapPage } from '../pages/BrandRoadmapPage';
 import { BuildPage } from '../pages/BuildPage';
+import { ExecutionPage } from '../pages/ExecutionPage';
 import {
-  ExecutionPage,
   SimulationPage,
   LaunchGrowthPage,
 } from '../pages/StagePages';

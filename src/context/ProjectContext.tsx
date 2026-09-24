@@ -25,17 +25,22 @@ import type {
   MVPFeaturePriority,
   BuildDecisionQuadrant,
   BuildSpecialistMessage,
+  ExecutionReport,
+  ExecutionTaskItem,
+  ExecutionSpecialistMessage,
 } from '../types/project';
 import { STAGES } from '../types/project';
 import { generateFeasibilityReport } from '../services/feasibilityEngine';
 import { generateMarketIntelligenceReport } from '../services/marketIntelligenceEngine';
 import { generateBrandRoadmapReport } from '../services/brandRoadmapEngine';
 import { generateBuildArchitectureReport } from '../services/buildArchitectureEngine';
+import { generateExecutionReport } from '../services/executionEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
 const SPECIALIST_MESSAGES_KEY = 'think_beyond_marketing_specialist_messages_v1';
 const BUILD_SPECIALIST_MESSAGES_KEY = 'think_beyond_marketing_build_specialist_messages_v1';
+const EXECUTION_SPECIALIST_MESSAGES_KEY = 'think_beyond_marketing_execution_specialist_messages_v1';
 
 const INITIAL_PROJECT_STATE: ProjectState = {
   project: {
@@ -140,7 +145,17 @@ interface ProjectContextValue {
   addBuildDecision: (decision: { title: string; quadrant: BuildDecisionQuadrant; connectedFeature: string; assumption: string }) => void;
   sendBuildSpecialistQuery: (queryOrAction: string) => void;
   buildSpecialistMessages: BuildSpecialistMessage[];
+  executionReport: ExecutionReport;
+  refreshExecution: () => void;
+  saveExecutionReport: (report: ExecutionReport) => void;
+  toggleExecutionTask: (taskId: string) => void;
+  addCustomExecutionTask: (task: { title: string; assignedCategory: string; dueDateLabel: string }) => void;
+  toggleSaveResource: (resourceId: string) => void;
+  addResourceToPlan: (resourceId: string) => void;
+  executionSpecialistMessages: ExecutionSpecialistMessage[];
+  sendExecutionSpecialistQuery: (queryOrAction: string, resourceId?: string) => void;
 }
+
 
 const ProjectContext = createContext<ProjectContextValue | undefined>(undefined);
 
@@ -1652,6 +1667,257 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     [state, buildReport]
   );
 
+  const [executionSpecialistMessages, setExecutionSpecialistMessages] = useState<ExecutionSpecialistMessage[]>(() => {
+    try {
+      const saved = localStorage.getItem(EXECUTION_SPECIALIST_MESSAGES_KEY);
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    } catch (e) {
+      console.error('Failed to load execution specialist messages from storage:', e);
+    }
+    return [
+      {
+        id: 'exec_spec_welcome',
+        sender: 'specialist',
+        text: "Welcome to Stage 06: Resource & Execution Intelligence.\n\nI analyze your upstream specifications to provide real, location-grounded procurement pathways, verified suppliers, infrastructure setup, distribution pipelines, and tactical execution checklists.\n\nYou can ask contextual questions on any resource or test fallback strategies.",
+        timestamp: new Date().toISOString(),
+      },
+    ];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(EXECUTION_SPECIALIST_MESSAGES_KEY, JSON.stringify(executionSpecialistMessages));
+    } catch (e) {
+      console.error('Failed to save execution specialist messages:', e);
+    }
+  }, [executionSpecialistMessages]);
+
+  const executionReport = useMemo(() => {
+    if (state.execution) {
+      return state.execution;
+    }
+    return generateExecutionReport(state);
+  }, [state]);
+
+  const refreshExecution = useCallback(() => {
+    const fresh = generateExecutionReport(state);
+    setState((prev) => ({
+      ...prev,
+      execution: fresh,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          execution: fresh,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, [state]);
+
+  const saveExecutionReport = useCallback((report: ExecutionReport) => {
+    setState((prev) => ({
+      ...prev,
+      execution: report,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          execution: report,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, []);
+
+  const toggleExecutionTask = useCallback((taskId: string) => {
+    setState((prev) => {
+      const current = prev.execution || generateExecutionReport(prev);
+      const updatedTasks = current.synthesis.checklist.map((task) =>
+        task.id === taskId ? { ...task, isCompleted: !task.isCompleted } : task
+      );
+      const updatedReport: ExecutionReport = {
+        ...current,
+        synthesis: {
+          ...current.synthesis,
+          checklist: updatedTasks,
+        },
+      };
+      return {
+        ...prev,
+        execution: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            execution: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const addCustomExecutionTask = useCallback(
+    (task: { title: string; assignedCategory: string; dueDateLabel: string }) => {
+      setState((prev) => {
+        const current = prev.execution || generateExecutionReport(prev);
+        const newTask: ExecutionTaskItem = {
+          id: `task_custom_${Date.now()}`,
+          phaseNumber: 1,
+          phaseLabel: 'Custom Founder Action',
+          title: task.title,
+          description: `Founder-specified execution milestone for ${task.assignedCategory}.`,
+          assignedCategory: task.assignedCategory,
+          isCompleted: false,
+          isCustom: true,
+          dueDateLabel: task.dueDateLabel,
+        };
+        const updatedTasks = [newTask, ...current.synthesis.checklist];
+        const updatedReport: ExecutionReport = {
+          ...current,
+          synthesis: {
+            ...current.synthesis,
+            checklist: updatedTasks,
+          },
+        };
+        return {
+          ...prev,
+          execution: updatedReport,
+          workflow: {
+            ...prev.workflow,
+            stageOutputs: {
+              ...prev.workflow.stageOutputs,
+              execution: updatedReport,
+            },
+          },
+        };
+      });
+    },
+    []
+  );
+
+  const toggleSaveResource = useCallback((resourceId: string) => {
+    setState((prev) => {
+      const current = prev.execution || generateExecutionReport(prev);
+      const updatedItems = current.synthesis.procurementMap.items.map((item) =>
+        item.id === resourceId ? { ...item, isSaved: !item.isSaved } : item
+      );
+      const updatedReport: ExecutionReport = {
+        ...current,
+        synthesis: {
+          ...current.synthesis,
+          procurementMap: {
+            ...current.synthesis.procurementMap,
+            items: updatedItems,
+          },
+        },
+      };
+      return {
+        ...prev,
+        execution: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            execution: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const addResourceToPlan = useCallback((resourceId: string) => {
+    setState((prev) => {
+      const current = prev.execution || generateExecutionReport(prev);
+      const updatedItems = current.synthesis.procurementMap.items.map((item) =>
+        item.id === resourceId ? { ...item, addedToPlan: !item.addedToPlan } : item
+      );
+      const updatedReport: ExecutionReport = {
+        ...current,
+        synthesis: {
+          ...current.synthesis,
+          procurementMap: {
+            ...current.synthesis.procurementMap,
+            items: updatedItems,
+          },
+        },
+      };
+      return {
+        ...prev,
+        execution: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            execution: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const sendExecutionSpecialistQuery = useCallback(
+    (queryOrAction: string, resourceId?: string) => {
+      const userMsg: ExecutionSpecialistMessage = {
+        id: `exec_spec_msg_${Date.now()}`,
+        sender: 'user',
+        text: queryOrAction,
+        timestamp: new Date().toISOString(),
+        resourceId,
+      };
+
+      const targetResource = resourceId
+        ? executionReport.synthesis.procurementMap.items.find((r) => r.id === resourceId)
+        : undefined;
+
+      let replyText = '';
+      const ventureName = state.idea.name || state.project.name || 'Untitled Venture';
+      const loc = state.businessModel.location?.cityRegion || state.businessModel.location?.country || 'the region';
+
+      if (targetResource) {
+        switch (queryOrAction) {
+          case 'Why do I need this resource?':
+            replyText = `**Relevance of ${targetResource.name} (${targetResource.categoryLabel}):**\n${targetResource.whyRelevant}\n\n**Operational Purpose:** ${targetResource.purpose}\n**Technical Spec:** ${targetResource.specification}`;
+            break;
+          case 'Find alternatives':
+          case 'Show cheaper/local alternatives':
+            replyText = `**Fallback & Alternative Strategy for ${targetResource.name}:**\n${targetResource.fallbackAlternative || 'Procure through secondary regional trade exchanges or audited contract directories.'}\n\n*Budget Estimate:* ${targetResource.estimatedBudgetRange || 'Variable based on order quantity'}\n*Lead Time:* ~${targetResource.leadTimeWeeks} weeks.`;
+            break;
+          case 'Why this supplier?':
+            replyText = `**Supplier Audit for ${targetResource.name}:**\n• **Location:** ${targetResource.location} (${targetResource.isLocalToVenture ? 'Local cluster advantage' : 'National specialized provider'})\n• **Verification:** ${targetResource.verificationStatus.replace(/_/g, ' ')}\n• **Source Evidence:** ${targetResource.sourceEvidence}\n• **Contact:** ${targetResource.phone || targetResource.website || 'Direct enquiry recommended'}`;
+            break;
+          case 'What happens if this resource is unavailable?':
+            replyText = `**Supply Chain Risk Assessment:**\nIf ${targetResource.name} encounters supply disruption or lead time delays:\n1. **Impact:** Halts Phase ${targetResource.priority === 'DAY_1_CRITICAL' ? '1 launch sequence' : '2 expansion'}.\n2. **Immediate Contingency:** Switch to "${targetResource.fallbackAlternative || 'Pre-vetted regional contract network'}".\n3. **Buffer Recommendation:** Maintain a ${targetResource.leadTimeWeeks * 1.5}-week buffer stock.`;
+            break;
+          default:
+            replyText = `**Analysis for ${targetResource.name} (${targetResource.categoryLabel}):**\n${queryOrAction}\n\n*Key Factor:* ${targetResource.whyRelevant} Located at ${targetResource.location}. Source: ${targetResource.sourceEvidence}.`;
+            break;
+        }
+      } else {
+        replyText = `**Execution Intelligence for ${ventureName} (${loc}):**\nRegarding "${queryOrAction}": Your procurement map tracks ${executionReport.synthesis.procurementMap.items.length} vetted resources across ${executionReport.synthesis.procurementMap.totalCategoriesCount} operational categories, with ${executionReport.synthesis.procurementMap.day1CriticalCount} flagged as Day 1 Critical.\n\nAll recommendations are calibrated to your ${executionReport.modality.toUpperCase()} venture architecture and ${loc} geographical cluster.`;
+      }
+
+      const aiMsg: ExecutionSpecialistMessage = {
+        id: `exec_spec_msg_${Date.now() + 1}`,
+        sender: 'specialist',
+        text: replyText,
+        timestamp: new Date().toISOString(),
+        resourceId,
+      };
+
+      setExecutionSpecialistMessages((prev) => [...prev, userMsg, aiMsg]);
+    },
+    [state, executionReport]
+  );
+
   return (
     <ProjectContext.Provider
       value={{
@@ -1710,9 +1976,19 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         addBuildDecision,
         sendBuildSpecialistQuery,
         buildSpecialistMessages,
+        executionReport,
+        refreshExecution,
+        saveExecutionReport,
+        toggleExecutionTask,
+        addCustomExecutionTask,
+        toggleSaveResource,
+        addResourceToPlan,
+        executionSpecialistMessages,
+        sendExecutionSpecialistQuery,
       }}
     >
       {children}
+
     </ProjectContext.Provider>
   );
 };
