@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
 import type {
   ProjectState,
   IdeaData,
@@ -10,8 +10,11 @@ import type {
   LocationData,
   StageId,
   InterviewMessage,
+  FeasibilityReport,
+  FeasibilityDimensionId,
 } from '../types/project';
 import { STAGES } from '../types/project';
+import { generateFeasibilityReport } from '../services/feasibilityEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
@@ -66,6 +69,7 @@ const INITIAL_MESSAGES: InterviewMessage[] = [
 interface ProjectContextValue {
   state: ProjectState;
   messages: InterviewMessage[];
+  feasibilityReport: FeasibilityReport;
   updateProject: (partial: Partial<ProjectMetadata>) => void;
   updateIdea: (partial: Partial<IdeaData>) => void;
   updateBusinessModel: (partial: Partial<BusinessModelData>) => void;
@@ -80,6 +84,11 @@ interface ProjectContextValue {
   addMessage: (text: string, sender: 'ai' | 'user') => void;
   resetProject: () => void;
   hasMinimumDiscovery: boolean;
+  refreshFeasibility: () => void;
+  saveFeasibilityReport: (report: FeasibilityReport) => void;
+  toggleValidationTask: (taskId: string) => void;
+  addCustomValidationTask: (task: { title: string; action: string; dimension: FeasibilityDimensionId }) => void;
+  loadSampleVenture: (sampleType: 'coffee_d2c' | 'ai_saas') => void;
 }
 
 const ProjectContext = createContext<ProjectContextValue | undefined>(undefined);
@@ -326,11 +335,220 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   };
 
+  // Real-time Feasibility Report derived from current Project State
+  const feasibilityReport = useMemo(() => {
+    if (state.feasibility) {
+      return state.feasibility;
+    }
+    return generateFeasibilityReport(state);
+  }, [state]);
+
+  const refreshFeasibility = useCallback(() => {
+    const fresh = generateFeasibilityReport(state);
+    setState((prev) => ({
+      ...prev,
+      feasibility: fresh,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          feasibility: fresh,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, [state]);
+
+  const saveFeasibilityReport = useCallback((report: FeasibilityReport) => {
+    setState((prev) => ({
+      ...prev,
+      feasibility: report,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          feasibility: report,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, []);
+
+  const toggleValidationTask = useCallback((taskId: string) => {
+    setState((prev) => {
+      const currentReport = prev.feasibility || generateFeasibilityReport(prev);
+      const updatedTasks = currentReport.validationTasks.map((t) =>
+        t.id === taskId ? { ...t, completed: !t.completed } : t
+      );
+      const updatedReport: FeasibilityReport = {
+        ...currentReport,
+        validationTasks: updatedTasks,
+      };
+      return {
+        ...prev,
+        feasibility: updatedReport,
+        workflow: {
+          ...prev.workflow,
+          stageOutputs: {
+            ...prev.workflow.stageOutputs,
+            feasibility: updatedReport,
+          },
+        },
+      };
+    });
+  }, []);
+
+  const addCustomValidationTask = useCallback(
+    (task: { title: string; action: string; dimension: FeasibilityDimensionId }) => {
+      setState((prev) => {
+        const currentReport = prev.feasibility || generateFeasibilityReport(prev);
+        const newTask = {
+          id: `task_custom_${Date.now()}`,
+          dimension: task.dimension,
+          title: task.title,
+          action: task.action,
+          expectedOutput: 'Founder verified observation or test metric result.',
+          completed: false,
+          isCustom: true,
+        };
+        const updatedReport: FeasibilityReport = {
+          ...currentReport,
+          validationTasks: [newTask, ...currentReport.validationTasks],
+        };
+        return {
+          ...prev,
+          feasibility: updatedReport,
+          workflow: {
+            ...prev.workflow,
+            stageOutputs: {
+              ...prev.workflow.stageOutputs,
+              feasibility: updatedReport,
+            },
+          },
+        };
+      });
+    },
+    []
+  );
+
+  const loadSampleVenture = useCallback((sampleType: 'coffee_d2c' | 'ai_saas') => {
+    if (sampleType === 'coffee_d2c') {
+      const sampleState: ProjectState = {
+        project: {
+          id: 'proj_sample_coffee',
+          name: 'Aura Roast',
+          category: 'physical',
+          status: 'feasibility_ready',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        idea: {
+          rawInput:
+            'A specialty single-origin coffee bean subscription for remote professionals and espresso connoisseurs who want ethically sourced, roast-to-order beans with transparent farmer compensation.',
+          name: 'Aura Roast',
+          problem:
+            'Commercial supermarket coffee is stale (roasted months prior) with untraceable blends and low farmer earnings, while high-end specialty roasters are fragmented with erratic subscription delivery.',
+          targetAudience:
+            'Remote knowledge workers, home baristas, and design/tech professionals aged 25–45 spending $60+/month on home brewing.',
+          context:
+            'Sourcing directly from heritage shade-grown estates in Coorg & Chikmagalur; roasting micro-batches weekly in Bengaluru with compostable valve bags.',
+          goals:
+            'Reach 500 active monthly subscribers within 6 months while ensuring a minimum 40% farmer price premium above fair-trade baseline.',
+          constraints:
+            'Roast-to-order requires fast 48-hour delivery window across Tier-1 cities to guarantee peak degassing freshness.',
+          differentiation:
+            'Batch QR codes revealing estate harvest date, elevation, soil profile, and transparent farmer payout margin per 250g bag.',
+          openQuestions: [
+            'Will customers pay a 25% premium for farm-level traceability?',
+            'What is the return/breakage rate on regional courier express parcels?',
+          ],
+        },
+        businessModel: {
+          productType: 'physical',
+          deliveryModel: 'online',
+          customerType: 'd2c',
+          location: {
+            country: 'India',
+            cityRegion: 'Bengaluru / Karnataka',
+            operatingLocation: 'Roastery in Bengaluru, direct shipping pan-India',
+          },
+        },
+        workflow: {
+          currentStage: 'feasibility',
+          completedStages: ['idea-lab'],
+          stageOutputs: {},
+        },
+      };
+      const report = generateFeasibilityReport(sampleState);
+      sampleState.feasibility = report;
+      sampleState.workflow.stageOutputs.feasibility = report;
+      setState(sampleState);
+    } else {
+      const sampleState: ProjectState = {
+        project: {
+          id: 'proj_sample_saas',
+          name: 'MetricPulse',
+          category: 'saas',
+          status: 'feasibility_ready',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        idea: {
+          rawInput:
+            'An AI-driven multi-touch attribution platform that unifies ad spend from Meta, Google, and TikTok with Shopify and Stripe data to show true net margin by marketing campaign.',
+          name: 'MetricPulse',
+          problem:
+            'Post-iOS14 privacy restrictions broke ad tracking; e-commerce founders are flying blind, double-counting ROAS across ad platforms, and misallocating ad budget to unprofitable campaigns.',
+          targetAudience:
+            'D2C brand operators and e-commerce agencies spending between $15,000 and $250,000 monthly on paid acquisition.',
+          context:
+            'Zero-cookie server-side tracking script paired with probabilistic Bayesian modeling to estimate incrementality.',
+          goals:
+            'Onboard 25 pilot e-commerce brands and demonstrate at least a 15% reduction in wasted ad spend within 30 days.',
+          constraints:
+            'Must comply strictly with GDPR and CCPA privacy standards without storing customer PII in plain text.',
+          differentiation:
+            'Net-margin attribution that integrates real-time product COGS, payment fees, and return allowances directly into campaign ROI calculations.',
+          openQuestions: [
+            'How difficult is server-side CAPI integration for non-technical Shopify founders?',
+            'What is the enterprise sales resistance compared to legacy tools like Triple Whale or Northbeam?',
+          ],
+        },
+        businessModel: {
+          productType: 'saas',
+          deliveryModel: 'online',
+          customerType: 'b2b',
+          location: {
+            country: 'United States',
+            cityRegion: 'San Francisco, CA',
+            operatingLocation: 'Cloud-native SaaS deployed on AWS/Cloudflare',
+          },
+        },
+        workflow: {
+          currentStage: 'feasibility',
+          completedStages: ['idea-lab'],
+          stageOutputs: {},
+        },
+      };
+      const report = generateFeasibilityReport(sampleState);
+      sampleState.feasibility = report;
+      sampleState.workflow.stageOutputs.feasibility = report;
+      setState(sampleState);
+    }
+  }, []);
+
   return (
     <ProjectContext.Provider
       value={{
         state,
         messages,
+        feasibilityReport,
         updateProject,
         updateIdea,
         updateBusinessModel,
@@ -345,6 +563,11 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         addMessage,
         resetProject,
         hasMinimumDiscovery,
+        refreshFeasibility,
+        saveFeasibilityReport,
+        toggleValidationTask,
+        addCustomValidationTask,
+        loadSampleVenture,
       }}
     >
       {children}

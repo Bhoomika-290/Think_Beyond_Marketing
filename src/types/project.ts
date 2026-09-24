@@ -206,10 +206,14 @@ export interface ProjectMetadata {
   updatedAt: string;
 }
 
+export * from './feasibility';
+import type { FeasibilityReport } from './feasibility';
+
 export interface ProjectState {
   project: ProjectMetadata;
   idea: IdeaData;
   businessModel: BusinessModelData;
+  feasibility?: FeasibilityReport;
   workflow: WorkflowData;
 }
 

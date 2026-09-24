@@ -2,10 +2,7 @@ import React from 'react';
 import { StagePlaceholder } from '../components/layout/StagePlaceholder';
 import { STAGES } from '../types/project';
 
-export const FeasibilityPage: React.FC = () => {
-  const stage = STAGES.find((s) => s.id === 'feasibility') || STAGES[1];
-  return <StagePlaceholder stage={stage} />;
-};
+// Stage 02 (FeasibilityPage) is implemented in dedicated src/pages/FeasibilityPage.tsx
 
 export const MarketIntelligencePage: React.FC = () => {
   const stage = STAGES.find((s) => s.id === 'market-intelligence') || STAGES[2];

@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppShell } from '../components/layout/AppShell';
 import { IdeaLabPage } from '../pages/IdeaLabPage';
+import { FeasibilityPage } from '../pages/FeasibilityPage';
 import {
-  FeasibilityPage,
   MarketIntelligencePage,
   BrandRoadmapPage,
   BuildPage,

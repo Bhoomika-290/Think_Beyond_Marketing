@@ -65,9 +65,9 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 
 | Stage | Route | Status | Description |
 | :--- | :--- | :--- | :--- |
-| **01. Idea Lab** | `/idea-lab` | **CURRENTLY IMPLEMENTED** | Active discovery workspace with founder interview, venture classification, footprint capture, and idea snapshot synthesis. |
-| **02. Feasibility & Viability** | `/feasibility` | *LOCKED / UPCOMING* | Stage placeholder. Unlocks when Stage 01 discovery requirements are satisfied. |
-| **03. Market Intelligence** | `/market-intelligence` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
+| **01. Idea Lab** | `/idea-lab` | **IMPLEMENTED (Scrum 01)** | Active discovery workspace with founder interview, venture classification, footprint capture, and idea snapshot synthesis. |
+| **02. Feasibility & Viability** | `/feasibility` | **IMPLEMENTED (Scrum 02)** | Staged decision-support engine evaluating 9 feasibility dimensions, categorized risks, assumptions, open questions, validation plan, and Stage 03 handoff. |
+| **03. Market Intelligence** | `/market-intelligence` | *LOCKED / UPCOMING* | Architectural placeholder consuming upstream feasibility handoff vectors. |
 | **04. Brand Roadmap** | `/brand-roadmap` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **05. Build & Architecture** | `/build` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
 | **06. Execution Intelligence** | `/execution` | *LOCKED / UPCOMING* | Architectural placeholder displaying incoming context from prior stages. |
@@ -81,37 +81,51 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 
 *Think Beyond Marketing* uses a single, permanent dark visual system specifically tailored for an AI-powered business and brand intelligence workspace:
 
-- **Deep Foundation**: Obsidian canvas (`#070A0F`) with subtle navy undertones.
-- **Architectural Surfaces**: Deep slate cards (`#0C1017`) and elevated surfaces (`#121824`) for clear layer differentiation.
-- **Structural Borders**: Precision slate borders (`#223047` / `#324666`) providing clean structural delineation.
+- **Deep Foundation**: Main background (`#080B10`), header & sidebar background (`#0B1017`).
+- **Architectural Surfaces**: Deep slate cards (`#111823`) and elevated surfaces (`#151E2B`) for clear layer differentiation.
+- **Structural Borders**: Precision slate borders (`#263244` / `#34445A`) providing clean structural delineation.
 - **High-Contrast Typography**:
-  - Primary: Crisp soft white (`#F8FAFC`, 19:1 contrast ratio)
-  - Secondary: Muted slate (`#CBD5E1`, 12:1 contrast ratio)
-  - Tertiary: Subdued slate (`#94A3B8`, 6.8:1 contrast ratio)
-- **Restrained Accents**: Electric blue (`#3B82F6`) and purposeful stage progression colors.
-- **Subtle Architectural Grid**: Background grid overlay reinforcing the technical intelligence workspace aesthetic.
-
-*Note: Ivory / light theme is not part of the product. Theme switching is intentionally not supported. The workspace is built around a single permanent dark identity.*
+  - Primary: Off-white (`#F3F4F6`, WCAG AAA compliant)
+  - Secondary: Muted slate (`#AAB4C3`, WCAG AA compliant)
+  - Muted: Subdued slate (`#738095`, accessible metadata & captions)
+- **Restrained Accents**: Primary blue (`#4D8DFF`), bright blue (`#6EA8FF`), and cyan accent (`#45D4E8`).
+- **Data Grounding Badges**: Strict evidence distinction between `VERIFIED / USER INPUT`, `AI INFERENCE`, `ASSUMPTION`, and `NEEDS VALIDATION`.
 
 ---
 
-## Current Implementation (Scrum 01.2 — Dark Mode Only)
+## Completed Implementations
 
-The current release delivers the complete application shell, navigation, the active Idea Lab experience, and a streamlined permanent dark visual system:
+### Stage 01 — Idea Lab (`/idea-lab`)
+- **Transformation Pipeline**: Hero visualization mapping the venture journey (`Raw Idea` -> `Understand` -> `Validate` -> `Differentiate` -> `Build` -> `Launch`).
+- **Founder Dilemma Entry Points**: Interactive dilemma triggers (Viability, Audience, Competition, Positioning, Brand System) that dynamically populate the interviewer.
+- **Business Intelligence Interviewer**: Specialized conversational interface capturing the founder's raw intuition.
+- **Venture & Product Classification**: Categorization across 7 models (Physical Product, Software / SaaS, Marketplace, Service, Community, Creator Brand, Other).
+- **Geographic & Operational Footprint**: Explicit capture of location, delivery presence (`Online`, `Offline`, `Hybrid`), and customer archetype (`B2C`, `D2C`, `B2B`, `B2B2C`).
+- **Adaptive Discovery Flow**: Progressive interview tabs covering persona, core pain points, differentiation/moats, constraints, and open founder questions.
+- **Initial Idea Snapshot**: Real-time summary consolidating user-provided inputs into an inspectable stage output with an unlocking CTA for Stage 02.
 
-- **Permanent Dark Workspace**: High-contrast, WCAG AA/AAA-compliant design tokens (`--bg-primary`, `--bg-surface`, `--bg-surface-elevated`, `--text-primary`, `--text-secondary`, `--text-muted`, `--border`, `--accent`) providing crisp legibility.
-- **Single Visual System**: Ivory/light theme, theme toggle, and theme switching logic have been removed completely.
-- **Hero Typography & Pipeline Visualization**: High-contrast headline rendering ("From a raw idea to a launch-ready brand.") and clear 6-step venture progression.
-- **Sidebar & Shell Contrast Hierarchy**: Clear visual hierarchy for active and locked navigation states with visible lock indicators and legible requirements.
-- **Idea Lab Workspace (`/idea-lab`)**:
-  - **Transformation Pipeline**: Hero visualization mapping the venture journey (`Raw Idea` -> `Understand` -> `Validate` -> `Differentiate` -> `Build` -> `Launch`).
-  - **Founder Dilemma Entry Points**: Interactive dilemma triggers (Viability, Audience, Competition, Positioning, Brand System) that dynamically populate the interviewer.
-  - **Business Intelligence Interviewer**: Specialized conversational interface capturing the founder's raw intuition with voice UI placeholder.
-  - **Venture & Product Classification**: Categorization across 7 models (Physical Product, Software / SaaS, Marketplace, Service, Community, Creator Brand, Other).
-  - **Geographic & Operational Footprint**: Explicit capture of location, delivery presence (`Online`, `Offline`, `Hybrid`), and customer archetype (`B2C`, `D2C`, `B2B`, `B2B2C`).
-  - **Adaptive Discovery Flow**: Progressive interview tabs covering persona, core pain points, differentiation/moats, constraints, and open founder questions.
-  - **Initial Idea Snapshot**: Real-time summary consolidating user-provided inputs into an inspectable stage output with an unlocking CTA for Stage 02.
-- **Downstream Placeholders (`/feasibility` to `/report`)**: Dignified staging views displaying active upstream context and prerequisite requirements without fabricated data.
+### Stage 02 — Feasibility & Viability Engine (`/feasibility`)
+- **Core Decision Question**: *"Is this business idea realistically worth pursuing, and what could prevent it from succeeding?"*
+- **Continuous Data Flow (Stage 01 → Stage 02)**: Directly consumes the structured project state produced by Idea Lab without asking the founder to re-enter information.
+- **9 Structured Assessment Dimensions**:
+  1. *Market Feasibility*: Problem-solution fit, audience clarity, demand urgency.
+  2. *Customer Feasibility*: Reachability, adoption friction, switching costs.
+  3. *Business Model Feasibility*: Revenue mechanics, gross margin dynamics, unit contribution logic.
+  4. *Operational Feasibility*: People, processes, fulfillment logistics, supplier dependencies.
+  5. *Technical Feasibility*: Contextualized software/cloud or physical manufacturing constraints (zero forced irrelevant criteria).
+  6. *Financial / Economic Feasibility*: Cost structures, CAC payback sensitivities, working capital realities (zero fake revenue claims).
+  7. *Location / Geographic Feasibility*: Local compliance, domestic shipping, regional carrier realities, and explicit missing-location warnings.
+  8. *Competitive Feasibility*: Based strictly on known differentiation; flags unknown competitors as *"Needs validation in Market Intelligence"*.
+  9. *Execution Feasibility*: Core team capabilities, MVP scoping constraints, velocity blockers.
+- **Transparent Assessment Model**:
+  - Ratings: `Strong`, `Moderate`, `Weak`, `Needs Validation`.
+  - Confidence: `High`, `Medium`, `Low`.
+  - Mandatory Evidence Classification: Explicitly flags each data point as `VERIFIED / USER INPUT`, `AI INFERENCE`, `ASSUMPTION`, or `NEEDS VALIDATION`.
+- **Categorized Risk Analysis**: Prioritized failure modes with impact rationale, empirical validation/falsification tests, and recommended mitigations.
+- **Assumptions & Strategic Open Questions**: Separates unverified business assumptions from empirical facts and highlights questions to answer before capital commitment.
+- **Founder Validation Action Plan**: Interactive checklist with low-cost validation experiments, completion tracking, progress bar, and ability to add custom validation tasks.
+- **Stage 02 → Stage 03 Handoff Dossier**: Synthesizes what looks promising, critical uncertainties, potential fatal blockers, and structures competitor and pricing research objectives for Stage 03 (Market Intelligence).
+- **Seed Venture Test Cases**: One-click loaders for Coffee D2C (Physical Goods) and Attribution SaaS (Digital/B2B) for end-to-end evaluation testing.
 
 ---
 
@@ -124,13 +138,17 @@ src/
 ├── components/
 │   ├── common/         # Stateless UI primitives (Button, Card, Badge, Input, Textarea)
 │   ├── layout/         # Shell components (AppShell, AppHeader, AppSidebar, StagePlaceholder)
-│   └── idea-lab/       # Stage 01 modules (HeroTransformation, FAQEntryPrompts,
-│                       # InterviewerChat, ProductTypeSelector, LocationContext,
-│                       # DiscoveryFlow, IdeaSnapshot)
+│   ├── idea-lab/       # Stage 01 modules (HeroTransformation, FAQEntryPrompts,
+│   │                   # InterviewerChat, ProductTypeSelector, LocationContext,
+│   │                   # DiscoveryFlow, IdeaSnapshot)
+│   └── feasibility/    # Stage 02 modules (FeasibilityHeader, FeasibilityOverview,
+│                       # FeasibilityMatrix, RiskMatrix, AssumptionsAndQuestions,
+│                       # ValidationPlan, DecisionAndHandoff)
 ├── context/            # Centralized project state (ProjectContext.tsx)
-├── pages/              # Route views (IdeaLabPage, StagePages, NotFoundPage)
+├── pages/              # Route views (IdeaLabPage, FeasibilityPage, StagePages, NotFoundPage)
 ├── routes/             # Client-side router configuration (AppRouter.tsx)
-└── types/              # Domain TypeScript interfaces (project.ts)
+├── services/           # Deterministic analytical engines (feasibilityEngine.ts)
+└── types/              # Domain TypeScript interfaces (project.ts, feasibility.ts)
 ```
 
 ---
@@ -163,6 +181,20 @@ ProjectState
 │   ├── deliveryModel: DeliveryModel | null
 │   ├── customerType: CustomerType | null
 │   └── location: { country: string; cityRegion: string; operatingLocation: string }
+├── feasibility?
+│   ├── id: string
+│   ├── generatedAt: string
+│   ├── overallStatus: string
+│   ├── overallScoreExplanation: string
+│   ├── dimensions: Record<FeasibilityDimensionId, FeasibilityDimensionResult>
+│   ├── risks: FeasibilityRisk[]
+│   ├── assumptions: FeasibilityAssumption[]
+│   ├── openQuestions: FeasibilityOpenQuestion[]
+│   ├── validationTasks: FeasibilityValidationTask[]
+│   ├── promisingAspects: string[]
+│   ├── criticalUncertainties: string[]
+│   ├── potentialBlockers: string[]
+│   └── handoffToMarketIntelligence: MarketIntelligenceHandoff
 └── workflow
     ├── currentStage: StageId
     ├── completedStages: StageId[]
@@ -243,5 +275,5 @@ In subsequent Scrums, the application will introduce an AI orchestration layer:
 
 ## Current Status
 
-**Scrum 01.2 Complete.**
-The application shell, persistent left sidebar, permanent dark visual workspace, and 9-stage route architecture are active, passing all lint and build checks, and awaiting human review.
+**Scrum 02 Complete.**
+Stage 01 (Idea Lab) and Stage 02 (Feasibility & Viability Engine) are fully implemented and integrated with continuous state flow, passing all TypeScript compilation, Oxlint static analysis, and Vite production bundle builds, and awaiting human review before any commit is made.
