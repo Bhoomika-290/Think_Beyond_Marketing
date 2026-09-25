@@ -13,6 +13,7 @@ import { EvidenceIntegrityView } from '../components/market-intelligence/Evidenc
 import { AICouncilPanel } from '../components/market-intelligence/AICouncilPanel';
 import { MarketSpecialistChat } from '../components/market-intelligence/MarketSpecialistChat';
 import { MarketDecisionAndHandoff } from '../components/market-intelligence/MarketDecisionAndHandoff';
+import { CompetitorRoadmapsModal } from '../components/brand-roadmap/CompetitorRoadmapsModal';
 import { AlertCircle, ArrowRight, Compass, Target, Zap, Users, Activity, AlertOctagon, ShieldCheck, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ export const MarketIntelligencePage: React.FC = () => {
   const {
     state,
     marketReport,
+    brandReport,
     specialistMessages,
     refreshMarketIntelligence,
     saveMarketIntelligenceReport,
@@ -44,6 +46,7 @@ export const MarketIntelligencePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
     'all' | 'landscape' | 'whitespace' | 'differentiator' | 'segments' | 'trends' | 'risks' | 'evidence' | 'specialist'
   >('all');
+  const [isRoadmapModalOpen, setIsRoadmapModalOpen] = useState(false);
 
   const ventureName = state.idea.name || state.project.name || 'Untitled Venture';
 
@@ -76,17 +79,24 @@ export const MarketIntelligencePage: React.FC = () => {
           <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
             <button
               type="button"
-              onClick={() => loadSampleVenture('coffee_d2c')}
+              onClick={() => loadSampleVenture('skincare_d2c')}
               className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
             >
-              ☕ Sample D2C
+              🌿 Skincare D2C
             </button>
             <button
               type="button"
-              onClick={() => loadSampleVenture('ai_saas')}
+              onClick={() => loadSampleVenture('restaurant_ai')}
               className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
             >
-              ⚡ Sample SaaS
+              ⚡ Restaurant AI
+            </button>
+            <button
+              type="button"
+              onClick={() => loadSampleVenture('tutoring_marketplace')}
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
+            >
+              🎓 Tutoring Mkt
             </button>
             <Link
               to="/idea-lab"
@@ -226,11 +236,21 @@ export const MarketIntelligencePage: React.FC = () => {
             selectedAxes={marketReport.selectedAxes}
             onUpdateAxes={updatePositioningAxes}
             onAddCompetitor={addCompetitor}
+            onOpenCompetitorRoadmap={() => setIsRoadmapModalOpen(true)}
             ventureName={ventureName}
           />
           <CompetitorComparisonView competitors={marketReport.competitors} />
         </section>
       )}
+
+      {/* Competitor Roadmaps Evolution Modal */}
+      <CompetitorRoadmapsModal
+        isOpen={isRoadmapModalOpen}
+        onClose={() => setIsRoadmapModalOpen(false)}
+        competitors={brandReport.competitorRoadmaps}
+        comparisons={brandReport.competitorComparisons}
+        ventureName={ventureName}
+      />
 
       {/* 3. MARKET WHITESPACE / GAP ANALYSIS */}
       {(activeTab === 'all' || activeTab === 'whitespace') && (

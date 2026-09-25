@@ -15,6 +15,7 @@ interface PositioningMatrixProps {
   };
   onUpdateAxes: (xAxis: PositioningAxis, yAxis: PositioningAxis) => void;
   onAddCompetitor: (competitor: Omit<CompetitorItem, 'id' | 'provenance'>) => void;
+  onOpenCompetitorRoadmap?: () => void;
   ventureName: string;
 }
 
@@ -24,6 +25,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
   selectedAxes,
   onUpdateAxes,
   onAddCompetitor,
+  onOpenCompetitorRoadmap,
   ventureName,
 }) => {
   const [selectedCompetitor, setSelectedCompetitor] = useState<CompetitorItem | null>(null);
@@ -159,6 +161,17 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
             </select>
           </div>
 
+          {onOpenCompetitorRoadmap && (
+            <button
+              type="button"
+              onClick={onOpenCompetitorRoadmap}
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#ECE6DA] text-[#2B3D4F] border border-[#DDD5C5] hover:bg-[#DDD5C5] text-xs font-medium transition-colors"
+            >
+              <Compass className="w-3.5 h-3.5" />
+              View Competitor Roadmap
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
@@ -170,25 +183,52 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
         </div>
       </div>
 
-      {/* The 2D Interactive Matrix Canvas */}
-      {!competitors.some((c) => c.isUserAdded) && (
-        <div className="p-3 rounded-xl bg-[#8A6D2B]/10 border border-[#8A6D2B]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-          <span className="text-[#4A5E73]">
-            <span className="font-mono font-bold text-[#8A6D2B] uppercase text-[10px] block mb-0.5">
-              Model archetypes shown — no verified competitors yet
+      {/* Evidence Integrity Status Bar */}
+      <div className="p-3 rounded-xl bg-[#FDFCF8] border border-[#DDD5C5] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono text-[10px] uppercase font-bold text-[#6B7D90]">Market Evidence:</span>
+          {competitors.some((c) => (c.competitorType === 'VERIFIED_COMPETITOR' || c.provenance === 'VERIFIED_SOURCE' || c.isUserAdded)) && (
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded bg-[#4A7C59]/15 text-[#4A7C59] border border-[#4A7C59]/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4A7C59]" />
+              {competitors.filter((c) => (c.competitorType === 'VERIFIED_COMPETITOR' || c.provenance === 'VERIFIED_SOURCE' || c.isUserAdded)).length} Verified
             </span>
-            Plotted players are illustrative patterns, not researched companies. Add real ones to ground this map.
+          )}
+          {competitors.some((c) => c.competitorType === 'OBSERVED_MARKET_PLAYER') && (
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded bg-[#3E7A73]/15 text-[#3E7A73] border border-[#3E7A73]/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3E7A73]" />
+              {competitors.filter((c) => c.competitorType === 'OBSERVED_MARKET_PLAYER').length} Observed
+            </span>
+          )}
+          {competitors.some((c) => c.competitorType === 'CATEGORY_ARCHETYPE' || (!c.competitorType && !c.isUserAdded && c.provenance !== 'VERIFIED_SOURCE')) && (
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded bg-[#2B3D4F]/10 text-[#2B3D4F] border border-[#2B3D4F]/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2B3D4F]" />
+              {competitors.filter((c) => c.competitorType === 'CATEGORY_ARCHETYPE' || (!c.competitorType && !c.isUserAdded && c.provenance !== 'VERIFIED_SOURCE')).length} Archetype
+            </span>
+          )}
+          {competitors.some((c) => c.competitorType === 'COUNCIL_HYPOTHESIS') && (
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded bg-[#8A6D2B]/15 text-[#8A6D2B] border border-[#8A6D2B]/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8A6D2B]" />
+              {competitors.filter((c) => c.competitorType === 'COUNCIL_HYPOTHESIS').length} Hypothesis
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] text-[#4A5E73]">
+            {competitors.some((c) => (c.competitorType === 'VERIFIED_COMPETITOR' || c.provenance === 'VERIFIED_SOURCE' || c.isUserAdded))
+              ? 'Specific market competitors verified and mapped.'
+              : 'Category archetypes mapped. Add local or niche players to ground.'}
           </span>
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#2B3D4F] text-white text-xs font-medium hover:bg-[#3E5770] transition-colors shrink-0"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#2B3D4F] text-white text-xs font-medium hover:bg-[#3E5770] transition-colors shrink-0"
           >
             <Plus className="w-3.5 h-3.5" />
-            Add Real Competitor
+            Add Player
           </button>
         </div>
-      )}
+      </div>
+
       <div className="relative w-full h-[480px] bg-[#F5F1EB] rounded-xl border border-[#DDD5C5] overflow-hidden p-6 select-none shadow-inner">
         {/* Subtle Grid Background */}
         <div
@@ -250,6 +290,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
         {competitors.map((comp) => {
           const coords = getCoordinatesPct(comp.coordinates.x, comp.coordinates.y);
           const isSelected = selectedCompetitor?.id === comp.id;
+          const compType = comp.competitorType || (comp.isUserAdded ? 'VERIFIED_COMPETITOR' : comp.provenance === 'VERIFIED_SOURCE' ? 'VERIFIED_COMPETITOR' : 'OBSERVED_MARKET_PLAYER');
 
           return (
             <div
@@ -264,12 +305,14 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                     ? 'bg-[#4A7C59]/15 border-[#4A7C59]/50 text-[#2B3D4F]'
                     : isSelected
                     ? 'bg-[#2B3D4F] border-[#2B3D4F] text-[#F5F1EB] ring-2 ring-[#2B3D4F]/30'
+                    : compType === 'VERIFIED_COMPETITOR'
+                    ? 'bg-[#FDFCF8] border-[#4A7C59]/50 text-[#2B3D4F] hover:border-[#4A7C59]'
                     : 'bg-[#ECE6DA]/90 border-[#DDD5C5] text-[#2B3D4F] hover:border-[#2B3D4F]/60'
                 }`}
               >
                 <span
                   className={`w-2 h-2 rounded-full ${
-                    comp.isUserAdded
+                    compType === 'VERIFIED_COMPETITOR'
                       ? 'bg-[#4A7C59]'
                       : comp.category === 'direct'
                       ? 'bg-[#9E4A4A]'
@@ -279,14 +322,22 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                   }`}
                 />
                 <span className="text-xs font-medium whitespace-nowrap">{comp.name}</span>
-                {comp.isUserAdded ? (
-                  <span className="text-[9px] font-mono bg-[#4A7C59]/20 text-[#4A7C59] px-1 rounded">
-                    USER
+                {compType === 'VERIFIED_COMPETITOR' ? (
+                  <span className="text-[9px] font-mono bg-[#4A7C59]/20 text-[#4A7C59] px-1 rounded font-bold">
+                    VERIFIED
+                  </span>
+                ) : compType === 'OBSERVED_MARKET_PLAYER' ? (
+                  <span className="text-[9px] font-mono bg-[#3E7A73]/20 text-[#3E7A73] px-1 rounded font-medium">
+                    OBSERVED
+                  </span>
+                ) : compType === 'COUNCIL_HYPOTHESIS' ? (
+                  <span className="text-[9px] font-mono bg-[#8A6D2B]/20 text-[#8A6D2B] px-1 rounded font-medium">
+                    HYPOTHESIS
                   </span>
                 ) : (
                   <span
                     className="text-[9px] font-mono bg-[#2B3D4F]/10 text-[#2B3D4F] px-1 rounded border border-[#2B3D4F]/20"
-                    title="Model-generated archetype — not a verified company"
+                    title="Model-generated archetype"
                   >
                     ARCHETYPE
                   </span>
@@ -302,8 +353,13 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
         <div className="p-4 rounded-xl bg-[#FDFCF8] border border-[#2B3D4F]/40 space-y-3 animate-fade-in shadow-sm">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-base font-bold text-[#2B3D4F]">{selectedCompetitor.name}</h3>
+                {selectedCompetitor.competitorType && (
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#4A7C59]/15 text-[#4A7C59] border border-[#4A7C59]/30">
+                    {selectedCompetitor.competitorType.replace(/_/g, ' ')}
+                  </span>
+                )}
                 <span
                   className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
                     getProvenanceBadge(selectedCompetitor.provenance).bg
@@ -317,6 +373,16 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#ECE6DA] text-[#4A5E73] border border-[#DDD5C5]">
                   Tier: {selectedCompetitor.priceTier}
                 </span>
+                {selectedCompetitor.websiteUrl && (
+                  <a
+                    href={selectedCompetitor.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-mono text-[#2B3D4F] hover:underline bg-[#2B3D4F]/10 px-2 py-0.5 rounded border border-[#2B3D4F]/20"
+                  >
+                    {selectedCompetitor.websiteUrl} ↗
+                  </a>
+                )}
               </div>
               <p className="text-xs text-[#4A5E73] mt-1.5 leading-relaxed">
                 {selectedCompetitor.offeringSummary}

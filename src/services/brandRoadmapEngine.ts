@@ -19,6 +19,7 @@ import type {
   FounderLearningResource,
   BrandStrategicDecisionsData,
 } from '../types/project';
+import { resolveVentureDomainProfile } from './ventureDomainResolver';
 
 export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapReport {
   const { idea, businessModel, project, marketIntelligence, feasibility } = state;
@@ -31,6 +32,8 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
     marketIntelligence?.differentiatorEngine?.opportunities[0]?.differentiationArea ||
     'Radical operational transparency and specialized craft';
 
+  const domainProfile = resolveVentureDomainProfile(idea, businessModel, project);
+
   const initials =
     ventureName
       .split(' ')
@@ -40,108 +43,57 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
       .join('')
       .toUpperCase() || 'TB';
 
-  // 1. BRAND DNA NODES (Connected visual system of 9 strategic elements)
-  const brandDnaNodes: BrandDNANode[] = [
-    {
-      id: 'dna_cust',
-      label: 'Target Customer',
-      value: targetAudience,
-      whatItMeans: 'The exact persona or business segment experiencing the pain acutely right now.',
-      source: 'Stage 01 Idea Lab Discovery',
-      originatingStage: '01 Idea Lab',
-      evidenceState: idea.targetAudience ? 'USER INPUT' : 'AI INFERENCE',
-      howItAffectsBrand: 'Dictates the tone, visual sophistication, and pricing accessibility of the brand identity.',
-      reasoning: 'Directly sourced from the founder’s target audience profile defined during initial discovery.',
-    },
-    {
-      id: 'dna_prob',
-      label: 'Core Problem',
-      value: problem.length > 70 ? problem.slice(0, 67) + '...' : problem,
-      whatItMeans: 'The acute point of friction and dissatisfaction with current market alternatives.',
-      source: 'Stage 01 Problem Definition',
-      originatingStage: '01 Idea Lab',
-      evidenceState: idea.problem ? 'USER INPUT' : 'AI INFERENCE',
-      howItAffectsBrand: 'Forms the narrative adversary in all brand copy, headlines, and value propositions.',
-      reasoning: 'The acute friction point in the customer’s status quo that the brand exists to dismantle.',
-    },
-    {
-      id: 'dna_need',
-      label: 'Customer Need',
-      value: 'Uncompromised quality paired with verifiable origin transparency and predictable delivery.',
-      whatItMeans: 'The deeper functional and emotional job-to-be-done that the customer seeks to fulfill.',
-      source: 'Stage 03 Customer Segments Analysis',
-      originatingStage: '03 Market Intelligence',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Determines the core product benefits and customer onboarding journey requirements.',
-      reasoning: 'Synthesized from buyer friction patterns observed across legacy and commodity competitors.',
-    },
-    {
-      id: 'dna_purp',
-      label: 'Brand Purpose',
-      value: `To liberate ${targetAudience.slice(0, 30)} from opaque compromises by establishing an open benchmark.`,
-      whatItMeans: 'The foundational why that drives the company beyond immediate transactional margin.',
-      source: 'Stage 04 Brand Strategy Synthesis',
-      originatingStage: '04 Brand Strategy',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Guides company culture, public advocacy, community initiatives, and long-term brand equity.',
-      reasoning: 'Anchored in the contrast between traditional profit extraction and transparent craft partnership.',
-    },
-    {
-      id: 'dna_prom',
-      label: 'Brand Promise',
-      value: '100% operational transparency and verifiable craft standards in every single delivery.',
-      whatItMeans: 'The inviolable contract made to every customer on every purchase.',
-      source: 'Stage 04 Brand Promise Charter',
-      originatingStage: '04 Brand Strategy',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Sets the benchmark for customer service, return policies, and product packaging details.',
-      reasoning: 'The foundational commitment made to the customer that guides all product and messaging decisions.',
-    },
-    {
-      id: 'dna_val',
-      label: 'Core Value',
-      value: feasibility?.promisingAspects?.[0] || 'Empirical authenticity over marketing posturing.',
-      whatItMeans: 'The guiding internal principle that overrides expediency or cheap shortcuts.',
-      source: 'Stage 02 Feasibility Assessment',
-      originatingStage: '02 Feasibility',
-      evidenceState: feasibility ? 'VERIFIED' : 'ASSUMPTION',
-      howItAffectsBrand: 'Prevents brand dilution and guides design choices toward minimalism and substance.',
-      reasoning: 'Validated by unit economics, operational feasibility assessments, and customer pain intensity.',
-    },
-    {
-      id: 'dna_gap',
-      label: 'Market Gap',
-      value: 'Absence of an accessible premium brand that pairs artisanal craft with automated reliability.',
-      whatItMeans: 'The structural void in the competitive landscape that incumbents fail to address.',
-      source: 'Stage 03 Opportunity Whitespace Map',
-      originatingStage: '03 Market Intelligence',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Defines the open territory on the positioning matrix that the brand claims as its wedge.',
-      reasoning: 'Derived from polarization between mass low-trust commodities and erratic boutique retainers.',
-    },
-    {
-      id: 'dna_diff',
-      label: 'Differentiator',
-      value: defaultDiff,
-      whatItMeans: 'The unique, defensible mechanism that competitors cannot easily copy or ignore.',
-      source: 'Stage 01 Idea Lab / Stage 03 Differentiator Engine',
-      originatingStage: '01 Idea Lab',
-      evidenceState: idea.differentiation ? 'USER INPUT' : 'AI INFERENCE',
-      howItAffectsBrand: 'Powers the core tagline, sales scripts, comparison pages, and hero packaging.',
-      reasoning: 'The primary competitive moat that makes alternatives irrelevant for the target segment.',
-    },
-    {
-      id: 'dna_perc',
-      label: 'Desired Perception',
-      value: 'The undisputed, honest benchmark: uncompromising in standards, refreshingly direct, and indispensable.',
-      whatItMeans: 'What customers say about the brand to their peers when the founder is not in the room.',
-      source: 'Stage 04 Brand Architecture',
-      originatingStage: '04 Brand Strategy',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Drives visual identity restraint, editorial typography selection, and customer delight rituals.',
-      reasoning: 'Represents the intended mental positioning achieved through consistent touchpoint execution.',
-    },
-  ];
+  // 1. BRAND DNA NODES (Connected visual system of strategic elements)
+  const brandDnaNodes: BrandDNANode[] = domainProfile.brandDnaNodes.length >= 4
+    ? [
+        ...domainProfile.brandDnaNodes,
+        {
+          id: 'dna_val',
+          label: 'Core Value',
+          value: feasibility?.promisingAspects?.[0] || 'Empirical authenticity over marketing posturing.',
+          whatItMeans: 'The guiding internal principle that overrides expediency or cheap shortcuts.',
+          source: 'Stage 02 Feasibility Assessment',
+          originatingStage: '02 Feasibility',
+          evidenceState: feasibility ? 'VERIFIED' : 'ASSUMPTION',
+          howItAffectsBrand: 'Prevents brand dilution and guides design choices toward minimalism and substance.',
+          reasoning: 'Validated by unit economics, operational feasibility assessments, and customer pain intensity.',
+        },
+        {
+          id: 'dna_diff',
+          label: 'Differentiator',
+          value: defaultDiff,
+          whatItMeans: 'The unique, defensible mechanism that competitors cannot easily copy or ignore.',
+          source: 'Stage 01 Idea Lab / Stage 03 Differentiator Engine',
+          originatingStage: '01 Idea Lab',
+          evidenceState: idea.differentiation ? 'USER INPUT' : 'AI INFERENCE',
+          howItAffectsBrand: 'Powers the core tagline, sales scripts, comparison pages, and hero packaging.',
+          reasoning: 'The primary competitive moat that makes alternatives irrelevant for the target segment.',
+        },
+      ]
+    : [
+        {
+          id: 'dna_cust',
+          label: 'Target Customer',
+          value: targetAudience,
+          whatItMeans: 'The exact persona or business segment experiencing the pain acutely right now.',
+          source: 'Stage 01 Idea Lab Discovery',
+          originatingStage: '01 Idea Lab',
+          evidenceState: idea.targetAudience ? 'USER INPUT' : 'AI INFERENCE',
+          howItAffectsBrand: 'Dictates the tone, visual sophistication, and pricing accessibility of the brand identity.',
+          reasoning: 'Directly sourced from the founder’s target audience profile defined during initial discovery.',
+        },
+        {
+          id: 'dna_prob',
+          label: 'Core Problem',
+          value: problem.length > 70 ? problem.slice(0, 67) + '...' : problem,
+          whatItMeans: 'The acute point of friction and dissatisfaction with current market alternatives.',
+          source: 'Stage 01 Problem Definition',
+          originatingStage: '01 Idea Lab',
+          evidenceState: idea.problem ? 'USER INPUT' : 'AI INFERENCE',
+          howItAffectsBrand: 'Forms the narrative adversary in all brand copy, headlines, and value propositions.',
+          reasoning: 'The acute friction point in the customer’s status quo that the brand exists to dismantle.',
+        },
+      ];
 
   // 2. MARKET GAP -> BRAND DIFFERENTIATOR
   const differentiatorCandidates: DifferentiatorCandidate[] = [
@@ -166,7 +118,7 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
       differentiator: 'Predictable On-Demand Cadence with Zero Gatekeeping Friction',
       brandPosition: 'The Modern High-Fidelity Everyday Standard',
       evidenceState: 'INFERRED',
-      reasoning: 'Combines the artisanal excellence of boutique roasters/studios with seamless modern UX.',
+      reasoning: 'Combines the specialized excellence of top practitioners with seamless modern UX.',
       isSelected: false,
     },
     {
@@ -531,7 +483,7 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
     {
       id: 'col_warning',
       role: 'warning',
-      name: 'Amber Audit Flag',
+      name: 'Warning Audit Accent',
       hex: '#F59E0B',
       rgb: '245, 158, 11',
       psychology: 'Highlights assumptions requiring empirical customer testing before commit.',
@@ -740,9 +692,7 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
   // 15. BRAND TRANSFORMATION ROADMAP (Strategic 8-Stage Progression)
   const isPhysical =
     category.toLowerCase().includes('physical') ||
-    category.toLowerCase().includes('coffee') ||
     category.toLowerCase().includes('d2c') ||
-    category.toLowerCase().includes('beverage') ||
     category.toLowerCase().includes('hardware');
 
   const transformationRoadmap: BrandTransformationMilestone[] = [
@@ -901,193 +851,274 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
   ];
 
   // 16. COMPETITOR ROADMAPS (Category Evolution & Founder Takeaways)
-  const competitorRoadmaps: CompetitorRoadmapItem[] = isPhysical
-    ? [
-        {
-          id: 'cr_1',
-          competitorName: 'Blue Bottle Coffee',
-          category: 'Specialty Coffee / CPG',
-          evolutionTrajectory: 'Micro-roaster kiosk (Oakland) → Direct-to-Consumer Freshness Subscription → Flagship Cafes → Nestlé Acquisition ($500M)',
-          validationStatus: 'VERIFIED',
-          sourceEvidence: 'Public SEC filings, founder interviews with James Freeman (2002-2017)',
-          stages: [
-            { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2002)', focus: 'Extreme Roast Freshness', milestone: 'Founded in Oakland farmers market with rule: coffee sold within 48h of roasting.' },
-            { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2005)', focus: 'Single-Origin Pour Over', milestone: 'Opened kiosk on Linden St; eliminated multi-origin bulk espresso blends.' },
-            { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2008)', focus: 'Anti-Starbucks Aesthetic', milestone: 'Minimalist white-space branding; no Wi-Fi, emphasizing craft and reverence.' },
-            { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2012)', focus: 'Signature Pastel Blue Bottle Mark', milestone: 'Packaging redesign elevated blue bottle logo into a luxury design signifier.' },
-            { stageName: 'MARKET ENTRY', yearOrPhase: 'Phase 5 (2014)', focus: 'D2C Subscription Sub-Brand', milestone: 'Acquired Tonx to build web-native subscription ordering engine.' },
-            { stageName: 'EXPANSION', yearOrPhase: 'Phase 6 (2015)', focus: 'Tokyo Flagship & RTD Cold Brew', milestone: 'Launched ready-to-drink cans in Whole Foods; opened in Kiyosumi, Tokyo.' },
-            { stageName: 'GROWTH', yearOrPhase: 'Phase 7 (2017)', focus: 'Global Omnichannel Scale', milestone: 'Nestlé acquired 68% stake for ~$500M to anchor premium global portfolio.' },
-          ],
-          takeaways: {
-            positioningLesson: 'Positioned explicitly against dark-roast commercial coffee by treating beans as delicate agricultural fruit.',
-            sequencingLesson: 'Started with an uncompromising quality constraint (48-hour freshness) that earned fanatical word-of-mouth before opening permanent stores.',
-            productToBrandTransition: 'The physical cafe aesthetic (minimalist wood & concrete) reinforced the premium price point ($6/cup) without advertising.',
-            customerAcquisitionLesson: 'Turned the in-cafe barista pour-over ritual into a theater of craft that drove organic peer-to-peer recommendation.',
-            distributionLesson: 'Farmers market → 1 Flagship kiosk → D2C Web Subscriptions → Wholesale Grocery cans.',
-            expansionLesson: 'Expanded to Tokyo only after brand prestige was solidified in the domestic US market.',
-            brandIdentityLesson: 'Minimalist blue bottle glyph on clean brown kraft paper stood out immediately against busy grocery aisle graphics.',
-            whatNotToCopy: 'Do NOT try to open retail stores and manufacture RTD cans simultaneously Day 1; focus strictly on one distribution wedge.',
-            sequencingLessons: 'Started with an uncompromising quality constraint (48-hour freshness) that earned fanatical word-of-mouth before opening permanent stores.',
-            positioningDecisions: 'Positioned explicitly against dark-roast commercial coffee by treating beans as delicate agricultural fruit.',
-            distributionStrategy: 'Farmers market → 1 Flagship kiosk → D2C Web Subscriptions → Wholesale Grocery cans.',
-            mistakesAndRisks: 'Rapid expansion into retail cans risked diluting the original "roasted within 48 hours" freshness promise.',
-          },
+  const rawInputLower = (state.idea.rawInput || state.idea.name || '').toLowerCase();
+  const isTutoring = rawInputLower.includes('tutor') || rawInputLower.includes('student') || rawInputLower.includes('edtech') || rawInputLower.includes('education');
+  const isFoodWaste = rawInputLower.includes('waste') || rawInputLower.includes('restaurant') || rawInputLower.includes('kitchen');
+  const isMealDelivery = rawInputLower.includes('meal') || rawInputLower.includes('lunch') || rawInputLower.includes('diet') || rawInputLower.includes('office worker');
+  const isHomeRepair = rawInputLower.includes('repair') || rawInputLower.includes('home') || rawInputLower.includes('handyman') || rawInputLower.includes('plumber') || rawInputLower.includes('worker');
+  const isApparel = rawInputLower.includes('clothing') || rawInputLower.includes('apparel') || rawInputLower.includes('fashion') || rawInputLower.includes('wear') || rawInputLower.includes('winter');
+  const isCoffee = rawInputLower.includes('coffee') || rawInputLower.includes('roast') || rawInputLower.includes('bean') || rawInputLower.includes('brew');
+
+  let baseRoadmaps: CompetitorRoadmapItem[] = [];
+
+  if (isTutoring) {
+    baseRoadmaps = [
+      {
+        id: 'cr_tut_1',
+        competitorName: 'Wyzant',
+        category: 'Tutoring Marketplace',
+        evolutionTrajectory: 'Local Chicago tutoring board → Online peer & professional marketplace → Curated 1-on-1 video lessons',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'Public founder retrospectives (Mike Weishuhn & Andrew Geant), EdTech market case studies',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2005)', focus: 'Flyers on Campus', milestone: 'Bootstrapped in Chicago with paper flyers on college notice boards connecting students to tutors.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2008)', focus: 'Search & Review Engine', milestone: 'Built transparent rating, subject tags, and hourly rate filters to eliminate agency markups.' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2012)', focus: 'Transparent Hourly Choice', milestone: 'Positioned as the open, fair alternative to rigid commercial learning centers ($60+/hr).' },
+          { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2016)', focus: 'Instant Online Whiteboard', milestone: 'Launched proprietary web classroom with collaborative whiteboard and code sharing.' },
+          { stageName: 'MARKET ENTRY', yearOrPhase: 'Phase 5 (2019)', focus: 'National Subject Breadth', milestone: 'Expanded from K-12 to 300+ university subjects, test prep, and language learning.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 6 (2021)', focus: 'Acquisition by IXL Learning', milestone: 'Acquired by IXL to power personalized on-demand academic tutoring at scale.' },
+        ],
+        takeaways: {
+          positioningLesson: 'Positioned as an empowering open marketplace with transparent pricing rather than a locked-in curriculum package.',
+          sequencingLesson: 'Started hyperlocal on a few college campuses to balance tutor supply and student demand before expanding nationally.',
+          productToBrandTransition: 'The interactive digital whiteboard transformed a basic directory into an active learning workspace.',
+          customerAcquisitionLesson: 'High organic search rankings on specific university course numbers and exam prep keywords.',
+          distributionLesson: 'Campus word-of-mouth → SEO course landing pages → Direct student referral loops.',
+          expansionLesson: 'Expanded from basic math/science to university-level engineering, coding, and professional credentials.',
+          brandIdentityLesson: 'Clean, approachable academic styling built trust with both students and paying parents.',
+          whatNotToCopy: 'Avoid taking excessive take-rates (25-30%) early on, as this incentivizes tutors and students to transact off-platform.',
+          sequencingLessons: 'Started hyperlocal on a few college campuses to balance tutor supply and student demand before expanding nationally.',
+          positioningDecisions: 'Positioned as an empowering open marketplace with transparent pricing rather than a locked-in curriculum package.',
+          distributionStrategy: 'Campus word-of-mouth → SEO course landing pages → Direct student referral loops.',
+          mistakesAndRisks: 'Platform leakage occurs when the take-rate feels unfair to repeat tutors and students.',
         },
-        {
-          id: 'cr_2',
-          competitorName: 'Trade Coffee',
-          category: 'Coffee Marketplace & Subscription',
-          evolutionTrajectory: 'Roaster Discovery Marketplace → Algorithmic Taste Quiz Engine → Personalized Recurring Deliveries',
-          validationStatus: 'VERIFIED',
-          sourceEvidence: 'TechCrunch profile, venture funding reports (Seed to Series B)',
-          stages: [
-            { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2018)', focus: 'Aggregating Independent Roasters', milestone: 'Launched with seed backing from JAB Holding to curate 400+ independent roasts.' },
-            { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2019)', focus: 'Discovery Quiz Funnel', milestone: 'Introduced 6-question taste questionnaire matching grind, brew method, and roast.' },
-            { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2020)', focus: 'Support Local Roasters from Home', milestone: 'Positioned as supporting local roasters with personalized roast recommendations.' },
-            { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2021)', focus: 'Vibrant Typographic Community Mark', milestone: 'Rebranded with bright terracotta/cobalt packaging emphasizing discovery.' },
-            { stageName: 'MARKET ENTRY', yearOrPhase: 'Phase 5 (2022)', focus: 'Cold Brew Bags & Equipment Bundles', milestone: 'Cross-sold immersion bags and Fellow grinders to increase cart LTV.' },
-            { stageName: 'GROWTH', yearOrPhase: 'Phase 6 (2023)', focus: 'Subscription Retention Optimization', milestone: 'Surpassed 5M bags shipped via automated cadence management.' },
-          ],
-          takeaways: {
-            positioningLesson: 'Positioned as an objective taste sommelier rather than a proprietary coffee roaster.',
-            sequencingLesson: 'Built zero roasting facilities; leveraged existing third-party roaster capacity and dropshipping to scale with zero inventory risk.',
-            productToBrandTransition: 'Taste quiz became the signature product hook, lowering friction for non-experts.',
-            customerAcquisitionLesson: 'Drove massive paid social conversion by leading with the interactive taste quiz rather than product catalogs.',
-            distributionLesson: 'Aggressive paid social acquisition paired with high-converting quiz funnels and roaster cross-promotions.',
-            expansionLesson: 'Expanded from bags to hardware accessories and cold brew packs to raise average customer order value.',
-            brandIdentityLesson: 'Vibrant color-coded discovery tags made specialty coffee accessible rather than intimidating.',
-            whatNotToCopy: 'Avoid pure marketplace aggregator models if your venture differentiator is proprietary craft and transparent origin.',
-            sequencingLessons: 'Built zero roasting facilities; leveraged existing third-party roaster capacity and dropshipping to scale with zero inventory risk.',
-            positioningDecisions: 'Positioned as an objective taste sommelier rather than a proprietary coffee roaster.',
-            distributionStrategy: 'Aggressive paid social acquisition paired with high-converting quiz funnels and roaster cross-promotions.',
-            mistakesAndRisks: 'High customer churn if the quiz recommendation fails to match actual personal taste on bag #1.',
-          },
+      },
+      {
+        id: 'cr_tut_2',
+        competitorName: 'Outschool',
+        category: 'Live Small-Group Learning',
+        evolutionTrajectory: 'Homeschool class directory → Live interactive cohort marketplace → Global enrichment platform ($3B valuation)',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'TechCrunch funding records, Amir Nathoo founder interviews (2015-2022)',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2015)', focus: 'Homeschool Community Wedge', milestone: 'Founded in YC (W16) targeting alternative homeschool families needing specialized elective classes.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2017)', focus: 'Small-Group Video Cohorts', milestone: 'Shifted from 1-on-1 to 4-8 student live video groups to make pricing affordable ($15/session).' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2019)', focus: 'Interest-Driven Learning', milestone: 'Positioned as fun, passionate learning outside rigid state curricula (e.g. Harry Potter chemistry).' },
+          { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2020)', focus: 'Lifeline During School Closures', milestone: 'Exploded during lockdowns; teachers created thousands of innovative mini-courses.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 5 (2021)', focus: 'Series D ($3B Valuation)', milestone: 'Expanded international supply and established enterprise school district partnerships.' },
+        ],
+        takeaways: {
+          positioningLesson: 'Small group cohorts divided the hourly cost of the teacher, making premium live learning accessible to budget-conscious families.',
+          sequencingLesson: 'Focused strictly on homeschoolers as a tight, communicative beachhead before mass market adoption.',
+          productToBrandTransition: 'Allowed passionate educators to name and price their own creative courses, fostering unique supply.',
+          customerAcquisitionLesson: 'Parent-to-parent social sharing and educator self-promotion drove organic viral growth.',
+          distributionLesson: 'Parent community groups → Teacher self-marketing → District enrichment grants.',
+          expansionLesson: 'Expanded from niche electives to core academic remediation and summer bootcamps.',
+          brandIdentityLesson: 'Playful, inspiring colors and teacher video intros demystified the online classroom.',
+          whatNotToCopy: 'Do not assume pandemic-era surge growth is permanent; anchor retention in core measurable skill improvements.',
+          sequencingLessons: 'Focused strictly on homeschoolers as a tight beachhead before mass market adoption.',
+          positioningDecisions: 'Small group cohorts divided the hourly cost of the teacher, making live learning affordable.',
+          distributionStrategy: 'Parent community groups → Teacher self-marketing → District enrichment grants.',
+          mistakesAndRisks: 'Quality control variance across independent teachers can harm brand reputation if reviews are unverified.',
         },
-        {
-          id: 'cr_3',
-          competitorName: 'Fellow Products',
-          category: 'Coffee Hardware & Design',
-          evolutionTrajectory: 'Kickstarter French Press (Duo) → Design-Icon Stagg EKG Kettle → Omnichannel Lifestyle Brand',
-          validationStatus: 'VERIFIED',
-          sourceEvidence: 'Stanford d.school origin, Fast Company Design Award profiles',
-          stages: [
-            { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2013)', focus: 'Crowdfunded Duo Coffee Steeper', milestone: 'Raised $193K on Kickstarter out of Stanford d.school class project.' },
-            { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2015)', focus: 'Pour-Over Ergonomics', milestone: 'Launched Stagg Pour-Over Kettle with precision gooseneck and counterbalanced handle.' },
-            { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2017)', focus: 'Kitchen Counterpiece Luxury', milestone: 'Positioned coffee gear as museum-worthy industrial design rather than utility appliances.' },
-            { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2018)', focus: 'Matte Black Minimalist Aesthetic', milestone: 'Stagg EKG won Red Dot Design Award; became the de facto barista competition standard.' },
-            { stageName: 'EXPANSION', yearOrPhase: 'Phase 5 (2021)', focus: 'Ode Brew Grinder Category Entry', milestone: 'Raised $30M Series B to enter electric grinder market; opened Venice, CA retail store.' },
-            { stageName: 'GROWTH', yearOrPhase: 'Phase 6 (2023)', focus: 'Fellow Drops Coffee Marketplace', milestone: 'Monetized hardware customer base with curated SMS coffee bean drops.' },
-          ],
-          takeaways: {
-            positioningLesson: 'Turned a commodity electric kettle into a $165 design centerpiece that owners proudly display on countertops.',
-            sequencingLesson: 'Started with crowdfunding to pre-validate consumer demand and finance expensive tooling before taking venture capital.',
-            productToBrandTransition: 'Used industrial design excellence and counterbalanced ergonomics as the primary marketing mechanism.',
-            customerAcquisitionLesson: 'Seeded hardware with World Brewers Cup champions to establish professional authority.',
-            distributionLesson: 'Kickstarter → Specialty roaster cafes (wholesale showrooming) → Direct D2C e-commerce → MoMA Design Store.',
-            expansionLesson: 'Cross-sold recurring bean drops via SMS to customers who already purchased expensive brewing gear.',
-            brandIdentityLesson: 'Understated matte black and copper accents created a recognizable visual signature across product categories.',
-            whatNotToCopy: 'Hardware design requires 12-18 month tooling lead times; ensure cash reserves can handle tooling iterations.',
-            sequencingLessons: 'Started with crowdfunding to pre-validate consumer demand and finance expensive tooling before taking venture capital.',
-            positioningDecisions: 'Turned a commodity electric kettle into a $165 design centerpiece that owners proudly display on countertops.',
-            distributionStrategy: 'Kickstarter → Specialty roaster cafes (wholesale showrooming) → Direct D2C e-commerce → MoMA Design Store.',
-            mistakesAndRisks: 'Hardware recalls and firmware bugs on V1 grinders required costly re-engineering of motor burs.',
-          },
+      },
+    ];
+  } else if (isFoodWaste) {
+    baseRoadmaps = [
+      {
+        id: 'cr_fw_1',
+        competitorName: 'Too Good To Go',
+        category: 'Food Waste Marketplace',
+        evolutionTrajectory: 'Copenhagen restaurant surplus bags → Multi-country consumer marketplace → B2B food rescue ecosystem',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'B Corp public impact reports, European venture funding filings',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2016)', focus: 'Buffet & Bakery Surplus Bags', milestone: 'Founded in Copenhagen to help bakeries sell end-of-day surplus in surprise bags.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2018)', focus: 'Magic Bag App Funnel', milestone: 'Standardized the "Surprise Bag" concept: fixed 1/3 price, zero inventory prediction needed by merchants.' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2020)', focus: 'Save Good Food, Save Money', milestone: 'Positioned at the intersection of climate action and household grocery savings.' },
+          { stageName: 'EXPANSION', yearOrPhase: 'Phase 4 (2022)', focus: 'Supermarket & Hotel Chains', milestone: 'Onboarded Carrefour, ALDI, and Accor hotels; surpassed 100M meals saved.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 5 (2024)', focus: 'Look-Smell-Taste Labeling Initiative', milestone: 'Partnered with global FMCG brands to replace confusing "best before" date codes.' },
+        ],
+        takeaways: {
+          positioningLesson: 'The "Surprise Bag" removed all operational cataloging burden from busy restaurant managers.',
+          sequencingLesson: 'Started with independent bakeries and cafes who naturally had daily perishable surplus before signing supermarket chains.',
+          productToBrandTransition: 'Made saving food feel like a fun consumer treasure hunt rather than charitable waste pickup.',
+          customerAcquisitionLesson: 'Viral TikTok unboxings of surprise bakery hauls drove zero-CAC consumer downloads.',
+          distributionLesson: 'Direct restaurant merchant onboarding → Word-of-mouth student app adoption → Enterprise grocery partnerships.',
+          expansionLesson: 'Expanded from city centers to suburbs and grocery retail supply chains.',
+          brandIdentityLesson: 'Vibrant green palette and playful typography framed food waste as a positive daily climate habit.',
+          whatNotToCopy: 'Surplus marketplaces can cannibalize regular high-margin sales if pickup time windows are set too early.',
+          sequencingLessons: 'Started with independent bakeries and cafes before signing supermarket chains.',
+          positioningDecisions: 'The Surprise Bag removed all operational cataloging burden from busy restaurant staff.',
+          distributionStrategy: 'Direct merchant onboarding → Viral TikTok unboxings → Enterprise grocery partnerships.',
+          mistakesAndRisks: 'Merchant churn occurs if pickup windows create long lines that distract regular dining guests.',
         },
-      ]
-    : [
-        {
-          id: 'cr_1',
-          competitorName: 'Datadog',
-          category: 'Cloud Monitoring & Observability',
-          evolutionTrajectory: 'DevOps Infrastructure Monitoring → Unified APM & Logs → Enterprise Multi-Cloud Observability Platform',
-          validationStatus: 'VERIFIED',
-          sourceEvidence: 'Public S-1 filing (2019), public earnings calls (2010-2023)',
-          stages: [
-            { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2010)', focus: 'Breaking Dev vs Ops Silos', milestone: 'Founded by Olivier Pomel & Alexis Lê-Quôc to solve friction between dev and ops teams.' },
-            { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2012)', focus: 'Cloud Server Metrics', milestone: 'Released open-source agent for AWS EC2 instances; simple installation in <5 minutes.' },
-            { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2014)', focus: 'Turn Chaos into Clarity', milestone: 'Positioned as the first cloud-scale monitoring service supporting dynamic container workloads.' },
-            { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2016)', focus: 'Friendly Dog Mascot & Dark UI', milestone: 'Stood out against legacy IBM/HP/CA enterprise suites with clean dark charts and recognizable mascot.' },
-            { stageName: 'MARKET ENTRY', yearOrPhase: 'Phase 5 (2018)', focus: 'Unified Metrics, Traces & Logs', milestone: 'Expanded beyond server metrics to full APM tracing and distributed log analytics.' },
-            { stageName: 'EXPANSION', yearOrPhase: 'Phase 6 (2019)', focus: 'NASDAQ IPO ($10B+ Valuation)', milestone: 'Listed on NASDAQ; expanded into security monitoring and synthetic testing.' },
-            { stageName: 'GROWTH', yearOrPhase: 'Phase 7 (2023)', focus: 'LLM Observability & Cloud Security', milestone: 'Surpassed $2B ARR driven by multi-product land-and-expand account growth.' },
-          ],
-          takeaways: {
-            positioningLesson: 'Targeted the shift from on-premise servers to AWS cloud instances when legacy monitoring vendors were too slow to adapt.',
-            sequencingLesson: 'Started with an ultra-fast agent install (<5 minutes) that delivered immediate visibility before adding APM and logs.',
-            productToBrandTransition: 'Emphasized developer joy, approachable documentation, and polished dark dashboards over traditional enterprise sales pitches.',
-            customerAcquisitionLesson: 'Bottom-up adoption by engineering teams who put corporate credit cards on file without procurement friction.',
-            distributionLesson: 'Self-serve free trial → Engineering team adoption → Bottom-up enterprise procurement.',
-            expansionLesson: 'Added logs, APM, and security modules so customers grew contract value organically year after year.',
-            brandIdentityLesson: 'Playful dog icon softened complex enterprise infrastructure, making it approachable.',
-            whatNotToCopy: 'Avoid launching with 15 observability products simultaneously; win with one high-friction operational metric first.',
-            sequencingLessons: 'Started with an ultra-fast agent install (<5 minutes) that delivered immediate visibility before adding APM and logs.',
-            positioningDecisions: 'Targeted the shift from on-premise servers to AWS cloud instances when legacy monitoring vendors were too slow to adapt.',
-            distributionStrategy: 'Self-serve free trial → Engineering team adoption → Bottom-up enterprise procurement.',
-            mistakesAndRisks: 'Unpredictable consumption billing created customer friction around unexpected month-end invoice spikes.',
-          },
+      },
+    ];
+  } else if (isMealDelivery) {
+    baseRoadmaps = [
+      {
+        id: 'cr_md_1',
+        competitorName: 'HelloFresh',
+        category: 'Meal Kit & Healthy Delivery',
+        evolutionTrajectory: 'Hand-packed brown paper bags (Berlin) → Subscription meal kit leader → Multi-brand fresh food group ($10B+ GMV)',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'Public annual reports, founder interviews with Dominik Richter',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2011)', focus: 'Hand-Packed Ingredient Bags', milestone: 'Founders hand-shopped and packed the first 10 meal kits in Berlin to test recipe viability.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2013)', focus: '30-Minute Step-by-Step Recipes', milestone: 'Standardized pre-portioned spices and vacuum-sealed proteins with laminated photo recipe cards.' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2015)', focus: 'Healthy Home Cooking Without Shopping', milestone: 'Positioned as dinner inspiration for busy working couples and families tired of grocery chaos.' },
+          { stageName: 'EXPANSION', yearOrPhase: 'Phase 4 (2017)', focus: 'Frankfurt IPO & US Market Conquest', milestone: 'Went public on Frankfurt Stock Exchange; overtook Blue Apron as #1 US meal kit by market share.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 5 (2021)', focus: 'Factor75 Acquisition (Ready-to-Eat)', milestone: 'Acquired Factor to expand into fully prepared microwaveable healthy meals for time-poor professionals.' },
+        ],
+        takeaways: {
+          positioningLesson: 'Shifted positioning from "learn gourmet cooking" to "healthy, reliable dinner in under 20 minutes".',
+          sequencingLesson: 'Perfected fulfillment and refrigerated packaging logistics in one country before aggressive international expansion.',
+          productToBrandTransition: 'The visual recipe card with exact prep times became a beloved household fixture.',
+          customerAcquisitionLesson: 'Aggressive referral voucher boxes sent between friends drove massive early customer acquisition.',
+          distributionLesson: 'Direct-to-consumer refrigerated delivery with automated weekly subscription swaps.',
+          expansionLesson: 'Expanded from raw ingredient kits to prepared meals and corporate office deliveries.',
+          brandIdentityLesson: 'Fresh lime green branding reinforced freshness, energy, and wholesome nutrition.',
+          whatNotToCopy: 'Avoid massive upfront discounting if customer 90-day retention does not cover the initial acquisition subsidy.',
+          sequencingLessons: 'Perfected fulfillment and packaging in one region before aggressive multi-city expansion.',
+          positioningDecisions: 'Positioned as healthy, reliable meals in under 20 minutes for busy professionals.',
+          distributionStrategy: 'Direct-to-consumer refrigerated delivery with automated weekly subscription swaps.',
+          mistakesAndRisks: 'High customer churn if weekly menu customization requires too many manual clicks.',
         },
-        {
-          id: 'cr_2',
-          competitorName: 'Amplitude',
-          category: 'Product Analytics & Behavioral Data',
-          evolutionTrajectory: 'Text messaging app (Sonalight) → Internal analytics tool → Self-serve product analytics leader',
-          validationStatus: 'VERIFIED',
-          sourceEvidence: 'Spenser Skates founder interviews, S-1 public registration statement (2021)',
-          stages: [
-            { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2012)', focus: 'Internal Tool Pivot', milestone: 'Original voice app failed; pivoted to commercialize internal event tracking system.' },
-            { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2014)', focus: 'Scalable Behavioral Cohorting', milestone: 'Built proprietary Nova query engine capable of querying billions of user actions in seconds.' },
-            { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2016)', focus: 'Product-Led Growth Engine', milestone: 'Positioned against Google Analytics: "Pageviews don’t matter, retention and behavior matter."' },
-            { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2018)', focus: 'The Product Intelligence Company', milestone: 'Rebranded from simple charts to a strategic platform that drives digital revenue.' },
-            { stageName: 'EXPANSION', yearOrPhase: 'Phase 5 (2020)', focus: 'Session Replay & Feature Flags', milestone: 'Launched Experiment and CDP to provide end-to-end product optimization.' },
-            { stageName: 'GROWTH', yearOrPhase: 'Phase 6 (2021)', focus: 'Direct Listing on NASDAQ', milestone: 'Direct listed at $5B valuation with 1,200+ enterprise customers.' },
-          ],
-          takeaways: {
-            positioningLesson: 'Coined "Product Intelligence" to move out of the commoditized web-analytics category and speak directly to Chief Product Officers.',
-            sequencingLesson: 'Invested heavily in proprietary query architecture (Nova) early on so speed remained sub-second as customer event volume grew 100x.',
-            productToBrandTransition: 'Published "The Product Analytics Playbook" as a free definitive guide, turning education into customer acquisition.',
-            customerAcquisitionLesson: 'Offered 10M free monthly events to high-growth startups, converting them to 6-figure contracts as they scaled.',
-            distributionLesson: 'Generous free tier (10M monthly events) to seed startups, converting them to 6-figure contracts as they scaled.',
-            expansionLesson: 'Expanded from behavioral charts to feature flags and A/B testing experimentation.',
-            brandIdentityLesson: 'Dark cobalt and neon coral palette signaled high-performance analytical precision.',
-            whatNotToCopy: 'Do not attempt to build a custom columnar database engine unless standard managed databases provably cannot handle your data volume.',
-            sequencingLessons: 'Invested heavily in proprietary query architecture (Nova) early on so speed remained sub-second as customer event volume grew 100x.',
-            positioningDecisions: 'Coined "Product Intelligence" to move out of the commoditized web-analytics category and speak directly to Chief Product Officers.',
-            distributionStrategy: 'Generous free tier (10M monthly events) to seed startups, converting them to 6-figure contracts as they scaled.',
-            mistakesAndRisks: 'Pricing models tied strictly to event volume created customer hesitation around tracking too many user actions.',
-          },
+      },
+    ];
+  } else if (isHomeRepair) {
+    baseRoadmaps = [
+      {
+        id: 'cr_hr_1',
+        competitorName: 'Thumbtack',
+        category: 'Local Services Marketplace',
+        evolutionTrajectory: 'Classified quote requests → Instant booking & pricing platform → Category leader across 500+ home services',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'Marco Zappacosta founder interviews, Forbes & TechCrunch profiles',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2008)', focus: 'Local Handyman & Contractor RFPs', milestone: 'Bootstrapped for years helping local repair pros find project leads through structured online job requests.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2012)', focus: 'Pay-to-Bid Lead Model', milestone: 'Pros paid small fees ($5-15) to submit competitive bids directly to homeowners with specific repairs.' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2016)', focus: 'Hire Local Pros with Confidence', milestone: 'Positioned as the verified background-checked alternative to Craigslist and anonymous boards.' },
+          { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2019)', focus: 'Instant Results & Upfront Pricing', milestone: 'Shifted from slow bidding to instant booking with algorithmic price estimates.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 5 (2022)', focus: 'Home Care Annual Maintenance', milestone: 'Launched seasonal maintenance guides to turn one-off emergency repairs into recurring homeowner relationships.' },
+        ],
+        takeaways: {
+          positioningLesson: 'Homeowners do not want 20 quotes; they want 1 trusted, vetted pro who can arrive on time with fair pricing.',
+          sequencingLesson: 'Seeded technician supply city by city before spending heavily on consumer demand marketing.',
+          productToBrandTransition: 'Upfront verified pricing and pro background badges eliminated homeowner anxiety.',
+          customerAcquisitionLesson: 'Targeted high-intent search queries for urgent home repairs (e.g. "emergency plumber near me").',
+          distributionLesson: 'Localized SEO pages → Mobile consumer app → Homeowner property profile maintenance plans.',
+          expansionLesson: 'Expanded from emergency repairs to planned home remodeling and routine preventative maintenance.',
+          brandIdentityLesson: 'Approachable warm tones and clean iconography made local home services feel modern and reliable.',
+          whatNotToCopy: 'Avoid charging technicians for dead leads who never reply; align marketplace monetization with completed bookings.',
+          sequencingLessons: 'Seeded technician supply city by city before spending heavily on consumer marketing.',
+          positioningDecisions: 'Homeowners want 1 trusted, vetted pro with upfront pricing, not 20 random quotes.',
+          distributionStrategy: 'Localized SEO pages → Mobile consumer app → Annual home maintenance guides.',
+          mistakesAndRisks: 'Pro churn occurs if lead fees are deducted without generating real revenue for the contractor.',
         },
-        {
-          id: 'cr_3',
-          competitorName: 'Mixpanel',
-          category: 'Event-Based Analytics',
-          evolutionTrajectory: 'Funnel analytics tool → Complex enterprise suite → Re-simplified self-serve analytics platform',
-          validationStatus: 'VERIFIED',
-          sourceEvidence: 'Suhail Doshi founder retrospectives, Mixpanel product changelog (2009-2024)',
-          stages: [
-            { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2009)', focus: 'Conversion Funnel Tracking', milestone: 'Founded in Y Combinator (S09); made tracking web conversion drop-offs effortless.' },
-            { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2011)', focus: 'Mobile App SDKs', milestone: 'Rode the iOS/Android app boom by providing real-time mobile user event tracking.' },
-            { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2013)', focus: 'Actions Speak Louder than Pageviews', milestone: 'Positioned as the essential tool for startup founders to measure engagement.' },
-            { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2017)', focus: 'Enterprise Sales Pivot', milestone: 'Shifted focus to enterprise RFPs with complex custom pricing; alienated early startup base.' },
-            { stageName: 'MARKET ENTRY', yearOrPhase: 'Phase 5 (2020)', focus: 'Self-Serve Renaissance', milestone: 'Under new leadership, eliminated sales friction, introduced free tier, and overhauled UI.' },
-            { stageName: 'GROWTH', yearOrPhase: 'Phase 6 (2023)', focus: 'Warehouse-Native Analytics', milestone: 'Integrated directly with Snowflake and BigQuery to analyze data without dual ingestion.' },
-          ],
-          takeaways: {
-            positioningLesson: 'Successfully reclaimed market share by returning to transparent self-serve pricing after enterprise over-complexity stalled growth.',
-            sequencingLesson: 'Won early by being the simplest tool to answer "where do users drop off in my signup funnel?".',
-            productToBrandTransition: 'Invested in high-craft UI/UX and dark mode visualizations that engineers and product managers enjoyed looking at all day.',
-            customerAcquisitionLesson: 'Viral badge attribution ("Analytics by Mixpanel") embedded on thousands of startup footers.',
-            distributionLesson: 'Self-serve PLG with transparent tier pricing ($20/mo to $800/mo) without forcing buyers into enterprise sales calls.',
-            expansionLesson: 'Warehouse-native query execution eliminated separate ETL pipelines for modern data teams.',
-            brandIdentityLesson: 'Understated, sleek typography and high-contrast charts built deep developer affinity.',
-            whatNotToCopy: 'Never abandon your core self-serve startup adopters to chase enterprise deals before your product has mature enterprise governance.',
-            sequencingLessons: 'Won early by being the simplest tool to answer "where do users drop off in my signup funnel?".',
-            positioningDecisions: 'Successfully reclaimed market share by returning to transparent self-serve pricing after enterprise over-complexity stalled growth.',
-            distributionStrategy: 'Self-serve PLG with transparent tier pricing ($20/mo to $800/mo) without forcing buyers into enterprise sales calls.',
-            mistakesAndRisks: 'Moving upmarket prematurely and abandoning the startup self-serve tier allowed Amplitude and Heap to capture market share.',
-          },
+      },
+    ];
+  } else if (isApparel) {
+    baseRoadmaps = [
+      {
+        id: 'cr_app_1',
+        competitorName: 'Patagonia',
+        category: 'Technical & Ethical Apparel',
+        evolutionTrajectory: 'Hand-forged climbing pitons → Technical outdoor gear → Global ethical apparel icon ($1B+ revenue)',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'Yvon Chouinard memoir "Let My People Go Surfing", 1% for the Planet filings',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (1973)', focus: 'Rugged Climbing Apparel', milestone: 'Founded in Ventura, CA by climber Yvon Chouinard after importing heavy rugby shirts for rock climbing.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (1980)', focus: 'Synchilla Fleece & Layering', milestone: 'Pioneered synthetic fleece and capilene underwear for lightweight thermal regulation in sub-zero alpine conditions.' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (1996)', focus: '100% Organic Cotton & Repair', milestone: 'Switched entire supply chain to organic cotton; launched Ironclad Guarantee and Worn Wear repair program.' },
+          { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2011)', focus: 'Don’t Buy This Jacket Campaign', milestone: 'Famous NYT Black Friday ad challenged fast-fashion consumerism and boosted brand reverence.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 5 (2022)', focus: 'Earth is Our Only Shareholder', milestone: 'Transferred 100% of voting stock to environmental trust, securing perpetual brand independence.' },
+        ],
+        takeaways: {
+          positioningLesson: 'Positioned as an uncompromising technical tool for athletes, which organically crossed over into daily urban lifestyle wear.',
+          sequencingLesson: 'Built extreme technical credibility with mountaineers before expanding into mainstream casual fleece and outerwear.',
+          productToBrandTransition: 'Durability and free lifetime repair became the most powerful marketing mechanism in fashion.',
+          customerAcquisitionLesson: 'Authentic grassroots environmental advocacy created fierce customer loyalty with zero reliance on flash sales.',
+          distributionLesson: 'Specialty outdoor dealers → Flagship brand stores → Direct D2C website.',
+          expansionLesson: 'Expanded from alpine technical gear to urban workwear, surf apparel, and organic provisions.',
+          brandIdentityLesson: 'Fitz Roy mountain skyline logo became a global badge of quality, adventure, and environmental integrity.',
+          whatNotToCopy: 'Do NOT try to replicate Patagonia’s multi-decade organic cotton supply chain Day 1; start with focused small-batch craft.',
+          sequencingLessons: 'Built extreme technical credibility with core athletes before expanding to casual urban lifestyle wear.',
+          positioningDecisions: 'Positioned as an uncompromising technical tool for durability, crossing over to urban lifestyle.',
+          distributionStrategy: 'Specialty outdoor dealers → Flagship brand stores → Direct D2C website.',
+          mistakesAndRisks: 'Using synthetic petroleum fabrics without a clear recycling lifecycle harms eco-conscious brand positioning.',
         },
-      ];
+      },
+    ];
+  } else if (isCoffee) {
+    baseRoadmaps = [
+      {
+        id: 'cr_cof_1',
+        competitorName: 'Blue Bottle Coffee',
+        category: 'Specialty Coffee / CPG',
+        evolutionTrajectory: 'Micro-roaster kiosk (Oakland) → D2C Freshness Subscription → Flagship Cafes → Nestlé Acquisition ($500M)',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'Public SEC filings, founder interviews with James Freeman (2002-2017)',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2002)', focus: 'Extreme Roast Freshness', milestone: 'Founded in Oakland farmers market with rule: coffee sold within 48h of roasting.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2005)', focus: 'Single-Origin Pour Over', milestone: 'Opened kiosk on Linden St; eliminated multi-origin bulk espresso blends.' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2008)', focus: 'Anti-Starbucks Aesthetic', milestone: 'Minimalist white-space branding; emphasizing craft, origin, and reverence.' },
+          { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2012)', focus: 'Signature Pastel Blue Bottle Mark', milestone: 'Packaging redesign elevated blue bottle logo into a luxury design signifier.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 5 (2017)', focus: 'Global Omnichannel Scale', milestone: 'Nestlé acquired 68% stake for ~$500M to anchor premium global portfolio.' },
+        ],
+        takeaways: {
+          positioningLesson: 'Positioned explicitly against dark-roast commercial coffee by treating beans as delicate agricultural fruit.',
+          sequencingLesson: 'Started with an uncompromising quality constraint (48-hour freshness) that earned fanatical word-of-mouth before opening permanent stores.',
+          productToBrandTransition: 'The physical cafe aesthetic (minimalist wood & concrete) reinforced the premium price point ($6/cup) without advertising.',
+          customerAcquisitionLesson: 'Turned the in-cafe barista pour-over ritual into a theater of craft that drove organic peer-to-peer recommendation.',
+          distributionLesson: 'Farmers market → 1 Flagship kiosk → D2C Web Subscriptions → Wholesale Grocery cans.',
+          expansionLesson: 'Expanded to Tokyo only after brand prestige was solidified in the domestic US market.',
+          brandIdentityLesson: 'Minimalist blue bottle glyph on clean brown kraft paper stood out immediately against busy grocery aisle graphics.',
+          whatNotToCopy: 'Do NOT try to open retail stores and manufacture RTD cans simultaneously Day 1; focus strictly on one distribution wedge.',
+          sequencingLessons: 'Started with an uncompromising quality constraint (48-hour freshness) that earned fanatical word-of-mouth.',
+          positioningDecisions: 'Positioned explicitly against dark-roast commercial coffee by treating beans as delicate fruit.',
+          distributionStrategy: 'Farmers market → 1 Flagship kiosk → D2C Web Subscriptions → Wholesale Grocery cans.',
+          mistakesAndRisks: 'Rapid expansion into retail cans risked diluting the original freshness promise.',
+        },
+      },
+    ];
+  } else {
+    // Default SaaS / Software
+    baseRoadmaps = [
+      {
+        id: 'cr_saas_1',
+        competitorName: 'Linear',
+        category: 'Issue Tracking & Project Management',
+        evolutionTrajectory: 'Opinionated developer tool → Silicon Valley startup standard → High-craft product-led category leader',
+        validationStatus: 'VERIFIED',
+        sourceEvidence: 'Karri Saarinen founder retrospectives, public product updates (2019-2024)',
+        stages: [
+          { stageName: 'FOUNDING', yearOrPhase: 'Phase 1 (2019)', focus: 'Extreme Speed & Keyboard Shortcuts', milestone: 'Founded by ex-Airbnb/Coinbase designers to replace sluggish Jira with sub-50ms sync speed.' },
+          { stageName: 'EARLY PRODUCT', yearOrPhase: 'Phase 2 (2020)', focus: 'Private Beta & Design Polish', milestone: 'Kept private beta invite-only; seeded among elite technical founders and designers.' },
+          { stageName: 'POSITIONING', yearOrPhase: 'Phase 3 (2021)', focus: 'Opinionated Product Workflows', milestone: 'Positioned against bloated enterprise configurability: "Software built for modern high-performance teams."' },
+          { stageName: 'BRAND', yearOrPhase: 'Phase 4 (2022)', focus: 'Dark Mode & Typographic Elegance', milestone: 'Signature gradient branding and silky 60fps animations made task tracking feel like craft.' },
+          { stageName: 'GROWTH', yearOrPhase: 'Phase 5 (2024)', focus: 'Linear Asks & Enterprise Workspaces', milestone: 'Expanded from engineering teams into company-wide project management with zero sales team.' },
+        ],
+        takeaways: {
+          positioningLesson: 'Positioned against market incumbent Jira on speed, minimalism, and keyboard-first developer happiness.',
+          sequencingLesson: 'Kept the product in private beta until the core sync engine was blisteringly fast before opening public signups.',
+          productToBrandTransition: 'Exceptional craft and UI responsiveness acted as the primary customer acquisition magnet.',
+          customerAcquisitionLesson: 'Organic Twitter/X advocacy from influential engineers created an aspirational standard in tech.',
+          distributionLesson: 'Invite-only beta → Self-serve product-led growth → Bottom-up engineering team expansion.',
+          expansionLesson: 'Expanded from bug tracking to project roadmaps, customer requests, and cross-team initiatives.',
+          brandIdentityLesson: 'Understated dark mode aesthetic and subtle glowing accents signaled high-performance precision.',
+          whatNotToCopy: 'Avoid building custom desktop clients (Electron) until core web application mechanics are bulletproof.',
+          sequencingLessons: 'Kept the product in private beta until the core sync engine was blisteringly fast.',
+          positioningDecisions: 'Positioned against market incumbent Jira on speed, minimalism, and developer happiness.',
+          distributionStrategy: 'Invite-only beta → Self-serve product-led growth → Bottom-up engineering team expansion.',
+          mistakesAndRisks: 'Refusing all enterprise customization requests can limit penetration in traditional non-tech corporations.',
+        },
+      },
+    ];
+  }
+
+  const competitorRoadmaps: CompetitorRoadmapItem[] = baseRoadmaps;
 
   // Dynamically incorporate upstream competitors from Stage 03 if available
   if (marketIntelligence?.competitors && marketIntelligence.competitors.length > 0) {

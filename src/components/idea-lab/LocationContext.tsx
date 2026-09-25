@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useProject } from '../../context/ProjectContext';
 import type { DeliveryModel, CustomerType } from '../../types/project';
 import { Card } from '../common/Card';
-import { Input } from '../common/Input';
 import { Badge } from '../common/Badge';
-import { MapPin, Globe, Store, Laptop } from 'lucide-react';
+import {
+  Globe,
+  Store,
+  Laptop,
+  AlertTriangle,
+  Building2,
+} from 'lucide-react';
+import {
+  GEOGRAPHY_REGISTRY,
+  validateGeographySelection,
+  type OperatingScope,
+} from '../../services/geographyRegistry';
 
 export const LocationContext: React.FC = () => {
   const {
@@ -15,6 +25,146 @@ export const LocationContext: React.FC = () => {
   } = useProject();
 
   const { location, deliveryModel, customerType } = state.businessModel;
+
+  const parsedGeo = useMemo(() => {
+    const c = location.country || '';
+    let st = '';
+    let ci = '';
+    if (location.cityRegion) {
+      const parts = location.cityRegion.split(',').map((p) => p.trim());
+      if (parts.length >= 2) {
+        ci = parts[0];
+        st = parts[1];
+      } else {
+        const matchingCountry = GEOGRAPHY_REGISTRY.find(
+          (item) => item.name.toLowerCase() === c.toLowerCase()
+        );
+        const isState = matchingCountry?.states.some(
+          (s) => s.name.toLowerCase() === location.cityRegion.toLowerCase()
+        );
+        if (isState) {
+          st = location.cityRegion;
+        } else {
+          ci = location.cityRegion;
+        }
+      }
+    }
+    const scope = (location.operatingLocation as OperatingScope) || 'undecided';
+    return { country: c, state: st, city: ci, scope };
+  }, [location.country, location.cityRegion, location.operatingLocation]);
+
+  // Selected Country, State, City derived from current Project State with local override capability
+  const [selectedCountry, setSelectedCountry] = useState<string>(parsedGeo.country);
+  const [selectedState, setSelectedState] = useState<string>(parsedGeo.state);
+  const [selectedCity, setSelectedCity] = useState<string>(parsedGeo.city);
+  const [operatingScope, setOperatingScope] = useState<OperatingScope>(parsedGeo.scope);
+
+  // Sync state when incoming location changes from outside (e.g. sample venture load or reset)
+  const [prevGeoKey, setPrevGeoKey] = useState<string>(`${parsedGeo.country}|${parsedGeo.state}|${parsedGeo.city}|${parsedGeo.scope}`);
+  const currentGeoKey = `${parsedGeo.country}|${parsedGeo.state}|${parsedGeo.city}|${parsedGeo.scope}`;
+  if (currentGeoKey !== prevGeoKey) {
+    setPrevGeoKey(currentGeoKey);
+    setSelectedCountry(parsedGeo.country);
+    setSelectedState(parsedGeo.state);
+    setSelectedCity(parsedGeo.city);
+    setOperatingScope(parsedGeo.scope);
+  }
+
+  // Find country data from registry
+  const countryObj = useMemo(() => {
+    return GEOGRAPHY_REGISTRY.find(
+      (c) => c.name.toLowerCase() === selectedCountry.trim().toLowerCase(),
+    );
+  }, [selectedCountry]);
+
+  // Available states for selected country
+  const availableStates = useMemo(() => {
+    return countryObj ? countryObj.states : [];
+  }, [countryObj]);
+
+  // Available cities for selected state
+  const availableCities = useMemo(() => {
+    if (!countryObj || !selectedState) return [];
+    const st = countryObj.states.find(
+      (s) => s.name.toLowerCase() === selectedState.trim().toLowerCase(),
+    );
+    return st ? st.cities : [];
+  }, [countryObj, selectedState]);
+
+  // Validation
+  const validation = useMemo(() => {
+    if (!selectedCountry || selectedCountry === 'Not specified') return { isValid: true };
+    return validateGeographySelection(selectedCountry, selectedState, selectedCity);
+  }, [selectedCountry, selectedState, selectedCity]);
+
+  // Handlers that update ProjectContext only when valid
+  const handleCountryChange = (cName: string) => {
+    setSelectedCountry(cName);
+    setSelectedState('');
+    setSelectedCity('');
+    if (!cName || cName === 'Not specified') {
+      setLocation({ country: '', cityRegion: '', operatingLocation: operatingScope === 'undecided' ? '' : operatingScope });
+    } else {
+      setLocation({ country: cName, cityRegion: '', operatingLocation: operatingScope === 'undecided' ? '' : operatingScope });
+    }
+  };
+
+  const handleStateChange = (sName: string) => {
+    setSelectedState(sName);
+    setSelectedCity('');
+    const cityRegionStr = sName;
+    setLocation({
+      country: selectedCountry,
+      cityRegion: cityRegionStr,
+      operatingLocation: operatingScope === 'undecided' ? '' : operatingScope,
+    });
+  };
+
+  const handleCityChange = (cityName: string) => {
+    setSelectedCity(cityName);
+    const valid = validateGeographySelection(selectedCountry, selectedState, cityName);
+    if (valid.isValid) {
+      const cityRegionStr = selectedState ? `${cityName}, ${selectedState}` : cityName;
+      setLocation({
+        country: selectedCountry,
+        cityRegion: cityRegionStr,
+        operatingLocation: operatingScope === 'undecided' ? '' : operatingScope,
+      });
+    }
+  };
+
+  const handleScopeChange = (scope: OperatingScope) => {
+    setOperatingScope(scope);
+    if (scope === 'international') {
+      if (!selectedCountry) {
+        setSelectedCountry('Global / Multiple Countries');
+        setSelectedState('Worldwide / Cross-Border');
+        setSelectedCity('Worldwide / Online');
+        setLocation({
+          country: 'Global / Multiple Countries',
+          cityRegion: 'Worldwide / Cross-Border',
+          operatingLocation: 'international',
+        });
+        return;
+      }
+    } else if (scope === 'national') {
+      if (selectedCountry === 'India') {
+        setSelectedState('All / Pan-India');
+        setSelectedCity('Nationwide / Multiple Cities');
+        setLocation({
+          country: 'India',
+          cityRegion: 'Pan-India',
+          operatingLocation: 'national',
+        });
+        return;
+      }
+    }
+    setLocation({
+      country: selectedCountry,
+      cityRegion: selectedCity && selectedState ? `${selectedCity}, ${selectedState}` : selectedState || selectedCity,
+      operatingLocation: scope === 'undecided' ? '' : scope,
+    });
+  };
 
   const deliveryOptions: { id: DeliveryModel; label: string; icon: React.ElementType; accent: string; wash: string }[] = [
     { id: 'online', label: 'Online / Digital', icon: Laptop, accent: '#486581', wash: '#DCEAF4' },
@@ -29,44 +179,157 @@ export const LocationContext: React.FC = () => {
     { id: 'b2b2c', label: 'B2B2C', sub: 'Intermediary channel model', accent: '#A87932' },
   ];
 
+  const scopeOptions: { id: OperatingScope; label: string; sub: string }[] = [
+    { id: 'local', label: 'Local Scope', sub: 'Specific city / neighborhood' },
+    { id: 'regional', label: 'Regional Scope', sub: 'State or province level' },
+    { id: 'national', label: 'National Scope', sub: 'Domestic countrywide reach' },
+    { id: 'international', label: 'Global / Export', sub: 'Multi-country or worldwide' },
+    { id: 'undecided', label: 'Location Undecided', sub: 'Not yet specified' },
+  ];
+
+  const isConfirmedGeo = Boolean(location.country || location.cityRegion);
+
   return (
     <Card
       title="Geographic & Operational Footprint"
-      subtitle="Establish operating boundaries and distribution channel dynamics. No fabricated local supplier data."
-      badge={<Badge variant="outline">Context Vectors</Badge>}
+      subtitle="Establish operating boundaries and distribution channel dynamics. Dependent validated selectors prevent geographic fabrication."
+      badge={
+        isConfirmedGeo ? (
+          <Badge variant="success">Confirmed Fact</Badge>
+        ) : (
+          <Badge variant="warning">Location Not Specified</Badge>
+        )
+      }
     >
       <div className="space-y-6">
-        {/* Geographic inputs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Input
-            label="Country"
-            placeholder="e.g. India, United States, Germany"
-            value={location.country}
-            onChange={(e) => setLocation({ country: e.target.value })}
-            icon={<Globe className="w-4 h-4" />}
-          />
+        {/* Operating Scope Selection */}
+        <div>
+          <label className="block text-xs font-mono uppercase text-[#4A5E73] font-medium mb-2">
+            Operating Scope & Footprint
+          </label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+            {scopeOptions.map((opt) => {
+              const isSelected = operatingScope === opt.id;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => handleScopeChange(opt.id)}
+                  className={`p-2.5 rounded-lg border text-left transition-all text-xs ${
+                    isSelected
+                      ? 'bg-[#2B3D4F] text-[#FDFCF8] border-[#2B3D4F] font-medium shadow-sm'
+                      : 'bg-[#F5F1EB] hover:bg-[#ECE6DA] border-[#DDD5C5] text-[#4A5E73]'
+                  }`}
+                >
+                  <div className="font-semibold">{opt.label}</div>
+                  <div className={`text-[10px] mt-0.5 truncate ${isSelected ? 'text-[#FDFCF8]/70' : 'text-[#6B7D90]'}`}>
+                    {opt.sub}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-          <Input
-            label="City / State / Region"
-            placeholder="e.g. Rajasthan, Jaipur, San Francisco"
-            value={location.cityRegion}
-            onChange={(e) => setLocation({ cityRegion: e.target.value })}
-            icon={<MapPin className="w-4 h-4" />}
-          />
+        {/* Dependent Structured Geographic Selectors */}
+        <div className="p-3.5 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono font-bold text-[#2B3D4F] flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-[#2B3D4F]" />
+              STRUCTURED LOCATION VECTORS
+            </span>
+            <span className="text-[10px] font-mono text-[#6B7D90]">Dependent validation</span>
+          </div>
 
-          <Input
-            label="Operating Scope / Radius"
-            placeholder="e.g. Domestic pan-India, Global export"
-            value={location.operatingLocation}
-            onChange={(e) => setLocation({ operatingLocation: e.target.value })}
-            helperText="Defines regulatory scope"
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {/* 1. Country */}
+            <div>
+              <label className="block text-[11px] font-mono uppercase text-[#4A5E73] font-medium mb-1">
+                Country
+              </label>
+              <select
+                aria-label="Country"
+                value={selectedCountry}
+                onChange={(e) => handleCountryChange(e.target.value)}
+                className="w-full text-xs px-3 py-2 rounded-lg border border-[#DDD5C5] bg-[#FDFCF8] text-[#2B3D4F] focus:outline-none focus:ring-1 focus:ring-[#2B3D4F]"
+              >
+                <option value="">-- Not specified --</option>
+                {GEOGRAPHY_REGISTRY.map((c) => (
+                  <option key={c.id} value={c.name}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 2. State / Region */}
+            <div>
+              <label className="block text-[11px] font-mono uppercase text-[#4A5E73] font-medium mb-1">
+                State / Region
+              </label>
+              <select
+                aria-label="State / Region"
+                value={selectedState}
+                disabled={!selectedCountry || availableStates.length === 0}
+                onChange={(e) => handleStateChange(e.target.value)}
+                className="w-full text-xs px-3 py-2 rounded-lg border border-[#DDD5C5] bg-[#FDFCF8] text-[#2B3D4F] focus:outline-none focus:ring-1 focus:ring-[#2B3D4F] disabled:opacity-50 disabled:bg-[#ECE6DA]"
+              >
+                <option value="">{availableStates.length === 0 ? '-- Select Country first --' : '-- All / Nationwide --'}</option>
+                {availableStates.map((s) => (
+                  <option key={s.id} value={s.name}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 3. City */}
+            <div>
+              <label className="block text-[11px] font-mono uppercase text-[#4A5E73] font-medium mb-1">
+                City / Metropolitan Area
+              </label>
+              <select
+                aria-label="City / Metropolitan Area"
+                value={selectedCity}
+                disabled={!selectedState || availableCities.length === 0}
+                onChange={(e) => handleCityChange(e.target.value)}
+                className="w-full text-xs px-3 py-2 rounded-lg border border-[#DDD5C5] bg-[#FDFCF8] text-[#2B3D4F] focus:outline-none focus:ring-1 focus:ring-[#2B3D4F] disabled:opacity-50 disabled:bg-[#ECE6DA]"
+              >
+                <option value="">{availableCities.length === 0 ? '-- Select State first --' : '-- All Cities in Region --'}</option>
+                {availableCities.map((ci) => (
+                  <option key={ci} value={ci}>
+                    {ci}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Validation Warning Alert */}
+          {!validation.isValid && validation.errorMessage && (
+            <div className="p-2.5 rounded-lg bg-[rgba(169,101,85,0.12)] border border-[rgba(169,101,85,0.35)] flex items-start gap-2 text-xs text-[#A96555] animate-fade-in">
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-semibold">Geographic Inconsistency:</span> {validation.errorMessage}
+              </div>
+            </div>
+          )}
+
+          {/* Active Summary */}
+          {isConfirmedGeo && validation.isValid && (
+            <div className="flex items-center gap-2 text-xs text-[#4A7C59] pt-1 font-mono">
+              <Building2 className="w-3.5 h-3.5" />
+              <span>
+                Confirmed Operational Focus: {[selectedCity, selectedState, selectedCountry].filter(Boolean).join(' → ')}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Operational / Delivery Model */}
         <div>
           <label className="block text-xs font-mono uppercase text-[#4A5E73] font-medium mb-2">
-            Delivery & Presence Model
+            Delivery &amp; Presence Model
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {deliveryOptions.map((opt) => {

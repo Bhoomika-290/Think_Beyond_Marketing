@@ -20,7 +20,10 @@ import {
   Layers,
   Activity,
   User,
-  Sliders
+  Sliders,
+  BookOpen,
+  Utensils,
+  Store
 } from 'lucide-react';
 import { SimulationAgentBar } from './SimulationAgentBar';
 import type { 
@@ -115,6 +118,9 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
       case 'Layers': return Layers;
       case 'Activity': return Activity;
       case 'User': return User;
+      case 'BookOpen': return BookOpen;
+      case 'Utensils': return Utensils;
+      case 'Store': return Store;
       default: return Globe;
     }
   };
@@ -435,39 +441,141 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                     </span>
                   </div>
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs font-mono">
-                      <thead className="bg-[#111823] text-[#738095] border-b border-[#263244]">
-                        <tr>
-                          <th className="p-3">Campaign Channel</th>
-                          <th className="p-3">Attributed Revenue</th>
-                          <th className="p-3">Ad Spend</th>
-                          <th className="p-3">ROAS</th>
-                          <th className="p-3">CPA</th>
-                          <th className="p-3">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-[#263244]">
-                        {[
-                          { name: 'Google Performance Max (High Intent)', rev: '$48,200', spend: '$9,800', roas: '4.92x', cpa: '$24.50', status: 'Optimal' },
-                          { name: 'Meta Retargeting (Catalog V2)', rev: '$31,400', spend: '$6,400', roas: '4.90x', cpa: '$28.10', status: 'Optimal' },
-                          { name: 'TikTok Top-Funnel Video Ads', rev: '$14,800', spend: '$4,900', roas: '3.02x', cpa: '$42.80', status: 'Scale Candidate' },
-                          { name: 'Klaviyo Post-Purchase Upsell', rev: '$18,900', spend: '$650', roas: '29.0x', cpa: '$3.20', status: 'High Margin' },
-                        ].map((row, rIdx) => (
-                          <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
-                            <td className="p-3 font-bold text-white">{row.name}</td>
-                            <td className="p-3 text-[#34D399]">{row.rev}</td>
-                            <td className="p-3 text-[#AAB4C3]">{row.spend}</td>
-                            <td className="p-3 text-white font-bold">{row.roas}</td>
-                            <td className="p-3 text-[#93C5FD]">{row.cpa}</td>
-                            <td className="p-3">
-                              <span className="px-2 py-0.5 rounded text-[10px] bg-[#10B981]/20 text-[#34D399] font-bold">
-                                {row.status}
-                              </span>
-                            </td>
+                    {archetype === 'food_waste_prediction' ? (
+                      <table className="w-full text-left text-xs font-mono">
+                        <thead className="bg-[#111823] text-[#738095] border-b border-[#263244]">
+                          <tr>
+                            <th className="p-3">Recipe / Ingredient Batch</th>
+                            <th className="p-3">Historic Baseline</th>
+                            <th className="p-3">AI Forecast Demand</th>
+                            <th className="p-3">Surplus Cut</th>
+                            <th className="p-3">Daily Savings</th>
+                            <th className="p-3">Status</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody className="divide-y divide-[#263244]">
+                          {[
+                            { name: 'Marinated Paneer & Tikka Base', colA: '22.0 kg', colB: '14.5 kg', colC: '-34.1%', colD: '₹1,420', status: 'Optimal Prep' },
+                            { name: 'Fresh Cream & Dairy Stock', colA: '8.0 L', colB: '4.8 L', colC: '-40.0%', colD: '₹890', status: 'Expiry Alert' },
+                            { name: 'Biryani Rice & Whole Spices', colA: '35.0 kg', colB: '28.0 kg', colC: '-20.0%', colD: '₹950', status: 'Calibrated' },
+                            { name: 'Chopped Herbs & Garnishes', colA: '4.5 kg', colB: '2.2 kg', colC: '-51.1%', colD: '₹340', status: 'Low Spoilage' },
+                          ].map((row, rIdx) => (
+                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
+                              <td className="p-3 font-bold text-white">{row.name}</td>
+                              <td className="p-3 text-[#AAB4C3]">{row.colA}</td>
+                              <td className="p-3 text-[#38BDF8]">{row.colB}</td>
+                              <td className="p-3 text-[#34D399] font-bold">{row.colC}</td>
+                              <td className="p-3 text-[#93C5FD]">{row.colD}</td>
+                              <td className="p-3">
+                                <span className="px-2 py-0.5 rounded text-[10px] bg-[#10B981]/20 text-[#34D399] font-bold">
+                                  {row.status}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : archetype === 'tutoring_edtech' ? (
+                      <table className="w-full text-left text-xs font-mono">
+                        <thead className="bg-[#111823] text-[#738095] border-b border-[#263244]">
+                          <tr>
+                            <th className="p-3">Subject / Course Domain</th>
+                            <th className="p-3">Active Student Queries</th>
+                            <th className="p-3">Tutor Pool</th>
+                            <th className="p-3">Match SLA</th>
+                            <th className="p-3">Avg Rate</th>
+                            <th className="p-3">Liquidity Status</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#263244]">
+                          {[
+                            { name: 'Calculus II & Multivariable Math', colA: '42 Active', colB: '18 Verified Tutors', colC: '1.4 min', colD: '₹450 / hr', status: 'High Liquidity' },
+                            { name: 'Organic Chemistry & Reaction Pathways', colA: '28 Active', colB: '12 Verified Tutors', colC: '2.1 min', colD: '₹500 / hr', status: 'Optimal' },
+                            { name: 'Intro to Python & Algorithms', colA: '35 Active', colB: '8 Verified Tutors', colC: '4.8 min', colD: '₹400 / hr', status: 'Surge Candidate' },
+                            { name: 'University Macroeconomics', colA: '14 Active', colB: '9 Verified Tutors', colC: '1.2 min', colD: '₹420 / hr', status: 'Balanced' },
+                          ].map((row, rIdx) => (
+                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
+                              <td className="p-3 font-bold text-white">{row.name}</td>
+                              <td className="p-3 text-[#38BDF8]">{row.colA}</td>
+                              <td className="p-3 text-[#AAB4C3]">{row.colB}</td>
+                              <td className="p-3 text-[#34D399] font-bold">{row.colC}</td>
+                              <td className="p-3 text-[#93C5FD]">{row.colD}</td>
+                              <td className="p-3">
+                                <span className="px-2 py-0.5 rounded text-[10px] bg-[#10B981]/20 text-[#34D399] font-bold">
+                                  {row.status}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : archetype === 'meal_delivery_service' ? (
+                      <table className="w-full text-left text-xs font-mono">
+                        <thead className="bg-[#111823] text-[#738095] border-b border-[#263244]">
+                          <tr>
+                            <th className="p-3">Corporate Account</th>
+                            <th className="p-3">Daily Headcount</th>
+                            <th className="p-3">Partner Kitchen</th>
+                            <th className="p-3">Drop Window</th>
+                            <th className="p-3">Weekly Billing</th>
+                            <th className="p-3">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#263244]">
+                          {[
+                            { name: 'Acme Software Labs (Tower B)', colA: '48 Meals', colB: 'Artisan Kitchen & Grill', colC: '12:00 - 12:15 PM', colD: '₹34,500', status: 'Consolidated' },
+                            { name: 'TechMatrix Global HQ', colA: '82 Meals', colB: 'Urban Green Bowl Hub', colC: '12:15 - 12:30 PM', colD: '₹58,200', status: 'Dispatched' },
+                            { name: 'Innovate Studio Coworking', colA: '26 Meals', colB: 'Curry & Spice Bistro', colC: '12:30 - 12:45 PM', colD: '₹18,900', status: 'Active Recurring' },
+                          ].map((row, rIdx) => (
+                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
+                              <td className="p-3 font-bold text-white">{row.name}</td>
+                              <td className="p-3 text-[#38BDF8]">{row.colA}</td>
+                              <td className="p-3 text-[#AAB4C3]">{row.colB}</td>
+                              <td className="p-3 text-[#34D399] font-bold">{row.colC}</td>
+                              <td className="p-3 text-[#93C5FD]">{row.colD}</td>
+                              <td className="p-3">
+                                <span className="px-2 py-0.5 rounded text-[10px] bg-[#10B981]/20 text-[#34D399] font-bold">
+                                  {row.status}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : (
+                      <table className="w-full text-left text-xs font-mono">
+                        <thead className="bg-[#111823] text-[#738095] border-b border-[#263244]">
+                          <tr>
+                            <th className="p-3">Module / Feature Channel</th>
+                            <th className="p-3">Active Throughput</th>
+                            <th className="p-3">Operational Cost</th>
+                            <th className="p-3">Efficiency Ratio</th>
+                            <th className="p-3">Unit Metric</th>
+                            <th className="p-3">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#263244]">
+                          {[
+                            { name: 'Automated Real-time Ingestion', colA: '48,200 events/hr', colB: '$18.40 / mo', colC: '99.98%', colD: '<12ms Latency', status: 'Optimal' },
+                            { name: 'Rule-Based Anomaly Resolver', colA: '1,420 triggers', colB: '$12.00 / mo', colC: '94.2%', colD: 'Zero False Positives', status: 'Optimal' },
+                            { name: 'Third-party API Webhooks', colA: '9,840 syncs', colB: '$6.50 / mo', colC: '98.5%', colD: '<45ms Latency', status: 'Stable' },
+                          ].map((row, rIdx) => (
+                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
+                              <td className="p-3 font-bold text-white">{row.name}</td>
+                              <td className="p-3 text-[#34D399]">{row.colA}</td>
+                              <td className="p-3 text-[#AAB4C3]">{row.colB}</td>
+                              <td className="p-3 text-white font-bold">{row.colC}</td>
+                              <td className="p-3 text-[#93C5FD]">{row.colD}</td>
+                              <td className="p-3">
+                                <span className="px-2 py-0.5 rounded text-[10px] bg-[#10B981]/20 text-[#34D399] font-bold">
+                                  {row.status}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
                   </div>
                 </div>
               )}

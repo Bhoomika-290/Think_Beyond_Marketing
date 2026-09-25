@@ -217,17 +217,107 @@ function titleCase(s: string): string {
 
 // --- Casual intent detection ------------------------------------------------
 
-type CasualKind = 'joke' | 'scary' | 'greeting' | 'thanks' | 'capabilities' | 'bye' | null;
+export type CasualKind = 'joke' | 'scary' | 'greeting' | 'thanks' | 'capabilities' | 'bye' | null;
 
-function detectCasual(text: string): CasualKind {
+export function detectCasual(text: string): CasualKind {
   const t = text.toLowerCase().trim();
+  if (!t) return null;
   if (/\bjoke\b|\bfunny\b|\bmake me laugh\b/.test(t)) return 'joke';
   if (/\bscary\b|\bscarier\b|\bspooky\b|\bhorror\b|\bfrighten/.test(t)) return 'scary';
-  if (/^(hi|hey|hello|namaste|yo|sup)\b/.test(t) && t.length < 30) return 'greeting';
-  if (/\bthank\b|\bthanks\b|\bshukriya\b/.test(t)) return 'thanks';
-  if (/\bwhat can you do\b|\bhow do you work\b|\bhelp me\b|\bwho are you\b/.test(t)) return 'capabilities';
-  if (/^(bye|goodbye|see you)\b/.test(t) && t.length < 30) return 'bye';
+  if (/^(?:hi|hey|hello|hii|hiii|heyy|namaste|yo|sup|howdy|hola|good\s+(?:morning|afternoon|evening|day)|greetings)\b/i.test(t) && t.split(/\s+/).length <= 4) {
+    return 'greeting';
+  }
+  if (/^(?:how are you|how's it going|hows it going|what's up|whats up|is anyone there|who are you|what are you)\b/i.test(t)) {
+    return 'greeting';
+  }
+  if (/\b(?:thank|thanks|thx|ty|shukriya|thank you)\b/i.test(t) && t.split(/\s+/).length <= 5) {
+    return 'thanks';
+  }
+  if (/\b(?:what can you do|how do you work|help me|who are you)\b/i.test(t) && t.split(/\s+/).length <= 6) {
+    return 'capabilities';
+  }
+  if (/^(?:bye|goodbye|see you|cya)\b/i.test(t) && t.split(/\s+/).length <= 4) {
+    return 'bye';
+  }
+  if (/^(?:ok|okay|got it|understood|cool|great|awesome|perfect|sounds good|sure|alright)$/i.test(t)) {
+    return 'thanks';
+  }
   return null;
+}
+
+export function findSubstantiveIdea(historyTexts: string[], currentText: string, snapshotRaw?: string): string | null {
+  if (snapshotRaw && snapshotRaw.trim().length > 5 && !detectCasual(snapshotRaw) && !isGenericCategoryOnly(snapshotRaw)) {
+    return snapshotRaw.trim();
+  }
+  for (const text of historyTexts) {
+    if (text && text.trim().length > 5 && !detectCasual(text) && !isGenericCategoryOnly(text) && text.trim().split(/\s+/).length >= 3) {
+      return text.trim();
+    }
+  }
+  if (currentText && currentText.trim().length > 5 && !detectCasual(currentText) && !isGenericCategoryOnly(currentText) && currentText.trim().split(/\s+/).length >= 3) {
+    return currentText.trim();
+  }
+  return null;
+}
+
+export function isGenericCategoryOnly(text: string): ProductType | null {
+  if (!text) return null;
+  const clean = text
+    .toLowerCase()
+    .trim()
+    .replace(/[.,!?;:'"()[\]{}]+$/, '')
+    .trim();
+
+  // Strip leading intent preambles like "I'm making a", "I want to build a", "We are doing"
+  const stripped = clean
+    .replace(
+      /^(?:i(?:'m|\s+am|\s+want\s+to|\s+plan\s+to|\s+would\s+like\s+to)?\s*(?:making|building|creating|launching|starting|doing|develop(?:ing)?|build|make|create|start|launch)\s*(?:a|an)?\s*)/i,
+      '',
+    )
+    .trim();
+
+  if (/^(?:physical|physical\s+product|physical\s+products|hardware|tangible\s+product|tangible\s+goods|consumer\s+product|cpg)$/i.test(stripped)) {
+    return 'physical';
+  }
+  if (/^(?:saas|software|software\s+as\s+a\s+service|web\s+app|mobile\s+app|app|application|digital\s+platform|platform)$/i.test(stripped)) {
+    return 'saas';
+  }
+  if (/^(?:marketplace|two-sided\s+marketplace|p2p|p2p\s+platform|aggregator)$/i.test(stripped)) {
+    return 'marketplace';
+  }
+  if (/^(?:service|agency|consultancy|consulting|service\s+business)$/i.test(stripped)) {
+    return 'service';
+  }
+  if (/^(?:community|membership|cohort)$/i.test(stripped)) {
+    return 'community';
+  }
+  if (/^(?:creator|content\s+creator|newsletter|media)$/i.test(stripped)) {
+    return 'creator';
+  }
+  return null;
+}
+
+export function isSubstantiveIdea(text: string): boolean {
+  if (!text || text.trim().length <= 3) return false;
+  if (detectCasual(text)) return false;
+  if (isGenericCategoryOnly(text)) return false;
+
+  const clean = text
+    .toLowerCase()
+    .trim()
+    .replace(/[.,!?;:'"()[\]{}]+$/, '')
+    .trim();
+
+  const stripped = clean
+    .replace(
+      /^(?:i(?:'m|\s+am|\s+want\s+to|\s+plan\s+to|\s+would\s+like\s+to)?\s*(?:making|building|creating|launching|starting|doing|develop(?:ing)?|build|make|create|start|launch)\s*(?:a|an)?\s*)/i,
+      '',
+    )
+    .trim();
+
+  if (stripped.length <= 3 || isGenericCategoryOnly(stripped)) return false;
+
+  return true;
 }
 
 const CASUAL_JOKES = [
@@ -239,23 +329,6 @@ const CASUAL_JOKES = [
 const CASUAL_SCARY = [
   'The scariest thing in business is not a competitor — it is discovering after launch that nobody actually needed the product.',
   'Here is a real horror story: a full warehouse in March of a product that only sells in December. Seasonality does not negotiate.',
-];
-
-// Occasional dry observations — used sparingly, only when the profile just
-// advanced, and rotated deterministically (never random, never praise-only).
-const DRY_ASIDES = [
-  'Interesting — this is starting to look more like a product + service model than a pure play.',
-  'Business idea detected. The spreadsheet is emotionally preparing itself.',
-  'Noted. Somewhere, a future unit-economics table just shifted uncomfortably.',
-  'Fun one: vending machines are basically tiny automated retail businesses — distribution is the product.',
-  'Interesting pattern: some businesses do not sell the product itself — they monetize access to the network around it.',
-  "That's where the interesting part begins — the follow-up answers matter more than the opening idea.",
-  'One assumption is doing a lot of work here. Let us pressure-test that next.',
-  'That answer changes the downstream model. Filing it now.',
-  'Interesting. That is a seasonal demand problem disguised as a clothing idea.',
-  'That changes the economics considerably.',
-  'Small warning: fashion businesses rarely die because nobody likes the product. They often die because inventory guesses were wrong.',
-  'Interesting pattern: a product can have thousands of users and still have a broken business if retention and willingness-to-pay do not align.',
 ];
 
 // --- Signal extraction -------------------------------------------------------
@@ -307,24 +380,32 @@ export function analyzeVentureMessage(
     empty.problem = currentText.trim().length <= 280 ? currentText.trim() : null;
   }
 
-  for (const c of KNOWN_COUNTRIES) {
-    if (combined.includes(c)) {
-      empty.country = titleCase(c.replace(/^u\.s\.$/i, 'United States').replace(/^usa$/i, 'United States').replace(/^uk$/i, 'United Kingdom'));
-      break;
-    }
-  }
-  for (const r of INDIA_REGIONS) {
-    if (combined.includes(r)) {
-      empty.cityRegion = titleCase(r);
-      if (!empty.country) empty.country = 'India';
-      break;
-    }
-  }
-  if (!empty.cityRegion) {
-    for (const c of WORLD_CITIES) {
-      if (combined.includes(c)) {
-        empty.cityRegion = titleCase(c);
+  // Only extract geography when the user explicitly provides location phrasing ("in Mumbai", "based in India", etc.)
+  const geoPrepositionMatch = current.match(/(?:based\s+in|launching\s+in|operating\s+in|located\s+in|for\s+the\s+market\s+in|targeting\s+customers\s+in|\bin)\s+([a-zA-Z\s]{3,35})/i);
+  if (geoPrepositionMatch && geoPrepositionMatch[1]) {
+    const locSnippet = geoPrepositionMatch[1].trim().toLowerCase();
+    for (const c of KNOWN_COUNTRIES) {
+      const regex = new RegExp(`\\b${c}\\b`, 'i');
+      if (regex.test(locSnippet)) {
+        empty.country = titleCase(c.replace(/^u\.s\.$/i, 'United States').replace(/^usa$/i, 'United States').replace(/^uk$/i, 'United Kingdom'));
         break;
+      }
+    }
+    for (const r of INDIA_REGIONS) {
+      const regex = new RegExp(`\\b${r}\\b`, 'i');
+      if (regex.test(locSnippet)) {
+        empty.cityRegion = titleCase(r);
+        if (!empty.country) empty.country = 'India';
+        break;
+      }
+    }
+    if (!empty.cityRegion) {
+      for (const ci of WORLD_CITIES) {
+        const regex = new RegExp(`\\b${ci}\\b`, 'i');
+        if (regex.test(locSnippet)) {
+          empty.cityRegion = titleCase(ci);
+          break;
+        }
       }
     }
   }
@@ -451,64 +532,48 @@ interface PlannedQuestion {
 function planNextQuestion(snapshot: VentureSnapshot, signals: ExtractedSignals): PlannedQuestion {
   if (!snapshot.productType && !signals.productType) {
     return {
-      vectorLabel: 'Product Type',
-      question: 'What exactly will a customer receive — a physical product, software, a marketplace transaction, a service, a community, or content?',
-      whyItMatters: 'The vehicle decides everything downstream: cost structure, supply chain or codebase, and how Stage 02 scores feasibility.',
+      vectorLabel: '01 Product Vehicle',
+      question: 'What are you thinking of building — a software app, a marketplace, a physical product, a service, or a community?',
+      whyItMatters: 'Understanding what the customer receives helps us match the right business architecture.',
     };
   }
   if (!snapshot.targetAudience && !signals.audience) {
     return {
-      vectorLabel: 'Target Audience',
-      question: 'Who feels this problem most sharply — describe one specific persona (age, work, city, habits) rather than "everyone".',
-      whyItMatters: 'Ventures die serving everyone. A sharp persona lets Stage 03 size a beachhead you can actually reach.',
+      vectorLabel: '02 Target Customer',
+      question: 'Who do you imagine using it? (If you are not sure, describe the person who you think might need it most.)',
+      whyItMatters: 'Every venture starts with a specific human who feels an acute need.',
     };
   }
   if (!snapshot.problem && !signals.problem) {
     return {
-      vectorLabel: 'Core Problem',
-      question: 'What is broken, overpriced, or missing in the alternatives people use today — and what does that cost them?',
-      whyItMatters: 'Without a priced pain there is no willingness to pay. This is the falsifiable claim Stage 02 will stress-test.',
+      vectorLabel: '03 Problem / Need',
+      question: 'What problem or frustration are you trying to solve? What made you think this should exist?',
+      whyItMatters: 'Finding real human pain gives your venture an authentic reason to exist.',
     };
   }
   if ((!snapshot.country && !signals.country) || (!snapshot.cityRegion && !signals.cityRegion)) {
     return {
-      vectorLabel: 'Geography',
-      question: 'Where will you launch first — which city/region — and will you sell online, offline, or both?',
-      whyItMatters: 'Geography sets regulation, logistics, seasonality, and channel economics. It also scopes every later assumption.',
-    };
-  }
-  if (!snapshot.differentiation && !signals.differentiation) {
-    return {
-      vectorLabel: 'Differentiation',
-      question: 'What makes this distinctly better or different — craft, price, speed, distribution, or cultural angle — in one sentence?',
-      whyItMatters: 'Differentiation is the seed of positioning. Stage 04 will build the entire brand on this sentence.',
-    };
-  }
-  if ((!snapshot.constraints && !signals.constraints) || (!snapshot.goals && !signals.goals)) {
-    return {
-      vectorLabel: 'Constraints & Goals',
-      question: 'What are your hard bounds — budget, team, time — and what does success look like in 12 months, in numbers?',
-      whyItMatters: 'Bounds turn a dream into a plan. Numbers give Stage 02 something concrete to validate instead of vibes.',
+      vectorLabel: '04 Context & Location',
+      question: 'Where or in what situation would people use this — and which city or region would you launch in first?',
+      whyItMatters: 'Real-world context shapes local customer habits, operations, and channel strategy.',
     };
   }
   if (snapshot.openQuestions.length === 0) {
     return {
-      vectorLabel: 'Open Questions',
-      question: 'What is the one thing you are most unsure about — the belief that, if wrong, kills this venture?',
-      whyItMatters: 'That belief becomes the first falsification test in Stage 02. Great founders attack their riskiest assumption first.',
+      vectorLabel: '05 Desired Outcome',
+      question: 'What would you want to be different for the customer if this worked? What is your biggest open doubt about this idea?',
+      whyItMatters: 'This anchors what success looks like and tells the Business Council what to stress-test first.',
     };
   }
   return {
-    vectorLabel: 'Synthesis',
-      question: 'Your venture profile is filling in nicely. Review the snapshot below — which entry feels weakest? Refine it here, or continue to Feasibility when ready.',
-    whyItMatters: 'A tight Stage 01 profile compounds: every downstream engine reasons from these exact fields.',
+    vectorLabel: 'Discovery Synthesis',
+    question: 'We have enough basic discovery to convene the Business Council. Review your snapshot on the right, or continue to Feasibility when ready.',
+    whyItMatters: 'Our multi-agent specialists will now debate differentiation, business model, and strategic roadmap for you.',
   };
 }
 
 // --- Venture completeness model ------------------------------------------------
-// Lightweight internal readout of which discovery vectors are filled. Drives
-// question priority (never re-ask what is known) and is surfaced compactly
-// so the founder sees what is VERIFIED vs still ASSUMPTION / NEEDS VALIDATION.
+// Lightweight internal readout of which discovery vectors are filled.
 
 export interface CompletenessItem {
   key: string;
@@ -523,17 +588,11 @@ export function getProfileCompleteness(s: VentureSnapshot): {
   missing: string[];
 } {
   const items: CompletenessItem[] = [
-    { key: 'idea', label: 'Idea clarity', done: s.rawInput.trim().length > 3 },
-    { key: 'productType', label: 'Product type', done: s.productType !== null },
-    { key: 'audience', label: 'Audience', done: s.targetAudience.trim().length > 0 },
-    { key: 'problem', label: 'Problem', done: s.problem.trim().length > 0 },
-    { key: 'location', label: 'Location', done: s.country.trim().length > 0 || s.cityRegion.trim().length > 0 },
-    { key: 'delivery', label: 'Delivery model', done: s.deliveryModel !== null },
-    { key: 'customer', label: 'Customer type', done: s.customerType !== null },
-    { key: 'differentiation', label: 'Differentiator', done: s.differentiation.trim().length > 0 },
-    { key: 'bounds', label: 'Bounds & goals', done: s.constraints.trim().length > 0 || s.goals.trim().length > 0 },
-    { key: 'monetization', label: 'Monetization context', done: s.context.trim().length > 0 },
-    { key: 'questions', label: 'Open questions', done: s.openQuestions.length > 0 },
+    { key: 'idea', label: 'Idea concept', done: s.rawInput.trim().length > 3 },
+    { key: 'productType', label: 'Product vehicle', done: s.productType !== null },
+    { key: 'audience', label: 'Target customer', done: s.targetAudience.trim().length > 0 },
+    { key: 'problem', label: 'Core problem', done: s.problem.trim().length > 0 },
+    { key: 'location', label: 'Context & location', done: s.country.trim().length > 0 || s.cityRegion.trim().length > 0 || s.context.trim().length > 0 },
   ];
   const done = items.filter((i) => i.done).length;
   return { items, done, total: items.length, missing: items.filter((i) => !i.done).map((i) => i.label) };
@@ -743,7 +802,7 @@ export function buildInterviewReply(
 ): InterviewResult {
   const historyUserTexts = history.filter((m) => m.sender === 'user').map((m) => m.text);
   const casual = detectCasual(currentText);
-  const firstIdea = historyUserTexts[0] ?? currentText;
+  const substantiveIdea = findSubstantiveIdea(historyUserTexts, currentText, snapshot.rawInput);
   const isFollowUp = historyUserTexts.length >= 1 && currentText.trim().split(/\s+/).length <= 14;
   const signals = analyzeVentureMessage(currentText, historyUserTexts);
 
@@ -763,13 +822,89 @@ export function buildInterviewReply(
   };
   const savedSummary: string[] = [];
 
+  // --- Generic Category Only handling (e.g. "I'm making physical product") ---
+  const genericCat = isGenericCategoryOnly(currentText);
+  if (genericCat && (!snapshot.rawInput || snapshot.rawInput.trim().length <= 3)) {
+    updates.productType = genericCat;
+    let clarification = '';
+    if (genericCat === 'physical') {
+      clarification =
+        `Got it — what kind of physical product are you thinking about?\n\n` +
+        `Tell me about the specific item (for example: reusable water bottle, winter apparel, coffee, organic skincare, electronics) and who it might be for.`;
+    } else if (genericCat === 'saas') {
+      clarification = `Got it — what kind of software or app are you thinking about building and what task does it help solve?`;
+    } else if (genericCat === 'marketplace') {
+      clarification = `Got it — what two groups or sides do you want to connect on this marketplace?`;
+    } else {
+      clarification = `Got it — what kind of service are you planning to provide and for whom?`;
+    }
+    return {
+      replyText: clarification,
+      updates,
+      savedSummary: [`Product Vehicle → ${PRODUCT_SIGNALS.find((s) => s.type === genericCat)?.label} (Tentative assessment)`],
+      chips: genericCat === 'physical' ? ['Reusable water bottle', 'Clothing / Apparel', 'Packaged food / Beverage', 'Organic skincare'] : [],
+      probeId: null,
+    };
+  }
+
+  // --- Uncertainty / "Not Sure" handling: Assist gently without questionnaires ---
+  const isUncertain = /^(not sure|unsure|i don't know|idk|no idea|don't know|dont know|not really sure|hard to say|help me|you tell me)$/i.test(currentText.trim()) ||
+    /^(not sure|i'm not sure|im not sure)\b/i.test(currentText.trim());
+
+  if (isUncertain) {
+    const nextDim = !snapshot.targetAudience ? 'customer' : !snapshot.problem ? 'problem' : 'geography';
+    let suggestionText = '';
+    if (nextDim === 'customer') {
+      suggestionText =
+        `That is completely okay! Many great founders start with just a rough intuition.\n\n` +
+        `Who do you imagine might need this? Are you thinking about:\n` +
+        `• **Students / Young Adults** (education, budget, campus life)\n` +
+        `• **Office Workers / Professionals** (time-saving, lunch, productivity)\n` +
+        `• **Small Business Owners** (operations, waste, revenue)\n` +
+        `• **Homeowners / Renters** (repairs, cleaning, maintenance)\n` +
+        `• Or someone else? Just describe whoever comes to mind in your own words.`;
+    } else if (nextDim === 'problem') {
+      suggestionText =
+        `No problem at all. Let's think about what currently feels broken or frustrating:\n\n` +
+        `• Are existing alternatives too expensive?\n` +
+        `• Is the current way of doing this too slow or complicated?\n` +
+        `• Is there a lack of trust or transparent quality?\n\n` +
+        `What made you think this should exist in the first place?`;
+    } else {
+      suggestionText = `That's fine! Where would you like to start first — in your local city/region or online nationally?`;
+    }
+    return {
+      replyText: suggestionText,
+      updates,
+      savedSummary,
+      chips: nextDim === 'customer' ? ['College students', 'Office workers', 'Small businesses', 'Homeowners'] : ['High price of alternatives', 'Too slow / inconvenient', 'Lack of transparency'],
+      probeId: null,
+    };
+  }
+
+  // --- Partial Idea handling (e.g. "I want to build something for students") ---
+  if (historyUserTexts.length <= 1 && /for students|for restaurants|for workers|for homeowners|for parents/i.test(currentText) && currentText.split(/\s+/).length <= 8 && !snapshot.problem) {
+    const aud = extractAudienceFragment(currentText) || 'your target audience';
+    updates.targetAudience = aud;
+    savedSummary.push(`Target Audience → "${aud}" (Confirmed fact)`);
+    return {
+      replyText:
+        `Got it — focused on **${aud}**.\n\n` +
+        `What kind of problem or daily frustration do you want to solve for them? (e.g. finding affordable help, saving time, reducing costs, or something else?)`,
+      updates,
+      savedSummary,
+      chips: ['Affordable pricing / cost', 'Time-saving / convenience', 'Better quality & trust'],
+      probeId: null,
+    };
+  }
+
   // --- Casual branch: stay in character, then bridge back to business --------
   if (casual === 'joke') {
     const joke = CASUAL_JOKES[currentText.length % CASUAL_JOKES.length];
     return {
       replyText:
         `${joke}\n\nI do take requests — but my day job is venture discovery. ` +
-        `Tell me about the idea in your head, or pick one of the founder dilemmas above, and I will break it into a structured profile.`,
+        `Tell me about the idea in your head, and I will help structure it step by step.`,
       updates,
       savedSummary,
       chips: [],
@@ -781,7 +916,7 @@ export function buildInterviewReply(
     return {
       replyText:
         `${line}\n\nThat is exactly why we do discovery before building. ` +
-        `Give me your raw idea and I will help you find the scary assumption early — while it is still cheap to fix.`,
+        `Give me your raw idea and I will help you identify the critical assumptions early.`,
       updates,
       savedSummary,
       chips: [],
@@ -797,8 +932,8 @@ export function buildInterviewReply(
           : '';
     return {
       replyText:
-        `${open}I am your Business Intelligence Interviewer — I turn rough ideas into structured venture profiles.\n\n` +
-        `Describe your idea in one or two sentences (what + for whom + where), and we will build from there.`,
+        `${open}I am your Business Intelligence Interviewer — I turn rough ideas into structured venture intelligence.\n\n` +
+        `Describe your idea in plain words (what you want to build + for whom), and we will build from there.`,
       updates,
       savedSummary,
       chips: [],
@@ -809,12 +944,12 @@ export function buildInterviewReply(
     return {
       replyText:
         `Here is what I do in this session:\n` +
-        `• Listen to your raw idea and extract business signals (model, audience, problem, geography)\n` +
-        `• Save what you tell me into your venture profile on the right — nothing leaves this workspace\n` +
-        `• Ask the next sharpest question, and explain why it matters\n` +
-        `• Label everything honestly: VERIFIED (your words), MODEL INFERENCE, ASSUMPTION, or NEEDS VALIDATION\n\n` +
-        `What I never do: invent market statistics, competitors, or "verified" research. Zero fabricated data.\n\n` +
-        `So — what is the idea?`,
+        `• Listen to your raw idea and capture your user facts (what, for whom, where)\n` +
+        `• Save what you tell me into your venture profile on the right\n` +
+        `• Ask simple, conversational questions to understand your intuition\n` +
+        `• Clearly distinguish your confirmed facts from initial assessments\n\n` +
+        `You are NOT expected to know your differentiation, business model, or unit economics yet — our AI Business Council will derive those for you.\n\n` +
+        `So — what are you thinking of building?`,
       updates,
       savedSummary,
       chips: [],
@@ -824,12 +959,10 @@ export function buildInterviewReply(
 
   // --- Honest boundary: no live market data ----------------------------------
   const dataBoundary = wantsMarketData(currentText)
-    ? `HONEST BOUNDARY: I do not have live market data, and I will not invent competitors or statistics. What I can do is frame the exact validation test — that becomes an open question for Stage 02.\n\n`
+    ? `We don't have enough external market evidence to establish exact figures yet. What we can do is frame the exact validation test for Stage 02.\n\n`
     : '';
 
   // --- One-shot probe answer: map the picked option into project state -----
-  // Probe answers are VERIFIED (the founder's own pick). The probe clears
-  // after a single answer so the interview always moves forward.
   let answeredProbe: (CategoryProbe & { trigger: (combined: string, s: VentureSnapshot) => boolean }) | null = null;
   if (probeContext) {
     const probe = CATEGORY_PROBES[probeContext.id];
@@ -846,32 +979,32 @@ export function buildInterviewReply(
   if (signals.productType && (signals.productTypeConfidence === 'high' || signals.productTypeConfidence === 'medium') && !snapshot.productType) {
     updates.productType = signals.productType;
     savedSummary.push(
-      `Product Type → ${PRODUCT_SIGNALS.find((s) => s.type === signals.productType)?.label} (from: "${signals.productTypeEvidence.join(', ')}")`,
+      `Product Vehicle → ${PRODUCT_SIGNALS.find((s) => s.type === signals.productType)?.label} (Initial assessment)`,
     );
   }
   if (signals.audience && !snapshot.targetAudience) {
     updates.targetAudience = signals.audience;
-    savedSummary.push(`Target Audience → "${signals.audience}"`);
+    savedSummary.push(`Target Customer → "${signals.audience}" (Confirmed fact)`);
   }
   if (signals.problem && !snapshot.problem) {
     updates.problem = signals.problem;
-    savedSummary.push('Core Problem → captured from your message');
+    savedSummary.push('Core Problem → captured from your message (Confirmed fact)');
   }
   if (signals.country && !snapshot.country) {
     updates.country = signals.country;
-    savedSummary.push(`Country → ${signals.country}`);
+    savedSummary.push(`Country → ${signals.country} (Confirmed fact)`);
   }
   if (signals.cityRegion && !snapshot.cityRegion) {
     updates.cityRegion = signals.cityRegion;
-    savedSummary.push(`City / Region → ${signals.cityRegion}`);
+    savedSummary.push(`City / Region → ${signals.cityRegion} (Confirmed fact)`);
   }
   if (signals.customerType && !snapshot.customerType) {
     updates.customerType = signals.customerType;
-    savedSummary.push(`Customer Archetype → ${signals.customerType.toUpperCase()}`);
+    savedSummary.push(`Customer Archetype → ${signals.customerType.toUpperCase()} (Initial assessment)`);
   }
   if (signals.deliveryModel && !snapshot.deliveryModel) {
     updates.deliveryModel = signals.deliveryModel;
-    savedSummary.push(`Delivery Model → ${signals.deliveryModel}`);
+    savedSummary.push(`Delivery Model → ${signals.deliveryModel} (Initial assessment)`);
   }
   if (signals.differentiation && !snapshot.differentiation) {
     updates.differentiation = signals.differentiation;
@@ -886,17 +1019,13 @@ export function buildInterviewReply(
     savedSummary.push('Goals → captured from your message');
   }
 
-  // Capture pricing / revenue / distribution / competitive substance that has
-  // no dedicated field into the existing `context` field (fill-empty only).
-  // This keeps monetization thinking inside project state without inventing
-  // new data structures.
   if (!snapshot.context) {
     const contextBits: string[] = [];
     const lower = currentText.toLowerCase();
     if (/(price|pricing|charge|subscription|freemium|revenue|margin|commission|fee|rs\.? |₹|lakh|crore)/.test(lower)) {
-      contextBits.push(`Pricing/revenue note: ${truncate(currentText, 160)}`);
+      contextBits.push(`Operating note: ${truncate(currentText, 160)}`);
     } else if (/(distribut|channel|retail|wholesale|export|shipping|competitor|alternative)/.test(lower)) {
-      contextBits.push(`Go-to-market note: ${truncate(currentText, 160)}`);
+      contextBits.push(`Distribution note: ${truncate(currentText, 160)}`);
     }
     if (contextBits.length > 0 && currentText.trim().length > 20) {
       updates.context = contextBits.join(' ');
@@ -904,11 +1033,10 @@ export function buildInterviewReply(
     }
   }
 
-  // Deduce at most one validation question from the message's risk/topic cues.
   const deduced = deduceValidationQuestion(currentText, signals, snapshot);
   if (deduced) {
     updates.openQuestions.push(deduced);
-    savedSummary.push(`Open Question (NEEDS VALIDATION) → "${deduced}"`);
+    savedSummary.push(`Key Uncertainty (Needs Validation) → "${deduced}"`);
   }
 
   const planned = planNextQuestion(
@@ -927,8 +1055,6 @@ export function buildInterviewReply(
     signals,
   );
 
-  // --- Adaptive probe: a targeted multiple-choice follow-up beats a generic
-  // question when the venture shape is recognizable and its field is empty.
   const mergedForProbe: VentureSnapshot = {
     ...snapshot,
     productType: snapshot.productType ?? updates.productType,
@@ -953,11 +1079,11 @@ export function buildInterviewReply(
   const lines: string[] = [];
 
   if (answeredProbe) {
-    lines.push(`Locked in — "${truncate(currentText, 80)}". Filed as VERIFIED (your pick).`);
+    lines.push(`Confirmed — "${truncate(currentText, 80)}". Logged as a user-confirmed fact.`);
     lines.push('');
-  } else if (isFollowUp && firstIdea !== currentText) {
+  } else if (isFollowUp && substantiveIdea && substantiveIdea !== currentText) {
     lines.push(
-      `Noted — combining this with your earlier context ("${truncate(firstIdea, 90)}").`,
+      `Noted — exploring this for your venture ("${truncate(substantiveIdea, 90)}").`,
     );
     lines.push('');
   }
@@ -966,55 +1092,43 @@ export function buildInterviewReply(
   if (signals.productType) {
     const label = PRODUCT_SIGNALS.find((s) => s.type === signals.productType)?.label;
     picked.push(
-      `• Venture vehicle looks like ${label} (${signals.productTypeConfidence} confidence, cues: ${signals.productTypeEvidence.join(', ') || 'context'}) — MODEL INFERENCE`,
+      `• Venture vehicle looks like ${label} — Initial assessment (needs validation)`,
     );
-  }
-  if (signals.archetypes.length > 1) {
-    picked.push(`• Operating pattern: ${signals.archetypes.slice(1).join(' + ')} — MODEL INFERENCE`);
   }
   if (signals.cityRegion || signals.country) {
     picked.push(
-      `• Geography signal: ${[signals.cityRegion, signals.country].filter(Boolean).join(', ')} — VERIFIED (your words); implications are ASSUMPTION until validated`,
+      `• Operating location: ${[signals.cityRegion, signals.country].filter(Boolean).join(', ')} — Confirmed fact`,
     );
   }
-  if (signals.topics.length > 0) {
-    picked.push(`• Also hearing: ${signals.topics.join(', ')} — I will thread these into later questions`);
-  }
   if (picked.length > 0) {
-    lines.push('WHAT I PICKED UP — MODEL INFERENCE (patterns, not verified research):');
+    lines.push('WHAT I PICKED UP:');
     lines.push(...picked);
     lines.push('');
   }
 
   const patternInfo = findPatternInfo(signals.archetypes);
   if (patternInfo) {
-    lines.push('PATTERN MATCH');
+    lines.push('RELEVANT CATEGORY PATTERN:');
     lines.push(`"${patternInfo.label}"`);
-    lines.push('WHY IT MATTERS');
+    lines.push('WHY IT MATTERS:');
     lines.push(patternInfo.why);
-    lines.push('VALIDATE');
+    lines.push('HOW TO VALIDATE:');
     lines.push(patternInfo.validate);
     lines.push('');
   }
 
   if (savedSummary.length > 0) {
-    lines.push('SAVED TO YOUR VENTURE PROFILE (VERIFIED — your words, editable anytime):');
+    lines.push('RECORDED USER FACTS (CONFIRMED — editable anytime):');
     for (const s of savedSummary) lines.push(`• ${s}`);
-    lines.push('Review or edit any of these in the structured fields on the right — your edits always win.');
-    // Occasional dry observation: at most every third user message that advanced the profile.
-    if (historyUserTexts.length % 3 === 2) {
-      lines.push('');
-      lines.push(`_${DRY_ASIDES[historyUserTexts.length % DRY_ASIDES.length]}_`);
-    }
     lines.push('');
   } else if (snapshot.rawInput) {
-    lines.push('Nothing new to file this time — your profile already holds this. Pushing deeper instead.');
+    lines.push('Nothing new to file this time — your profile already holds this. Continuing discovery.');
     lines.push('');
   }
 
   lines.push(
-    `PROFILE: ${completeness.done}/${completeness.total} vectors complete` +
-      (completeness.missing.length > 0 ? ` — still open: ${completeness.missing.slice(0, 3).join(', ').toLowerCase()}` : ' — fully grounded'),
+    `DISCOVERY PROGRESS: ${completeness.done}/${completeness.total} dimensions complete` +
+      (completeness.missing.length > 0 ? ` — next up: ${completeness.missing.slice(0, 2).join(', ').toLowerCase()}` : ' — ready for Council analysis'),
   );
   lines.push('');
 
@@ -1036,7 +1150,7 @@ export function buildInterviewReply(
     lines.push(`WHY THIS MATTERS: ${planned.whyItMatters}`);
   }
   lines.push('');
-  lines.push(dataBoundary + 'STATUS: inferences above are MODEL INFERENCE / ASSUMPTION — NEEDS VALIDATION before you spend. Stage 02 exists for exactly that.');
+  lines.push(dataBoundary + 'STATUS: Initial assessment — our Business Council will derive strategic differentiation in Stage 02 & 03.');
 
   return { replyText: lines.join('\n'), updates, savedSummary, chips, probeId };
 }

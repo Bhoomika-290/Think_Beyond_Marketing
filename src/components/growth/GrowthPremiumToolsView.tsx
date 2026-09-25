@@ -514,15 +514,32 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                         : 'bg-[#111823] border-[#263244] hover:border-[#384860]'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#4D8DFF]/20 text-[#60A5FA]">
-                        Variant 0{idx + 1} • {v.placementType.toUpperCase()}
+                    <div className="flex items-center justify-between mb-1.5 flex-wrap gap-1">
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold ${
+                        v.creativeAngleType === 'problem_led'
+                          ? 'bg-[#EF4444]/20 text-[#F87171] border border-[#EF4444]/30'
+                          : v.creativeAngleType === 'product_led'
+                          ? 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30'
+                          : 'bg-[#10B981]/20 text-[#34D399] border border-[#10B981]/30'
+                      }`}>
+                        {v.creativeAngleType === 'problem_led'
+                          ? '01 // PROBLEM-LED ANGLE'
+                          : v.creativeAngleType === 'product_led'
+                          ? '02 // PRODUCT-LED ANGLE'
+                          : v.creativeAngleType === 'outcome_led'
+                          ? '03 // OUTCOME-LED ANGLE'
+                          : `VARIANT 0${idx + 1}`}
                       </span>
                       <span className="text-[10px] font-mono text-[#738095]">{v.hookAngle}</span>
                     </div>
 
                     <div className="text-xs font-bold text-white leading-snug">{v.headline}</div>
                     <p className="text-[11px] text-[#AAB4C3] leading-relaxed line-clamp-2 pt-1">{v.primaryText}</p>
+                    {v.reasonForAngle && (
+                      <div className="mt-1.5 text-[10px] font-mono text-[#38BDF8]/90 bg-[#0F172A] px-2 py-0.5 rounded border border-[#1E293B]">
+                        💡 <span className="text-[#94A3B8]">Angle Rationale:</span> {v.reasonForAngle}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

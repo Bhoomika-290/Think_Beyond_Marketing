@@ -7,7 +7,7 @@ interface AICouncilPanelProps {
 }
 
 export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => {
-  const [isDebateExpanded, setIsDebateExpanded] = useState(false);
+  const [isDebateExpanded, setIsDebateExpanded] = useState(true);
 
   return (
     <div className="bg-[#FDFCF8] border border-[#DDD5C5] rounded-xl p-5 space-y-4">
@@ -38,35 +38,46 @@ export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => 
         </button>
       </div>
 
-      {/* Synthesized Founder-Facing Insight (The default concise view) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-        {/* Primary Consensus */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#4A7C59]/30 space-y-2">
-          <div className="flex items-center gap-1.5 text-[#4A7C59] font-mono text-[11px] font-semibold">
-            <CheckCircle className="w-3.5 h-3.5" />
-            <span>PRIMARY CONSENSUS</span>
+      {/* Synthesized Founder-Facing Insight (Conclusion, Why, Main Risk, Next Action) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+        {/* Council Conclusion */}
+        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#2B3D4F]/30 space-y-2">
+          <div className="flex items-center gap-1.5 text-[#2B3D4F] font-mono text-[11px] font-semibold">
+            <CheckCircle className="w-3.5 h-3.5 text-[#4A7C59]" />
+            <span>COUNCIL CONCLUSION</span>
           </div>
           <p className="text-xs text-[#2B3D4F] leading-relaxed">
             {synthesis.primaryConsensus}
           </p>
         </div>
 
-        {/* Critical Divergence */}
+        {/* Supporting Reasoning / Why */}
+        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
+          <div className="flex items-center gap-1.5 text-[#2B3D4F] font-mono text-[11px] font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-[#2B3D4F]" />
+            <span>WHY (STRATEGIC LOGIC)</span>
+          </div>
+          <p className="text-xs text-[#4A5E73] leading-relaxed">
+            Direct problem-solution fit against legacy inertia. Bypasses mass incumbent overhead by focusing strictly on the verified wedge.
+          </p>
+        </div>
+
+        {/* Main Risk */}
         <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#8A6D2B]/30 space-y-2">
           <div className="flex items-center gap-1.5 text-[#8A6D2B] font-mono text-[11px] font-semibold">
             <AlertTriangle className="w-3.5 h-3.5" />
-            <span>CRITICAL DIVERGENCE / CHALLENGE</span>
+            <span>MAIN RISK &amp; UNKNOWNS</span>
           </div>
           <p className="text-xs text-[#4A5E73] leading-relaxed">
             {synthesis.criticalDivergence}
           </p>
         </div>
 
-        {/* Founder Action Recommendation */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#2B3D4F]/30 space-y-2">
-          <div className="flex items-center gap-1.5 text-[#2B3D4F] font-mono text-[11px] font-semibold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>FOUNDER ACTION DIRECTIVE</span>
+        {/* Next Action */}
+        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#4A7C59]/30 space-y-2">
+          <div className="flex items-center gap-1.5 text-[#4A7C59] font-mono text-[11px] font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-[#4A7C59]" />
+            <span>RECOMMENDED NEXT ACTION</span>
           </div>
           <p className="text-xs text-[#2B3D4F] leading-relaxed">
             {synthesis.founderActionRecommendation}

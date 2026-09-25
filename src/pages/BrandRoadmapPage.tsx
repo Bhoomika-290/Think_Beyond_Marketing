@@ -66,17 +66,24 @@ export const BrandRoadmapPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => loadSampleVenture('coffee_d2c')}
+              onClick={() => loadSampleVenture('skincare_d2c')}
               className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
             >
-              Load Coffee D2C
+              🌿 Skincare D2C
             </button>
             <button
               type="button"
-              onClick={() => loadSampleVenture('ai_saas')}
+              onClick={() => loadSampleVenture('restaurant_ai')}
               className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
             >
-              Load AI SaaS
+              ⚡ Restaurant AI
+            </button>
+            <button
+              type="button"
+              onClick={() => loadSampleVenture('tutoring_marketplace')}
+              className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
+            >
+              🎓 Tutoring Mkt
             </button>
           </div>
         </div>

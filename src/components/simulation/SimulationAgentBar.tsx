@@ -52,6 +52,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
   softwareOverrides = {},
   onApplySoftwareOverrides,
   onResetSoftwareOverrides,
+  softwareArchetype = 'general_saas',
   softwareScreenTitle = 'Interactive Workspace',
 }) => {
   const [prompt, setPrompt] = useState<string>('');
@@ -137,6 +138,32 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
   // Dynamic quick suggestions based on active mode & context
   const getSuggestions = () => {
     if (mode === 'software') {
+      if (softwareArchetype === 'food_waste_prediction') {
+        return [
+          'Simulate morning kitchen prep alert',
+          'Show POS sales webhook sync status',
+          'Trigger chef special discount on POS',
+          'Filter perishable dairy & cream stock',
+          'Switch to minimal KDS dashboard',
+        ];
+      }
+      if (softwareArchetype === 'tutoring_edtech') {
+        return [
+          'Broadcast tutor surge notification',
+          'Show live WebRTC classroom latency',
+          'Filter unmatched Calculus II queries',
+          'Review student escrow milestone release',
+          'Highlight top-rated peer tutors',
+        ];
+      }
+      if (softwareArchetype === 'meal_delivery_service') {
+        return [
+          'Simulate recurring corporate lunch drop-off',
+          'Consolidate monthly multi-restaurant invoice',
+          'Track temperature-controlled dispatch',
+          'Filter dietary & vegan preferences',
+        ];
+      }
       return [
         'Replace this attribution chart with a conversion funnel',
         'Add a campaign comparison table below this',
@@ -145,6 +172,101 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
         'Highlight high-confidence anomalies',
         'Switch to dark mode',
       ];
+    }
+
+    if (categoryType === 'skincare') {
+      switch (activeStageIndex) {
+        case 0:
+          return [
+            'Switch to FSC unbleached craft box',
+            'Add embossed blind stamp seal',
+            'Use molded sugarcane pulp insert',
+            'Show recyclable refill carton',
+          ];
+        case 1:
+          return [
+            'Elevate unboxing reveal trajectory',
+            'Add batch purity test certificate',
+            'Show calibrated dropper pipette nest',
+          ];
+        case 2:
+          return [
+            'Switch to UV amber borosilicate glass',
+            'Apply minimalist apothecary typography',
+            'Add calibrated 0.5ml dosage markings',
+            'Show botanical oil golden hue',
+          ];
+        case 3:
+          return [
+            'Explode pipette dropper & silicone bulb',
+            'Inspect borosilicate glass wall thickness',
+            'Dissect medical-grade pipette tip',
+            'Inspect batch QR code on base',
+          ];
+        case 4:
+          return [
+            'Simulate 0.5ml bio-lipid serum drop',
+            'Test velvety epidermal absorption',
+            'Inspect dermatological barrier test',
+            'Show non-comedogenic lipid matrix',
+          ];
+        case 5:
+          return [
+            'Set clean vanity morning routine backdrop',
+            'Switch to dermatology clinic lighting',
+            'Show luxury eco-bathroom setting',
+          ];
+        case 6:
+        default:
+          return [
+            'Set soft studio clean-beauty lighting',
+            'Simulate healthy hydrated skin outcome',
+            'Show repeat refill subscription flow',
+          ];
+      }
+    }
+
+    if (categoryType === 'coffee') {
+      switch (activeStageIndex) {
+        case 0:
+          return [
+            'Use recycled kraft valve pouch',
+            'Add nitrogen-flush seal',
+            'Show estate lot traceability stamp',
+          ];
+        case 1:
+          return [
+            'Unzip resealable tin-tie seal',
+            'Show roast profile origin card',
+          ];
+        case 2:
+          return [
+            'Show SCA 86+ cup score label',
+            'Add roast elevation (1,400m MSL)',
+          ];
+        case 3:
+          return [
+            'Explode one-way degassing valve',
+            'Inspect screen size 18 Arabica beans',
+          ];
+        case 4:
+          return [
+            'Vent aromatic steam from one-way valve',
+            'Simulate freshly roasted bean cascade',
+            'Show airtight nitrogen seal lock',
+          ];
+        case 5:
+          return [
+            'Place on artisan cafe counter',
+            'Switch to specialty roastery workshop',
+          ];
+        case 6:
+        default:
+          return [
+            'Set warm cafe golden lighting',
+            'Highlight freshly brewed aroma notes',
+          ];
+      }
     }
 
     switch (activeStageIndex) {
@@ -189,12 +311,6 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
             'Simulate heavy water droplet weather stress',
             'Activate thermal microclimate heat barrier',
             'Test storm collar wind deflection',
-          ];
-        } else if (categoryType === 'coffee') {
-          return [
-            'Vent intense aromatic steam from one-way valve',
-            'Simulate roasted bean extraction cascade',
-            'Show airtight nitrogen seal lock',
           ];
         }
         return [

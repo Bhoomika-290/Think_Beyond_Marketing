@@ -75,7 +75,7 @@ export interface SoftwareModificationState {
 
 export type PhysicalSceneOverrides = UserModificationState;
 
-export type PhysicalCategoryType = 'hardware' | 'medical' | 'apparel' | 'footwear' | 'coffee' | 'general_goods';
+export type PhysicalCategoryType = 'hardware' | 'medical' | 'apparel' | 'footwear' | 'coffee' | 'skincare' | 'general_goods';
 export type Physical3DEnvironment = 'studio' | 'field' | 'macro';
 
 export type Physical3DSequenceStepId =
@@ -154,6 +154,12 @@ export interface PhysicalExperienceStoryboard {
 // SOFTWARE PROTOTYPE TYPES
 // ============================================================================
 export type SoftwareVentureArchetype =
+  | 'tutoring_edtech'
+  | 'food_waste_prediction'
+  | 'restaurant_hospitality'
+  | 'meal_delivery_service'
+  | 'local_home_repair'
+  | 'marketplace_platform'
   | 'marketing_attribution'
   | 'fintech'
   | 'healthcare'

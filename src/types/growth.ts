@@ -103,6 +103,8 @@ export interface VisualReelConcept {
   productType: string;
   brandColorPrimary: string;
   brandColorAccent: string;
+  whyCreativeFits?: string;
+  conceptTreatment?: string;
   frames: StoryboardFrame[];
 }
 
@@ -158,6 +160,9 @@ export interface MetaAdVariant {
   visualAssetDescription: string;
   placementType: 'feed' | 'story_reel';
   hookAngle: string;
+  creativeAngleType?: 'problem_led' | 'product_led' | 'outcome_led';
+  reasonForAngle?: string;
+  audience?: string;
 }
 
 export interface MetaCampaignWorkspace {
