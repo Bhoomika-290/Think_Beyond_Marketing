@@ -4,82 +4,216 @@
 
 @layer base {
   :root {
-    --bg-primary: #080B10;
-    --bg-sidebar: #0B1017;
-    --bg-surface: #111823;
-    --bg-surface-elevated: #151E2B;
-    --bg-surface-hover: #1A2536;
-    --border: #263244;
-    --border-strong: #34445A;
-    --border-bright: #34445A;
-    --border-subtle: #1B2432;
-    --text-primary: #F3F4F6;
-    --text-secondary: #AAB4C3;
-    --text-muted: #738095;
-    --text-inverse: #080B10;
-    --accent: #4D8DFF;
-    --accent-bright: #6EA8FF;
-    --accent-cyan: #45D4E8;
-    --accent-muted: rgba(77, 141, 255, 0.12);
-    --accent-border: rgba(77, 141, 255, 0.35);
-    --success: #10B981;
-    --success-bg: rgba(16, 185, 129, 0.12);
-    --success-border: rgba(16, 185, 129, 0.30);
-    --warning: #F59E0B;
-    --warning-bg: rgba(245, 158, 11, 0.12);
-    --warning-border: rgba(245, 158, 11, 0.30);
-    --danger: #EF4444;
-    --danger-bg: rgba(239, 68, 68, 0.12);
-    --danger-border: rgba(239, 68, 68, 0.30);
-    --shadow-color: rgba(0, 0, 0, 0.5);
-    --card-border-ring: rgba(255, 255, 255, 0.04);
-    --grid-line: rgba(255, 255, 255, 0.025);
+    /* === Think Beyond Marketing — warm-white + deep-blue foundation === */
+    --warm-white: #F5F1EB;
+    --deep-blue: #2B3D4F;
+
+    --bg-primary: #F5F1EB;
+    --bg-secondary: #ECE6DA;
+    --bg-sidebar: #2B3D4F;
+    --bg-header: #2B3D4F;
+    --bg-surface: #FDFCF8;
+    --bg-surface-elevated: #FFFFFF;
+    --bg-surface-hover: #EAE3D3;
+    --border: #DDD5C5;
+    --border-strong: #C4B8A0;
+    --border-bright: #C4B8A0;
+    --border-subtle: #E8E1D3;
+    --text-primary: #2B3D4F;
+    --text-secondary: #4A5E73;
+    --text-muted: #7A8CA0;
+    --text-inverse: #F5F1EB;
+    --accent: #2B3D4F;
+    --accent-bright: #3E5770;
+    --accent-slate: #5A7A96;
+    --accent-cyan: #5A7A96;
+    --accent-muted: rgba(43, 61, 79, 0.08);
+    --accent-border: rgba(43, 61, 79, 0.25);
+    --success: #4A7C59;
+    --success-bg: rgba(74, 124, 89, 0.10);
+    --success-border: rgba(74, 124, 89, 0.30);
+    --warning: #8A6D2B;
+    --warning-bg: rgba(138, 109, 43, 0.10);
+    --warning-border: rgba(138, 109, 43, 0.30);
+    --danger: #9E4A4A;
+    --danger-bg: rgba(158, 74, 74, 0.10);
+    --danger-border: rgba(158, 74, 74, 0.30);
+    --ai: #6C5E8F;
+    --ai-bg: rgba(108, 94, 143, 0.10);
+    --ai-border: rgba(108, 94, 143, 0.32);
+    --teal: #3E7A73;
+    --teal-bg: rgba(62, 122, 115, 0.10);
+    --teal-border: rgba(62, 122, 115, 0.32);
+    --opportunity: #3E7A73;
+    --opportunity-bg: rgba(62, 122, 115, 0.10);
+    --opportunity-border: rgba(62, 122, 115, 0.32);
+    --clay: #B8755D;
+    --clay-bg: rgba(184, 117, 93, 0.12);
+    --clay-border: rgba(184, 117, 93, 0.35);
+    --dusty: #7189A3;
+    --dusty-bg: rgba(113, 137, 163, 0.12);
+    --dusty-border: rgba(113, 137, 163, 0.35);
+    --moss: #5F8A6B;
+    --moss-bg: rgba(95, 138, 107, 0.12);
+    --moss-border: rgba(95, 138, 107, 0.35);
+    --plum: #806F83;
+    --plum-bg: rgba(128, 111, 131, 0.12);
+    --plum-border: rgba(128, 111, 131, 0.35);
+    --sage: #8FA596;
+    --sage-bg: rgba(143, 165, 150, 0.14);
+    --sage-border: rgba(143, 165, 150, 0.38);
+    --honey: #C49A55;
+    --honey-bg: rgba(196, 154, 85, 0.12);
+    --honey-border: rgba(196, 154, 85, 0.35);
+    --shadow-color: rgba(43, 61, 79, 0.10);
+    --card-border-ring: rgba(43, 61, 79, 0.06);
+    --grid-line: rgba(43, 61, 79, 0.05);
+
+    /* Restrained chart palette */
+    --chart-1: #2B3D4F;
+    --chart-2: #3E5770;
+    --chart-3: #5A7A96;
+    --chart-4: #7A8CA0;
+    --chart-5: #A8B5C2;
+    --chart-6: #DDD5C5;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
   }
 
   body {
-    background-color: #080B10;
-    color: #F3F4F6;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Custom scrollbar */
+  /* Restrained scrollbars — warm-white track, deep-blue/slate thumb */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0B1017;
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #263244;
-    border-radius: 3px;
+    background: #C4B8A0;
+    border-radius: 4px;
+    border: 2px solid #F5F1EB;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #34445A;
+    background: #2B3D4F;
+  }
+
+  /* Dark structural areas (sidebar / drawer) get matching subtle scrollbars */
+  .shell-dark ::-webkit-scrollbar-thumb {
+    background: rgba(245, 241, 235, 0.25);
+    border: 2px solid #2B3D4F;
+  }
+  .shell-dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(245, 241, 235, 0.45);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #C4B8A0 transparent;
+  }
+  .shell-dark * {
+    scrollbar-color: rgba(245, 241, 235, 0.3) transparent;
+  }
+
+  /* Restrained focus state */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Range / slider controls */
+  input[type='range'] {
+    accent-color: var(--deep-blue);
   }
 }
 
-/* Subtle architectural grid pattern */
+/* Subtle editorial grid pattern on warm-white */
 .bg-grid-pattern {
   background-size: 32px 32px;
-  background-image: 
+  background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
-/* Dynamic theme card utility */
+/* Calm editorial card */
 .intel-card {
-  background-color: #111823;
-  border: 1px solid #263244;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(43, 61, 79, 0.06), 0 4px 16px -4px rgba(43, 61, 79, 0.10);
 }
 
 .intel-card-interactive {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
 }
 .intel-card-interactive:hover {
-  border-color: #4D8DFF;
-  background-color: #1A2536;
+  border-color: var(--accent-border);
+  background-color: var(--bg-surface-elevated);
   transform: translateY(-1px);
+}
+
+/* Thin scroll containers */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Hide scrollbars for horizontal pill rails while keeping scroll */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Gentle entrance for staged discovery content */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in,
+.animate-fadeIn {
+  animation: fade-in 0.25s ease-out both;
+}
+
+/* Restrained chat message entrance */
+@keyframes msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.msg-in {
+  animation: msg-in 0.22s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .msg-in,
+  .animate-fade-in,
+  .animate-fadeIn {
+    animation: none;
+  }
 }

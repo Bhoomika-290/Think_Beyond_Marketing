@@ -155,9 +155,20 @@ export const PositioningStatementBuilder: React.FC<PositioningStatementBuilderPr
               </button>
             </div>
 
-            <p className="text-xs sm:text-sm text-[#F3F4F6] font-medium leading-relaxed italic bg-[#080B10]/80 p-4 rounded-xl border border-[#263244]">
-              &ldquo;{fullPitch}&rdquo;
+            {/* Color-coded live preview (ported from light port, recolored dark-readable) */}
+            <p className="text-xs sm:text-sm font-medium leading-relaxed italic bg-[#080B10]/80 p-4 rounded-xl border border-[#263244] text-[#F3F4F6]">
+              &ldquo;For <span className="text-blue-300 font-semibold not-italic underline decoration-blue-300/40">{positioning.forTarget || '[target]'}</span>, who{' '}
+              <span className="text-rose-300 font-semibold not-italic underline decoration-rose-300/40">{positioning.whoProblem || '[problem]'}</span>, our venture is a{' '}
+              <span className="text-purple-300 font-semibold not-italic underline decoration-purple-300/40">{positioning.category || '[category]'}</span> that{' '}
+              <span className="text-cyan-300 font-semibold not-italic underline decoration-cyan-300/40">{positioning.valuePromise || '[promise]'}</span>, unlike{' '}
+              <span className="text-amber-300 font-semibold not-italic underline decoration-amber-300/40">{positioning.unlikeAlternative || '[alternatives]'}</span>, because{' '}
+              <span className="text-emerald-300 font-bold not-italic underline decoration-emerald-300">{positioning.becauseDifferentiator || '[reason]'}</span>.&rdquo;
             </p>
+
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#64748B]">
+              <span>Persists into Brand Architecture</span>
+              <span className="text-emerald-400 font-medium">✓ Active in Project State</span>
+            </div>
 
             <div className="space-y-2 pt-2 border-t border-[#1C2636]">
               <span className="text-[10px] font-mono uppercase text-[#738095] block font-semibold">
@@ -167,6 +178,27 @@ export const PositioningStatementBuilder: React.FC<PositioningStatementBuilderPr
                 <li><strong className="text-[#F3F4F6]">Anchors into existing category:</strong> Lowers buyer cognitive load.</li>
                 <li><strong className="text-[#F3F4F6]">Highlights the wedge:</strong> Contrasts against flawed legacy status-quo.</li>
                 <li><strong className="text-[#F3F4F6]">Grounds in proof:</strong> Backed by your Stage 04 verified differentiator.</li>
+              </ul>
+            </div>
+
+            {/* Positioning validation checklist (ported from light port, re-themed dark) */}
+            <div className="space-y-2 pt-3 border-t border-[#1C2636]">
+              <span className="text-[10px] font-mono uppercase text-[#738095] block font-semibold">
+                POSITIONING VALIDATION CHECKLIST
+              </span>
+              <ul className="space-y-1.5 text-[11px] text-[#AAB4C3]">
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  <span>Focuses on a defined segment rather than generic mass appeal.</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  <span>Names a specific alternative so buyers have immediate contrast.</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-400">✓</span>
+                  <span>Anchors on an operational truth that can be proven on Day 1.</span>
+                </li>
               </ul>
             </div>
           </div>

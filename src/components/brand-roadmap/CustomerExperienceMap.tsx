@@ -10,6 +10,7 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
   touchpoints,
 }) => {
   const [activeStage, setActiveStage] = useState<string>(touchpoints[0]?.stage || 'DISCOVER');
+  const [expandedStage, setExpandedStage] = useState<string>('');
 
   const selectedPoint = touchpoints.find((t) => t.stage === activeStage) || touchpoints[0];
 
@@ -169,6 +170,97 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
           </div>
         </div>
       )}
+
+      {/* Full Lifecycle Expandable Detail Grid (ported from light port, re-themed dark) */}
+      <div className="pt-5 border-t border-[#1C2636] space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-[#738095] font-bold">
+            FULL LIFECYCLE DETAIL — EXPANDABLE GRID
+          </span>
+          <span className="text-[10px] font-mono text-[#64748B]">
+            Expand any milestone for behavior + opportunity
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {touchpoints.map((tp, idx) => {
+            const isExpanded = expandedStage === tp.stage;
+            return (
+              <div
+                key={tp.stage}
+                className={`p-5 rounded-xl border transition-all ${
+                  isExpanded
+                    ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500 shadow-md shadow-blue-500/10'
+                    : 'bg-[#111823] border-[#263244] hover:border-slate-500'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold flex items-center gap-1.5">
+                    <span className="p-1 rounded-md bg-[#080B10] inline-flex">
+                      {getStageIcon(tp.stage)}
+                    </span>
+                    0{idx + 1} • {tp.stage}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setExpandedStage(isExpanded ? '' : tp.stage)}
+                    className="text-xs font-mono text-[#64748B] hover:text-[#AAB4C3] transition-colors"
+                  >
+                    {isExpanded ? 'Collapse' : 'Expand'}
+                  </button>
+                </div>
+
+                <div className="space-y-2.5 text-xs">
+                  <div>
+                    <span className="text-[9px] font-mono uppercase text-[#64748B] block">
+                      Customer Expectation
+                    </span>
+                    <p className="text-[#F3F4F6] font-medium mt-0.5 leading-snug">
+                      {tp.customerExpectation}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="text-[9px] font-mono uppercase text-[#64748B] block">
+                      Brand Touchpoint
+                    </span>
+                    <p className="text-[#CBD5E1] mt-0.5 leading-snug">
+                      {tp.touchpoint}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="text-[9px] font-mono uppercase text-[#738095] block font-semibold">
+                      Desired Emotion
+                    </span>
+                    <p className="text-purple-300 mt-0.5 italic leading-snug">
+                      {tp.desiredEmotion}
+                    </p>
+                  </div>
+
+                  {isExpanded && (
+                    <div className="pt-2 border-t border-[#1C2636] space-y-2.5 text-xs">
+                      <div>
+                        <span className="text-[9px] font-mono uppercase text-emerald-400 block font-bold">
+                          Brand Behavior
+                        </span>
+                        <p className="text-[#CBD5E1] mt-0.5 leading-snug">{tp.brandBehavior}</p>
+                      </div>
+
+                      <div>
+                        <span className="text-[9px] font-mono uppercase text-cyan-400 block font-bold">
+                          Strategic Opportunity
+                        </span>
+                        <p className="text-cyan-200 mt-0.5 leading-snug">{tp.opportunity}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 };

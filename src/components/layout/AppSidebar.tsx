@@ -17,40 +17,40 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
     if (isCurrent) {
       return {
         label: 'Active',
-        dot: 'bg-[#4D8DFF] animate-pulse',
-        text: 'text-[#4D8DFF] font-semibold',
+        dot: 'bg-[#F5F1EB]',
+        text: 'text-[#F5F1EB] font-semibold',
       };
     }
     if (state.workflow.completedStages.includes(stage.id)) {
       return {
         label: 'Done',
-        dot: 'bg-[#10B981]',
-        text: 'text-[#10B981] font-medium',
+        dot: 'bg-[#8FA98F]',
+        text: 'text-[#F5F1EB]/80 font-medium',
       };
     }
     if (isUnlocked) {
       return {
         label: 'Ready',
-        dot: 'bg-[#4D8DFF]/70',
-        text: 'text-[#AAB4C3]',
+        dot: 'bg-[#F5F1EB]/50',
+        text: 'text-[#F5F1EB]/60',
       };
     }
     return {
       label: 'Locked',
-      dot: 'bg-[#263244]',
-      text: 'text-[#738095]',
+      dot: 'bg-white/15',
+      text: 'text-[#F5F1EB]/45',
     };
   };
 
   const navContent = (
-    <div className="flex flex-col h-full bg-[#0B1017] border-r border-[#263244]">
+    <div className="shell-dark flex flex-col h-full bg-theme-sidebar text-[#F5F1EB]">
       {/* Sidebar Header */}
-      <div className="p-4 border-b border-[#263244] flex items-center justify-between">
+      <div className="p-4 border-b border-white/10 flex items-center justify-between shrink-0">
         <div>
-          <div className="text-[10px] font-mono uppercase tracking-widest text-[#738095]">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-[#F5F1EB]/55">
             Venture Journey
           </div>
-          <div className="text-xs font-semibold text-[#F3F4F6] mt-0.5 flex items-center gap-1.5">
+          <div className="text-xs font-semibold text-[#F5F1EB] mt-0.5 flex items-center gap-1.5">
             <span>8-Stage Intelligence Matrix</span>
           </div>
         </div>
@@ -58,15 +58,15 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
         <button
           type="button"
           onClick={onClose}
-          className="lg:hidden p-1.5 rounded-md text-[#738095] hover:text-[#F3F4F6] hover:bg-[#151E2B] transition-colors"
+          className="lg:hidden p-1.5 rounded-md text-[#F5F1EB]/60 hover:text-[#F5F1EB] hover:bg-white/10 transition-colors"
           aria-label="Close navigation sidebar"
         >
           <X className="w-4 h-4" />
         </button>
       </div>
 
-      {/* Stages List */}
-      <nav className="flex-1 overflow-y-auto p-3 space-y-1" aria-label="Stages Navigation">
+      {/* Stages List — its own internal scroll only if stages exceed height */}
+      <nav className="flex-1 min-h-0 overflow-y-auto p-3 space-y-1" aria-label="Stages Navigation">
         {STAGES.map((stage) => {
           const isCurrent = location.pathname === stage.path;
           const isUnlocked = isStageUnlocked(stage.id);
@@ -83,14 +83,14 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
               }}
               className={`group flex items-start gap-3 p-2.5 rounded-lg transition-all duration-150 relative ${
                 isCurrent
-                  ? 'bg-[#151E2B] border border-[#4D8DFF]/40 shadow-sm'
-                  : 'hover:bg-[#111823] border border-transparent'
+                  ? 'bg-white/10 border border-white/20'
+                  : 'hover:bg-white/5 border border-transparent'
               }`}
             >
               {/* Stage number */}
               <div
                 className={`font-mono text-xs font-bold pt-0.5 shrink-0 ${
-                  isCurrent ? 'text-[#4D8DFF]' : 'text-[#738095] group-hover:text-[#AAB4C3]'
+                  isCurrent ? 'text-[#F5F1EB]' : 'text-[#F5F1EB]/50 group-hover:text-[#F5F1EB]/80'
                 }`}
               >
                 {stage.number}
@@ -102,10 +102,10 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
                   <span
                     className={`text-xs tracking-tight truncate ${
                       isCurrent
-                        ? 'text-[#F3F4F6] font-semibold'
+                        ? 'text-[#F5F1EB] font-semibold'
                         : isUnlocked
-                        ? 'text-[#AAB4C3] group-hover:text-[#F3F4F6] font-medium'
-                        : 'text-[#AAB4C3] group-hover:text-[#F3F4F6] font-medium'
+                        ? 'text-[#F5F1EB]/80 group-hover:text-[#F5F1EB] font-medium'
+                        : 'text-[#F5F1EB]/70 group-hover:text-[#F5F1EB] font-medium'
                     }`}
                   >
                     {stage.fullName}
@@ -113,10 +113,10 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
 
                   {/* Stage Lock icon if locked */}
                   {!isUnlocked && (
-                    <Lock className="w-3.5 h-3.5 text-[#738095] shrink-0" />
+                    <Lock className="w-3.5 h-3.5 text-[#F5F1EB]/40 shrink-0" />
                   )}
                   {state.workflow.completedStages.includes(stage.id) && !isCurrent && (
-                    <Check className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
+                    <Check className="w-3.5 h-3.5 text-[#8FA98F] shrink-0" />
                   )}
                 </div>
 
@@ -127,7 +127,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
                     {status.label}
                   </span>
                   {!isUnlocked && (
-                    <span className="text-[10px] text-[#738095] font-mono truncate">
+                    <span className="text-[10px] text-[#F5F1EB]/40 font-mono truncate">
                       • Req: {stage.requiredStageId === 'idea-lab' ? '01 Idea Lab' : 'Prior stage'}
                     </span>
                   )}
@@ -136,7 +136,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
 
               {/* Active right bar indicator */}
               {isCurrent && (
-                <div className="absolute right-0 top-2 bottom-2 w-1 bg-[#4D8DFF] rounded-l" />
+                <div className="absolute right-0 top-2 bottom-2 w-1 bg-[#F5F1EB] rounded-l" />
               )}
             </NavLink>
           );
@@ -144,13 +144,13 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
       </nav>
 
       {/* Sidebar Footer */}
-      <div className="p-3.5 border-t border-[#263244] bg-[#0B1017]">
-        <div className="rounded-lg p-2.5 bg-[#111823] border border-[#263244] text-left">
-          <div className="text-[10px] font-mono uppercase text-[#738095] mb-1 flex items-center justify-between">
+      <div className="p-3.5 border-t border-white/10 shrink-0">
+        <div className="rounded-lg p-2.5 bg-white/5 border border-white/10 text-left">
+          <div className="text-[10px] font-mono uppercase text-[#F5F1EB]/55 mb-1 flex items-center justify-between">
             <span>Protocol Integrity</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#8FA98F]" />
           </div>
-          <p className="text-[11px] text-[#AAB4C3] leading-snug">
+          <p className="text-[11px] text-[#F5F1EB]/70 leading-snug">
             Staged reasoning workspace. Zero fabricated data.
           </p>
         </div>
@@ -160,8 +160,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* Desktop Persistent Sidebar (hidden on tablet/mobile) */}
-      <aside className="hidden lg:block w-64 xl:w-72 shrink-0 h-[calc(100vh-4rem)] sticky top-16 z-20">
+      {/* Desktop persistent sidebar — anchored, full body height, no page scroll participation */}
+      <aside className="hidden lg:block w-64 xl:w-72 shrink-0 min-h-0 h-full border-r border-[#233342] z-20">
         {navContent}
       </aside>
 
@@ -170,7 +170,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ isOpen, onClose }) => {
         <div className="fixed inset-0 z-50 lg:hidden flex">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-[#2B3D4F]/60 backdrop-blur-sm transition-opacity"
             onClick={onClose}
             aria-hidden="true"
           />

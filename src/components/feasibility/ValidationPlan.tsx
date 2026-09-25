@@ -52,7 +52,7 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
   return (
     <div className="space-y-4">
       {/* Section Header & Progress Ring Banner */}
-      <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-4 rounded-xl bg-[#FDFCF8] border border-[#DDD5C5] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           {/* SVG Progress Ring */}
           <div className="relative w-14 h-14 shrink-0 flex items-center justify-center">
@@ -62,7 +62,7 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
                 cy="30"
                 r={circleRadius}
                 fill="none"
-                stroke="#1E2837"
+                stroke="#E8E1D3"
                 strokeWidth="5"
               />
               <circle
@@ -70,7 +70,7 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
                 cy="30"
                 r={circleRadius}
                 fill="none"
-                stroke="#10B981"
+                stroke="#4A7C59"
                 strokeWidth="5"
                 strokeDasharray={circumference}
                 strokeDashoffset={strokeDashoffset}
@@ -78,22 +78,22 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
                 className="transition-all duration-500 ease-out"
               />
             </svg>
-            <span className="absolute text-xs font-mono font-bold text-[#F3F4F6]">
+            <span className="absolute text-xs font-mono font-bold text-[#2B3D4F]">
               {progressPercent}%
             </span>
           </div>
 
           <div>
-            <div className="text-xs font-mono uppercase text-[#738095] tracking-wider font-semibold">
+            <div className="text-xs font-mono uppercase text-[#6B7D90] tracking-wider font-semibold">
               Section 06 // Founder Validation Action Plan
             </div>
-            <h3 className="text-sm font-bold text-[#F3F4F6] mt-0.5">
+            <h3 className="text-sm font-bold text-[#2B3D4F] mt-0.5">
               Empirical Validation Progress:{' '}
-              <span className="text-emerald-400 font-mono">
+              <span className="text-[#4A7C59] font-mono">
                 {completedCount} of {tasks.length} Completed
               </span>
             </h3>
-            <p className="text-[11px] text-[#AAB4C3]">
+            <p className="text-[11px] text-[#4A5E73]">
               Low-cost experiments to falsify or validate core assumptions before capital commitment.
             </p>
           </div>
@@ -113,9 +113,9 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
       {showAddForm && (
         <form
           onSubmit={handleSubmitCustomTask}
-          className="p-4 rounded-lg bg-[#0B1017] border border-[#4D8DFF]/40 space-y-3 animate-fade-in"
+          className="p-4 rounded-lg bg-[#F5F1EB] border border-[#2B3D4F]/40 space-y-3 animate-fade-in"
         >
-          <div className="text-xs font-mono uppercase text-[#4D8DFF] font-semibold flex items-center gap-1.5">
+          <div className="text-xs font-mono uppercase text-[#2B3D4F] font-semibold flex items-center gap-1.5">
             <Plus className="w-3.5 h-3.5" />
             <span>Add Custom Founder Experiment</span>
           </div>
@@ -132,13 +132,13 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-[#AAB4C3] mb-1.5">
+              <label className="block text-xs font-mono uppercase text-[#4A5E73] mb-1.5">
                 Dimension
               </label>
               <select
                 value={newDimension}
                 onChange={(e) => setNewDimension(e.target.value as FeasibilityDimensionId)}
-                className="w-full rounded-md border border-[#263244] bg-[#0B1017] px-3 py-2 text-xs text-[#F3F4F6] focus:border-[#4D8DFF] focus:outline-none"
+                className="w-full rounded-md border border-[#DDD5C5] bg-[#F5F1EB] px-3 py-2 text-xs text-[#2B3D4F] focus:border-[#2B3D4F] focus:outline-none"
               >
                 <option value="market">Market</option>
                 <option value="customer">Customer</option>
@@ -187,8 +187,8 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
             onClick={() => onToggleTask(task.id)}
             className={`p-3.5 rounded-lg border transition-all duration-150 cursor-pointer flex items-start gap-3 select-none ${
               task.completed
-                ? 'bg-[#0B1017]/70 border-[#263244] opacity-80'
-                : 'bg-[#111823] hover:bg-[#151E2B] border-[#263244] hover:border-[#34445A]'
+                ? 'bg-[#F5F1EB]/70 border-[#DDD5C5] opacity-80'
+                : 'bg-[#FDFCF8] hover:bg-[#ECE6DA] border-[#DDD5C5] hover:border-[#C4B8A0]'
             }`}
           >
             <button
@@ -197,13 +197,13 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
                 e.stopPropagation();
                 onToggleTask(task.id);
               }}
-              className="mt-0.5 text-[#738095] hover:text-[#4D8DFF] transition-colors shrink-0"
+              className="mt-0.5 text-[#6B7D90] hover:text-[#2B3D4F] transition-colors shrink-0"
               aria-label="Toggle task status"
             >
               {task.completed ? (
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-[#4A7C59]" />
               ) : (
-                <Circle className="w-4 h-4 text-[#738095]" />
+                <Circle className="w-4 h-4 text-[#6B7D90]" />
               )}
             </button>
 
@@ -211,29 +211,29 @@ export const ValidationPlan: React.FC<ValidationPlanProps> = ({
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span
                   className={`text-xs font-bold leading-snug truncate ${
-                    task.completed ? 'line-through text-[#738095]' : 'text-[#F3F4F6]'
+                    task.completed ? 'line-through text-[#6B7D90]' : 'text-[#2B3D4F]'
                   }`}
                 >
                   {task.title}
                 </span>
 
-                <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-[#0B1017] border border-[#263244] text-[#AAB4C3] shrink-0">
+                <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-[#F5F1EB] border border-[#DDD5C5] text-[#4A5E73] shrink-0">
                   {task.dimension}
                 </span>
               </div>
 
               <p
                 className={`text-[11px] leading-relaxed mb-2 ${
-                  task.completed ? 'text-[#738095]' : 'text-[#AAB4C3]'
+                  task.completed ? 'text-[#6B7D90]' : 'text-[#4A5E73]'
                 }`}
               >
                 {task.action}
               </p>
 
-              <div className="text-[10px] font-mono text-[#738095] flex items-center gap-1">
-                <Sparkles className="w-2.5 h-2.5 text-[#4D8DFF]" />
+              <div className="text-[10px] font-mono text-[#6B7D90] flex items-center gap-1">
+                <Sparkles className="w-2.5 h-2.5 text-[#2B3D4F]" />
                 <span>Signal: </span>
-                <span className="text-[#AAB4C3] truncate">{task.expectedOutput}</span>
+                <span className="text-[#4A5E73] truncate">{task.expectedOutput}</span>
               </div>
             </div>
           </div>

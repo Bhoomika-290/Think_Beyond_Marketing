@@ -69,21 +69,21 @@ export const StagePlaceholder: React.FC<StagePlaceholderProps> = ({ stage }) => 
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              <div className="p-3.5 rounded-lg bg-[#0B1017] border border-[#263244]">
-                <div className="text-xs font-mono uppercase text-[#738095] mb-1">
+              <div className="p-3.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
+                <div className="text-xs font-mono uppercase text-[#6B7D90] mb-1">
                   Upstream Data Source
                 </div>
-                <div className="text-sm font-medium text-[#F3F4F6] flex items-center gap-1.5">
-                  <Database className="w-3.5 h-3.5 text-[#4D8DFF]" />
+                <div className="text-sm font-medium text-[#2B3D4F] flex items-center gap-1.5">
+                  <Database className="w-3.5 h-3.5 text-[#2B3D4F]" />
                   Stage 01 Idea Lab Context
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-lg bg-[#0B1017] border border-[#263244]">
-                <div className="text-xs font-mono uppercase text-[#738095] mb-1">
+              <div className="p-3.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
+                <div className="text-xs font-mono uppercase text-[#6B7D90] mb-1">
                   Data Integrity Protocol
                 </div>
-                <div className="text-sm font-medium text-emerald-400 flex items-center gap-1.5">
+                <div className="text-sm font-medium text-[#4A7C59] flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   Zero Fabricated Data
                 </div>
@@ -98,32 +98,32 @@ export const StagePlaceholder: React.FC<StagePlaceholderProps> = ({ stage }) => 
           subtitle="Data collected from Stage 01 persistent state will feed into this reasoning module"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-            <div className="p-3 rounded-lg bg-[#0B1017] border border-[#263244]">
-              <span className="text-[#738095] uppercase block mb-1">Project Name</span>
-              <span className="text-[#F3F4F6] font-sans font-medium text-sm">
+            <div className="p-3 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
+              <span className="text-[#6B7D90] uppercase block mb-1">Project Name</span>
+              <span className="text-[#2B3D4F] font-sans font-medium text-sm">
                 {state.project.name || 'Untitled Venture'}
               </span>
             </div>
 
-            <div className="p-3 rounded-lg bg-[#0B1017] border border-[#263244]">
-              <span className="text-[#738095] uppercase block mb-1">Product Type</span>
-              <span className="text-[#F3F4F6] font-sans font-medium text-sm capitalize">
+            <div className="p-3 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
+              <span className="text-[#6B7D90] uppercase block mb-1">Product Type</span>
+              <span className="text-[#2B3D4F] font-sans font-medium text-sm capitalize">
                 {state.businessModel.productType || 'Not specified yet'}
               </span>
             </div>
 
-            <div className="p-3 rounded-lg bg-[#0B1017] border border-[#263244]">
-              <span className="text-[#738095] uppercase block mb-1">Location Context</span>
-              <span className="text-[#F3F4F6] font-sans font-medium text-sm">
+            <div className="p-3 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
+              <span className="text-[#6B7D90] uppercase block mb-1">Location Context</span>
+              <span className="text-[#2B3D4F] font-sans font-medium text-sm">
                 {state.businessModel.location.cityRegion
                   ? `${state.businessModel.location.cityRegion}, ${state.businessModel.location.country}`
                   : state.businessModel.location.country || 'Not specified'}
               </span>
             </div>
 
-            <div className="p-3 rounded-lg bg-[#0B1017] border border-[#263244]">
-              <span className="text-[#738095] uppercase block mb-1">Core Problem</span>
-              <span className="text-[#F3F4F6] font-sans font-medium text-sm truncate block">
+            <div className="p-3 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
+              <span className="text-[#6B7D90] uppercase block mb-1">Core Problem</span>
+              <span className="text-[#2B3D4F] font-sans font-medium text-sm truncate block">
                 {state.idea.problem || 'Not specified yet'}
               </span>
             </div>

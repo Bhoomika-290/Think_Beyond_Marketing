@@ -40,49 +40,49 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
     <div
       className={`rounded-2xl border p-5 transition-all flex flex-col justify-between ${
         isSelected
-          ? 'bg-[#151E2B] border-[#4D8DFF] shadow-xl shadow-blue-500/15 ring-2 ring-[#4D8DFF]'
-          : 'bg-[#111823] border-[#263244] hover:border-[#38BDF8]/40'
+          ? 'bg-[#ECE6DA] border-[#2B3D4F] shadow-sm ring-2 ring-[#2B3D4F]'
+          : 'bg-white border-[#DDD5C5] hover:border-[#5A7A96]/40'
       }`}
     >
       <div>
         {/* Top Badges */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#4D8DFF] bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 font-bold">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] bg-[#2B3D4F]/10 px-2 py-0.5 rounded border border-[#2B3D4F]/20 font-bold">
               {concept.style}
             </span>
-            <span className="text-[10px] font-mono text-[#64748B]">
+            <span className="text-[10px] font-mono text-[#6B7D90]">
               {concept.personalityAlignment}
             </span>
           </div>
 
           {isSelected ? (
-            <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="text-[10px] font-mono font-bold text-[#4A7C59] bg-[#4A7C59]/10 px-2.5 py-0.5 rounded-full border border-[#4A7C59]/30 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4A7C59]" />
               SELECTED BRAND MARK
             </span>
           ) : (
-            <span className="text-[10px] font-mono text-[#64748B]">
+            <span className="text-[10px] font-mono text-[#6B7D90]">
               Candidate
             </span>
           )}
         </div>
 
         {/* Concept Title */}
-        <h3 className="text-base font-bold text-[#F3F4F6] mb-1">
+        <h3 className="text-base font-bold text-[#2B3D4F] mb-1">
           {concept.name}
         </h3>
-        <p className="text-xs text-[#AAB4C3] mb-4 line-clamp-2">
+        <p className="text-xs text-[#4A5E73] mb-4 line-clamp-2">
           {concept.rationale}
         </p>
 
         {/* View Mode Switcher */}
-        <div className="flex items-center gap-1 p-1 bg-[#080B10] rounded-lg border border-[#263244] mb-3 text-[10px] font-mono">
+        <div className="flex items-center gap-1 p-1 bg-[#F5F1EB] rounded-lg border border-[#DDD5C5] mb-3 text-[10px] font-mono">
           <button
             type="button"
             onClick={() => setViewMode('combination')}
             className={`flex-1 py-1 rounded transition-colors text-center ${
-              viewMode === 'combination' ? 'bg-[#151E2B] text-[#F3F4F6] font-bold' : 'text-[#64748B] hover:text-[#AAB4C3]'
+              viewMode === 'combination' ? 'bg-[#ECE6DA] text-[#2B3D4F] font-bold' : 'text-[#6B7D90] hover:text-[#4A5E73]'
             }`}
           >
             Combo
@@ -91,7 +91,7 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
             type="button"
             onClick={() => setViewMode('mark')}
             className={`flex-1 py-1 rounded transition-colors text-center ${
-              viewMode === 'mark' ? 'bg-[#151E2B] text-[#F3F4F6] font-bold' : 'text-[#64748B] hover:text-[#AAB4C3]'
+              viewMode === 'mark' ? 'bg-[#ECE6DA] text-[#2B3D4F] font-bold' : 'text-[#6B7D90] hover:text-[#4A5E73]'
             }`}
           >
             Mark Only
@@ -100,7 +100,7 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
             type="button"
             onClick={() => setViewMode('wordmark')}
             className={`flex-1 py-1 rounded transition-colors text-center ${
-              viewMode === 'wordmark' ? 'bg-[#151E2B] text-[#F3F4F6] font-bold' : 'text-[#64748B] hover:text-[#AAB4C3]'
+              viewMode === 'wordmark' ? 'bg-[#ECE6DA] text-[#2B3D4F] font-bold' : 'text-[#6B7D90] hover:text-[#4A5E73]'
             }`}
           >
             Wordmark
@@ -109,11 +109,11 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
 
         {/* Visual Logo Stage Canvas */}
         <div
-          className="w-full aspect-[16/10] rounded-xl border border-[#263244] flex items-center justify-center p-6 relative overflow-hidden group"
-          style={{ backgroundColor: concept.customization.backgroundColor || '#080B10' }}
+          className="w-full aspect-[16/10] rounded-xl border border-[#DDD5C5] flex items-center justify-center p-6 relative overflow-hidden group"
+          style={{ backgroundColor: concept.customization.backgroundColor || '#F5F1EB' }}
         >
           {/* Subtle grid pattern background */}
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#4D8DFF_1px,transparent_1px)] [background-size:16px_16px]" />
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#2B3D4F_1px,transparent_1px)] [background-size:16px_16px]" />
 
           {viewMode === 'mark' && (
             <div
@@ -126,12 +126,12 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
           {viewMode === 'wordmark' && (
             <div className="relative z-10 text-center">
               <span
-                className="text-2xl font-black tracking-tight text-[#F3F4F6]"
+                className="text-2xl font-black tracking-tight text-[#2B3D4F]"
                 style={{ fontFamily: getFontFamily(concept.customization.fontTreatment) }}
               >
                 {concept.wordmark}
               </span>
-              <span className="block text-[10px] font-mono uppercase tracking-widest text-[#4D8DFF] mt-1">
+              <span className="block text-[10px] font-mono uppercase tracking-widest text-[#2B3D4F] mt-1">
                 VENTURE IDENTITY
               </span>
             </div>
@@ -146,12 +146,12 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
               />
               <div className="text-center">
                 <span
-                  className="text-lg font-black tracking-tight text-[#F3F4F6]"
+                  className="text-lg font-black tracking-tight text-[#2B3D4F]"
                   style={{ fontFamily: getFontFamily(concept.customization.fontTreatment) }}
                 >
                   {concept.wordmark}
                 </span>
-                <span className="block text-[9px] font-mono uppercase tracking-widest text-[#4D8DFF]">
+                <span className="block text-[9px] font-mono uppercase tracking-widest text-[#2B3D4F]">
                   OFFICIAL SYSTEM
                 </span>
               </div>
@@ -161,8 +161,8 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
       </div>
 
       {/* Action Footer */}
-      <div className="mt-5 pt-3 border-t border-[#1C2636] flex items-center justify-between">
-        <span className="text-[11px] font-mono text-[#64748B]">
+      <div className="mt-5 pt-3 border-t border-[#E8E1D3] flex items-center justify-between">
+        <span className="text-[11px] font-mono text-[#6B7D90]">
           Complexity: Level {concept.customization.complexity}/5
         </span>
 
@@ -171,8 +171,8 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
           onClick={onSelect}
           className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
             isSelected
-              ? 'bg-blue-600 text-white cursor-default shadow-lg shadow-blue-500/20'
-              : 'bg-[#1C2636] hover:bg-blue-600/30 text-[#AAB4C3] hover:text-white border border-[#263244]'
+              ? 'bg-[#2B3D4F] text-white cursor-default shadow-sm'
+              : 'bg-[#E8E1D3] hover:bg-[#2B3D4F] text-[#4A5E73] hover:text-[#F5F1EB] border border-[#DDD5C5]'
           }`}
         >
           {isSelected ? '✓ Active Brand Mark' : 'Select This Mark'}

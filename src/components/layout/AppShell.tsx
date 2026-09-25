@@ -12,32 +12,36 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const location = useLocation();
   const mainRef = useRef<HTMLElement>(null);
 
-  // Deterministically reset scroll position to top whenever route changes
+  // Reset scroll on route change — deterministic top reset for both window
+  // (teammate: ensures no stale scroll) and independent main container (local:
+  // shell owns viewport, main is the only scroll region).
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     if (mainRef.current) {
       mainRef.current.scrollTop = 0;
-      mainRef.current.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      mainRef.current.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
     }
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080B10] text-[#F3F4F6]">
-      {/* Top Application Header */}
-      <AppHeader onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)} />
+    <div className="h-screen h-dvh flex flex-col overflow-hidden bg-theme-background text-theme-primary">
+      {/* Top Application Header — fixed layer, never scrolls away */}
+      <div className="shrink-0 z-30">
+        <AppHeader onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)} />
+      </div>
 
-      {/* Main Workspace Body: Sidebar + Page Content */}
-      <div className="flex-1 flex">
-        {/* Left Sidebar (Desktop persistent, Mobile/Tablet drawer) */}
+      {/* Workspace body: fixed sidebar + independent main scroll */}
+      <div className="flex-1 flex min-h-0 overflow-hidden">
+        {/* Left Sidebar — anchored beneath header, full remaining viewport height */}
         <AppSidebar
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />
 
-        {/* Primary Page Content Area */}
+        {/* Primary Page Content — the ONLY vertical scroll region on desktop */}
         <main
           ref={mainRef}
-          className="flex-1 bg-grid-pattern relative min-h-[calc(100vh-4rem)]"
+          className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden bg-grid-pattern relative scroll-smooth"
         >
           {children}
         </main>

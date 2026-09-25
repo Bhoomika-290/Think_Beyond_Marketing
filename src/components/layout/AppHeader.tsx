@@ -26,28 +26,28 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onToggleSidebar }) => {
 
   return (
     <>
-      <header className="h-16 bg-[#0B1017] border-b border-[#263244] sticky top-0 z-30 transition-colors">
+      <header className="shell-dark h-16 bg-theme-header border-b border-white/10 shrink-0 z-30">
         <div className="h-full px-4 sm:px-6 flex items-center justify-between gap-4">
           {/* Left section: Hamburger (Mobile/Tablet) + Brand Identity */}
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={onToggleSidebar}
-              className="lg:hidden p-2 rounded-lg text-theme-secondary hover:text-theme-primary hover:bg-theme-hover transition-colors"
+              className="lg:hidden p-2 rounded-lg text-[#F5F1EB]/70 hover:text-[#F5F1EB] hover:bg-white/10 transition-colors"
               aria-label="Toggle navigation drawer"
             >
               <Menu className="w-5 h-5" />
             </button>
 
             <Link to="/idea-lab" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#4D8DFF] to-indigo-700 flex items-center justify-center shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                <Compass className="w-4 h-4 text-white stroke-[2.5]" />
+              <div className="w-8 h-8 rounded-lg bg-[#F5F1EB] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <Compass className="w-4 h-4 text-theme-deep-blue stroke-[2.5]" />
               </div>
               <div>
-                <span className="font-bold text-xs sm:text-sm tracking-wider uppercase text-[#F3F4F6] block leading-none">
+                <span className="font-bold text-xs sm:text-sm tracking-wider uppercase text-[#F5F1EB] block leading-none">
                   Think Beyond Marketing
                 </span>
-                <span className="text-[10px] text-[#738095] font-mono tracking-tight hidden sm:block mt-0.5">
+                <span className="text-[10px] text-[#F5F1EB]/60 font-mono tracking-tight hidden sm:block mt-0.5">
                   Business & Brand Intelligence Workspace
                 </span>
               </div>
@@ -55,17 +55,17 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onToggleSidebar }) => {
           </div>
 
           {/* Center section: Project Context & Status */}
-          <div className="hidden md:flex items-center gap-3 px-3 py-1.5 rounded-lg bg-[#111823] border border-[#263244]">
-            <Layers className="w-3.5 h-3.5 text-[#4D8DFF]" />
+          <div className="hidden md:flex items-center gap-3 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+            <Layers className="w-3.5 h-3.5 text-[#F5F1EB]/70" />
             <div className="text-xs">
-              <span className="text-[#738095] font-mono mr-1.5 uppercase text-[10px]">Project:</span>
-              <span className="font-medium text-[#F3F4F6] max-w-[160px] truncate inline-block align-bottom">
+              <span className="text-[#F5F1EB]/55 font-mono mr-1.5 uppercase text-[10px]">Project:</span>
+              <span className="font-medium text-[#F5F1EB] max-w-[160px] truncate inline-block align-bottom">
                 {state.project.name || 'Untitled Venture'}
               </span>
             </div>
-            <span className="text-[#34445A] text-xs">•</span>
+            <span className="text-[#F5F1EB]/25 text-xs">•</span>
             <div className="text-xs">
-              <span className="text-[#738095] font-mono mr-1.5 uppercase text-[10px]">Status:</span>
+              <span className="text-[#F5F1EB]/55 font-mono mr-1.5 uppercase text-[10px]">Status:</span>
               <Badge variant={hasMinimumDiscovery ? 'success' : 'default'} size="sm">
                 {hasMinimumDiscovery ? 'Discovery Ready' : 'In Discovery'}
               </Badge>
@@ -75,7 +75,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onToggleSidebar }) => {
           {/* Right section: Reset Canvas Action */}
           <div className="flex items-center">
             <Button
-              variant="outline"
+              variant="header-outline"
               size="sm"
               icon={<RotateCcw className="w-3.5 h-3.5" />}
               onClick={() => setShowResetConfirm(true)}
@@ -89,9 +89,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onToggleSidebar }) => {
 
       {/* Confirmation Modal for Reset Canvas */}
       {showResetConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2B3D4F]/60 backdrop-blur-sm animate-fade-in">
           <div className="bg-theme-surface border border-theme-border rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center gap-3 text-amber-500">
+            <div className="flex items-center gap-3 text-theme-warning">
               <AlertCircle className="w-5 h-5 shrink-0" />
               <h3 className="text-base font-semibold text-theme-primary">
                 Reset Project State?
@@ -109,9 +109,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onToggleSidebar }) => {
                 Cancel
               </Button>
               <Button
-                variant="primary"
+                variant="danger"
                 size="sm"
-                className="bg-rose-600 hover:bg-rose-500 shadow-rose-600/20"
                 onClick={handleConfirmReset}
               >
                 Confirm Reset

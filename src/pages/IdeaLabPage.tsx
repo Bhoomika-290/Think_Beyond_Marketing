@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { HeroTransformation } from '../components/idea-lab/HeroTransformation';
 import { FAQEntryPrompts } from '../components/idea-lab/FAQEntryPrompts';
 import { InterviewerChat } from '../components/idea-lab/InterviewerChat';
+import { VentureSignalBoard } from '../components/idea-lab/VentureSignalBoard';
 import { ProductTypeSelector } from '../components/idea-lab/ProductTypeSelector';
 import { LocationContext } from '../components/idea-lab/LocationContext';
 import { DiscoveryFlow } from '../components/idea-lab/DiscoveryFlow';
 import { IdeaSnapshot } from '../components/idea-lab/IdeaSnapshot';
+import { BusinessModelSnapshot } from '../components/idea-lab/BusinessModelSnapshot';
 
 export const IdeaLabPage: React.FC = () => {
   const [selectedPrompt, setSelectedPrompt] = useState<string | undefined>(undefined);
@@ -40,6 +42,8 @@ export const IdeaLabPage: React.FC = () => {
               externalPrompt={selectedPrompt}
               onClearExternalPrompt={() => setSelectedPrompt(undefined)}
             />
+
+            <VentureSignalBoard />
           </div>
 
           {/* Right Column: Structured Vectors (Product Type, Location, Discovery) */}
@@ -75,7 +79,9 @@ export const IdeaLabPage: React.FC = () => {
             </span>
           </div>
 
-          <IdeaSnapshot />
+          <IdeaSnapshot onSelectQuestion={handleSelectPrompt} />
+
+          <BusinessModelSnapshot />
         </div>
       </div>
     </div>

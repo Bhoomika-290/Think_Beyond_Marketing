@@ -17,8 +17,10 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
 }) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [customDiffText, setCustomDiffText] = useState('');
+  const [inspectingCandidateId, setInspectingCandidateId] = useState<string | null>(null);
 
   const activeCandidate = candidates.find((c) => c.id === activeDifferentiatorId) || candidates[0];
+  const inspectingCandidate = candidates.find((c) => c.id === inspectingCandidateId);
 
   const getEvidenceColor = (state: string) => {
     switch (state) {
@@ -333,14 +335,23 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
               </div>
 
               <div className="flex items-center justify-between pt-3 border-t border-[#1C2636] text-[11px] font-mono">
-                <button
-                  type="button"
-                  onClick={() => handleStartEdit(cand)}
-                  className="text-[#64748B] hover:text-[#AAB4C3] flex items-center gap-1 transition-colors"
-                >
-                  <Edit3 className="w-3 h-3" />
-                  <span>Customize</span>
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setInspectingCandidateId(cand.id)}
+                    className="text-[#64748B] hover:text-cyan-300 underline transition-colors"
+                  >
+                    Why this?
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleStartEdit(cand)}
+                    className="text-[#64748B] hover:text-[#AAB4C3] flex items-center gap-1 transition-colors"
+                  >
+                    <Edit3 className="w-3 h-3" />
+                    <span>Customize</span>
+                  </button>
+                </div>
 
                 {!isSelected ? (
                   <button
@@ -358,6 +369,64 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
           );
         })}
       </div>
+
+      {/* "Why this?" Rationale Modal (ported from light port, re-themed dark) */}
+      {inspectingCandidate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-[#111823] border border-[#263244] rounded-2xl p-6 max-w-lg w-full shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1C2636] mb-4">
+              <div>
+                <span className="text-[10px] font-mono uppercase text-[#738095]">Strategic Rationale</span>
+                <h3 className="text-sm font-bold text-[#F3F4F6]">{inspectingCandidate.differentiator}</h3>
+              </div>
+              <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase ${getEvidenceColor(inspectingCandidate.evidenceState)}`}>
+                {inspectingCandidate.evidenceState}
+              </span>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="p-3 rounded-lg bg-[#0B1017] border border-[#1C2636]">
+                <span className="text-[10px] font-mono uppercase text-[#738095] block mb-1">Reasoning &amp; Synthesis</span>
+                <p className="text-[#CBD5E1] leading-relaxed">{inspectingCandidate.reasoning}</p>
+              </div>
+
+              <div className="p-3 rounded-lg bg-[#0B1017] border border-[#1C2636]">
+                <span className="text-[10px] font-mono uppercase text-[#738095] block mb-1">Competitor Vulnerability</span>
+                <p className="text-[#AAB4C3] leading-relaxed">
+                  Competitors rely on {inspectingCandidate.competitorPattern.toLowerCase()}, leaving buyers who demand {inspectingCandidate.customerNeed.toLowerCase()} stranded.
+                </p>
+              </div>
+
+              <div className="p-3 rounded-lg bg-[#0B1017] border border-emerald-500/30">
+                <span className="text-[10px] font-mono uppercase text-emerald-400 block mb-1">Brand Advantage</span>
+                <p className="text-emerald-300 font-medium leading-relaxed">
+                  {inspectingCandidate.brandPosition}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-5 flex items-center justify-end gap-2 pt-3 border-t border-[#1C2636]">
+              <button
+                type="button"
+                onClick={() => setInspectingCandidateId(null)}
+                className="px-4 py-2 rounded-lg bg-[#1C2636] hover:bg-[#263244] text-[#AAB4C3] border border-[#263244] text-xs font-mono"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onSelectDifferentiator(inspectingCandidate.id);
+                  setInspectingCandidateId(null);
+                }}
+                className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-semibold"
+              >
+                Adopt as Primary Differentiator
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -37,11 +37,11 @@ export const FAQEntryPrompts: React.FC<FAQEntryPromptsProps> = ({ onSelectPrompt
   return (
     <div className="py-6 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       <div className="flex items-center gap-2 mb-3">
-        <HelpCircle className="w-4 h-4 text-[#4D8DFF]" />
-        <span className="text-xs font-mono uppercase tracking-wider text-[#AAB4C3] font-medium">
+        <HelpCircle className="w-4 h-4 text-[#2B3D4F]" />
+        <span className="text-xs font-mono uppercase tracking-wider text-[#4A5E73] font-medium">
           Founder Dilemma Entry Points
         </span>
-        <span className="text-xs text-[#738095] hidden sm:inline">
+        <span className="text-xs text-[#6B7D90] hidden sm:inline">
           (Click any prompt to seed the intelligence session)
         </span>
       </div>
@@ -52,19 +52,19 @@ export const FAQEntryPrompts: React.FC<FAQEntryPromptsProps> = ({ onSelectPrompt
             key={item.q}
             type="button"
             onClick={() => onSelectPrompt(item.intent)}
-            className="group p-3.5 rounded-xl bg-[#111823] hover:bg-[#151E2B] border border-[#263244] hover:border-[#4D8DFF] text-left transition-all duration-150 flex flex-col justify-between focus:outline-none focus:ring-1 focus:ring-[#4D8DFF] shadow-sm"
+            className="group p-3.5 rounded-xl bg-[#FDFCF8] hover:bg-[#ECE6DA] border border-[#DDD5C5] hover:border-[#2B3D4F] text-left transition-all duration-150 flex flex-col justify-between focus:outline-none focus:ring-1 focus:ring-[#2B3D4F] shadow-sm"
           >
             <div className="flex items-start justify-between gap-2 mb-2.5">
-              <span className="text-xs font-semibold text-[#F3F4F6] group-hover:text-[#4D8DFF] transition-colors leading-snug">
+              <span className="text-xs font-semibold text-[#2B3D4F] group-hover:text-[#2B3D4F] transition-colors leading-snug">
                 {item.q}
               </span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#AAB4C3] group-hover:text-[#4D8DFF] shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#4A5E73] group-hover:text-[#2B3D4F] shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono text-[#738095] uppercase tracking-wider">
+              <span className="text-[10px] font-mono text-[#6B7D90] uppercase tracking-wider">
                 {item.tag}
               </span>
-              <span className="text-[10px] text-[#4D8DFF] opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+              <span className="text-[10px] text-[#2B3D4F] opacity-0 group-hover:opacity-100 transition-opacity font-medium">
                 Load Prompt &rarr;
               </span>
             </div>

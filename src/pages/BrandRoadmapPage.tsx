@@ -54,9 +54,9 @@ export const BrandRoadmapPage: React.FC = () => {
 
       {/* Discovery Warning / Sample Loader if project is empty */}
       {!hasDiscovery && (
-        <div className="rounded-2xl bg-amber-500/10 border border-amber-500/30 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="rounded-2xl bg-[#8A6D2B]/10 border border-[#8A6D2B]/30 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-sm font-bold text-amber-300">
+            <h3 className="text-sm font-bold text-[#8A6D2B]">
               Limited Upstream Venture Discovery
             </h3>
             <p className="text-xs text-amber-200/80 mt-1 max-w-xl">
@@ -67,14 +67,14 @@ export const BrandRoadmapPage: React.FC = () => {
             <button
               type="button"
               onClick={() => loadSampleVenture('coffee_d2c')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-amber-300 border border-amber-500/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
             >
               Load Coffee D2C
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('ai_saas')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-amber-300 border border-amber-500/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
             >
               Load AI SaaS
             </button>
@@ -83,7 +83,7 @@ export const BrandRoadmapPage: React.FC = () => {
       )}
 
       {/* Section View Filter Tabs */}
-      <div className="flex items-center gap-1.5 p-1.5 bg-[#0B1017] rounded-xl border border-[#263244] overflow-x-auto scrollbar-thin text-xs font-mono">
+      <div className="flex items-center gap-1.5 p-1.5 bg-[#FDFCF8] rounded-xl border border-[#DDD5C5] overflow-x-auto scrollbar-thin text-xs font-mono">
         {[
           { id: 'all', label: 'All Roadmap Views' },
           { id: 'roadmap', label: '01 Brand Transformation Roadmap' },
@@ -105,8 +105,8 @@ export const BrandRoadmapPage: React.FC = () => {
             }}
             className={`px-3.5 py-1.5 rounded-lg transition-all whitespace-nowrap ${
               activeTab === tab.id
-                ? 'bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/20'
-                : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+                ? 'bg-[#2B3D4F] text-white font-bold shadow-sm'
+                : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
             }`}
           >
             {tab.label}

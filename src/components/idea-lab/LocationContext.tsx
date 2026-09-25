@@ -16,17 +16,17 @@ export const LocationContext: React.FC = () => {
 
   const { location, deliveryModel, customerType } = state.businessModel;
 
-  const deliveryOptions: { id: DeliveryModel; label: string; icon: React.ElementType }[] = [
-    { id: 'online', label: 'Online / Digital', icon: Laptop },
-    { id: 'offline', label: 'Offline / Physical', icon: Store },
-    { id: 'hybrid', label: 'Hybrid / Omnichannel', icon: Globe },
+  const deliveryOptions: { id: DeliveryModel; label: string; icon: React.ElementType; accent: string; wash: string }[] = [
+    { id: 'online', label: 'Online / Digital', icon: Laptop, accent: '#486581', wash: '#DCEAF4' },
+    { id: 'offline', label: 'Offline / Physical', icon: Store, accent: '#A96555', wash: '#F0DDD5' },
+    { id: 'hybrid', label: 'Hybrid / Omnichannel', icon: Globe, accent: '#3E7A73', wash: '#DDEBE2' },
   ];
 
-  const customerOptions: { id: CustomerType; label: string; sub: string }[] = [
-    { id: 'b2c', label: 'B2C', sub: 'Direct to individual consumer' },
-    { id: 'd2c', label: 'D2C', sub: 'Direct-to-consumer brand' },
-    { id: 'b2b', label: 'B2B', sub: 'Enterprise & business clients' },
-    { id: 'b2b2c', label: 'B2B2C', sub: 'Intermediary channel model' },
+  const customerOptions: { id: CustomerType; label: string; sub: string; accent: string }[] = [
+    { id: 'b2c', label: 'B2C', sub: 'Direct to individual consumer', accent: '#486581' },
+    { id: 'd2c', label: 'D2C', sub: 'Direct-to-consumer brand', accent: '#4F8064' },
+    { id: 'b2b', label: 'B2B', sub: 'Enterprise & business clients', accent: '#76658F' },
+    { id: 'b2b2c', label: 'B2B2C', sub: 'Intermediary channel model', accent: '#A87932' },
   ];
 
   return (
@@ -65,7 +65,7 @@ export const LocationContext: React.FC = () => {
 
         {/* Operational / Delivery Model */}
         <div>
-          <label className="block text-xs font-mono uppercase text-[#AAB4C3] font-medium mb-2">
+          <label className="block text-xs font-mono uppercase text-[#4A5E73] font-medium mb-2">
             Delivery & Presence Model
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -77,16 +77,25 @@ export const LocationContext: React.FC = () => {
                   key={opt.id}
                   type="button"
                   onClick={() => setDeliveryModel(opt.id)}
+                  aria-pressed={isSelected}
                   className={`p-3 rounded-lg border text-left flex items-center gap-3 transition-all ${
                     isSelected
-                      ? 'bg-[rgba(77,141,255,0.12)] border-[#4D8DFF] text-[#F3F4F6] ring-1 ring-[#4D8DFF]/40'
-                      : 'bg-[#111823] hover:bg-[#151E2B] border-[#263244] text-[#AAB4C3]'
+                      ? 'text-[#2B3D4F] ring-1'
+                      : 'hover:brightness-[0.985] border-[#DDD5C5] text-[#4A5E73]'
                   }`}
+                  style={
+                    isSelected
+                      ? { backgroundColor: opt.wash, borderColor: opt.accent, ['--tw-ring-color' as string]: opt.accent }
+                      : { backgroundColor: '#F5F1EB' }
+                  }
                 >
                   <div
-                    className={`w-7 h-7 rounded flex items-center justify-center shrink-0 ${
-                      isSelected ? 'bg-blue-600 text-white' : 'bg-[#151E2B] text-[#738095]'
-                    }`}
+                    className="w-7 h-7 rounded flex items-center justify-center shrink-0 transition-colors"
+                    style={
+                      isSelected
+                        ? { backgroundColor: opt.accent, color: '#FDFCF8' }
+                        : { backgroundColor: opt.wash, color: opt.accent }
+                    }
                   >
                     <Icon className="w-3.5 h-3.5" />
                   </div>
@@ -99,7 +108,7 @@ export const LocationContext: React.FC = () => {
 
         {/* Customer Type */}
         <div>
-          <label className="block text-xs font-mono uppercase text-[#AAB4C3] font-medium mb-2">
+          <label className="block text-xs font-mono uppercase text-[#4A5E73] font-medium mb-2">
             Primary Customer Archetype
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -110,16 +119,23 @@ export const LocationContext: React.FC = () => {
                   key={opt.id}
                   type="button"
                   onClick={() => setCustomerType(opt.id)}
+                  aria-pressed={isSelected}
                   className={`p-3 rounded-lg border text-left transition-all ${
-                    isSelected
-                      ? 'bg-[rgba(77,141,255,0.12)] border-[#4D8DFF] ring-1 ring-[#4D8DFF]/40'
-                      : 'bg-[#111823] hover:bg-[#151E2B] border-[#263244]'
+                    isSelected ? 'ring-1' : 'bg-[#F5F1EB] hover:bg-[#ECE6DA] border-[#DDD5C5]'
                   }`}
+                  style={
+                    isSelected
+                      ? { backgroundColor: `${opt.accent}1F`, borderColor: opt.accent, ['--tw-ring-color' as string]: opt.accent }
+                      : undefined
+                  }
                 >
-                  <div className="text-xs font-mono font-bold text-[#F3F4F6]">
+                  <div
+                    className="text-xs font-mono font-bold"
+                    style={{ color: isSelected ? opt.accent : '#2B3D4F' }}
+                  >
                     {opt.label}
                   </div>
-                  <div className="text-[10px] text-[#738095] mt-0.5 truncate">
+                  <div className="text-[10px] text-[#6B7D90] mt-0.5 truncate">
                     {opt.sub}
                   </div>
                 </button>

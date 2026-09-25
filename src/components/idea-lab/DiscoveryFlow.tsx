@@ -86,7 +86,7 @@ export const DiscoveryFlow: React.FC = () => {
       }
     >
       {/* Step Selector Pills */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-5 border-b border-[#263244] no-scrollbar">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-5 border-b border-[#DDD5C5] no-scrollbar">
         {steps.map((step, idx) => {
           const StepIcon = step.icon;
           const isCurrent = activeStep === idx;
@@ -104,13 +104,13 @@ export const DiscoveryFlow: React.FC = () => {
               onClick={() => setActiveStep(idx)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono transition-all shrink-0 select-none ${
                 isCurrent
-                  ? 'bg-[rgba(77,141,255,0.15)] text-[#4D8DFF] border border-[#4D8DFF] font-semibold'
-                  : 'bg-[#111823] hover:bg-[#151E2B] text-[#AAB4C3] border border-[#263244]'
+                  ? 'bg-[rgba(43,61,79,0.15)] text-[#2B3D4F] border border-[#2B3D4F] font-semibold'
+                  : 'bg-[#F5F1EB] hover:bg-[#ECE6DA] text-[#4A5E73] border border-[#DDD5C5]'
               }`}
             >
               <StepIcon className="w-3.5 h-3.5" />
               <span>{step.title.split(' ')[0]}</span>
-              {isFilled && <CheckCircle2 className="w-3 h-3 text-[#10B981]" />}
+              {isFilled && <CheckCircle2 className="w-3 h-3 text-[#4A7C59]" />}
             </button>
           );
         })}
@@ -122,10 +122,10 @@ export const DiscoveryFlow: React.FC = () => {
         {activeStep === 0 && (
           <div className="space-y-4 animate-fade-in">
             <div>
-              <h4 className="text-sm font-semibold text-[#F3F4F6]">
+              <h4 className="text-sm font-semibold text-[#2B3D4F]">
                 Who is this product specifically for?
               </h4>
-              <p className="text-xs text-[#738095] mt-0.5">
+              <p className="text-xs text-[#6B7D90] mt-0.5">
                 Define the primary persona who has urgency, budget, or emotional alignment.
               </p>
             </div>
@@ -143,10 +143,10 @@ export const DiscoveryFlow: React.FC = () => {
         {activeStep === 1 && (
           <div className="space-y-4 animate-fade-in">
             <div>
-              <h4 className="text-sm font-semibold text-[#F3F4F6]">
+              <h4 className="text-sm font-semibold text-[#2B3D4F]">
                 What core problem or void does this address?
               </h4>
-              <p className="text-xs text-[#738095] mt-0.5">
+              <p className="text-xs text-[#6B7D90] mt-0.5">
                 Explain what is broken, missing, or overpriced in existing alternatives.
               </p>
             </div>
@@ -164,10 +164,10 @@ export const DiscoveryFlow: React.FC = () => {
         {activeStep === 2 && (
           <div className="space-y-4 animate-fade-in">
             <div>
-              <h4 className="text-sm font-semibold text-[#F3F4F6]">
+              <h4 className="text-sm font-semibold text-[#2B3D4F]">
                 What makes this distinctly differentiated?
               </h4>
-              <p className="text-xs text-[#738095] mt-0.5">
+              <p className="text-xs text-[#6B7D90] mt-0.5">
                 Your proprietary angle, craft, distribution shortcut, or cultural moat.
               </p>
             </div>
@@ -185,10 +185,10 @@ export const DiscoveryFlow: React.FC = () => {
         {activeStep === 3 && (
           <div className="space-y-4 animate-fade-in">
             <div>
-              <h4 className="text-sm font-semibold text-[#F3F4F6]">
+              <h4 className="text-sm font-semibold text-[#2B3D4F]">
                 Operational Bounds & Milestones
               </h4>
-              <p className="text-xs text-[#738095] mt-0.5">
+              <p className="text-xs text-[#6B7D90] mt-0.5">
                 Clarify known boundaries to anchor realistic downstream planning.
               </p>
             </div>
@@ -215,10 +215,10 @@ export const DiscoveryFlow: React.FC = () => {
         {activeStep === 4 && (
           <div className="space-y-4 animate-fade-in">
             <div>
-              <h4 className="text-sm font-semibold text-[#F3F4F6]">
+              <h4 className="text-sm font-semibold text-[#2B3D4F]">
                 Open Questions & Founder Doubts
               </h4>
-              <p className="text-xs text-[#738095] mt-0.5">
+              <p className="text-xs text-[#6B7D90] mt-0.5">
                 List the exact critical uncertainties you need the AI workspace to stress-test in Stage 02 (Feasibility).
               </p>
             </div>
@@ -244,17 +244,17 @@ export const DiscoveryFlow: React.FC = () => {
 
             <div className="space-y-2 pt-2">
               {state.idea.openQuestions.length === 0 ? (
-                <div className="text-xs text-[#738095] italic p-3 bg-[#0B1017] rounded-lg border border-[#263244]">
+                <div className="text-xs text-[#6B7D90] italic p-3 bg-[#F5F1EB] rounded-lg border border-[#DDD5C5]">
                   No open inquiries recorded yet. Add specific dilemmas you want the feasibility agent to examine.
                 </div>
               ) : (
                 state.idea.openQuestions.map((q, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center justify-between gap-3 p-2.5 rounded-lg bg-[#0B1017] border border-[#263244] text-xs text-[#F3F4F6]"
+                    className="flex items-center justify-between gap-3 p-2.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] text-xs text-[#2B3D4F]"
                   >
                     <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-mono text-[10px] text-[#4D8DFF] font-semibold">
+                      <span className="font-mono text-[10px] text-[#2B3D4F] font-semibold">
                         Q{idx + 1}
                       </span>
                       <span className="truncate">{q}</span>
@@ -262,7 +262,7 @@ export const DiscoveryFlow: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => removeOpenQuestion(idx)}
-                      className="text-[#738095] hover:text-[#EF4444] p-1 transition-colors"
+                      className="text-[#6B7D90] hover:text-[#9E4A4A] p-1 transition-colors"
                       title="Remove question"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -276,7 +276,7 @@ export const DiscoveryFlow: React.FC = () => {
       </div>
 
       {/* Step Navigation Controls */}
-      <div className="mt-6 pt-4 border-t border-[#263244] flex items-center justify-between">
+      <div className="mt-6 pt-4 border-t border-[#DDD5C5] flex items-center justify-between">
         <Button
           type="button"
           variant="outline"
@@ -288,7 +288,7 @@ export const DiscoveryFlow: React.FC = () => {
           Previous Step
         </Button>
 
-        <div className="text-xs font-mono text-[#738095] hidden sm:block">
+        <div className="text-xs font-mono text-[#6B7D90] hidden sm:block">
           {activeStep + 1} / {steps.length}
         </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'default' | 'active' | 'success' | 'warning' | 'locked' | 'info' | 'outline';
+  variant?: 'default' | 'active' | 'success' | 'warning' | 'locked' | 'info' | 'outline' | 'danger' | 'ai' | 'teal';
   size?: 'sm' | 'md';
   icon?: React.ReactNode;
   className?: string;
@@ -21,13 +21,16 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   const variantClasses = {
-    default: 'bg-[#151E2B] text-[#AAB4C3] border border-[#263244]',
-    active: 'bg-[rgba(77,141,255,0.15)] text-[#4D8DFF] border border-[rgba(77,141,255,0.4)] font-semibold',
-    success: 'bg-[rgba(16,185,129,0.14)] text-[#10B981] border border-[rgba(16,185,129,0.35)]',
-    warning: 'bg-[rgba(245,158,11,0.14)] text-[#F59E0B] border border-[rgba(245,158,11,0.35)]',
-    locked: 'bg-[#151E2B] text-[#738095] border border-[#263244]',
-    info: 'bg-[rgba(77,141,255,0.15)] text-[#4D8DFF] border border-[rgba(77,141,255,0.4)]',
-    outline: 'bg-transparent text-[#AAB4C3] border border-[#34445A]',
+    default: 'bg-theme-background-secondary text-theme-secondary border border-theme-border',
+    active: 'bg-[rgba(43,61,79,0.08)] text-theme-deep-blue border border-[rgba(43,61,79,0.25)] font-semibold',
+    success: 'bg-theme-success-bg text-theme-success border border-theme-success-border',
+    warning: 'bg-theme-warning-bg text-theme-warning border border-theme-warning-border',
+    danger: 'bg-theme-danger-bg text-theme-danger border border-theme-danger-border',
+    locked: 'bg-theme-background-secondary text-theme-muted border border-theme-border',
+    info: 'bg-[rgba(43,61,79,0.08)] text-theme-deep-blue border border-[rgba(43,61,79,0.25)]',
+    outline: 'bg-transparent text-theme-secondary border border-theme-border-strong',
+    ai: 'bg-theme-ai-bg text-theme-ai border border-theme-ai-border',
+    teal: 'bg-theme-teal-bg text-theme-teal border border-theme-teal-border',
   };
 
   return (

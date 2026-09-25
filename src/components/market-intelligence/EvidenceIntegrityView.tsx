@@ -36,27 +36,27 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
       case 'VERIFIED_SOURCE':
         return {
           label: 'Verified Source',
-          bg: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-          dot: 'bg-emerald-400',
+          bg: 'bg-[#4A7C59]/15 text-[#4A7C59] border-[#4A7C59]/30',
+          dot: 'bg-[#4A7C59]',
         };
       case 'AI_INFERENCE':
         return {
           label: 'AI Inference',
-          bg: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
-          dot: 'bg-blue-400',
+          bg: 'bg-[#2B3D4F]/15 text-[#2B3D4F] border-[#2B3D4F]/30',
+          dot: 'bg-[#2B3D4F]',
         };
       case 'ASSUMPTION':
         return {
           label: 'Assumption',
-          bg: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-          dot: 'bg-amber-400',
+          bg: 'bg-[#8A6D2B]/15 text-[#8A6D2B] border-[#8A6D2B]/30',
+          dot: 'bg-[#8A6D2B]',
         };
       case 'NEEDS_VALIDATION':
       default:
         return {
           label: 'Needs Validation',
-          bg: 'bg-slate-700/30 text-[#AAB4C3] border-slate-600/40',
-          dot: 'bg-slate-400',
+          bg: 'bg-[#ECE6DA] text-[#4A5E73] border-[#DDD5C5]',
+          dot: 'bg-[#7A8CA0]',
         };
     }
   };
@@ -79,25 +79,25 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
   });
 
   return (
-    <div className="bg-[#0B1017] border border-[#263244] rounded-xl p-5 space-y-5">
+    <div className="bg-[#FDFCF8] border border-[#DDD5C5] rounded-xl p-5 space-y-5">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#263244]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#DDD5C5]">
         <div>
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#4D8DFF]" />
-            <h2 className="text-base font-semibold text-[#F3F4F6]">
+            <ShieldCheck className="w-4 h-4 text-[#2B3D4F]" />
+            <h2 className="text-base font-semibold text-[#2B3D4F]">
               Market Evidence Integrity & Provenance Ledger
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#4D8DFF]/10 text-[#4D8DFF] border border-[#4D8DFF]/20">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#2B3D4F]/10 text-[#2B3D4F] border border-[#2B3D4F]/20">
               Audit Grade
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">
+          <p className="text-xs text-[#4A5E73] mt-1">
             Strict epistemic separation: AI inferences and assumptions are never conflated with verified facts.
           </p>
         </div>
 
-        <div className="text-xs font-mono text-[#64748B]">
+        <div className="text-xs font-mono text-[#6B7D90]">
           Tracking {total} critical market signals
         </div>
       </div>
@@ -108,76 +108,76 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
           onClick={() => setFilterProvenance(filterProvenance === 'verified' ? 'all' : 'verified')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'verified'
-              ? 'bg-emerald-950/40 border-emerald-500 ring-1 ring-emerald-400'
-              : 'bg-[#111823] border-[#263244] hover:border-emerald-500/40'
+              ? 'bg-[#4A7C59]/40 border-[#4A7C59] ring-1 ring-[#2B3D4F]'
+              : 'bg-[#F5F1EB] border-[#DDD5C5] hover:border-[#4A7C59]/40'
           }`}
         >
-          <div className="flex items-center justify-between text-xs font-mono text-emerald-400">
+          <div className="flex items-center justify-between text-xs font-mono text-[#4A7C59]">
             <span>VERIFIED SOURCE</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="w-2 h-2 rounded-full bg-[#4A7C59]" />
           </div>
-          <div className="text-xl font-bold text-[#F3F4F6] mt-1.5">{evidenceSummary.verified}</div>
-          <p className="text-[10px] text-[#AAB4C3] mt-1">Founder / empirical facts</p>
+          <div className="text-xl font-bold text-[#2B3D4F] mt-1.5">{evidenceSummary.verified}</div>
+          <p className="text-[10px] text-[#4A5E73] mt-1">Founder / empirical facts</p>
         </div>
 
         <div
           onClick={() => setFilterProvenance(filterProvenance === 'inference' ? 'all' : 'inference')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'inference'
-              ? 'bg-blue-950/40 border-blue-500 ring-1 ring-blue-400'
-              : 'bg-[#111823] border-[#263244] hover:border-blue-500/40'
+              ? 'bg-[#6C5E8F]/25 border-[#6C5E8F] ring-1 ring-[#2B3D4F]'
+              : 'bg-[#F5F1EB] border-[#DDD5C5] hover:border-[#2B3D4F]/40'
           }`}
         >
-          <div className="flex items-center justify-between text-xs font-mono text-blue-400">
+          <div className="flex items-center justify-between text-xs font-mono text-[#6C5E8F]">
             <span>AI INFERENCE</span>
-            <span className="w-2 h-2 rounded-full bg-blue-400" />
+            <span className="w-2 h-2 rounded-full bg-[#6C5E8F]" />
           </div>
-          <div className="text-xl font-bold text-[#F3F4F6] mt-1.5">{evidenceSummary.inference}</div>
-          <p className="text-[10px] text-[#AAB4C3] mt-1">Deductions from Stage 01/02</p>
+          <div className="text-xl font-bold text-[#2B3D4F] mt-1.5">{evidenceSummary.inference}</div>
+          <p className="text-[10px] text-[#4A5E73] mt-1">Deductions from Stage 01/02</p>
         </div>
 
         <div
           onClick={() => setFilterProvenance(filterProvenance === 'assumption' ? 'all' : 'assumption')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'assumption'
-              ? 'bg-amber-950/40 border-amber-500 ring-1 ring-amber-400'
-              : 'bg-[#111823] border-[#263244] hover:border-amber-500/40'
+              ? 'bg-[#8A6D2B]/40 border-[#8A6D2B] ring-1 ring-[#2B3D4F]'
+              : 'bg-[#F5F1EB] border-[#DDD5C5] hover:border-[#8A6D2B]/40'
           }`}
         >
-          <div className="flex items-center justify-between text-xs font-mono text-amber-400">
+          <div className="flex items-center justify-between text-xs font-mono text-[#8A6D2B]">
             <span>ASSUMPTIONS</span>
-            <span className="w-2 h-2 rounded-full bg-amber-400" />
+            <span className="w-2 h-2 rounded-full bg-[#8A6D2B]" />
           </div>
-          <div className="text-xl font-bold text-[#F3F4F6] mt-1.5">{evidenceSummary.assumptions}</div>
-          <p className="text-[10px] text-[#AAB4C3] mt-1">Hypotheses to falsify</p>
+          <div className="text-xl font-bold text-[#2B3D4F] mt-1.5">{evidenceSummary.assumptions}</div>
+          <p className="text-[10px] text-[#4A5E73] mt-1">Hypotheses to falsify</p>
         </div>
 
         <div
           onClick={() => setFilterProvenance(filterProvenance === 'needs_validation' ? 'all' : 'needs_validation')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'needs_validation'
-              ? 'bg-slate-800 border-slate-400 ring-1 ring-slate-400'
-              : 'bg-[#111823] border-[#263244] hover:border-slate-500'
+              ? 'bg-[#ECE6DA] border-[#2B3D4F] ring-1 ring-[#2B3D4F]'
+              : 'bg-[#F5F1EB] border-[#DDD5C5] hover:border-[#7A8CA0]'
           }`}
         >
-          <div className="flex items-center justify-between text-xs font-mono text-[#AAB4C3]">
+          <div className="flex items-center justify-between text-xs font-mono text-[#4A5E73]">
             <span>NEEDS VALIDATION</span>
-            <span className="w-2 h-2 rounded-full bg-slate-400" />
+            <span className="w-2 h-2 rounded-full bg-[#7A8CA0]" />
           </div>
-          <div className="text-xl font-bold text-[#F3F4F6] mt-1.5">{evidenceSummary.needsVal}</div>
-          <p className="text-[10px] text-[#AAB4C3] mt-1">Data gaps requiring input</p>
+          <div className="text-xl font-bold text-[#2B3D4F] mt-1.5">{evidenceSummary.needsVal}</div>
+          <p className="text-[10px] text-[#4A5E73] mt-1">Data gaps requiring input</p>
         </div>
       </div>
 
       {/* Multi-segmented bar */}
       <div className="space-y-1.5">
-        <div className="w-full h-2 rounded-full bg-[#111823] overflow-hidden flex">
-          <div style={{ width: `${verifiedPct}%` }} className="h-full bg-emerald-500 transition-all duration-500" />
-          <div style={{ width: `${inferencePct}%` }} className="h-full bg-blue-500 transition-all duration-500" />
-          <div style={{ width: `${assumptionPct}%` }} className="h-full bg-amber-500 transition-all duration-500" />
-          <div style={{ width: `${needsValPct}%` }} className="h-full bg-slate-600 transition-all duration-500" />
+        <div className="w-full h-2 rounded-full bg-[#F5F1EB] border border-[#DDD5C5] overflow-hidden flex">
+          <div style={{ width: `${verifiedPct}%` }} className="h-full bg-[#4A7C59] transition-all duration-500" />
+          <div style={{ width: `${inferencePct}%` }} className="h-full bg-[#6C5E8F] transition-all duration-500" />
+          <div style={{ width: `${assumptionPct}%` }} className="h-full bg-[#8A6D2B] transition-all duration-500" />
+          <div style={{ width: `${needsValPct}%` }} className="h-full bg-[#7A8CA0] transition-all duration-500" />
         </div>
-        <div className="flex justify-between text-[10px] font-mono text-[#64748B]">
+        <div className="flex justify-between text-[10px] font-mono text-[#6B7D90]">
           <span>{verifiedPct}% Verified Empirical Evidence</span>
           <span>{inferencePct}% Reasoned Model Deductions</span>
           <span>{assumptionPct + needsValPct}% Actionable Validation Horizon</span>
@@ -187,7 +187,7 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
       {/* Evidence Register List */}
       <div className="space-y-2.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
-          <span className="text-[#F3F4F6] font-semibold">Tracked Market Claims Register:</span>
+          <span className="text-[#2B3D4F] font-semibold">Tracked Market Claims Register:</span>
 
           <div className="flex items-center gap-2">
             <div className="relative">
@@ -196,14 +196,14 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
                 placeholder="Search claims or basis..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-[#151E2B] border border-[#263244] rounded px-2.5 py-1 text-xs text-[#F3F4F6] placeholder-[#64748B] focus:outline-none focus:border-[#4D8DFF] w-48"
+                className="bg-[#ECE6DA] border border-[#DDD5C5] rounded px-2.5 py-1 text-xs text-[#2B3D4F] placeholder-[#6B7D90] focus:outline-none focus:border-[#2B3D4F] w-48"
               />
             </div>
             {filterProvenance !== 'all' && (
               <button
                 type="button"
                 onClick={() => setFilterProvenance('all')}
-                className="text-[10px] text-[#4D8DFF] hover:underline"
+                className="text-[10px] text-[#2B3D4F] hover:underline"
               >
                 Clear Filter
               </button>
@@ -217,28 +217,28 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
             return (
               <div
                 key={item.id}
-                className="p-3.5 rounded-lg bg-[#111823] border border-[#263244] flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
+                className="p-3.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
               >
                 <div className="space-y-1 flex-1">
                   <div className="flex items-center gap-2">
                     <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${badge.bg}`}>
                       {badge.label}
                     </span>
-                    <span className="text-[10px] font-mono uppercase text-[#64748B]">
+                    <span className="text-[10px] font-mono uppercase text-[#6B7D90]">
                       {item.category}
                     </span>
-                    <span className="text-[10px] font-mono text-[#AAB4C3]">
-                      Confidence: <span className="text-[#F3F4F6] font-semibold">{item.confidence}</span>
+                    <span className="text-[10px] font-mono text-[#4A5E73]">
+                      Confidence: <span className="text-[#2B3D4F] font-semibold">{item.confidence}</span>
                     </span>
                   </div>
-                  <div className="font-medium text-[#F3F4F6] leading-snug">{item.claim}</div>
-                  <div className="text-[11px] text-[#AAB4C3]">
-                    <span className="text-[#64748B]">Basis:</span> {item.sourceOrBasis}
+                  <div className="font-medium text-[#2B3D4F] leading-snug">{item.claim}</div>
+                  <div className="text-[11px] text-[#4A5E73]">
+                    <span className="text-[#6B7D90]">Basis:</span> {item.sourceOrBasis}
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded bg-[#151E2B] border border-[#263244] text-[11px] text-[#AAB4C3] md:w-72 shrink-0">
-                  <span className="text-[9px] font-mono text-emerald-400 block uppercase mb-0.5">
+                <div className="p-2.5 rounded bg-[#ECE6DA] border border-[#DDD5C5] text-[11px] text-[#4A5E73] md:w-72 shrink-0">
+                  <span className="text-[9px] font-mono text-[#4A7C59] block uppercase mb-0.5">
                     Recommended Validation Action
                   </span>
                   {item.validationAction}

@@ -60,14 +60,14 @@ export const MarketIntelligencePage: React.FC = () => {
 
       {/* Advisory Notice if user navigated directly without Stage 01 context */}
       {!hasMinimumDiscovery && (
-        <div className="p-4 rounded-lg bg-[#111823] border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="p-4 rounded-lg bg-[#FDFCF8] border border-[#8A6D2B]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-[#8A6D2B] shrink-0 mt-0.5" />
             <div>
-              <div className="text-xs font-semibold text-[#F3F4F6]">
+              <div className="text-xs font-semibold text-[#2B3D4F]">
                 Preliminary Discovery Grounding
               </div>
-              <p className="text-xs text-[#AAB4C3] mt-0.5 leading-relaxed">
+              <p className="text-xs text-[#4A5E73] mt-0.5 leading-relaxed">
                 Stage 01 Idea Lab has minimal input. Market intelligence is running on preliminary archetypes. Load a pre-configured seed case to test full dynamic capabilities.
               </p>
             </div>
@@ -77,20 +77,20 @@ export const MarketIntelligencePage: React.FC = () => {
             <button
               type="button"
               onClick={() => loadSampleVenture('coffee_d2c')}
-              className="text-xs font-mono px-3 py-1.5 rounded bg-[#151E2B] text-[#AAB4C3] hover:text-[#F3F4F6] border border-[#263244] transition-colors"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
             >
               ☕ Sample D2C
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('ai_saas')}
-              className="text-xs font-mono px-3 py-1.5 rounded bg-[#151E2B] text-[#AAB4C3] hover:text-[#F3F4F6] border border-[#263244] transition-colors"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
             >
               ⚡ Sample SaaS
             </button>
             <Link
               to="/idea-lab"
-              className="text-xs font-mono px-3 py-1.5 rounded bg-[#4D8DFF] text-white hover:bg-[#6EA8FF] transition-colors inline-flex items-center gap-1"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#2B3D4F] text-white hover:bg-[#3E5770] transition-colors inline-flex items-center gap-1"
             >
               Complete Idea Lab <ArrowRight className="w-3 h-3" />
             </Link>
@@ -99,14 +99,14 @@ export const MarketIntelligencePage: React.FC = () => {
       )}
 
       {/* View Switcher Pills */}
-      <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#0B1017] border border-[#263244] overflow-x-auto scrollbar-none text-xs font-mono">
+      <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#FDFCF8] border border-[#DDD5C5] overflow-x-auto scrollbar-none text-xs font-mono">
         <button
           type="button"
           onClick={() => setActiveTab('all')}
           className={`px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'all'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           All Intelligence Views
@@ -117,8 +117,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('landscape')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'landscape'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <Compass className="w-3.5 h-3.5" />
@@ -130,8 +130,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('whitespace')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'whitespace'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <Target className="w-3.5 h-3.5" />
@@ -143,8 +143,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('differentiator')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'differentiator'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <Zap className="w-3.5 h-3.5" />
@@ -156,8 +156,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('segments')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'segments'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <Users className="w-3.5 h-3.5" />
@@ -169,8 +169,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('trends')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'trends'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <Activity className="w-3.5 h-3.5" />
@@ -182,8 +182,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('risks')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'risks'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <AlertOctagon className="w-3.5 h-3.5" />
@@ -195,8 +195,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('evidence')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'evidence'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <ShieldCheck className="w-3.5 h-3.5" />
@@ -208,8 +208,8 @@ export const MarketIntelligencePage: React.FC = () => {
           onClick={() => setActiveTab('specialist')}
           className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors shrink-0 ${
             activeTab === 'specialist'
-              ? 'bg-[#4D8DFF] text-white font-semibold shadow-sm'
-              : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#151E2B]'
+              ? 'bg-[#2B3D4F] text-white font-semibold shadow-sm'
+              : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
           }`}
         >
           <MessageSquare className="w-3.5 h-3.5" />

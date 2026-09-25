@@ -59,55 +59,55 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
   };
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#263244] p-6 lg:p-8 shadow-xl">
+    <section className="rounded-2xl bg-[#FDFCF8] border border-[#DDD5C5] p-6 lg:p-8 shadow-xl">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#4D8DFF]">
+            <span className="w-2 h-2 rounded-full bg-[#2B3D4F] animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#2B3D4F]">
               MARKET SPACE VISUALIZER
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#F3F4F6] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#2B3D4F] tracking-tight">
             Competitive Positioning Matrix
           </h2>
-          <p className="text-xs sm:text-sm text-[#AAB4C3]">
+          <p className="text-xs sm:text-sm text-[#4A5E73]">
             Plotting {ventureName} against alternatives across strategic market dimensions.
           </p>
         </div>
 
         {/* Axis Selectors */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1.5 bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244] text-xs">
-            <span className="text-[10px] font-mono uppercase text-[#64748B]">X Axis:</span>
+          <div className="flex items-center gap-1.5 bg-[#FDFCF8] px-3 py-1.5 rounded-lg border border-[#DDD5C5] text-xs">
+            <span className="text-[10px] font-mono uppercase text-[#6B7D90]">X Axis:</span>
             <select
               value={xAxis.id}
               onChange={(e) => {
                 const found = availableAxes.find((a) => a.id === e.target.value);
                 if (found) onUpdateAxes(found, yAxis);
               }}
-              className="bg-transparent text-[#F3F4F6] font-mono text-xs focus:outline-none cursor-pointer"
+              className="bg-transparent text-[#2B3D4F] font-mono text-xs focus:outline-none cursor-pointer"
             >
               {availableAxes.map((opt) => (
-                <option key={opt.id} value={opt.id} className="bg-[#111823] text-[#F3F4F6]">
+                <option key={opt.id} value={opt.id} className="bg-[#FDFCF8] text-[#2B3D4F]">
                   {opt.label}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244] text-xs">
-            <span className="text-[10px] font-mono uppercase text-[#64748B]">Y Axis:</span>
+          <div className="flex items-center gap-1.5 bg-[#FDFCF8] px-3 py-1.5 rounded-lg border border-[#DDD5C5] text-xs">
+            <span className="text-[10px] font-mono uppercase text-[#6B7D90]">Y Axis:</span>
             <select
               value={yAxis.id}
               onChange={(e) => {
                 const found = availableAxes.find((a) => a.id === e.target.value);
                 if (found) onUpdateAxes(xAxis, found);
               }}
-              className="bg-transparent text-[#F3F4F6] font-mono text-xs focus:outline-none cursor-pointer"
+              className="bg-transparent text-[#2B3D4F] font-mono text-xs focus:outline-none cursor-pointer"
             >
               {availableAxes.map((opt) => (
-                <option key={opt.id} value={opt.id} className="bg-[#111823] text-[#F3F4F6]">
+                <option key={opt.id} value={opt.id} className="bg-[#FDFCF8] text-[#2B3D4F]">
                   {opt.label}
                 </option>
               ))}
@@ -118,7 +118,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             <button
               type="button"
               onClick={() => setShowAddModal(true)}
-              className="px-3 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-[#4D8DFF] border border-blue-500/30 text-xs font-mono font-medium transition-colors flex items-center gap-1"
+              className="px-3 py-1.5 rounded-lg bg-[#2B3D4F]/20 hover:bg-[#2B3D4F]/30 text-[#2B3D4F] border border-[#2B3D4F]/30 text-xs font-mono font-medium transition-colors flex items-center gap-1"
             >
               <span>+ Add Competitor</span>
             </button>
@@ -129,40 +129,40 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* 2D Positioning Canvas (Left 8 cols) */}
         <div className="lg:col-span-8 flex flex-col">
-          <div className="relative w-full aspect-[4/3] bg-[#080B10] border border-[#263244] rounded-2xl overflow-hidden p-6 flex flex-col justify-between">
+          <div className="relative w-full aspect-[4/3] bg-[#F5F1EB] border border-[#DDD5C5] rounded-2xl overflow-hidden p-6 flex flex-col justify-between">
             {/* Grid Lines */}
             <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
-              <div className="border-r border-b border-[#263244]/60" />
-              <div className="border-b border-[#263244]/60" />
-              <div className="border-r border-[#263244]/60" />
+              <div className="border-r border-b border-[#DDD5C5]/60" />
+              <div className="border-b border-[#DDD5C5]/60" />
+              <div className="border-r border-[#DDD5C5]/60" />
               <div />
             </div>
 
             {/* Quadrant labels */}
-            <div className="absolute top-3 left-4 text-[10px] font-mono uppercase text-[#475569] pointer-events-none">
+            <div className="absolute top-3 left-4 text-[10px] font-mono uppercase text-[#6B7D90] pointer-events-none">
               {yAxis.maxLabel} / {xAxis.minLabel}
             </div>
-            <div className="absolute top-3 right-4 text-[10px] font-mono uppercase text-[#38BDF8]/60 font-semibold pointer-events-none text-right">
+            <div className="absolute top-3 right-4 text-[10px] font-mono uppercase text-[#5A7A96]/60 font-semibold pointer-events-none text-right">
               ★ PRIME OPPORTUNITY (WEDGE)
             </div>
-            <div className="absolute bottom-3 left-4 text-[10px] font-mono uppercase text-[#475569] pointer-events-none">
+            <div className="absolute bottom-3 left-4 text-[10px] font-mono uppercase text-[#6B7D90] pointer-events-none">
               {yAxis.minLabel} / {xAxis.minLabel}
             </div>
-            <div className="absolute bottom-3 right-4 text-[10px] font-mono uppercase text-[#475569] pointer-events-none text-right">
+            <div className="absolute bottom-3 right-4 text-[10px] font-mono uppercase text-[#6B7D90] pointer-events-none text-right">
               {yAxis.minLabel} / {xAxis.maxLabel}
             </div>
 
             {/* Axis Center Crosshairs & Axis Legends */}
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#AAB4C3] bg-[#111823]/80 px-2 py-0.5 rounded border border-[#263244] pointer-events-none">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#4A5E73] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
               ▲ {yAxis.maxLabel}
             </div>
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#64748B] bg-[#111823]/80 px-2 py-0.5 rounded border border-[#263244] pointer-events-none">
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#6B7D90] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
               ▼ {yAxis.minLabel}
             </div>
-            <div className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#64748B] bg-[#111823]/80 px-2 py-0.5 rounded border border-[#263244] pointer-events-none">
+            <div className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#6B7D90] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
               ◀ {xAxis.minLabel}
             </div>
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#AAB4C3] bg-[#111823]/80 px-2 py-0.5 rounded border border-[#263244] pointer-events-none">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#4A5E73] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
               {xAxis.maxLabel} ▶
             </div>
 
@@ -173,12 +173,12 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
               onClick={() => setSelectedCompId('focal_brand')}
             >
               <div className="relative flex items-center justify-center">
-                <span className="absolute w-8 h-8 rounded-full bg-blue-500/30 animate-ping pointer-events-none" />
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-xs shadow-lg shadow-blue-500/40 border border-white/30">
+                <span className="absolute w-8 h-8 rounded-full bg-[#2B3D4F]/30 animate-ping pointer-events-none" />
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#2B3D4F] to-[#5A7A96] flex items-center justify-center text-white font-black text-xs shadow-sm border border-white/30">
                   ★
                 </div>
               </div>
-              <div className="mt-1.5 px-2 py-0.5 rounded bg-blue-950/90 border border-blue-500/60 text-[11px] font-bold text-blue-200 text-center shadow whitespace-nowrap">
+              <div className="mt-1.5 px-2 py-0.5 rounded bg-[#2B3D4F] border border-[#2B3D4F] text-[11px] font-bold text-[#F5F1EB] text-center shadow-sm whitespace-nowrap">
                 {ventureName} (You)
               </div>
             </div>
@@ -202,10 +202,10 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                     <div
                       className={`w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold border transition-colors shadow-md ${
                         isSelected
-                          ? 'bg-amber-500 text-black border-white'
+                          ? 'bg-[#8A6D2B] text-[#F5F1EB] border-[#8A6D2B]'
                           : comp.isUserAdded
-                          ? 'bg-purple-900/80 text-purple-200 border-purple-500/50 hover:border-purple-400'
-                          : 'bg-[#151E2B] text-[#AAB4C3] border-[#263244] hover:border-slate-400'
+                          ? 'bg-[#5B6B7F]/15 text-[#2B3D4F] border-[#5B6B7F]/40 hover:border-[#2B3D4F]'
+                          : 'bg-[#ECE6DA] text-[#4A5E73] border-[#DDD5C5] hover:border-[#2B3D4F]/40'
                       }`}
                       title={comp.name}
                     >
@@ -214,8 +214,8 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                     <div
                       className={`mt-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-center whitespace-nowrap shadow border ${
                         isSelected
-                          ? 'bg-amber-950 text-amber-200 border-amber-500 font-bold'
-                          : 'bg-[#0B1017]/90 text-[#AAB4C3] border-[#263244]'
+                          ? 'bg-[#8A6D2B] text-[#F5F1EB] border-[#8A6D2B] font-bold'
+                          : 'bg-[#F5F1EB]/90 text-[#4A5E73] border-[#DDD5C5]'
                       }`}
                     >
                       {comp.name}
@@ -224,18 +224,18 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                 );
               })
             ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-black/40">
-                <span className="text-xs font-mono text-[#64748B] mb-2 uppercase">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-[#F5F1EB]/92 backdrop-blur-[1px]">
+                <span className="text-xs font-mono text-[#6B7D90] mb-2 uppercase">
                   No verified competitor data available
                 </span>
-                <p className="text-xs text-[#AAB4C3] max-w-sm mb-4">
+                <p className="text-xs text-[#4A5E73] max-w-sm mb-4">
                   Add direct market players or legacy alternatives to map out your strategic differentiation wedge.
                 </p>
                 {onAddCompetitor && (
                   <button
                     type="button"
                     onClick={() => setShowAddModal(true)}
-                    className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-[#2B3D4F] hover:bg-[#2B3D4F] text-white text-xs font-semibold"
                   >
                     + Add First Competitor
                   </button>
@@ -244,35 +244,35 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             )}
           </div>
 
-          <div className="mt-2 flex items-center justify-between text-[11px] font-mono text-[#64748B]">
+          <div className="mt-2 flex items-center justify-between text-[11px] font-mono text-[#6B7D90]">
             <span>Click any node to inspect market positioning and observed gaps.</span>
             <span>Plotting: {competitors.length + 1} entities</span>
           </div>
         </div>
 
         {/* Selected Entity Inspector (Right 4 cols) */}
-        <div className="lg:col-span-4 bg-[#111823] border border-[#263244] rounded-xl p-5 flex flex-col gap-4">
+        <div className="lg:col-span-4 bg-white border border-[#DDD5C5] rounded-xl p-5 flex flex-col gap-4 shadow-sm">
           {selectedCompId === 'focal_brand' ? (
             <div>
-              <div className="flex items-center gap-2 pb-3 border-b border-[#1C2636]">
-                <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
+              <div className="flex items-center gap-2 pb-3 border-b border-[#E8E1D3]">
+                <div className="w-7 h-7 rounded-lg bg-[#2B3D4F] flex items-center justify-center text-white text-xs font-bold">
                   ★
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#4D8DFF]">Target Positioning Wedge</span>
-                  <h4 className="text-sm font-bold text-[#F3F4F6]">{ventureName}</h4>
+                  <span className="text-[10px] font-mono uppercase text-[#2B3D4F]">Target Positioning Wedge</span>
+                  <h4 className="text-sm font-bold text-[#2B3D4F]">{ventureName}</h4>
                 </div>
               </div>
               <div className="mt-3 space-y-3 text-xs">
-                <div className="p-3 rounded-lg bg-[#151E2B] border border-[#263244]">
-                  <span className="text-[10px] font-mono uppercase text-[#64748B] block mb-1">Target Position</span>
-                  <p className="text-[#F3F4F6] leading-relaxed">
+                <div className="p-3 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5]">
+                  <span className="text-[10px] font-mono uppercase text-[#6B7D90] block mb-1">Target Position</span>
+                  <p className="text-[#2B3D4F] leading-relaxed">
                     Occupying the high-craft, high-innovation quadrant while avoiding legacy enterprise friction and commodity apathy.
                   </p>
                 </div>
-                <div className="p-3 rounded-lg bg-[#151E2B] border border-[#263244]">
-                  <span className="text-[10px] font-mono uppercase text-[#64748B] block mb-1">Strategic Moat</span>
-                  <p className="text-[#AAB4C3] leading-relaxed">
+                <div className="p-3 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5]">
+                  <span className="text-[10px] font-mono uppercase text-[#6B7D90] block mb-1">Strategic Moat</span>
+                  <p className="text-[#4A5E73] leading-relaxed">
                     Radical operational transparency and rapid time-to-value for modern discerning buyers.
                   </p>
                 </div>
@@ -280,27 +280,27 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             </div>
           ) : selectedCompetitor ? (
             <div>
-              <div className="flex items-center justify-between pb-3 border-b border-[#1C2636]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#E8E1D3]">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#151E2B] border border-[#263244] flex items-center justify-center text-xs font-bold text-[#F3F4F6]">
+                  <div className="w-7 h-7 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] flex items-center justify-center text-xs font-bold text-[#2B3D4F]">
                     {selectedCompetitor.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-[#64748B]">{selectedCompetitor.category} alternative</span>
-                    <h4 className="text-sm font-bold text-[#F3F4F6]">{selectedCompetitor.name}</h4>
+                    <span className="text-[10px] font-mono uppercase text-[#6B7D90]">{selectedCompetitor.category} alternative</span>
+                    <h4 className="text-sm font-bold text-[#2B3D4F]">{selectedCompetitor.name}</h4>
                   </div>
                 </div>
-                <span className="text-[9px] font-mono px-2 py-0.5 rounded border border-[#263244] bg-[#0B1017] text-[#AAB4C3]">
+                <span className="text-[9px] font-mono px-2 py-0.5 rounded border border-[#DDD5C5] bg-[#F5F1EB] text-[#4A5E73]">
                   {selectedCompetitor.provenance}
                 </span>
               </div>
 
               <div className="mt-3 space-y-3 text-xs">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#64748B] block mb-1">Known Strengths</span>
+                  <span className="text-[10px] font-mono uppercase text-[#6B7D90] block mb-1">Known Strengths</span>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedCompetitor.strengths.map((str, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px]">
+                      <span key={i} className="px-2 py-0.5 rounded bg-[#4A7C59]/10 text-[#4A7C59] border border-[#4A7C59]/20 text-[11px]">
                         {str}
                       </span>
                     ))}
@@ -308,25 +308,25 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#64748B] block mb-1">Observed Weaknesses / Gaps</span>
+                  <span className="text-[10px] font-mono uppercase text-[#6B7D90] block mb-1">Observed Weaknesses / Gaps</span>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedCompetitor.weaknesses.map((w, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[11px]">
+                      <span key={i} className="px-2 py-0.5 rounded bg-[#9E4A4A]/10 text-[#9E4A4A] border border-[#9E4A4A]/20 text-[11px]">
                         {w}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-[#1C2636] flex items-center justify-between text-[11px] font-mono text-[#64748B]">
+                <div className="pt-2 border-t border-[#E8E1D3] flex items-center justify-between text-[11px] font-mono text-[#6B7D90]">
                   <span>Tier: {selectedCompetitor.priceTier}</span>
                   <span>Label: {selectedCompetitor.positioningLabel}</span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="text-center py-8 text-xs text-[#64748B]">
-              <svg className="w-8 h-8 mx-auto mb-2 text-[#475569]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="text-center py-8 text-xs text-[#6B7D90]">
+              <svg className="w-8 h-8 mx-auto mb-2 text-[#6B7D90]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
               </svg>
               Select any point on the matrix to inspect positioning attributes, competitive moats, and vulnerabilities.
@@ -338,30 +338,30 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
       {/* Add Competitor Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="bg-[#111823] border border-[#263244] rounded-2xl p-6 max-w-md w-full shadow-2xl">
-            <h3 className="text-base font-bold text-[#F3F4F6] mb-1">Add Market Competitor / Alternative</h3>
-            <p className="text-xs text-[#AAB4C3] mb-4">
+          <div className="bg-[#FDFCF8] border border-[#DDD5C5] rounded-2xl p-6 max-w-md w-full shadow-2xl">
+            <h3 className="text-base font-bold text-[#2B3D4F] mb-1">Add Market Competitor / Alternative</h3>
+            <p className="text-xs text-[#4A5E73] mb-4">
               Enter a real competitor or alternative to map your differentiation wedge.
             </p>
             <form onSubmit={handleAddSubmit} className="space-y-4 text-xs">
               <div>
-                <label className="block text-[10px] font-mono uppercase text-[#64748B] mb-1">Entity Name</label>
+                <label className="block text-[10px] font-mono uppercase text-[#6B7D90] mb-1">Entity Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Acme Corp / Blue Bottle / Legacy Spreadsheet"
                   value={newCompName}
                   onChange={(e) => setNewCompName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-[#151E2B] border border-[#263244] text-[#F3F4F6] focus:border-[#4D8DFF] focus:outline-none"
+                  className="w-full px-3 py-2 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F] focus:border-[#2B3D4F] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono uppercase text-[#64748B] mb-1">Category Type</label>
+                <label className="block text-[10px] font-mono uppercase text-[#6B7D90] mb-1">Category Type</label>
                 <select
                   value={newCompCategory}
                   onChange={(e) => setNewCompCategory(e.target.value as 'direct' | 'indirect' | 'alternative_workaround')}
-                  className="w-full px-3 py-2 rounded-lg bg-[#151E2B] border border-[#263244] text-[#F3F4F6] focus:border-[#4D8DFF] focus:outline-none"
+                  className="w-full px-3 py-2 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F] focus:border-[#2B3D4F] focus:outline-none"
                 >
                   <option value="direct">Direct Competitor</option>
                   <option value="indirect">Indirect Competitor</option>
@@ -370,38 +370,38 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono uppercase text-[#64748B] mb-1">Primary Strength</label>
+                <label className="block text-[10px] font-mono uppercase text-[#6B7D90] mb-1">Primary Strength</label>
                 <input
                   type="text"
                   placeholder="e.g. Huge brand awareness, cheap prices"
                   value={newCompStrengths}
                   onChange={(e) => setNewCompStrengths(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-[#151E2B] border border-[#263244] text-[#F3F4F6] focus:border-[#4D8DFF] focus:outline-none"
+                  className="w-full px-3 py-2 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F] focus:border-[#2B3D4F] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] font-mono uppercase text-[#64748B] mb-1">Observed Gap / Weakness</label>
+                <label className="block text-[10px] font-mono uppercase text-[#6B7D90] mb-1">Observed Gap / Weakness</label>
                 <input
                   type="text"
                   placeholder="e.g. Opaque sourcing, slow onboarding, poor support"
                   value={newCompWeaknesses}
                   onChange={(e) => setNewCompWeaknesses(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-[#151E2B] border border-[#263244] text-[#F3F4F6] focus:border-[#4D8DFF] focus:outline-none"
+                  className="w-full px-3 py-2 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F] focus:border-[#2B3D4F] focus:outline-none"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#1C2636]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#E8E1D3]">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-lg bg-[#151E2B] hover:bg-[#1C2636] text-[#AAB4C3] border border-[#263244]"
+                  className="px-4 py-2 rounded-lg bg-[#ECE6DA] hover:bg-[#E8E1D3] text-[#4A5E73] border border-[#DDD5C5]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold"
+                  className="px-4 py-2 rounded-lg bg-[#2B3D4F] hover:bg-[#2B3D4F] text-white font-semibold"
                 >
                   Save Entity
                 </button>
