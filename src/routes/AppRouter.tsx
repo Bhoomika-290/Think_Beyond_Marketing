@@ -8,7 +8,7 @@ import { BrandRoadmapPage } from '../pages/BrandRoadmapPage';
 import { BuildPage } from '../pages/BuildPage';
 import { ExecutionPage } from '../pages/ExecutionPage';
 import { SimulationPage } from '../pages/SimulationPage';
-import { LaunchGrowthPage } from '../pages/StagePages';
+import { LaunchGrowthPage } from '../pages/LaunchGrowthPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 export const AppRouter: React.FC = () => {
