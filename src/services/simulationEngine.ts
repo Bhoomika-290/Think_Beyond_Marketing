@@ -364,8 +364,10 @@ export function generateSimulationReport(
   const primaryFeatureName = buildFeatures[0]?.name || 'Automated Intelligence Engine';
 
   let archetype: SoftwareVentureArchetype = 'general_saas';
-  if (ideaLower.includes('ad') || ideaLower.includes('market') || ideaLower.includes('roas') || ideaLower.includes('attribution') || ideaLower.includes('campaign')) {
+  if (/\b(?:attribution|multi-touch|ad\s+spend|ad\s+tracking|roas|campaign\s+roi)\b/i.test(ideaLower)) {
     archetype = 'marketing_attribution';
+  } else if (isPhysical || ideaLower.includes('apparel') || ideaLower.includes('clothing') || ideaLower.includes('wool') || ideaLower.includes('fashion') || ideaLower.includes('shop') || ideaLower.includes('store') || ideaLower.includes('cart') || ideaLower.includes('commerce') || ideaLower.includes('d2c') || ideaLower.includes('checkout')) {
+    archetype = 'ecommerce';
   } else if (ideaLower.includes('dev') || ideaLower.includes('code') || ideaLower.includes('api') || ideaLower.includes('infra') || ideaLower.includes('query')) {
     archetype = 'developer_tool';
   } else if (ideaLower.includes('ai') || ideaLower.includes('agent') || ideaLower.includes('prompt') || ideaLower.includes('llm') || ideaLower.includes('copilot')) {
@@ -374,8 +376,6 @@ export function generateSimulationReport(
     archetype = 'fintech';
   } else if (ideaLower.includes('health') || ideaLower.includes('clinic') || ideaLower.includes('patient') || ideaLower.includes('doctor') || ideaLower.includes('bio')) {
     archetype = 'healthcare';
-  } else if (ideaLower.includes('shop') || ideaLower.includes('store') || ideaLower.includes('cart') || ideaLower.includes('commerce') || ideaLower.includes('checkout')) {
-    archetype = 'ecommerce';
   } else if (ideaLower.includes('task') || ideaLower.includes('project') || ideaLower.includes('work') || ideaLower.includes('team') || ideaLower.includes('notion')) {
     archetype = 'productivity';
   }
@@ -391,7 +391,28 @@ export function generateSimulationReport(
     successOutcome: 'Optimization rules applied successfully. 14.8h manual triage eliminated.',
   };
 
-  if (archetype === 'marketing_attribution') {
+  if (archetype === 'ecommerce') {
+    dataSources = [
+      { id: 'src_orders', name: 'D2C Storefront Orders (Razorpay / Stripe)', type: 'Checkout Stream', recordCount: 184, isConnected: true, iconName: 'ShoppingBag', latencyMs: 24 },
+      { id: 'src_cluster', name: 'Artisan Cluster & Loom Batches (Sitapura / Bikaner)', type: 'Inventory Ledger', recordCount: 42, isConnected: true, iconName: 'Layers', latencyMs: 38 },
+      { id: 'src_logistics', name: 'Shiprocket Multi-Carrier Hub (Delhivery / Bluedart)', type: 'Dispatch API', recordCount: 162, isConnected: true, iconName: 'Activity', latencyMs: 45 },
+      { id: 'src_exchanges', name: 'Doorstep Size Exchange Queue', type: 'Reverse Logistics', recordCount: 11, isConnected: true, iconName: 'RotateCw', latencyMs: 19 },
+    ];
+    sampleRecords = [
+      { id: 'rec_1', title: 'Batch #BKN-24: 480 GSM Camel Wool Parka', category: 'Loom Allocation', metricA: '88/100 Pre-Sold', metricB: '12 Left in Reserve', status: 'optimal', flagReason: 'High Pre-Order Velocity from Northern Metros' },
+      { id: 'rec_2', title: 'Order #ORD-8492: Jaipur Hand-Spun Overcoat (Size L)', category: 'Courier Dispatch', metricA: 'AWB #DL948271', metricB: 'In Transit (ETA 36h)', status: 'synced', flagReason: 'Direct Farm-to-Doorstep Tracking Verified' },
+      { id: 'rec_3', title: 'Exchange #EX-104: Sizing Swap (M -> L) Bangalore', category: 'Reverse Pickup', metricA: 'Courier Slotted', metricB: 'Zero Customer Fee', status: 'anomaly', flagReason: 'Size M Chest Tolerance Tighter than Customer Spec', actionRecommendation: 'Adjust chest grading +1.5cm on next loom batch' },
+      { id: 'rec_4', title: 'Inventory Alert: Merino & Camel Yarn Shearing Stock', category: 'Raw Fiber', metricA: '14 Days Buffer', metricB: 'Restock Slotted', status: 'warning', flagReason: 'Approaching Minimum Yarn Threshold for Winter Batch 3', actionRecommendation: 'Confirm shearing contract dispatch with Bikaner cooperative' },
+    ];
+    insightAction = {
+      id: 'act_ecommerce',
+      headline: 'Sizing Friction Pattern Detected on Batch 1',
+      quantitativeImpact: '7.2% Return Rate Reduction Projected',
+      recommendedAction: 'Apply recommended chest ease calibration (+1.5cm) to remaining loom cutting patterns and update digital fit guide.',
+      actionButtonLabel: 'Sync Fit Specs & Lock Batch',
+      successOutcome: 'Loom specifications updated. Doorstep exchange risk reduced by 64% across remaining winter inventory.',
+    };
+  } else if (archetype === 'marketing_attribution') {
     dataSources = [
       { id: 'src_shopify', name: 'Shopify Store (Live Orders)', type: 'Storefront API', recordCount: 1420, isConnected: true, iconName: 'ShoppingBag', latencyMs: 18 },
       { id: 'src_meta', name: 'Meta Ads Manager (Campaigns)', type: 'Marketing API', recordCount: 86, isConnected: true, iconName: 'TrendingUp', latencyMs: 34 },
@@ -399,10 +420,10 @@ export function generateSimulationReport(
       { id: 'src_ga4', name: 'Google Analytics 4 (Web Traffic)', type: 'Telemetry Stream', recordCount: 28400, isConnected: false, iconName: 'Globe', latencyMs: 45 },
     ];
     sampleRecords = [
-      { id: 'rec_1', title: 'Ad Set #04: Lookalike 1% Desert Wool', category: 'Meta Ads', metricA: '$4,280 Spend', metricB: '1.24x ROAS (Blended: 3.4x)', status: 'anomaly', flagReason: 'Attribution Mismatch (Under-reported in iOS 14+)', actionRecommendation: 'Re-route $1,400 to retargeting cluster' },
-      { id: 'rec_2', title: 'Campaign #12: Winter Pre-Order Direct', category: 'Meta Ads', metricA: '$8,940 Spend', metricB: '4.82x ROAS', status: 'optimal', flagReason: 'High Net Margin Per Conversion' },
-      { id: 'rec_3', title: 'Organic Search: Camel Wool Parka', category: 'Direct Traffic', metricA: '4,120 Visits', metricB: '6.4% Conversion', status: 'synced', flagReason: 'Top Performing Landing Page' },
-      { id: 'rec_4', title: 'Ad Set #09: Broad Winter Outerwear', category: 'Google PMax', metricA: '$3,100 Spend', metricB: '0.88x ROAS', status: 'warning', flagReason: 'Negative ROI on Low-Intent Clicks', actionRecommendation: 'Pause keyword match query' },
+      { id: 'rec_1', title: 'Ad Set #04: Search Intent Cluster', category: 'Paid Search', metricA: '$4,280 Spend', metricB: '2.84x Blended ROAS', status: 'anomaly', flagReason: 'Attribution Mismatch across channels', actionRecommendation: 'Re-route $1,400 to retargeting cluster' },
+      { id: 'rec_2', title: 'Campaign #12: Direct Pre-Order Cohort', category: 'Direct Marketing', metricA: '$8,940 Spend', metricB: '4.82x ROAS', status: 'optimal', flagReason: 'High Net Margin Per Conversion' },
+      { id: 'rec_3', title: 'Organic Search: Core Product Category', category: 'Direct Traffic', metricA: '4,120 Visits', metricB: '6.4% Conversion', status: 'synced', flagReason: 'Top Performing Landing Page' },
+      { id: 'rec_4', title: 'Ad Set #09: Broad Awareness Campaign', category: 'Display', metricA: '$3,100 Spend', metricB: '0.88x ROAS', status: 'warning', flagReason: 'Negative ROI on Low-Intent Clicks', actionRecommendation: 'Pause keyword match query' },
     ];
     insightAction = {
       id: 'act_marketing',
@@ -462,37 +483,59 @@ export function generateSimulationReport(
       { id: 'src_external', name: 'Third-Party Partner Feed', type: 'Webhook API', recordCount: 890, isConnected: false, iconName: 'Globe', latencyMs: 38 },
     ];
     sampleRecords = [
-      { id: 'rec_1', title: `Workflow: ${primaryFeatureName} Run #104`, category: 'Core Workflow', metricA: '99.4% Match', metricB: '14 Flags Raised', status: 'anomaly', flagReason: 'Unoptimized Bottleneck Detected', actionRecommendation: 'Trigger automated resolution pipeline' },
-      { id: 'rec_2', title: 'Module: Real-Time User Ingestion', category: 'Data Pipeline', metricA: 'Sub-50ms', metricB: '0 Drop Rate', status: 'optimal', flagReason: 'Live Sync Active' },
-      { id: 'rec_3', title: 'Tenant Settings: Security & RBAC', category: 'Auth & Roles', metricA: 'SOC2 Ready', metricB: '4 Active Seats', status: 'synced', flagReason: 'Enterprise Compliance Guard Active' },
+      { id: 'rec_1', title: `Workflow: ${primaryFeatureName} Run #104`, category: 'Core Workflow', metricA: 'Near Real-Time', metricB: '14 Flags Evaluated', status: 'anomaly', flagReason: 'Unoptimized Bottleneck Detected', actionRecommendation: 'Trigger automated resolution pipeline' },
+      { id: 'rec_2', title: 'Module: Real-Time User Ingestion', category: 'Data Pipeline', metricA: '<100ms', metricB: '0 Drop Rate', status: 'optimal', flagReason: 'Live Sync Active' },
+      { id: 'rec_3', title: 'Tenant Settings: Security & RBAC', category: 'Auth & Roles', metricA: 'Role-Based', metricB: '4 Active Seats', status: 'synced', flagReason: 'Enterprise Compliance Guard Active' },
       { id: 'rec_4', title: 'Export: Scheduled Executive Digest', category: 'Reporting', metricA: 'Weekly PDF', metricB: 'Automated', status: 'optimal', flagReason: 'Dispatches Every Monday 09:00 AM' },
     ];
     insightAction = {
       id: 'act_general',
       headline: `Operational Bottleneck in ${primaryFeatureName}`,
-      quantitativeImpact: '3.4x Velocity Acceleration',
+      quantitativeImpact: 'Estimated 3.4x Velocity Acceleration',
       recommendedAction: `Execute automated optimization engine to resolve identified workflow friction.`,
       actionButtonLabel: 'Run Automated Optimization',
-      successOutcome: `Workflow executed in 48ms. Target outcome achieved with zero manual intervention.`,
+      successOutcome: `Workflow executed. Target outcome achieved with zero manual intervention.`,
     };
   }
+
+  const categoryTag = archetype === 'ecommerce'
+    ? 'D2C Craft Operations & Fulfillment Portal'
+    : isB2B
+    ? 'B2B SaaS Intelligence Platform'
+    : 'Cloud Interactive Application';
+
+  const summaryMetrics = archetype === 'ecommerce'
+    ? [
+        { label: 'Order Dispatch SLA', value: '<24h Target', badge: 'Projected SLA', trend: 'up' as const },
+        { label: 'Direct Craft Gross Margin', value: '~68% Target', badge: 'Model Estimate', trend: 'up' as const },
+        { label: 'Size Exchange Frequency', value: '5.8% Projected', badge: 'Cluster Benchmark', trend: 'neutral' as const },
+        { label: 'Artisan Batch Provenance', value: '100% Traceable', badge: 'Founder Standard', trend: 'up' as const },
+      ]
+    : archetype === 'developer_tool'
+    ? [
+        { label: 'Endpoint P99 Latency', value: '<50ms Target', badge: 'Target SLA', trend: 'up' as const },
+        { label: 'Triage Overhead Saved', value: '~10h / Week', badge: 'Model Estimate', trend: 'up' as const },
+        { label: 'Error Rate Threshold', value: '<0.05%', badge: 'Telemetry Target', trend: 'neutral' as const },
+        { label: 'Data Isolation Guard', value: 'ACID Strict', badge: 'Architectural Spec', trend: 'up' as const },
+      ]
+    : [
+        { label: 'Data Ingestion Latency', value: 'Near Real-Time', badge: 'Target SLA', trend: 'up' as const },
+        { label: 'Identified Efficiency Gain', value: '+18-24% Margin', badge: 'Model Estimate', trend: 'up' as const },
+        { label: 'Manual Work Saved', value: '~10-14 Hrs / Wk', badge: 'Founder Estimate', trend: 'up' as const },
+        { label: 'Attribution Fidelity', value: 'Deterministic Graph', badge: 'Architectural Spec', trend: 'neutral' as const },
+      ];
 
   const softwareWalkthrough: SoftwareInteractivePrototype = {
     appName,
     archetype,
-    categoryTag: isB2B ? 'B2B SaaS Intelligence Platform' : 'Cloud SaaS Interactive Web App',
+    categoryTag,
     primaryFeatureName,
     workflowGoal: `Solve "${problem.slice(0, 60)}..." through live automated execution.`,
     activeScreenTitle: `${appName} // Operational Command Center`,
     dataSources,
     sampleRecords,
     insightAction,
-    summaryMetrics: [
-      { label: 'Data Processing Speed', value: '38ms Real-Time', badge: 'Sub-50ms Edge', trend: 'up' },
-      { label: 'Identified Efficiency Gain', value: '+24.6% Margin', badge: 'Verified', trend: 'up' },
-      { label: 'Manual Work Eliminated', value: '14.2 Hrs / Wk', badge: 'Automated', trend: 'up' },
-      { label: 'System Accuracy SLA', value: '99.8% Match', badge: 'Audit Grade', trend: 'neutral' },
-    ],
+    summaryMetrics,
     outcomeSummary: {
       timeSavedOrBenefit: 'Saves 10–15 founder hours weekly previously lost to manual data wrangling and spreadsheets.',
       coreValueDelivered: `Transforms "${problem.slice(0, 75)}..." into an automated, single-click solution.`,

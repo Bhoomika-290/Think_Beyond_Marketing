@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowDownRight, Minus, HelpCircle, Sparkles, Activity } from 'lucide-react';
 import type { MarketTrendSignal } from '../../types/project';
+import { ChartEmptyState } from '../common/ChartEmptyState';
 
 interface MarketTrendsViewProps {
   trends: MarketTrendSignal[];
@@ -63,7 +65,24 @@ export const MarketTrendsView: React.FC<MarketTrendsViewProps> = ({ trends }) =>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-        {trends.map((t) => {
+        {trends.length === 0 ? (
+          <div className="md:col-span-2 lg:col-span-4">
+            <ChartEmptyState
+              title="No market signals yet"
+              message="Trend vectors unlock from your Stage 01 problem + context inputs — complete discovery to detect structural market forces."
+              hint="Stage 01 → problem / context"
+              action={
+                <Link
+                  to="/idea-lab"
+                  className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+                >
+                  Complete Stage 01 in Idea Lab →
+                </Link>
+              }
+            />
+          </div>
+        ) : (
+          trends.map((t) => {
           const dir = getDirectionBadge(t.direction);
           return (
             <div
@@ -99,7 +118,8 @@ export const MarketTrendsView: React.FC<MarketTrendsViewProps> = ({ trends }) =>
               </div>
             </div>
           );
-        })}
+        })
+        )}
       </div>
     </div>
   );

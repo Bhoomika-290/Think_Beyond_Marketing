@@ -70,9 +70,9 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* 1. Launch Readiness & Diagnostic Dimensions */}
-      <div className="bg-[#0D121B] border border-[#263244] rounded-2xl p-5 shadow-xl space-y-4">
+      <div className="bg-[#0D121B] border border-[#263244] rounded-2xl p-4 shadow-xl space-y-3">
         {/* Readiness Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#1A2536]">
           <div className="flex items-center gap-2.5">
@@ -169,7 +169,7 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
 
         {/* Selected Dimension Item Inspection */}
         {selectedDimension && (
-          <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-3 animate-fadeIn">
+          <div className="p-3 rounded-xl bg-[#111823] border border-[#263244] space-y-2 animate-fadeIn">
             {(() => {
               const activeDim = readiness.dimensions.find((d) => d.id === selectedDimension);
               if (!activeDim) return null;
@@ -192,9 +192,9 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {activeDim.items.map((item) => (
-                      <div key={item.id} className="p-3 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1.5 flex flex-col justify-between">
+                      <div key={item.id} className="px-2.5 py-2 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1 flex flex-col justify-between">
                         <div>
                           <div className="flex items-center justify-between gap-1">
                             <span className="text-xs font-bold text-[#F3F4F6]">{item.label}</span>
@@ -232,8 +232,8 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
       </div>
 
       {/* 2. Clean Project Synthesis & Launch Dependencies (Blockers + Opportunities ONLY) */}
-      <div className="bg-[#0D121B] border border-[#263244] rounded-2xl p-5 shadow-xl space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-[#1A2536]">
+      <div className="bg-[#0D121B] border border-[#263244] rounded-2xl p-4 shadow-xl space-y-3">
+        <div className="flex items-center justify-between pb-2 border-b border-[#1A2536]">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-[#10B981]/10 border border-[#10B981]/30 flex items-center justify-center text-[#10B981]">
               <Sparkles className="w-4 h-4" />
@@ -253,42 +253,68 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
         </div>
 
         {/* Blockers vs Opportunities 2-Column Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
           {/* A. Identified Launch Blockers */}
-          <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-2.5">
-            <div className="text-[10px] font-mono uppercase text-[#EF4444] font-bold flex items-center justify-between">
+          <div className="p-3 rounded-xl bg-[#111823] border border-[#263244] space-y-2">
+            <div className="text-[10px] font-mono uppercase text-[#FBBF24] font-bold flex items-center justify-between">
               <span className="flex items-center gap-1">
                 <AlertCircle className="w-3.5 h-3.5" />
                 <span>Identified Launch Blockers</span>
               </span>
-              <span className="px-2 py-0.5 rounded bg-[#EF4444]/15 text-[#F87171] border border-[#EF4444]/30">
+              <span className="px-2 py-0.5 rounded bg-[#F59E0B]/15 text-[#FBBF24] border border-[#F59E0B]/30">
                 {synthesis.criticalBlockers.length} Detected
               </span>
             </div>
 
             {synthesis.criticalBlockers.length === 0 ? (
-              <div className="p-3.5 rounded-lg bg-[#0D121B] border border-[#10B981]/30 text-xs text-[#34D399] font-mono flex items-center gap-2">
+              <div className="p-2.5 rounded-lg bg-[#0D121B] border border-[#10B981]/30 text-xs text-[#34D399] font-mono flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0" />
                 <span>No blocking dependencies detected. Upstream stage outputs are aligned for launch.</span>
               </div>
             ) : (
-              <div className="space-y-2">
-                {synthesis.criticalBlockers.map((blk) => (
-                  <div key={blk.id} className="p-3 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1">
-                    <div className="font-bold text-white text-xs">{blk.title}</div>
-                    <div className="text-[11px] text-[#AAB4C3] leading-snug">{blk.detail}</div>
-                    <div className="text-[10px] font-mono text-[#38BDF8] pt-1">
-                      Resolving Source: <span className="text-white">{blk.resolvingStage}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="text-[9px] font-mono uppercase text-[#738095] border-b border-[#1A2536]">
+                    <th className="py-1 pr-2 font-bold">Issue</th>
+                    <th className="py-1 pr-2 font-bold w-16">Severity</th>
+                    <th className="py-1 font-bold w-24">Source</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {synthesis.criticalBlockers.map((blk) => (
+                    <tr key={blk.id} className="border-b border-[#1A2536] last:border-0 align-top">
+                      <td className="py-1.5 pr-2">
+                        <details className="group">
+                          <summary className="text-xs font-bold text-white cursor-pointer list-none hover:text-[#FBBF24]">
+                            {blk.title}
+                          </summary>
+                          <p className="text-[11px] text-[#AAB4C3] leading-snug pt-1">{blk.detail}</p>
+                        </details>
+                      </td>
+                      <td className="py-1.5 pr-2">
+                        <span
+                          className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold border ${
+                            blk.severity === 'high'
+                              ? 'bg-[#F59E0B]/15 text-[#FBBF24] border-[#F59E0B]/30'
+                              : blk.severity === 'medium'
+                                ? 'bg-[#38BDF8]/10 text-[#AAB4C3] border-[#263244]'
+                                : 'bg-[#1A2536] text-[#738095] border-[#263244]'
+                          }`}
+                        >
+                          {blk.severity.toUpperCase()}
+                        </span>
+                      </td>
+                      <td className="py-1.5 text-[10px] font-mono text-[#AAB4C3]">{blk.resolvingStage}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             )}
           </div>
 
           {/* B. Derived Growth Opportunities */}
-          <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-2.5">
-            <div className="text-[10px] font-mono uppercase text-[#10B981] font-bold flex items-center justify-between">
+          <div className="p-3 rounded-xl bg-[#111823] border border-[#263244] space-y-2">
+            <div className="text-[10px] font-mono uppercase text-[#34D399] font-bold flex items-center justify-between">
               <span className="flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Derived Growth Opportunities</span>
@@ -298,12 +324,14 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
               </span>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1">
               {synthesis.strategicOpportunities.map((opp) => (
-                <div key={opp.id} className="p-3 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1">
-                  <div className="font-bold text-white text-xs">{opp.title}</div>
-                  <div className="text-[11px] text-[#AAB4C3] leading-snug">{opp.rationale}</div>
-                </div>
+                <details key={opp.id} className="px-2.5 py-1.5 rounded-lg bg-[#0D121B] border border-[#263244] group">
+                  <summary className="text-xs font-bold text-white cursor-pointer list-none hover:text-[#34D399]">
+                    {opp.title}
+                  </summary>
+                  <p className="text-[11px] text-[#AAB4C3] leading-snug pt-1">{opp.rationale}</p>
+                </details>
               ))}
             </div>
           </div>

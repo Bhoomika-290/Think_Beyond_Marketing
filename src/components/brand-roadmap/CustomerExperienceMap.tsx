@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Compass, UserCheck, Key, Zap, CheckCircle2, RotateCcw, Heart, ArrowRight } from 'lucide-react';
 import type { CustomerTouchpoint } from '../../types/project';
 

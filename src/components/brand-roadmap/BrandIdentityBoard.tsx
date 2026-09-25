@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { VisualBrandBoard } from '../../types/project';
 
 interface BrandIdentityBoardProps {
@@ -75,9 +75,9 @@ export const BrandIdentityBoard: React.FC<BrandIdentityBoardProps> = ({ board })
         </div>
 
         {/* Right Column: Colors, Typography, Tagline, Voice & Positioning (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col gap-5 justify-between">
-          {/* Tagline Card */}
-          <div className="bg-white border border-[#DDD5C5] rounded-2xl p-5 shadow-sm">
+          <div className="lg:col-span-7 flex flex-col gap-5 justify-between">
+            {/* Tagline Card */}
+            <div className="bg-white border border-[#DDD5C5] rounded-2xl p-5 shadow-md">
             <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] font-bold block mb-1">
               02 • CORE BRAND TAGLINE
             </span>
@@ -87,11 +87,11 @@ export const BrandIdentityBoard: React.FC<BrandIdentityBoardProps> = ({ board })
           </div>
 
           {/* Color Palette Strip */}
-          <div className="bg-white border border-[#DDD5C5] rounded-2xl p-5 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] font-bold">
-                03 • CHROMATIC SYSTEM
-              </span>
+            <div className="bg-white border border-[#DDD5C5] rounded-2xl p-5 shadow-md">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] font-bold">
+                  03 • CHROMATIC SYSTEM
+                </span>
               <span className="text-[10px] font-mono text-[#6B7D90]">5 Semantic Tokens</span>
             </div>
             <div className="rounded-xl overflow-hidden h-12 flex border border-[#DDD5C5] mb-3">
@@ -118,7 +118,7 @@ export const BrandIdentityBoard: React.FC<BrandIdentityBoardProps> = ({ board })
           {/* Typography & Verbal Voice Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Typography */}
-            <div className="bg-white border border-[#DDD5C5] rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+            <div className="bg-white border border-[#DDD5C5] rounded-2xl p-4 shadow-md flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] font-bold block mb-1">
                   04 • TYPOGRAPHY PAIR
@@ -134,7 +134,7 @@ export const BrandIdentityBoard: React.FC<BrandIdentityBoardProps> = ({ board })
             </div>
 
             {/* Voice Traits */}
-            <div className="bg-white border border-[#DDD5C5] rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+            <div className="bg-white border border-[#DDD5C5] rounded-2xl p-4 shadow-md flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] font-bold block mb-1">
                   05 • VERBAL TONALITY
@@ -154,7 +154,7 @@ export const BrandIdentityBoard: React.FC<BrandIdentityBoardProps> = ({ board })
           </div>
 
           {/* Full Positioning Statement */}
-          <div className="bg-white border border-[#DDD5C5] rounded-2xl p-5 shadow-sm">
+          <div className="bg-white border border-[#DDD5C5] rounded-2xl p-5 shadow-md">
             <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] font-bold block mb-1">
               06 • CANONICAL POSITIONING FORMULA
             </span>

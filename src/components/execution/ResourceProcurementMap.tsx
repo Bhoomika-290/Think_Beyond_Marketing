@@ -83,6 +83,8 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
     });
   }, [items, activeFilter, selectedCategory, searchQuery]);
 
+  const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
+
   const handleOpenMap = (item: ExecutionResourceItem) => {
     const q = encodeURIComponent(`${item.name} ${item.address || item.location}`);
     window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, '_blank', 'noopener,noreferrer');
@@ -92,12 +94,24 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
     if (item.phone && item.phone !== 'Not verified' && item.phone !== 'Contact information unavailable') {
       window.location.href = `tel:${item.phone.replace(/[^0-9+]/g, '')}`;
     } else {
-      alert(`Contact information for "${item.name}" is unverified in official registries. Direct portal enquiry required.`);
+      setNoticeMessage(`Contact information for "${item.name}" is unverified in official registries. Direct portal enquiry required.`);
     }
   };
 
   return (
-    <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-5 shadow-xs space-y-5">
+    <div className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl p-5 shadow-md space-y-5">
+      {noticeMessage && (
+        <div className="flex items-center justify-between p-3 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 text-xs font-mono">
+          <span>{noticeMessage}</span>
+          <button
+            type="button"
+            onClick={() => setNoticeMessage(null)}
+            className="text-amber-700 hover:text-amber-950 font-bold ml-2"
+          >
+            ✕
+          </button>
+        </div>
+      )}
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#E8E2D8]">
         <div>
@@ -481,10 +495,10 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
             const isTrade = item.verificationStatus === 'TRADE_DIRECTORY';
 
             return (
-              <div
-                key={item.id}
-                className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl p-4 flex flex-col justify-between hover:border-[#1E40AF]/40 transition-colors shadow-2xs"
-              >
+               <div
+                 key={item.id}
+                 className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-4 flex flex-col justify-between hover:border-[#1E40BF]/40 transition-colors shadow-sm hover:shadow-md"
+               >
                 <div>
                   <div className="flex items-start justify-between gap-2 pb-2 border-b border-[#E8E2D8]">
                     <div>

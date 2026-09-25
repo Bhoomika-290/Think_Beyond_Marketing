@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useProject } from '../../context/ProjectContext';
-import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
-import { Send, Mic, Bot, User, CheckCircle2, Plus, X, FileText } from 'lucide-react';
+import { Send, Mic, Bot, User, CheckCircle2, Plus, X, FileText, Sparkles, ShieldCheck, Brain } from 'lucide-react';
 import {
   buildInterviewReply,
   attachmentNotice,
@@ -20,10 +19,160 @@ interface AttachedFile {
   size: number;
 }
 
+interface ParsedBotSection {
+  type: 'captured' | 'confidence' | 'impact' | 'probe' | 'status' | 'inference' | 'verified' | 'text';
+  content: string;
+  label?: string;
+  icon?: React.ReactNode;
+  borderColor: string;
+  bgColor: string;
+  textColor: string;
+  headerColor: string;
+}
+
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function parseBotMessage(text: string): ParsedBotSection[] {
+  const sections = text.split('\n\n');
+  return sections.map((section) => {
+    const trimmed = section.trim();
+    if (trimmed.startsWith('Captured:')) {
+      return {
+        type: 'verified',
+        content: trimmed.replace(/^Captured:\s*/, ''),
+        label: 'VERIFIED — Founder Input',
+        icon: <ShieldCheck className="w-3 h-3" />,
+        borderColor: 'border-[#10B981]',
+        bgColor: 'bg-[#ECFDF5]',
+        textColor: 'text-[#1F2937]',
+        headerColor: 'text-[#059669]',
+      };
+    }
+    if (trimmed.startsWith('Confidence:')) {
+      return {
+        type: 'confidence',
+        content: trimmed.replace(/^Confidence:\s*/, ''),
+        label: 'GROUNDING & CONFIDENCE',
+        icon: <Brain className="w-3 h-3" />,
+        borderColor: 'border-[#38BDF8]',
+        bgColor: 'bg-[#F0F9FF]',
+        textColor: 'text-[#1F2937]',
+        headerColor: 'text-[#0284C7]',
+      };
+    }
+    if (trimmed.startsWith('What this changes:')) {
+      return {
+        type: 'impact',
+        content: trimmed.replace(/^What this changes:\s*/, ''),
+        label: 'DOWNSTREAM MODEL IMPACT',
+        icon: <Sparkles className="w-3 h-3" />,
+        borderColor: 'border-[#A855F7]',
+        bgColor: 'bg-[#FAF5FF]',
+        textColor: 'text-[#1F2937]',
+        headerColor: 'text-[#9333EA]',
+      };
+    }
+    if (trimmed.startsWith('Next question')) {
+      return {
+        type: 'probe',
+        content: trimmed,
+        label: 'DISCOVERY PROBE',
+        icon: null,
+        borderColor: 'border-[#F59E0B]',
+        bgColor: 'bg-[#FFFBEB]',
+        textColor: 'text-[#1F2937]',
+        headerColor: 'text-[#D97706]',
+      };
+    }
+    if (trimmed.startsWith('STATUS:')) {
+      return {
+        type: 'status',
+        content: trimmed,
+        label: undefined,
+        icon: null,
+        borderColor: 'border-transparent',
+        bgColor: 'bg-transparent',
+        textColor: 'text-[#4B5563]',
+        headerColor: 'text-[#4B5563]',
+      };
+    }
+    // Check for inference markers
+    if (/^(?:MODEL INFERENCE|AI INFERENCE|INFERRED:)/i.test(trimmed)) {
+      return {
+        type: 'inference',
+        content: trimmed.replace(/^(?:MODEL INFERENCE|AI INFERENCE|INFERRED:)\s*/i, ''),
+        label: 'MODEL INFERENCE',
+        icon: <Brain className="w-3 h-3" />,
+        borderColor: 'border-[#6C5E8F]',
+        bgColor: 'bg-[#F5F3FF]',
+        textColor: 'text-[#1F2937]',
+        headerColor: 'text-[#7C3AED]',
+      };
+    }
+    // Check for verified markers
+    if (/^(?:VERIFIED|SOURCE-BACKED|EVIDENCE:)/i.test(trimmed)) {
+      return {
+        type: 'verified',
+        content: trimmed.replace(/^(?:VERIFIED|SOURCE-BACKED|EVIDENCE:)\s*/i, ''),
+        label: 'VERIFIED — Source-Backed',
+        icon: <ShieldCheck className="w-3 h-3" />,
+        borderColor: 'border-[#10B981]',
+        bgColor: 'bg-[#ECFDF5]',
+        textColor: 'text-[#1F2937]',
+        headerColor: 'text-[#059669]',
+      };
+    }
+    return {
+      type: 'text',
+      content: trimmed,
+      label: undefined,
+      icon: null,
+      borderColor: 'border-transparent',
+      bgColor: 'bg-transparent',
+      textColor: 'text-[#1F2937]',
+      headerColor: 'text-[#1F2937]',
+    };
+  });
+}
+
+function renderBotMessageContent(text: string) {
+  const parsed = parseBotMessage(text);
+  return (
+    <div className="space-y-3 text-sm leading-relaxed">
+      {parsed.map((section, idx) => {
+        if (section.type === 'status') {
+          return (
+            <div key={idx} className="text-[11px] font-mono text-[#4B5563] border-t border-[#D1D5DB] pt-2 italic">
+              {section.content}
+            </div>
+          );
+        }
+        if (section.type === 'text') {
+          return <div key={idx} className="whitespace-pre-wrap text-sm text-[#1F2937]">{section.content}</div>;
+        }
+        return (
+          <div
+            key={idx}
+            className={`${section.borderColor} ${section.bgColor} p-3 rounded-r-lg space-y-1.5 border-l-2`}
+          >
+            <div className="flex items-center gap-2">
+              {section.icon && <span className={section.headerColor}>{section.icon}</span>}
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider" style={{ color: section.headerColor }}>
+                {section.label}
+              </div>
+            </div>
+            <div className="whitespace-pre-wrap leading-relaxed" style={{ color: section.textColor }}>
+              {section.content}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export const InterviewerChat: React.FC<InterviewerChatProps> = ({
@@ -55,7 +204,14 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
   const [pendingProbeId, setPendingProbeId] = useState<string | null>(null);
   const [isThinking, setIsThinking] = useState(false);
   const [showAttachMenu, setShowAttachMenu] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  // True while a submit pipeline (user msg → AI reply timeout) is in flight.
+  const submitLockRef = useRef(false);
+  const pendingReplyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Stick-to-bottom: auto-scroll the viewport only while the user is already
+  // near the bottom, so reading history is never yanked away.
+  const stickToBottomRef = useRef(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<{ stop: () => void } | null>(null);
@@ -66,7 +222,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
       // oxlint-disable-next-line react/set-state-in-effect
       setInputText(externalPrompt);
       if (textareaRef.current) {
-        textareaRef.current.focus();
+        textareaRef.current.focus({ preventScroll: true });
       }
       if (onClearExternalPrompt) {
         onClearExternalPrompt();
@@ -74,10 +230,22 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     }
   }, [externalPrompt, onClearExternalPrompt]);
 
-  // Scroll conversation (including to the typing indicator)
+  // Scroll ONLY the internal conversation viewport — never the page.
+  // Direct scrollTo on viewportRef keeps the browser window and parent containers exactly where they are.
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const el = viewportRef.current;
+    if (el && stickToBottomRef.current) {
+      el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+    }
   }, [messages, isThinking]);
+
+  useEffect(() => {
+    return () => {
+      if (pendingReplyTimeout.current) {
+        clearTimeout(pendingReplyTimeout.current);
+      }
+    };
+  }, []);
 
   const handleAttachMenuAction = (actionId: string) => {
     setShowAttachMenu(false);
@@ -87,23 +255,23 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
         break;
       case 'note':
         setInputText((prev) => (prev.trim() ? `${prev.trim()}\nNotes: ` : 'Notes: '));
-        textareaRef.current?.focus();
+        textareaRef.current?.focus({ preventScroll: true });
         break;
       case 'competitor':
         setInputText((prev) => (prev.trim() ? `${prev.trim()} ` : '') + 'Competitor to watch: ');
-        textareaRef.current?.focus();
+        textareaRef.current?.focus({ preventScroll: true });
         break;
       case 'pricing':
         setInputText((prev) => (prev.trim() ? `${prev.trim()} ` : '') + 'Pricing: ');
-        textareaRef.current?.focus();
+        textareaRef.current?.focus({ preventScroll: true });
         break;
       case 'research':
         setInputText((prev) => (prev.trim() ? `${prev.trim()} ` : '') + 'Reference: ');
-        textareaRef.current?.focus();
+        textareaRef.current?.focus({ preventScroll: true });
         break;
       case 'url':
         setInputText((prev) => (prev.trim() ? `${prev.trim()} ` : '') + 'Reference URL: ');
-        textareaRef.current?.focus();
+        textareaRef.current?.focus({ preventScroll: true });
         break;
       default:
         break;
@@ -130,10 +298,20 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     e.target.value = '';
   };
 
+  const handleViewportScroll = () => {
+    const el = viewportRef.current;
+    if (!el) return;
+    stickToBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 90;
+  };
+
   const handleSubmit = (e?: React.FormEvent, overrideText?: string) => {
     if (e) e.preventDefault();
+    if (submitLockRef.current || isThinking) return;
     const cleanText = (overrideText ?? inputText).trim();
     if (!cleanText && attachedFiles.length === 0) return;
+    submitLockRef.current = true;
+    setIsThinking(true);
+    stickToBottomRef.current = true;
 
     const submittedText = cleanText || '(shared reference material — see attachments)';
     const fileNames = attachedFiles.map((f) => f.name);
@@ -142,23 +320,31 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     setPendingChips([]);
     setPendingProbeId(null);
 
-    // 1. Add user message (existing conversation state — the single source of memory)
+    // 1. Add user message (representing exactly what the user sent)
     addMessage(
       fileNames.length > 0 ? `${submittedText}\n\n[Attachments: ${fileNames.join(', ')}]` : submittedText,
       'user',
     );
 
-    // 2. Capture raw input into project state (append follow-ups and
-    //    attachment references, never discard context)
-    const attachmentSuffix =
-      fileNames.length > 0 ? `\n[Reference files: ${fileNames.join(', ')}]` : '';
-    const previousRaw = state.idea.rawInput?.trim() ?? '';
-    const nextRaw = (
-      previousRaw.length === 0
-        ? `${submittedText}${attachmentSuffix}`
-        : `${previousRaw}\n\n${submittedText}${attachmentSuffix}`
-    ).slice(0, 4000);
-    updateIdea({ rawInput: nextRaw });
+    // 2. Detect if this message introduces a brand new venture (e.g. switching from sample SaaS/coffee to winter wear)
+    const isNewVentureStatement =
+      /^(?:i\s+(?:want|plan|would\s+like)\s+to\s+(?:start|build|create|launch|make|open)|my\s+idea\s+is|i'?m\s+(?:starting|building|creating|launching)|(?:starting|launching)\s+a)\b/i.test(submittedText) ||
+      state.project.id.startsWith('proj_sample_') ||
+      (Boolean(state.idea.rawInput) && !state.idea.rawInput.toLowerCase().includes(submittedText.toLowerCase().slice(0, 15)) && /(?:winter\s+clothing|garment|apparel|handloom|fashion|coffee|saas|marketplace)/i.test(submittedText));
+
+    const isQuestion = /^(?:how|what|why|who|where|when|can|is|are|should|could|would)\b/i.test(submittedText) || submittedText.trim().endsWith('?');
+    const previousRaw = isNewVentureStatement ? '' : (state.idea.rawInput?.trim() ?? '');
+    let nextRaw = previousRaw;
+    if (!isQuestion && (!previousRaw || previousRaw.length < 2000 || isNewVentureStatement)) {
+      const attachmentSuffix =
+        fileNames.length > 0 ? `\n[Reference files: ${fileNames.join(', ')}]` : '';
+      nextRaw = (
+        previousRaw.length === 0
+          ? `${submittedText}${attachmentSuffix}`
+          : `${previousRaw}\n\n${submittedText}${attachmentSuffix}`
+      ).slice(0, 4000);
+      updateIdea({ rawInput: nextRaw, isNewVenture: isNewVentureStatement });
+    }
 
     // 3. Business-intelligence reasoning over the message + conversation history.
     // Guarded: the engine is deterministic local code, but a failure must
@@ -261,16 +447,16 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     //    attachment handling — never claims to have analyzed file contents)
     const notice = attachmentNotice(fileNames);
     const reply = notice ? `${result.replyText}\n\n${notice}` : result.replyText;
-    setIsThinking(true);
-    setTimeout(() => {
+    setInputText('');
+    setAttachedFiles([]);
+    pendingReplyTimeout.current = setTimeout(() => {
       addMessage(reply, 'ai');
       setIsThinking(false);
+      submitLockRef.current = false;
       setPendingChips(result.chips);
       setPendingProbeId(result.probeId);
     }, 650);
 
-    setInputText('');
-    setAttachedFiles([]);
     if (onRawIdeaSubmitted) {
       onRawIdeaSubmitted(submittedText);
     }
@@ -311,7 +497,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
         const transcript = event.results[0]?.[0]?.transcript ?? '';
         if (transcript.trim()) {
           setInputText((prev) => (prev.trim() ? `${prev.trim()} ${transcript.trim()}` : transcript.trim()));
-          textareaRef.current?.focus();
+          textareaRef.current?.focus({ preventScroll: true });
         }
         setIsListeningLive(false);
         setVoiceNotice(null);
@@ -349,33 +535,51 @@ interface SpeechRecognitionLike {
   ];
 
   return (
-    <div className="bg-[#FDFCF8] border border-[#DDD5C5] rounded-xl overflow-hidden shadow-intel-card flex flex-col h-[540px] transition-colors duration-200">
+    // Intelligence-interview identity: restrained warm gray + off-white + graphite palette,
+    // visually distinct from other cards in the workspace.
+    <div
+      ref={chatContainerRef}
+      className="bg-[#1C2026] border border-[#2E3540] rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[560px] transition-colors duration-200"
+    >
       {/* Interviewer Header */}
-      <div className="px-5 py-3.5 bg-[#ECE6DA] border-b border-[#DDD5C5] flex items-center justify-between">
+      <div className="px-5 py-3.5 bg-[#141A23] border-b border-[#232F40] flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[rgba(43,61,79,0.12)] border border-[rgba(43,61,79,0.35)] flex items-center justify-center">
-            <Bot className="w-4 h-4 text-[#2B3D4F]" />
+          <div className="w-8 h-8 rounded-lg bg-[#1E293B] border border-[#334155] flex items-center justify-center text-[#38BDF8]">
+            <Bot className="w-4 h-4 text-[#38BDF8]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-[#2B3D4F]">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#F1F5F9] font-semibold">
                 Business Intelligence Interviewer
               </span>
-              <span className="inline-block w-2 h-2 rounded-full bg-[#4A7C59]" />
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-[#064E3B]/80 text-[#34D399] border border-[#059669]/40">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+                Active Session
+              </span>
             </div>
-            <p className="text-[11px] text-[#6B7D90]">
-              Staged Discovery Agent • Structured Capture Mode
+            <p className="text-[11px] text-[#94A3B8]">
+              Stage 01 • Staged Discovery Mode • Grounded Strategy
             </p>
           </div>
         </div>
 
-        <Badge variant={state.idea.rawInput ? 'success' : 'outline'} size="sm" className="shrink-0 whitespace-nowrap">
-          {state.idea.rawInput ? 'Raw Idea Captured' : 'Awaiting Input'}
-        </Badge>
+        <div className="flex items-center gap-2">
+          <span className="hidden sm:inline-block text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
+            Stage 01 of 08
+          </span>
+          <Badge variant={state.idea.rawInput ? 'success' : 'outline'} size="sm" className="shrink-0 whitespace-nowrap">
+            {state.idea.rawInput ? 'Venture Grounded' : 'Awaiting Input'}
+          </Badge>
+        </div>
       </div>
 
-      {/* Message History */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
+      {/* Message History — dedicated internal scroll viewport. ONLY this scrolls.
+          overscroll-contain ensures the parent page never moves when scrolling messages. */}
+      <div
+        ref={viewportRef}
+        onScroll={handleViewportScroll}
+        className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 sm:p-5 space-y-4 bg-[#11151C]"
+      >
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -384,72 +588,94 @@ interface SpeechRecognitionLike {
             }`}
           >
             <div
-              className={`w-7 h-7 rounded-md shrink-0 flex items-center justify-center text-xs ${
+              className={`w-7 h-7 rounded-lg shrink-0 flex items-center justify-center text-xs ${
                 msg.sender === 'user'
-                  ? 'bg-[#2B3D4F] text-[#F5F1EB]'
-                  : 'bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F]'
+                  ? 'bg-[#243042] border border-[#3A4A62] text-[#93C5FD]'
+                  : 'bg-[#162232] border border-[#23354C] text-[#38BDF8]'
               }`}
             >
               {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
             </div>
 
             <div
-              className={`rounded-xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
+              className={`rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
                 msg.sender === 'user'
-                  ? 'bg-[#2B3D4F] text-[#F5F1EB] rounded-tr-none'
-                  : 'bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F] rounded-tl-none'
+                  ? 'bg-[#FAF8F5] border border-[#E2D9CC] text-[#1F2937] rounded-tr-none'
+                  : 'bg-[#FAF8F5] border border-[#E2D9CC] text-[#1F2937] rounded-tl-none'
               }`}
             >
-              <div className="whitespace-pre-wrap">{msg.text}</div>
-              <div
-                className={`mt-1.5 text-[10px] font-mono ${
-                  msg.sender === 'user' ? 'text-[#F5F1EB]/70' : 'text-[#6B7D90]'
-                }`}
-              >
-                {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              <div className="flex items-center justify-between gap-3 mb-2 border-b border-[#E2D9CC] pb-1">
+                <span
+                  className={`text-[10px] font-mono uppercase tracking-wider font-semibold ${
+                    msg.sender === 'user' ? 'text-[#0284C7]' : 'text-[#059669]'
+                  }`}
+                >
+                  {msg.sender === 'user' ? 'FOUNDER INPUT' : 'BUSINESS INTELLIGENCE INTERVIEWER'}
+                </span>
+                <span className="text-[10px] font-mono text-[#6B7280]">
+                  {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
               </div>
+
+              {msg.isInitial ? (
+                <div className="space-y-2">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#059669] font-bold border-b border-[#E2D9CC] pb-1">
+                    STAGE 01 • VENTURE DISCOVERY SESSION
+                  </div>
+                  <div className="text-sm font-semibold text-[#111827]">
+                    Hello. Let's turn your idea into a structured, validated venture.
+                  </div>
+                  <div className="text-xs text-[#4B5563] leading-relaxed">
+                    Tell me what is in your head: product type, target audience, or geographic region.<br />
+                    It doesn't need to be polished — we'll systematically structure the business model.
+                  </div>
+                </div>
+              ) : msg.sender === 'ai' ? (
+                renderBotMessageContent(msg.text)
+              ) : (
+                <div className="whitespace-pre-wrap text-[#1F2937]">{msg.text}</div>
+              )}
             </div>
           </div>
         ))}
 
         {isThinking && (
           <div className="msg-in flex gap-3 max-w-2xl mr-auto" aria-live="polite">
-            <div className="w-7 h-7 rounded-md shrink-0 flex items-center justify-center text-xs bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F]">
+            <div className="w-7 h-7 rounded-lg shrink-0 flex items-center justify-center text-xs bg-[#162232] border border-[#23354C] text-[#38BDF8]">
               <Bot className="w-3.5 h-3.5" />
             </div>
-            <div className="rounded-xl rounded-tl-none px-4 py-3.5 bg-[#ECE6DA] border border-[#DDD5C5] shadow-sm flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#4A5E73] animate-pulse" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#4A5E73] animate-pulse [animation-delay:150ms]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#4A5E73] animate-pulse [animation-delay:300ms]" />
-              <span className="text-[11px] font-mono text-[#6B7D90] ml-1">Reasoning…</span>
+            <div className="rounded-2xl rounded-tl-none px-4 py-3 bg-[#FAF8F5] border border-[#E2D9CC] shadow-md flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse [animation-delay:150ms]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse [animation-delay:300ms]" />
+              <span className="text-[11px] font-mono text-[#4B5563] ml-1">Analyzing venture signals & model constraints…</span>
             </div>
           </div>
         )}
 
         {state.idea.rawInput && (
-          <div className="p-3 rounded-lg bg-[rgba(43,61,79,0.12)] border border-[rgba(43,61,79,0.35)] text-xs text-[#2B3D4F] flex items-center justify-between">
+          <div className="p-3 rounded-lg bg-[#FAF8F5] border border-[#E2D9CC] text-xs text-[#1F2937] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#4A7C59] shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-[#059669] shrink-0" />
               <span>
-                Active raw idea stored in project state. You can refine or expand details below.
+                Active raw idea stored in project state. Downstream stages dynamically adapt to this context.
               </span>
             </div>
           </div>
         )}
 
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Suggested Idea Starters */}
       {!state.idea.rawInput && (
-        <div className="px-4 py-2 bg-[#F5F1EB] border-t border-[#DDD5C5] flex items-center gap-2 overflow-x-auto no-scrollbar">
-          <span className="text-[10px] font-mono text-[#6B7D90] shrink-0 uppercase">Try:</span>
+        <div className="px-4 py-2 bg-[#181B21] border-t border-[#282F3A] flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <span className="text-[10px] font-mono text-[#8590A2] shrink-0 uppercase tracking-wider">Try:</span>
           {sampleIdeas.map((example) => (
             <button
               key={example}
               type="button"
               onClick={() => setInputText(example)}
-              className="text-[11px] text-[#4A5E73] hover:text-[#2B3D4F] bg-[#ECE6DA] hover:bg-[#EAE3D3] px-2.5 py-1 rounded border border-[#DDD5C5] shrink-0 transition-colors truncate max-w-xs"
+              className="text-[11px] text-[#CBD5E1] hover:text-[#F8FAFC] bg-[#222731] hover:bg-[#2D3442] px-2.5 py-1 rounded-lg border border-[#333C4A] shrink-0 transition-colors truncate max-w-xs"
             >
               {example}
             </button>
@@ -459,11 +685,11 @@ interface SpeechRecognitionLike {
 
       {/* Voice Notification Banner */}
       {voiceNotice && (
-        <div className="px-4 py-1.5 bg-[rgba(43,61,79,0.12)] border-t border-[rgba(43,61,79,0.35)] text-[11px] font-mono text-[#2B3D4F] flex items-center justify-between">
+        <div className="px-4 py-1.5 bg-[#181B21] border-t border-[#282F3A] text-[11px] font-mono text-[#E2E8F0] flex items-center justify-between">
           <span>{voiceNotice}</span>
           <button
             onClick={() => setVoiceNotice(null)}
-            className="text-xs text-[#6B7D90] hover:text-[#2B3D4F]"
+            className="text-xs text-[#8590A2] hover:text-[#F8FAFC]"
           >
             ✕
           </button>
@@ -472,19 +698,19 @@ interface SpeechRecognitionLike {
 
       {/* Selected attachments preview */}
       {attachedFiles.length > 0 && (
-        <div className="px-4 py-2 bg-[#F5F1EB] border-t border-[#DDD5C5] flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <div className="px-4 py-2 bg-[#181B21] border-t border-[#282F3A] flex items-center gap-2 overflow-x-auto no-scrollbar">
           {attachedFiles.map((f) => (
             <span
               key={f.name}
-              className="inline-flex items-center gap-1.5 text-[11px] text-[#2B3D4F] bg-[#ECE6DA] border border-[#DDD5C5] rounded-lg px-2.5 py-1 shrink-0"
+              className="inline-flex items-center gap-1.5 text-[11px] text-[#E2E8F0] bg-[#222731] border border-[#333C4A] rounded-lg px-2.5 py-1 shrink-0"
             >
-              <FileText className="w-3.5 h-3.5 text-[#4A5E73]" />
+              <FileText className="w-3.5 h-3.5 text-[#8590A2]" />
               <span className="font-medium truncate max-w-[140px]">{f.name}</span>
-              <span className="text-[#6B7D90] font-mono">{formatBytes(f.size)}</span>
+              <span className="text-[#8590A2] font-mono">{formatBytes(f.size)}</span>
               <button
                 type="button"
                 onClick={() => setAttachedFiles((prev) => prev.filter((p) => p.name !== f.name))}
-                className="text-[#6B7D90] hover:text-[#9E4A4A] transition-colors"
+                className="text-[#8590A2] hover:text-[#EF4444] transition-colors"
                 title="Remove file"
               >
                 <X className="w-3 h-3" />
@@ -496,14 +722,14 @@ interface SpeechRecognitionLike {
 
       {/* Quick-reply chips for the latest interviewer question (ephemeral) */}
       {pendingChips.length > 0 && !isThinking && (
-        <div className="px-4 py-2 bg-[#F5F1EB] border-t border-[#DDD5C5] flex items-center gap-2 overflow-x-auto no-scrollbar">
-          <span className="text-[10px] font-mono text-[#6B7D90] shrink-0 uppercase">Pick:</span>
+        <div className="px-4 py-2 bg-[#181B21] border-t border-[#282F3A] flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <span className="text-[10px] font-mono text-[#8590A2] shrink-0 uppercase tracking-wider">Pick:</span>
           {pendingChips.map((chip) => (
             <button
               key={chip}
               type="button"
               onClick={() => handleSubmit(undefined, chip)}
-              className="text-[11px] font-medium text-[#2B3D4F] bg-[#FDFCF8] hover:bg-[#2B3D4F] hover:text-[#F5F1EB] px-2.5 py-1 rounded-full border border-[#2B3D4F]/30 hover:border-[#2B3D4F] shrink-0 transition-colors"
+              className="text-[11px] font-medium text-[#E2E8F0] bg-[#222731] hover:bg-[#3B4554] hover:text-[#F8FAFC] px-2.5 py-1 rounded-full border border-[#333C4A] shrink-0 transition-colors"
             >
               {chip}
             </button>
@@ -511,10 +737,10 @@ interface SpeechRecognitionLike {
         </div>
       )}
 
-      {/* Input Box Area */}
+      {/* Input Box Area — integrated footer strip, seamless with graphite shell */}
       <form
         onSubmit={handleSubmit}
-        className="p-3.5 bg-[#ECE6DA] border-t border-[#DDD5C5] flex items-end gap-2.5"
+        className="px-4 py-3 bg-[#171A20] border-t border-[#282F3A] flex items-end gap-2"
       >
         {/* Plus control: attachment / context action menu */}
         <input
@@ -533,21 +759,21 @@ interface SpeechRecognitionLike {
             title="Add context: notes, documents, images, competitor or research references"
             aria-label="Add venture context or attachments"
             aria-expanded={showAttachMenu}
-            className="p-2.5 rounded-lg border transition-all bg-[#F5F1EB] hover:bg-[#ECE6DA] border-[#DDD5C5] text-[#4A5E73] hover:text-[#2B3D4F]"
+            className="p-2 rounded-lg transition-colors text-[#8590A2] hover:text-[#F8FAFC] hover:bg-[#232933]"
           >
             <Plus className="w-4 h-4" />
           </button>
           {showAttachMenu && (
-            <div className="absolute bottom-12 left-0 z-20 w-60 rounded-xl bg-[#FDFCF8] border border-[#DDD5C5] shadow-intel-card p-1.5 space-y-0.5">
+            <div className="absolute bottom-12 left-0 z-20 w-60 rounded-xl bg-[#20252E] border border-[#333C4A] shadow-2xl p-1.5 space-y-0.5">
               {ATTACH_MENU_ITEMS.map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => handleAttachMenuAction(item.id)}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#ECE6DA] transition-colors"
+                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#2A313D] transition-colors"
                 >
-                  <span className="block text-xs font-semibold text-[#2B3D4F]">{item.label}</span>
-                  <span className="block text-[10px] text-[#6B7D90] mt-0.5">{item.hint}</span>
+                  <span className="block text-xs font-semibold text-[#E2E8F0]">{item.label}</span>
+                  <span className="block text-[10px] text-[#8590A2] mt-0.5">{item.hint}</span>
                 </button>
               ))}
             </div>
@@ -562,7 +788,7 @@ interface SpeechRecognitionLike {
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Tell me what is in your head. It doesn't need to be polished..."
-            className="w-full bg-[#F5F1EB] text-[#2B3D4F] border border-[#DDD5C5] focus:border-[#2B3D4F] focus:ring-1 focus:ring-[#2B3D4F] rounded-lg px-3.5 py-2.5 text-sm placeholder:text-[#6B7D90] resize-none outline-none leading-relaxed transition-colors"
+            className="w-full bg-[#101317] border border-[#2B323E] focus:border-[#4B5565] text-[#F1F5F9] rounded-xl px-3 py-2 text-sm placeholder:text-[#64748B] resize-none outline-none leading-relaxed transition-colors"
           />
         </div>
 
@@ -579,26 +805,25 @@ interface SpeechRecognitionLike {
           }}
           title={isListeningLive ? 'Stop listening' : 'Voice input via browser speech recognition (falls back gracefully)'}
           aria-label={isListeningLive ? 'Stop voice input' : 'Start voice input'}
-          className={`p-2.5 rounded-lg border transition-all ${
+          className={`p-2 rounded-lg transition-colors ${
             isListeningPlaceholder || isListeningLive
-              ? 'bg-[#4A7C59]/15 border-[#4A7C59] text-[#4A7C59] animate-pulse'
-              : 'bg-[#F5F1EB] hover:bg-[#ECE6DA] border-[#DDD5C5] text-[#4A5E73] hover:text-[#2B3D4F]'
+              ? 'bg-[#EF4444]/20 text-[#EF4444] animate-pulse'
+              : 'text-[#8590A2] hover:text-[#F8FAFC] hover:bg-[#232933]'
           }`}
         >
           <Mic className="w-4 h-4" />
         </button>
 
-        <Button
+        <button
           type="submit"
-          variant="primary"
-          size="md"
           disabled={(!inputText.trim() && attachedFiles.length === 0) || isThinking}
-          icon={<Send className="w-4 h-4" />}
-          iconPosition="right"
+          className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] disabled:bg-[#1E293B] disabled:text-[#64748B] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-semibold transition-all shadow-sm active:scale-95"
         >
-          Submit Idea
-        </Button>
+          {isThinking ? 'Processing…' : 'Submit'}
+          <Send className="w-3.5 h-3.5" />
+        </button>
       </form>
     </div>
   );
 };
+

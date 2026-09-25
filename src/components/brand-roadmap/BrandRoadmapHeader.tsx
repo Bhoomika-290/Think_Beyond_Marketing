@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Compass, RotateCw } from 'lucide-react';
 import type { BrandRoadmapReport } from '../../types/brandRoadmap';
 
@@ -28,7 +28,12 @@ export const BrandRoadmapHeader: React.FC<BrandRoadmapHeaderProps> = ({
   onRefresh,
   onOpenCompetitorRoadmaps,
 }) => {
-  const { identityAudit, stage05Handoff } = report;
+  const identityAudit = report?.identityAudit ?? {
+    positioningStatus: 'NEEDS INPUT',
+    identityStatus: 'NEEDS INPUT',
+    differentiationStatus: 'NEEDS INPUT',
+  };
+  const stage05Handoff = report?.stage05Handoff ?? { isReady: false };
 
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
@@ -138,12 +143,15 @@ export const BrandRoadmapHeader: React.FC<BrandRoadmapHeaderProps> = ({
           <div className="overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-[#DDD5C5]">
             <div className="flex items-center min-w-max gap-2">
               {STRATEGIC_NODES.map((node, idx) => {
-                const isActive = activeSection === node.id || (activeSection === 'all');
+                // These pills visualize the 8-phase venture journey; the page
+                // itself filters by SectionTab (all/roadmap/decisions/resources/handoff),
+                // so a pill selects the roadmap section rather than an invalid tab.
+                const isActive = activeSection === 'all' || activeSection === 'roadmap';
                 return (
                   <React.Fragment key={node.id}>
                     <button
                       type="button"
-                      onClick={() => onSelectSection(node.id)}
+                      onClick={() => onSelectSection('roadmap')}
                       className={`group flex flex-col text-left px-3 py-1.5 rounded-xl border transition-all ${
                         isActive
                           ? 'bg-[#2B3D4F]/15 border-[#2B3D4F] text-[#2B3D4F] shadow-sm'

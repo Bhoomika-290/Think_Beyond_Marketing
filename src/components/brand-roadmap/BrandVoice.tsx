@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import type { BrandVoiceSystem } from '../../types/project';
 
 interface BrandVoiceProps {
@@ -7,6 +7,193 @@ interface BrandVoiceProps {
   onToggleAttribute: (id: string) => void;
   onUpdateTransformation?: (newMessage: string) => void;
 }
+
+interface BrandExpressionSystemProps {
+  brandVoice: BrandVoiceSystem;
+  ventureName: string;
+}
+
+const BrandExpressionSystem: React.FC<BrandExpressionSystemProps> = ({
+  brandVoice,
+  ventureName,
+}) => {
+  const { attributes, doGuidelines, dontGuidelines, transformation } = brandVoice;
+  const selectedAttrs = attributes.filter((a) => a.selected);
+
+  // Derive vocabulary territory and word banks from DO/DON'T guidelines
+  const wordsToUse: string[] = [];
+  const wordsToAvoid: string[] = [];
+  doGuidelines.forEach((g) => {
+    const tokens = g.split(/[,;.:]/).map((t) => t.trim().toLowerCase()).filter(Boolean);
+    tokens.forEach((t) => {
+      if (t.length > 2 && !wordsToUse.includes(t)) wordsToUse.push(t);
+    });
+  });
+  dontGuidelines.forEach((g) => {
+    const tokens = g.split(/[,;.:]/).map((t) => t.trim().toLowerCase()).filter(Boolean);
+    tokens.forEach((t) => {
+      if (t.length > 2 && !wordsToAvoid.includes(t)) wordsToAvoid.push(t);
+    });
+  });
+
+  // Derive communication intensity (1-5 scale) from selected attribute count and descriptions
+  const intensityScore = Math.min(5, Math.max(1, Math.ceil(selectedAttrs.length / 2)));
+  const intensityLabels = ['', 'Minimal', 'Measured', 'Balanced', 'Assertive', 'Decisive'];
+
+  // Derive emotional register from attribute names/descriptions
+  const emotionalTones = selectedAttrs.length > 0
+    ? selectedAttrs.map((a) => a.name).join(', ')
+    : 'Authentic, Authoritative';
+
+  // Channel-specific tone guidance (derived, not fabricated)
+  const channelGuidance = {
+    website: selectedAttrs.some((a) => a.name.toLowerCase().includes('sophisticated') || a.name.toLowerCase().includes('premium'))
+      ? 'Refined, high-clarity product language with careful attention to detail.'
+      : 'Direct, benefit-led messaging that emphasizes the customer outcome.',
+    social: selectedAttrs.some((a) => a.name.toLowerCase().includes('human') || a.name.toLowerCase().includes('transparent'))
+      ? 'Conversational yet precise; avoid jargon, favor real language.'
+      : 'Consistent brand tone with platform-appropriate brevity.',
+    email: 'Subject lines should mirror the hero headline tone. Body copy should echo the sample transformation pattern.',
+    support: selectedAttrs.some((a) => a.name.toLowerCase().includes('precise') || a.name.toLowerCase().includes('clear'))
+      ? 'Confident, solution-first; acknowledge friction with calm authority.'
+      : 'Helpful and direct; resolve quickly with minimal back-and-forth.',
+  };
+
+  // Example messaging patterns derived from the live preview + transformation
+  const messagingPatterns = [
+    {
+      label: 'Hero Headline Template',
+      pattern: transformation.genericMessage
+        ? `[Generic]: "${transformation.genericMessage}"`
+        : `[Derived from ${ventureName} voice]`,
+    },
+    {
+      label: 'Brand Voice Transformation',
+      pattern: transformation.brandVoiceMessage ||
+        (selectedAttrs.length > 0
+          ? `Transformed through the lens of: ${selectedAttrs.map((a) => a.name).join(', ')}`
+          : 'Refined, purposeful, and distinctly on-brand.'),
+    },
+  ];
+
+  return (
+    <section className="rounded-2xl bg-[#FDFCF8] border border-[#DDD5C5] p-6 lg:p-8 shadow-xl space-y-6">
+      <div className="flex items-center gap-2 pb-4 border-b border-[#E8E1D3]">
+        <span className="w-2 h-2 rounded-full bg-[#8A6D2B]" />
+        <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#8A6D2B]">
+          Brand Expression System
+        </span>
+      </div>
+      <p className="text-xs text-[#4A5E73] -mt-2 mb-4">
+        Derived from your selected voice attributes and DO/DON'T guidelines. This system governs how the <span className="font-semibold text-[#2B3D4F]">{ventureName}</span> voice manifests across channels, registers, and touchpoints.
+      </p>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Left: Vocabulary & Register */}
+        <div className="space-y-4">
+          <div className="p-4 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-3">
+            <div className="text-[10px] font-mono uppercase font-bold text-[#6B7D90] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2B3D4F]" />
+              Vocabulary Territory
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {wordsToUse.slice(0, 12).map((word, i) => (
+                <span key={i} className="px-2 py-1 rounded bg-[#2B3D4F]/10 text-[#2B3D4F] text-[10px] font-mono">
+                  {word}
+                </span>
+              ))}
+              {wordsToUse.length === 0 && (
+                <span className="text-[11px] text-[#94A3B8] italic">
+                  Derived from active DO guidelines above.
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-3">
+            <div className="text-[10px] font-mono uppercase font-bold text-[#9E4A4A] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#9E4A4A]" />
+              Words to Avoid
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {wordsToAvoid.slice(0, 12).map((word, i) => (
+                <span key={i} className="px-2 py-1 rounded bg-[#9E4A4A]/10 text-[#9E4A4A] text-[10px] font-mono line-through">
+                  {word}
+                </span>
+              ))}
+              {wordsToAvoid.length === 0 && (
+                <span className="text-[11px] text-[#94A3B8] italic">
+                  Derived from active DON'T guidelines above.
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
+            <div className="text-[10px] font-mono uppercase text-[#6B7D90] font-bold">
+              Emotional Register
+            </div>
+            <div className="text-xs text-[#4A5E73] leading-relaxed">
+              <span className="font-semibold text-[#2B3D4F]">{emotionalTones}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Channel Tone & Intensity */}
+        <div className="space-y-4">
+          <div className="p-4 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-3">
+            <div className="text-[10px] font-mono uppercase font-bold text-[#6B7D90] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2B3D4F]" />
+              Communication Intensity
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-2 bg-[#ECE6DA] rounded-full overflow-hidden border border-[#DDD5C5]">
+                <div
+                  className="h-full bg-gradient-to-r from-[#2B3D4F] to-[#5A7A96] rounded-full"
+                  style={{ width: `${(intensityScore / 5) * 100}%` }}
+                />
+              </div>
+              <span className="text-xs font-mono font-bold text-[#2B3D4F] w-20 text-right">
+                {intensityLabels[intensityScore]}
+              </span>
+            </div>
+            <div className="text-[10px] font-mono text-[#6B7D90]">
+              {intensityScore} of 5 — {selectedAttrs.length} attributes active
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
+            <div className="text-[10px] font-mono uppercase font-bold text-[#6B7D90] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4A7C59]" />
+              Channel-Specific Tone
+            </div>
+            <div className="space-y-1.5 text-[11px] text-[#4A5E73]">
+              <div><span className="font-semibold text-[#2B3D4F]">Website:</span> {channelGuidance.website}</div>
+              <div><span className="font-semibold text-[#2B3D4F]">Social:</span> {channelGuidance.social}</div>
+              <div><span className="font-semibold text-[#2B3D4F]">Email:</span> {channelGuidance.email}</div>
+              <div><span className="font-semibold text-[#2B3D4F]">Support:</span> {channelGuidance.support}</div>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
+            <div className="text-[10px] font-mono uppercase font-bold text-[#6B7D90] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8A6D2B]" />
+              Messaging Pattern Templates
+            </div>
+            <div className="space-y-2 text-[11px]">
+              {messagingPatterns.map((mp, i) => (
+                <div key={i} className="p-2 rounded bg-white border border-[#DDD5C5]">
+                  <span className="text-[9px] font-mono uppercase text-[#6B7D90] block mb-0.5">{mp.label}</span>
+                  <p className="text-[#4A5E73] italic leading-relaxed">{mp.pattern}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export const BrandVoice: React.FC<BrandVoiceProps> = ({
   brandVoice,
@@ -301,8 +488,14 @@ export const BrandVoice: React.FC<BrandVoiceProps> = ({
               </div>
             </div>
           ))}
-        </div>
-      </div>
-    </section>
+         </div>
+       </div>
+
+       {/* Brand Expression System — derives from selected voice attributes and DO/DON'T guidelines */}
+       <BrandExpressionSystem
+         brandVoice={brandVoice}
+         ventureName={ventureName}
+       />
+     </section>
   );
 };

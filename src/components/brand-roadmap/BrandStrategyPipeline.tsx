@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Target, AlertCircle, Compass, Sparkles, ShieldCheck, ArrowRight, Layers, Award } from 'lucide-react';
 import type { BrandRoadmapReport, IdeaData, MarketIntelligenceReport } from '../../types/project';
 

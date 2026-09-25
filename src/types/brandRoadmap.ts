@@ -96,6 +96,7 @@ export interface LogoConcept {
   wordmark: string;
   rationale: string;
   personalityAlignment: string;
+  usageSuitability?: string;
   status: 'candidate' | 'selected' | 'rejected';
   customization: {
     layout: 'combination' | 'stacked' | 'mark_only' | 'wordmark_only';

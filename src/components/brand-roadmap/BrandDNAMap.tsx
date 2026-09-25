@@ -1,15 +1,33 @@
 import React, { useState } from 'react';
 import { Sparkles, Compass, Award, Heart, Eye } from 'lucide-react';
 import type { BrandDNANode } from '../../types/project';
+import { useProject } from '../../context/ProjectContext';
 
 interface BrandDNAMapProps {
   nodes: BrandDNANode[];
 }
 
 export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
+  const { state } = useProject();
   const [selectedNodeId, setSelectedNodeId] = useState<string>(nodes[0]?.id || 'dna_purp');
+  const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
+  const [hoveredDnaAttr, setHoveredDnaAttr] = useState<string | null>('craft');
+  const [selectedDnaAttr, setSelectedDnaAttr] = useState<string>('craft');
 
   const selectedNode = nodes.find((n) => n.id === selectedNodeId) || nodes[0];
+
+  const hoveredNode = hoveredNodeId ? nodes.find((n) => n.id === hoveredNodeId) : null;
+
+  const getNodeOpacity = (nodeId: string) => {
+    if (!hoveredNode) return 'opacity-100';
+    const node = nodes.find((n) => n.id === nodeId);
+    if (!node) return 'opacity-100';
+    return node.originatingStage === hoveredNode.originatingStage ? 'opacity-100' : 'opacity-40';
+  };
+
+  const connectedNodes = selectedNode
+    ? nodes.filter((n) => n.id !== selectedNode.id && n.originatingStage === selectedNode.originatingStage)
+    : [];
 
   const getEvidenceColor = (state: string) => {
     switch (state) {
@@ -99,31 +117,31 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
   );
 
   return (
-    <section className="rounded-2xl bg-[#FDFCF8] border border-[#DDD5C5] p-6 lg:p-8 shadow-xl space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E1D3] pb-4">
+    <section className="rounded-2xl bg-[#090D14] border border-[#1E293B] p-6 lg:p-8 shadow-2xl space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1E293B] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#2B3D4F] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#2B3D4F]">
+            <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#38BDF8]">
               BRAND DNA SYSTEM &bull; CORE STRATEGIC ANATOMY
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#2B3D4F] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#F1F5F9] tracking-tight">
             Brand DNA Relational Matrix
           </h2>
-          <p className="text-xs sm:text-sm text-[#4A5E73]">
+          <p className="text-xs sm:text-sm text-[#94A3B8]">
             Connected visual architecture mapping how purpose, values, personality, and promise form the gravitational center of your venture.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#6B7D90] bg-[#F5F1EB] px-3 py-1.5 rounded-lg border border-[#DDD5C5]">
-            <span className="w-2 h-2 rounded-full bg-[#4A7C59]" />
+          <div className="flex items-center gap-2 text-xs font-mono text-[#94A3B8] bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244]">
+            <span className="w-2 h-2 rounded-full bg-[#10B981]" />
             <span>Grounded in Stages 01&ndash;03</span>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[#6B7D90] bg-[#F5F1EB] px-3 py-1.5 rounded-lg border border-[#DDD5C5]">
-            <span className="w-2 h-2 rounded-full bg-[#4A7C59] animate-pulse" />
-            <span>Click any node to expand rationale</span>
+          <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244]">
+            <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
+            <span>Click any node to inspect relationships</span>
           </div>
         </div>
       </div>
@@ -131,42 +149,80 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Visual Brand DNA Connected Diagram (Left 8 cols) */}
         <div className="lg:col-span-8 flex flex-col gap-3">
-          <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#F5F1EB] border border-[#DDD5C5] relative min-h-[460px]">
-            {/* Subtle grid background */}
-            <div className="absolute inset-0 bg-[radial-gradient(#CFC7B4_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none rounded-2xl" />
+          <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#0B101B] border border-[#1F293D] relative min-h-[480px] shadow-inner overflow-hidden">
+            {/* Architectural blueprint dot grid background */}
+            <div className="absolute inset-0 bg-[radial-gradient(#1E293B_1px,transparent_1px)] [background-size:20px_20px] opacity-70 pointer-events-none rounded-2xl" />
 
-            {/* SVG Connector Lines */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-[#C9BFA9] stroke-2">
-              {/* Top to Center */}
-              <line x1="50%" y1="22%" x2="50%" y2="50%" strokeDasharray="4 4" />
-              {/* Left to Center */}
-              <line x1="22%" y1="50%" x2="50%" y2="50%" strokeDasharray="4 4" />
-              {/* Right to Center */}
-              <line x1="78%" y1="50%" x2="50%" y2="50%" strokeDasharray="4 4" />
-              {/* Bottom to Center */}
-              <line x1="50%" y1="78%" x2="50%" y2="50%" strokeDasharray="4 4" />
+            {/* SVG Connector Lines with active illumination */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none">
+              {/* Top to Center (Purpose) */}
+              <line
+                x1="50%"
+                y1="22%"
+                x2="50%"
+                y2="50%"
+                stroke={selectedNodeId === purposeNode?.id ? '#38BDF8' : '#233044'}
+                strokeWidth={selectedNodeId === purposeNode?.id ? '3' : '2'}
+                strokeDasharray={selectedNodeId === purposeNode?.id ? 'none' : '4 4'}
+                className="transition-colors duration-300"
+              />
+              {/* Left to Center (Values) */}
+              <line
+                x1="22%"
+                y1="50%"
+                x2="50%"
+                y2="50%"
+                stroke={selectedNodeId === valuesNode?.id ? '#10B981' : '#233044'}
+                strokeWidth={selectedNodeId === valuesNode?.id ? '3' : '2'}
+                strokeDasharray={selectedNodeId === valuesNode?.id ? 'none' : '4 4'}
+                className="transition-colors duration-300"
+              />
+              {/* Right to Center (Personality) */}
+              <line
+                x1="78%"
+                y1="50%"
+                x2="50%"
+                y2="50%"
+                stroke={selectedNodeId === personalityNode?.id ? '#8B5CF6' : '#233044'}
+                strokeWidth={selectedNodeId === personalityNode?.id ? '3' : '2'}
+                strokeDasharray={selectedNodeId === personalityNode?.id ? 'none' : '4 4'}
+                className="transition-colors duration-300"
+              />
+              {/* Bottom to Center (Promise) */}
+              <line
+                x1="50%"
+                y1="78%"
+                x2="50%"
+                y2="50%"
+                stroke={selectedNodeId === promiseNode?.id ? '#F59E0B' : '#233044'}
+                strokeWidth={selectedNodeId === promiseNode?.id ? '3' : '2'}
+                strokeDasharray={selectedNodeId === promiseNode?.id ? 'none' : '4 4'}
+                className="transition-colors duration-300"
+              />
             </svg>
 
-            {/* TOP NODE: PURPOSE */}
+            {/* TOP NODE: PURPOSE (Indigo/Blue Zone) */}
             {purposeNode && (
               <div className="z-10 mb-8 sm:mb-12">
                 <button
                   type="button"
                   onClick={() => setSelectedNodeId(purposeNode.id)}
-                  className={`px-5 py-3 rounded-2xl border transition-all flex items-center gap-3 shadow-sm bg-white ${
+                  onMouseEnter={() => setHoveredNodeId(purposeNode.id)}
+                  onMouseLeave={() => setHoveredNodeId(null)}
+                  className={`px-5 py-3.5 rounded-2xl border transition-all flex items-center gap-3 shadow-md bg-[#0B1A2F]/95 ${getNodeOpacity(purposeNode.id)} ${
                     selectedNodeId === purposeNode.id
-                      ? 'border-[#2B3D4F] ring-2 ring-[#2B3D4F]/30'
-                      : 'border-[#DDD5C5] hover:border-[#2B3D4F]/50'
+                      ? 'border-[#38BDF8] ring-2 ring-[#38BDF8]/60 shadow-lg shadow-[#0284C7]/20 scale-105'
+                      : 'border-[#1E3A8A] hover:border-[#38BDF8]/60'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-[#2B3D4F]/10 text-[#2B3D4F]">
+                  <div className="p-2 rounded-xl bg-[#1E3A8A]/50 text-[#38BDF8] border border-[#38BDF8]/30">
                     <Compass className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <span className="text-[10px] font-mono uppercase text-[#6B7D90] block font-bold">
+                    <span className="text-[10px] font-mono uppercase text-[#60A5FA] block font-bold tracking-wider">
                       PURPOSE (NORTH STAR)
                     </span>
-                    <span className="text-xs font-bold text-[#2B3D4F] max-w-[200px] truncate block">
+                    <span className="text-xs font-bold text-[#F1F5F9] max-w-[220px] truncate block">
                       {purposeNode.value}
                     </span>
                   </div>
@@ -174,92 +230,98 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
               </div>
             )}
 
-            {/* MIDDLE ROW: VALUES — BRAND CORE — PERSONALITY */}
+            {/* MIDDLE ROW: VALUES — BRAND NUCLEUS — PERSONALITY */}
             <div className="z-10 flex items-center justify-between w-full max-w-xl px-2 gap-4">
-              {/* LEFT NODE: VALUES */}
+              {/* LEFT NODE: VALUES (Emerald/Green Zone) */}
               {valuesNode && (
                 <button
                   type="button"
                   onClick={() => setSelectedNodeId(valuesNode.id)}
-                  className={`flex-1 max-w-[190px] p-3.5 rounded-2xl border transition-all text-left shadow-sm bg-white ${
+                  onMouseEnter={() => setHoveredNodeId(valuesNode.id)}
+                  onMouseLeave={() => setHoveredNodeId(null)}
+                  className={`flex-1 max-w-[195px] p-4 rounded-2xl border transition-all text-left shadow-md bg-[#062419]/95 ${getNodeOpacity(valuesNode.id)} ${
                     selectedNodeId === valuesNode.id
-                      ? 'border-[#8A6D2B] ring-2 ring-[#8A6D2B]/30'
-                      : 'border-[#DDD5C5] hover:border-[#8A6D2B]/50'
+                      ? 'border-[#10B981] ring-2 ring-[#10B981]/60 shadow-lg shadow-[#059669]/20 scale-105'
+                      : 'border-[#065F46] hover:border-[#10B981]/60'
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="p-1.5 rounded-lg bg-[#8A6D2B]/15 text-[#8A6D2B]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <div className="p-1.5 rounded-lg bg-[#065F46]/50 text-[#34D399] border border-[#10B981]/30">
                       <Heart className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-[10px] font-mono uppercase text-[#6B7D90] font-bold">
+                    <span className="text-[10px] font-mono uppercase text-[#34D399] font-bold tracking-wider">
                       CORE VALUES
                     </span>
                   </div>
-                  <span className="text-xs font-bold text-[#2B3D4F] line-clamp-2 block leading-snug">
+                  <span className="text-xs font-bold text-[#ECFDF5] line-clamp-2 block leading-snug">
                     {valuesNode.value}
                   </span>
                 </button>
               )}
 
-              {/* CENTER NODE: BRAND NUCLEUS */}
-              <div className="flex-shrink-0 w-28 h-28 rounded-full bg-gradient-to-br from-[#2B3D4F] via-[#5A7A96] to-[#6C5E8F] p-1 shadow-lg flex items-center justify-center text-center">
-                <div className="w-full h-full rounded-full bg-[#FDFCF8] flex flex-col items-center justify-center p-2 border border-[#2B3D4F]/20">
-                  <Sparkles className="w-4 h-4 text-[#2B3D4F] mb-0.5" />
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#6B7D90]">
-                    CORE
+              {/* CENTER NODE: BRAND NUCLEUS (High-Contrast Intelligence Anchor) */}
+              <div className="flex-shrink-0 w-32 h-32 rounded-full bg-gradient-to-tr from-[#38BDF8] via-[#8B5CF6] to-[#10B981] p-1 shadow-2xl flex items-center justify-center text-center animate-pulse">
+                <div className="w-full h-full rounded-full bg-[#080D16] flex flex-col items-center justify-center p-2.5 border border-[#38BDF8]/40 shadow-inner">
+                  <Sparkles className="w-5 h-5 text-[#38BDF8] mb-1" />
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-[#94A3B8]">
+                    BRAND NUCLEUS
                   </span>
-                  <span className="text-xs font-black text-[#2B3D4F] tracking-wider">
-                    BRAND DNA
+                  <span className="text-xs font-black text-[#F1F5F9] tracking-wider">
+                    CORE DNA
                   </span>
                 </div>
               </div>
 
-              {/* RIGHT NODE: PERSONALITY */}
+              {/* RIGHT NODE: PERSONALITY (Violet/Purple Zone) */}
               {personalityNode && (
                 <button
                   type="button"
                   onClick={() => setSelectedNodeId(personalityNode.id)}
-                  className={`flex-1 max-w-[190px] p-3.5 rounded-2xl border transition-all text-left shadow-sm bg-white ${
+                  onMouseEnter={() => setHoveredNodeId(personalityNode.id)}
+                  onMouseLeave={() => setHoveredNodeId(null)}
+                  className={`flex-1 max-w-[195px] p-4 rounded-2xl border transition-all text-left shadow-md bg-[#1C112C]/95 ${getNodeOpacity(personalityNode.id)} ${
                     selectedNodeId === personalityNode.id
-                      ? 'border-[#6C5E8F] ring-2 ring-[#6C5E8F]/30'
-                      : 'border-[#DDD5C5] hover:border-[#6C5E8F]/50'
+                      ? 'border-[#8B5CF6] ring-2 ring-[#8B5CF6]/60 shadow-lg shadow-[#7C3AED]/20 scale-105'
+                      : 'border-[#6D28D9] hover:border-[#8B5CF6]/60'
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="p-1.5 rounded-lg bg-[#6C5E8F]/15 text-[#6C5E8F]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <div className="p-1.5 rounded-lg bg-[#6D28D9]/50 text-[#C084FC] border border-[#8B5CF6]/30">
                       <Eye className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-[10px] font-mono uppercase text-[#6B7D90] font-bold">
+                    <span className="text-[10px] font-mono uppercase text-[#C084FC] font-bold tracking-wider">
                       PERSONALITY
                     </span>
                   </div>
-                  <span className="text-xs font-bold text-[#2B3D4F] line-clamp-2 block leading-snug">
+                  <span className="text-xs font-bold text-[#FAF5FF] line-clamp-2 block leading-snug">
                     {personalityNode.value}
                   </span>
                 </button>
               )}
             </div>
 
-            {/* BOTTOM NODE: PROMISE */}
+            {/* BOTTOM NODE: PROMISE (Warm Amber/Gold Zone) */}
             {promiseNode && (
               <div className="z-10 mt-8 sm:mt-12">
                 <button
                   type="button"
                   onClick={() => setSelectedNodeId(promiseNode.id)}
-                  className={`px-5 py-3 rounded-2xl border transition-all flex items-center gap-3 shadow-sm bg-white ${
+                  onMouseEnter={() => setHoveredNodeId(promiseNode.id)}
+                  onMouseLeave={() => setHoveredNodeId(null)}
+                  className={`px-5 py-3.5 rounded-2xl border transition-all flex items-center gap-3 shadow-md bg-[#261705]/95 ${getNodeOpacity(promiseNode.id)} ${
                     selectedNodeId === promiseNode.id
-                      ? 'border-[#4A7C59] ring-2 ring-[#4A7C59]/30'
-                      : 'border-[#DDD5C5] hover:border-[#4A7C59]/50'
+                      ? 'border-[#F59E0B] ring-2 ring-[#F59E0B]/60 shadow-lg shadow-[#D97706]/20 scale-105'
+                      : 'border-[#92400E] hover:border-[#F59E0B]/60'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-[#4A7C59]/15 text-[#4A7C59]">
+                  <div className="p-2 rounded-xl bg-[#92400E]/50 text-[#FBBF24] border border-[#F59E0B]/30">
                     <Award className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <span className="text-[10px] font-mono uppercase text-[#6B7D90] block font-bold">
+                    <span className="text-[10px] font-mono uppercase text-[#FBBF24] block font-bold tracking-wider">
                       BRAND PROMISE
                     </span>
-                    <span className="text-xs font-bold text-[#2B3D4F] max-w-[200px] truncate block">
+                    <span className="text-xs font-bold text-[#FEF3C7] max-w-[220px] truncate block">
                       {promiseNode.value}
                     </span>
                   </div>
@@ -268,17 +330,19 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
             )}
 
             {/* Discovery Supporting Vector Pills */}
-            <div className="w-full mt-6 pt-4 border-t border-[#E8E1D3] flex flex-wrap items-center justify-center gap-2 text-[10px] font-mono">
-              <span className="text-[#6B7D90]">SUPPORTING VECTORS:</span>
+            <div className="w-full mt-6 pt-4 border-t border-[#1E293B] flex flex-wrap items-center justify-center gap-2 text-[10px] font-mono">
+              <span className="text-[#64748B]">SUPPORTING VECTORS:</span>
               {otherNodes.map((n) => (
                 <button
                   key={n.id}
                   type="button"
                   onClick={() => setSelectedNodeId(n.id)}
-                  className={`px-2.5 py-1 rounded-lg border transition-all ${
+                  onMouseEnter={() => setHoveredNodeId(n.id)}
+                  onMouseLeave={() => setHoveredNodeId(null)}
+                  className={`px-2.5 py-1 rounded-lg border transition-all ${getNodeOpacity(n.id)} ${
                     selectedNodeId === n.id
-                      ? 'bg-[#2B3D4F] border-[#2B3D4F] text-white font-bold'
-                      : 'bg-white border-[#DDD5C5] text-[#4A5E73] hover:text-[#2B3D4F] hover:border-[#2B3D4F]/40'
+                      ? 'bg-[#38BDF8] border-[#38BDF8] text-[#0B1320] font-bold shadow-xs'
+                      : 'bg-[#111823] border-[#263244] text-[#94A3B8] hover:text-[#F1F5F9] hover:border-[#38BDF8]/40'
                   }`}
                 >
                   {n.label}
@@ -288,41 +352,41 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
           </div>
 
           {/* Flow visual connector indicator */}
-          <div className="bg-[#F5F1EB] p-3 rounded-xl border border-[#DDD5C5] overflow-x-auto scrollbar-thin text-xs font-mono text-[#4A5E73]">
+          <div className="bg-[#111823] p-3 rounded-xl border border-[#263244] overflow-x-auto scrollbar-thin text-xs font-mono text-[#94A3B8]">
             <div className="flex items-center min-w-max gap-2">
-              <span className="text-[#4A7C59] font-bold">DNA CHAIN:</span>
-              <span className="text-[#2B3D4F]">CUSTOMER</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
+              <span className="text-[#10B981] font-bold">DNA CHAIN:</span>
+              <span className="text-[#38BDF8]">CUSTOMER</span>
+              <span className="text-[#64748B]">&rarr;</span>
               <span>PROBLEM</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
+              <span className="text-[#64748B]">&rarr;</span>
               <span>NEED</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
-              <span>PURPOSE</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
-              <span>PROMISE</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
-              <span>VALUE</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
+              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#60A5FA]">PURPOSE</span>
+              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#FBBF24]">PROMISE</span>
+              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#34D399]">VALUE</span>
+              <span className="text-[#64748B]">&rarr;</span>
               <span>GAP</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
-              <span className="text-[#2B3D4F] font-bold">DIFFERENTIATOR</span>
-              <span className="text-[#6B7D90]">&rarr;</span>
-              <span className="text-[#5A7A96]">PERCEPTION</span>
+              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#F1F5F9] font-bold">DIFFERENTIATOR</span>
+              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#C084FC]">PERCEPTION</span>
             </div>
           </div>
         </div>
 
         {/* Selected Node Inspector Drawer (Right 4 cols) */}
         {selectedNode && (
-          <div className="lg:col-span-4 bg-white border border-[#DDD5C5] rounded-xl p-5 flex flex-col gap-4 shadow-sm">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E1D3]">
+          <div className="lg:col-span-4 bg-[#111823] border border-[#263244] rounded-xl p-5 flex flex-col gap-4 shadow-xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1E293B]">
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-[#2B3D4F]/10 text-[#2B3D4F]">
+                <div className="p-2 rounded-lg bg-[#1E293B] text-[#38BDF8] border border-[#334155]">
                   {getNodeIcon(selectedNode.id)}
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#6B7D90]">Inspecting DNA Node</span>
-                  <h4 className="text-sm font-bold text-[#2B3D4F] uppercase tracking-wide">
+                  <span className="text-[10px] font-mono uppercase text-[#64748B]">Inspecting DNA Node</span>
+                  <h4 className="text-sm font-bold text-[#F1F5F9] uppercase tracking-wide">
                     {selectedNode.label}
                   </h4>
                 </div>
@@ -383,10 +447,413 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   </span>
                 </div>
               </div>
+
+              <div className="pt-2 border-t border-[#E8E1D3]">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#6B7D90] block mb-1.5">
+                  Connected to &bull; shares {selectedNode.originatingStage}
+                </span>
+                {connectedNodes.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {connectedNodes.map((n) => (
+                      <button
+                        key={n.id}
+                        type="button"
+                        onClick={() => setSelectedNodeId(n.id)}
+                        className="px-2.5 py-1 rounded-lg border text-[10px] font-mono bg-white border-[#DDD5C5] text-[#4A5E73] hover:text-[#2B3D4F] hover:border-[#2B3D4F]/40 transition-all"
+                      >
+                        {n.label}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-[11px] font-mono text-[#6B7D90]">
+                    No other nodes share this originating stage.
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         )}
       </div>
+
+      {/* BRAND DNA RELATIONSHIP MATRIX — Interactive relationship system */}
+      {(() => {
+        interface DNADimensionLink {
+          active: boolean;
+          tag: string;
+          rationale: string;
+        }
+
+        interface DNARelationshipRow {
+          id: string;
+          attribute: string;
+          functional: DNADimensionLink;
+          emotional: DNADimensionLink;
+          cultural: DNADimensionLink;
+          brandPromise: string;
+          audienceExpectation: string;
+          positioning: string;
+          toneOfVoice: string;
+          underlyingReasoning: string;
+        }
+
+        const productType = state?.businessModel?.productType || 'saas';
+        const isPhysical = productType === 'physical';
+        const targetAudience = state?.idea?.targetAudience || 'discerning customers';
+
+        const DNA_RELATIONSHIP_ROWS: DNARelationshipRow[] = [
+          {
+            id: 'trust',
+            attribute: 'Trust',
+            functional: {
+              active: true,
+              tag: isPhysical ? 'Certified Purity' : 'High Reliability',
+              rationale: isPhysical
+                ? 'Third-party verified 100% natural wool & certified ethical origin tags.'
+                : 'Deterministic data integrity, verifiable uptime SLAs, and strict compliance.',
+            },
+            emotional: {
+              active: true,
+              tag: 'Zero Anxiety',
+              rationale: isPhysical
+                ? 'Reassurance against fabric pilling, cold-air leakage, and premature wear.'
+                : 'Reassurance that mission-critical workflows and core operations never fail.',
+            },
+            cultural: {
+              active: false,
+              tag: 'Latent',
+              rationale: 'Functional integrity and emotional confidence without folklore dependency.',
+            },
+            brandPromise: isPhysical
+              ? 'Lifetime structural garment durability backed by certified origin traceability.'
+              : 'Enterprise-grade operational reliability backed by uncompromising architectural discipline.',
+            audienceExpectation: isPhysical
+              ? 'Unquestioned thermal reliability in varying northern/western microclimates.'
+              : `Flawless execution that ${targetAudience} can stake their daily operations on.`,
+            positioning: isPhysical
+              ? 'The transparent antithesis to opaque fast-fashion polyester outerwear.'
+              : 'The robust, trustworthy benchmark outperforming bloated legacy alternatives.',
+            toneOfVoice: 'Understated, transparent, factual, free of aggressive sales adjectives.',
+            underlyingReasoning: 'Repeat loyalty is won on build integrity. Trust eliminates post-purchase dissonance and bridges premium price tolerance.',
+          },
+          {
+            id: 'craft',
+            attribute: 'Craft',
+            functional: {
+              active: true,
+              tag: isPhysical ? 'Thermal Interlock' : 'Ergonomic UX',
+              rationale: isPhysical
+                ? 'High-gauge interlocking knit engineered for thermal insulation and breathability.'
+                : 'Low-latency interaction loops, refined information density, and keyboard-first workflows.',
+            },
+            emotional: {
+              active: true,
+              tag: isPhysical ? 'Tactile Pride' : 'Operator Pride',
+              rationale: isPhysical
+                ? 'Sensory pleasure of wearing hand-finished seams, weighted drape, and natural fibers.'
+                : 'The satisfaction of using precision software sculpted for high-leverage work.',
+            },
+            cultural: {
+              active: true,
+              tag: isPhysical ? 'Artisan Guild' : 'Engineering Craft',
+              rationale: isPhysical
+                ? 'Direct continuity with royal regional textile traditions and artisan weaver guilds.'
+                : 'A homage to software-as-craft, repudiating throwaway bloated digital experiences.',
+            },
+            brandPromise: isPhysical
+              ? 'Every stitch reflects ancestral regional textile mastery adapted for cosmopolitan utility.'
+              : 'Every interaction respects the user’s cognitive flow and time.',
+            audienceExpectation: isPhysical
+              ? 'Distinctive tactile weight and artisanal finish immediately recognizable from commodity knitwear.'
+              : 'Immediate responsiveness and thoughtful design nuance in every screen.',
+            positioning: isPhysical
+              ? 'Contemporary regional haute craftsmanship delivering luxury house quality at direct pricing.'
+              : 'Product-led craft delivering sovereign operational leverage.',
+            toneOfVoice: 'Sensory, reverent, articulate about structure and tactile geometry.',
+            underlyingReasoning: 'Craft is the ultimate barrier to commoditization. It elevates functional utility into an emotional, defensible advantage.',
+          },
+          {
+            id: 'transparency',
+            attribute: 'Transparency',
+            functional: {
+              active: true,
+              tag: isPhysical ? 'Open BOM' : 'Open Pricing & APIs',
+              rationale: isPhysical
+                ? 'Itemized material costs, supplier locations, and artisan wage premiums published openly.'
+                : 'Documented schemas, unencumbered data portability, and predictable tier pricing.',
+            },
+            emotional: {
+              active: false,
+              tag: 'Latent',
+              rationale: 'Operates as an intellectual and ethical respect trigger rather than pure sentiment.',
+            },
+            cultural: {
+              active: true,
+              tag: isPhysical ? 'Fair Trade' : 'Open Standard',
+              rationale: isPhysical
+                ? 'Direct cooperative economic partnership protecting generational cottage industries.'
+                : 'Commitment to customer sovereignty without vendor lock-in traps.',
+            },
+            brandPromise: isPhysical
+              ? '100% provenance clarity on who crafted your garment and under what conditions.'
+              : '100% pricing and data clarity without hidden gates or surprise enterprise fees.',
+            audienceExpectation: isPhysical
+              ? 'Verifiable ethical proof without greenwashing or tokenistic charity marketing.'
+              : 'Clear, direct documentation and honest self-serve evaluation.',
+            positioning: 'Radical honesty that leaves legacy, opaque competitors defenseless.',
+            toneOfVoice: 'Candid, unvarnished, direct, analytical, respectful of founder-customer parity.',
+            underlyingReasoning: 'Modern buyers demand ethical validation. Transparent operations create profound moral defensibility and organic advocate resonance.',
+          },
+          {
+            id: 'premium',
+            attribute: 'Premium',
+            functional: {
+              active: false,
+              tag: 'Derived',
+              rationale: 'Premium status is an emergent property of craft, speed, and reliable architecture.',
+            },
+            emotional: {
+              active: true,
+              tag: 'Quiet Poise',
+              rationale: 'Understated elegance that signals discerning taste without loud gimmicks.',
+            },
+            cultural: {
+              active: true,
+              tag: isPhysical ? 'Desert Royalty' : 'Modern Sovereign',
+              rationale: isPhysical
+                ? 'Architectural silhouettes inspired by royal Thar winter wraps and regional ceremonial coats.'
+                : 'Sophisticated aesthetics for forward-thinking teams operating at the technological frontier.',
+            },
+            brandPromise: 'Understated excellence that asserts its presence through proportion and purity.',
+            audienceExpectation: 'Timeless aesthetic longevity that outlasts rapid seasonal micro-trends.',
+            positioning: `Quiet category excellence for ${targetAudience} who value substance over noise.`,
+            toneOfVoice: 'Measured, literary, confident, spare, deliberate.',
+            underlyingReasoning: 'Sustainable high margins require cultural resonance and aspirational self-identity, not merely baseline utility.',
+          },
+        ];
+
+        const activeRow =
+          DNA_RELATIONSHIP_ROWS.find((r) => r.id === (hoveredDnaAttr || selectedDnaAttr)) ??
+          DNA_RELATIONSHIP_ROWS[1];
+
+        return (
+          <div className="rounded-xl bg-[#FAF8F5] border border-[#DDD5C5] p-5 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#DDD5C5]">
+              <div>
+                <span className="text-xs font-mono uppercase text-[#7D6536] tracking-wider font-bold">
+                  Brand DNA Relationship Matrix
+                </span>
+                <p className="text-xs text-[#5E6857] mt-0.5">
+                  Interactive relationship system mapping core brand DNA across Functional, Emotional, and Cultural dimensions.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-[#5E6857] px-2.5 py-1 rounded bg-[#EFECE4] border border-[#DDD5C5] self-start sm:self-auto">
+                Hover attribute to trace · Click to pin reasoning
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+              {/* Left 7 cols: Interactive Diagram */}
+              <div className="lg:col-span-7 space-y-3">
+                {/* Column Headers */}
+                <div className="grid grid-cols-12 gap-2 text-[11px] font-mono font-bold text-[#5E6857] px-3 pb-1 border-b border-[#DDD5C5]/60">
+                  <div className="col-span-3 text-left">DNA ATTRIBUTE</div>
+                  <div className="col-span-3 text-center">FUNCTIONAL</div>
+                  <div className="col-span-3 text-center">EMOTIONAL</div>
+                  <div className="col-span-3 text-center">CULTURAL</div>
+                </div>
+
+                {/* Rows with animated connecting lines */}
+                <div className="space-y-2">
+                  {DNA_RELATIONSHIP_ROWS.map((row) => {
+                    const isSelected = selectedDnaAttr === row.id;
+                    const isHovered = hoveredDnaAttr === row.id;
+                    const isActive = isSelected || isHovered;
+
+                    return (
+                      <div
+                        key={row.id}
+                        onMouseEnter={() => setHoveredDnaAttr(row.id)}
+                        onMouseLeave={() => setHoveredDnaAttr(null)}
+                        onClick={() => setSelectedDnaAttr(row.id)}
+                        className={`p-3 rounded-lg border transition-all duration-200 cursor-pointer select-none ${
+                          isActive
+                            ? 'bg-[#EFECE4] border-[#7D6536] shadow-sm ring-1 ring-[#7D6536]/30'
+                            : 'bg-[#F5F2EB]/80 border-[#DDD5C5] hover:border-[#BDB5A2]'
+                        }`}
+                      >
+                        <div className="grid grid-cols-12 gap-2 items-center">
+                          {/* Attribute Label */}
+                          <div className="col-span-3 flex items-center gap-1.5">
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                isActive ? 'bg-[#7D6536]' : 'bg-[#BDB5A2]'
+                              }`}
+                            />
+                            <span
+                              className={`text-xs font-mono font-bold ${
+                                isActive ? 'text-[#2C3527]' : 'text-[#5E6857]'
+                              }`}
+                            >
+                              {row.attribute}
+                            </span>
+                          </div>
+
+                          {/* Functional Node */}
+                          <div className="col-span-3 flex items-center justify-center relative">
+                            {row.functional.active ? (
+                              <div className="flex flex-col items-center group/node">
+                                <div
+                                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                                    isActive
+                                      ? 'bg-[#2C3527] border-[#2C3527] ring-2 ring-[#2C3527]/20'
+                                      : 'bg-[#FAF8F5] border-[#55634B]'
+                                  }`}
+                                >
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FAF8F5]' : 'bg-[#55634B]'}`} />
+                                </div>
+                                <span className="text-[9px] font-mono text-[#5E6857] mt-1 whitespace-nowrap">
+                                  {row.functional.tag}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-[#C4BDB0] text-xs font-mono">—</span>
+                            )}
+                          </div>
+
+                          {/* Emotional Node */}
+                          <div className="col-span-3 flex items-center justify-center relative">
+                            {/* Horizontal connector line from functional to emotional if both active */}
+                            {row.functional.active && row.emotional.active && (
+                              <div
+                                className={`absolute left-0 right-1/2 top-[8px] h-0.5 transition-colors ${
+                                  isActive ? 'bg-[#7D6536]' : 'bg-[#DDD5C5]'
+                                }`}
+                              />
+                            )}
+
+                            {row.emotional.active ? (
+                              <div className="flex flex-col items-center group/node z-10">
+                                <div
+                                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                                    isActive
+                                      ? 'bg-[#7D6536] border-[#7D6536] ring-2 ring-[#7D6536]/20'
+                                      : 'bg-[#FAF8F5] border-[#7D6536]'
+                                  }`}
+                                >
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FAF8F5]' : 'bg-[#7D6536]'}`} />
+                                </div>
+                                <span className="text-[9px] font-mono text-[#5E6857] mt-1 whitespace-nowrap">
+                                  {row.emotional.tag}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-[#C4BDB0] text-xs font-mono">—</span>
+                            )}
+                          </div>
+
+                          {/* Cultural Node */}
+                          <div className="col-span-3 flex items-center justify-center relative">
+                            {/* Horizontal connector line from emotional to cultural if both active */}
+                            {row.emotional.active && row.cultural.active && (
+                              <div
+                                className={`absolute left-0 right-1/2 top-[8px] h-0.5 transition-colors ${
+                                  isActive ? 'bg-[#55634B]' : 'bg-[#DDD5C5]'
+                                }`}
+                              />
+                            )}
+
+                            {row.cultural.active ? (
+                              <div className="flex flex-col items-center group/node z-10">
+                                <div
+                                  className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                                    isActive
+                                      ? 'bg-[#55634B] border-[#55634B] ring-2 ring-[#55634B]/20'
+                                      : 'bg-[#FAF8F5] border-[#55634B]'
+                                  }`}
+                                >
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FAF8F5]' : 'bg-[#55634B]'}`} />
+                                </div>
+                                <span className="text-[9px] font-mono text-[#5E6857] mt-1 whitespace-nowrap">
+                                  {row.cultural.tag}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-[#C4BDB0] text-xs font-mono">—</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right 5 cols: Strategic Output HUD */}
+              <div className="lg:col-span-5 p-4 rounded-xl bg-[#EFECE4] border border-[#DDD5C5] space-y-3">
+                <div className="flex items-center justify-between border-b border-[#DDD5C5] pb-2">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#7D6536] font-bold">
+                    Strategic Resonance // {activeRow.attribute}
+                  </span>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#FAF8F5] border border-[#DDD5C5] text-[#2C3527]">
+                    Pinned Vector
+                  </span>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#55634B] block font-bold mb-0.5">
+                      Brand Promise
+                    </span>
+                    <p className="text-[#2C3527] text-[11px] font-medium leading-relaxed">
+                      "{activeRow.brandPromise}"
+                    </p>
+                  </div>
+
+                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block font-bold mb-0.5">
+                      Audience Expectation
+                    </span>
+                    <p className="text-[#3A4537] text-[11px] leading-relaxed">
+                      {activeRow.audienceExpectation}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                      <span className="text-[9px] font-mono uppercase tracking-wider text-[#5E6857] block font-bold mb-0.5">
+                        Positioning
+                      </span>
+                      <p className="text-[#3A4537] text-[10px] leading-snug">
+                        {activeRow.positioning}
+                      </p>
+                    </div>
+
+                    <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                      <span className="text-[9px] font-mono uppercase tracking-wider text-[#7D6536] block font-bold mb-0.5">
+                        Tone of Voice
+                      </span>
+                      <p className="text-[#3A4537] text-[10px] leading-snug">
+                        {activeRow.toneOfVoice}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Underlying Reasoning */}
+                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#7D6536]/30">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#7D6536] block font-bold mb-0.5">
+                      Underlying Strategic Reasoning
+                    </span>
+                    <p className="text-[#3A4537] text-[11px] leading-relaxed italic">
+                      {activeRow.underlyingReasoning}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { LogoConcept } from '../../types/project';
 
 interface LogoCustomizerProps {
@@ -13,7 +13,7 @@ export const LogoCustomizer: React.FC<LogoCustomizerProps> = ({
   const { customization } = selectedConcept;
 
   return (
-    <div className="rounded-2xl bg-white border border-[#DDD5C5] p-5 lg:p-6 shadow-sm space-y-5">
+    <div className="rounded-2xl bg-[#FAF8F5] border border-[#DDD5C5] p-5 lg:p-6 shadow-md space-y-5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#E8E1D3]">
         <div>
           <span className="text-[10px] font-mono uppercase text-[#2B3D4F] font-bold">

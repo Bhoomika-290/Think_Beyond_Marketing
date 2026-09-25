@@ -46,9 +46,9 @@ export const LaunchGrowthPage: React.FC = () => {
   const ventureName = report.ventureName;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5 animate-fadeIn">
       {/* 1. Stage 08 Header with Prominent Stage 09 Dossier Trigger */}
-      <div className="p-6 rounded-2xl bg-[#0D121B] border border-[#263244] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+      <div className="p-4 rounded-2xl bg-[#0D121B] border border-[#263244] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#10B981]/15 text-[#34D399] border border-[#10B981]/30">
@@ -109,7 +109,7 @@ export const LaunchGrowthPage: React.FC = () => {
       />
 
       {/* 5. Bottom Stage Navigation & Stage 09 Access */}
-      <div className="p-5 rounded-xl bg-[#0D121B] border border-[#263244] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+      <div className="p-4 rounded-xl bg-[#0D121B] border border-[#263244] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
         <Link
           to="/simulation"
           className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#AAB4C3] hover:text-[#F3F4F6] transition-colors"

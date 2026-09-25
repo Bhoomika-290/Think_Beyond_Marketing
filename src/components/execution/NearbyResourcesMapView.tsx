@@ -48,6 +48,8 @@ export const NearbyResourcesMapView: React.FC<NearbyResourcesMapViewProps> = ({
     return items.find(i => i.id === selectedItemId) || filteredItems[0] || items[0];
   }, [items, selectedItemId, filteredItems]);
 
+  const [noticeMessage, setNoticeMessage] = useState<string | null>(null);
+
   const handleOpenMap = (item: ExecutionResourceItem) => {
     const q = encodeURIComponent(`${item.name} ${item.address || item.location}`);
     window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, '_blank', 'noopener,noreferrer');
@@ -57,7 +59,7 @@ export const NearbyResourcesMapView: React.FC<NearbyResourcesMapViewProps> = ({
     if (item.phone && item.phone !== 'Not verified' && !item.phone.toLowerCase().includes('unavailable')) {
       window.location.href = `tel:${item.phone.replace(/[^0-9+]/g, '')}`;
     } else {
-      alert(`Direct telephone contact for "${item.name}" is unlisted in the public registry. Direct portal enquiry required.`);
+      setNoticeMessage(`Direct telephone contact for "${item.name}" is unlisted in the public registry. Direct portal enquiry required.`);
     }
   };
 
@@ -85,6 +87,18 @@ export const NearbyResourcesMapView: React.FC<NearbyResourcesMapViewProps> = ({
 
   return (
     <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-5 shadow-xs space-y-4">
+      {noticeMessage && (
+        <div className="flex items-center justify-between p-3 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 text-xs font-mono">
+          <span>{noticeMessage}</span>
+          <button
+            type="button"
+            onClick={() => setNoticeMessage(null)}
+            className="text-amber-700 hover:text-amber-950 font-bold ml-2"
+          >
+            ✕
+          </button>
+        </div>
+      )}
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E8E2D8]">
         <div>

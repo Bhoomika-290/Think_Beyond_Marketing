@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { TypographySystem as TypographySystemType } from '../../types/project';
 
 interface TypographySystemProps {

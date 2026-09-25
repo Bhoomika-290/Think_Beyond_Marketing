@@ -26,6 +26,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
   onAddCompetitor,
 }) => {
   const [selectedCompId, setSelectedCompId] = useState<string | null>(null);
+  const [focusMode, setFocusMode] = useState<boolean>(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newCompName, setNewCompName] = useState('');
   const [newCompCategory, setNewCompCategory] = useState<'direct' | 'indirect' | 'alternative_workaround'>('direct');
@@ -58,56 +59,71 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
     setShowAddModal(false);
   };
 
+  const focalX = 78;
+  const focalY = 22;
+
   return (
-    <section className="rounded-2xl bg-[#FDFCF8] border border-[#DDD5C5] p-6 lg:p-8 shadow-xl">
+    <section className="rounded-2xl bg-[#FAF8F5] border border-[#DDD5C5] p-6 lg:p-8 shadow-md">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#2B3D4F] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#2B3D4F]">
-              MARKET SPACE VISUALIZER
+            <span className="w-2 h-2 rounded-full bg-[#7D6536]" />
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#7D6536]">
+              VISUAL POSITIONING ARCHITECTURE
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#2B3D4F] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#2C3527] tracking-tight">
             Competitive Positioning Matrix
           </h2>
-          <p className="text-xs sm:text-sm text-[#4A5E73]">
-            Plotting {ventureName} against alternatives across strategic market dimensions.
+          <p className="text-xs sm:text-sm text-[#5E6857]">
+            Mapping {ventureName} against alternatives across strategic market dimensions with relationship vectors.
           </p>
         </div>
 
-        {/* Axis Selectors */}
+        {/* Axis Selectors & Focus Mode */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1.5 bg-[#FDFCF8] px-3 py-1.5 rounded-lg border border-[#DDD5C5] text-xs">
-            <span className="text-[10px] font-mono uppercase text-[#6B7D90]">X Axis:</span>
+          <button
+            type="button"
+            onClick={() => setFocusMode(!focusMode)}
+            className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors ${
+              focusMode
+                ? 'bg-[#2C3527] text-[#FAF8F5] border-[#2C3527]'
+                : 'bg-[#EFECE4] text-[#2C3527] border-[#DDD5C5] hover:border-[#55634B]'
+            }`}
+          >
+            {focusMode ? 'Focus Mode [ON]' : 'Focus Mode [OFF]'}
+          </button>
+
+          <div className="flex items-center gap-1.5 bg-[#FAF8F5] px-3 py-1.5 rounded-lg border border-[#DDD5C5] text-xs">
+            <span className="text-[10px] font-mono uppercase text-[#5E6857]">X Axis:</span>
             <select
               value={xAxis.id}
               onChange={(e) => {
                 const found = availableAxes.find((a) => a.id === e.target.value);
                 if (found) onUpdateAxes(found, yAxis);
               }}
-              className="bg-transparent text-[#2B3D4F] font-mono text-xs focus:outline-none cursor-pointer"
+              className="bg-transparent text-[#2C3527] font-mono text-xs focus:outline-none cursor-pointer"
             >
               {availableAxes.map((opt) => (
-                <option key={opt.id} value={opt.id} className="bg-[#FDFCF8] text-[#2B3D4F]">
+                <option key={opt.id} value={opt.id} className="bg-[#FAF8F5] text-[#2C3527]">
                   {opt.label}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#FDFCF8] px-3 py-1.5 rounded-lg border border-[#DDD5C5] text-xs">
-            <span className="text-[10px] font-mono uppercase text-[#6B7D90]">Y Axis:</span>
+          <div className="flex items-center gap-1.5 bg-[#FAF8F5] px-3 py-1.5 rounded-lg border border-[#DDD5C5] text-xs">
+            <span className="text-[10px] font-mono uppercase text-[#5E6857]">Y Axis:</span>
             <select
               value={yAxis.id}
               onChange={(e) => {
                 const found = availableAxes.find((a) => a.id === e.target.value);
                 if (found) onUpdateAxes(xAxis, found);
               }}
-              className="bg-transparent text-[#2B3D4F] font-mono text-xs focus:outline-none cursor-pointer"
+              className="bg-transparent text-[#2C3527] font-mono text-xs focus:outline-none cursor-pointer"
             >
               {availableAxes.map((opt) => (
-                <option key={opt.id} value={opt.id} className="bg-[#FDFCF8] text-[#2B3D4F]">
+                <option key={opt.id} value={opt.id} className="bg-[#FAF8F5] text-[#2C3527]">
                   {opt.label}
                 </option>
               ))}
@@ -118,7 +134,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             <button
               type="button"
               onClick={() => setShowAddModal(true)}
-              className="px-3 py-1.5 rounded-lg bg-[#2B3D4F]/20 hover:bg-[#2B3D4F]/30 text-[#2B3D4F] border border-[#2B3D4F]/30 text-xs font-mono font-medium transition-colors flex items-center gap-1"
+              className="px-3 py-1.5 rounded-lg bg-[#EFECE4] hover:bg-[#E8E4DA] text-[#2C3527] border border-[#DDD5C5] text-xs font-mono font-medium transition-colors flex items-center gap-1"
             >
               <span>+ Add Competitor</span>
             </button>
@@ -129,7 +145,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* 2D Positioning Canvas (Left 8 cols) */}
         <div className="lg:col-span-8 flex flex-col">
-          <div className="relative w-full aspect-[4/3] bg-[#F5F1EB] border border-[#DDD5C5] rounded-2xl overflow-hidden p-6 flex flex-col justify-between">
+          <div className="relative w-full aspect-[4/3] bg-[#F5F2EB] border border-[#DDD5C5] rounded-2xl overflow-hidden p-6 flex flex-col justify-between">
             {/* Grid Lines */}
             <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
               <div className="border-r border-b border-[#DDD5C5]/60" />
@@ -138,48 +154,73 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
               <div />
             </div>
 
+            {/* SVG Relationship Lines overlay */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
+              {competitors.map((comp) => {
+                const posX = Math.max(12, Math.min(88, ((comp.coordinates.x + 100) / 200) * 100));
+                const posY = Math.max(12, Math.min(88, 100 - ((comp.coordinates.y + 100) / 200) * 100));
+                const isSelected = selectedCompId === comp.id;
+                const isDimmed = focusMode && selectedCompId != null && !isSelected;
+
+                if (isDimmed) return null;
+
+                return (
+                  <line
+                    key={`rel-${comp.id}`}
+                    x1={`${focalX}%`}
+                    y1={`${focalY}%`}
+                    x2={`${posX}%`}
+                    y2={`${posY}%`}
+                    stroke={isSelected ? '#2C3527' : '#9E9484'}
+                    strokeWidth={isSelected ? 1.8 : 1}
+                    strokeDasharray={isSelected ? '3 3' : '2 4'}
+                    opacity={isSelected ? 0.9 : 0.4}
+                  />
+                );
+              })}
+            </svg>
+
             {/* Quadrant labels */}
-            <div className="absolute top-3 left-4 text-[10px] font-mono uppercase text-[#6B7D90] pointer-events-none">
+            <div className="absolute top-3 left-4 text-[10px] font-mono uppercase text-[#7D7667] pointer-events-none">
               {yAxis.maxLabel} / {xAxis.minLabel}
             </div>
-            <div className="absolute top-3 right-4 text-[10px] font-mono uppercase text-[#5A7A96]/60 font-semibold pointer-events-none text-right">
+            <div className="absolute top-3 right-4 text-[10px] font-mono uppercase text-[#55634B] font-semibold pointer-events-none text-right">
               ★ PRIME OPPORTUNITY (WEDGE)
             </div>
-            <div className="absolute bottom-3 left-4 text-[10px] font-mono uppercase text-[#6B7D90] pointer-events-none">
+            <div className="absolute bottom-3 left-4 text-[10px] font-mono uppercase text-[#7D7667] pointer-events-none">
               {yAxis.minLabel} / {xAxis.minLabel}
             </div>
-            <div className="absolute bottom-3 right-4 text-[10px] font-mono uppercase text-[#6B7D90] pointer-events-none text-right">
+            <div className="absolute bottom-3 right-4 text-[10px] font-mono uppercase text-[#7D7667] pointer-events-none text-right">
               {yAxis.minLabel} / {xAxis.maxLabel}
             </div>
 
             {/* Axis Center Crosshairs & Axis Legends */}
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#4A5E73] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#2C3527] bg-[#FAF8F5]/90 px-2.5 py-0.5 rounded border border-[#DDD5C5] pointer-events-none font-semibold">
               ▲ {yAxis.maxLabel}
             </div>
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#6B7D90] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#5E6857] bg-[#FAF8F5]/90 px-2.5 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
               ▼ {yAxis.minLabel}
             </div>
-            <div className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#6B7D90] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
+            <div className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#5E6857] bg-[#FAF8F5]/90 px-2.5 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
               ◀ {xAxis.minLabel}
             </div>
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#4A5E73] bg-[#FDFCF8]/80 px-2 py-0.5 rounded border border-[#DDD5C5] pointer-events-none">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#2C3527] bg-[#FAF8F5]/90 px-2.5 py-0.5 rounded border border-[#DDD5C5] pointer-events-none font-semibold">
               {xAxis.maxLabel} ▶
             </div>
 
-            {/* Focal Venture Marker (Star / Pulsing Badge) */}
+            {/* Focal Venture Marker (Clean, Authoritative Anchor without excessive glow) */}
             <div
-              className="absolute z-20 cursor-pointer -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110"
-              style={{ left: '78%', top: '22%' }}
+              className="absolute z-20 cursor-pointer -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-105"
+              style={{ left: `${focalX}%`, top: `${focalY}%` }}
               onClick={() => setSelectedCompId('focal_brand')}
             >
               <div className="relative flex items-center justify-center">
-                <span className="absolute w-8 h-8 rounded-full bg-[#2B3D4F]/30 animate-ping pointer-events-none" />
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#2B3D4F] to-[#5A7A96] flex items-center justify-center text-white font-black text-xs shadow-sm border border-white/30">
+                <div className="w-8 h-8 rounded-full bg-[#2C3527] flex items-center justify-center text-[#FAF8F5] font-black text-xs shadow-md border-2 border-[#FAF8F5]">
                   ★
                 </div>
               </div>
-              <div className="mt-1.5 px-2 py-0.5 rounded bg-[#2B3D4F] border border-[#2B3D4F] text-[11px] font-bold text-[#F5F1EB] text-center shadow-sm whitespace-nowrap">
-                {ventureName} (You)
+              <div className="mt-1.5 px-2.5 py-0.5 rounded bg-[#2C3527] border border-[#2C3527] text-[11px] font-bold text-[#FAF8F5] text-center shadow-sm whitespace-nowrap">
+                {ventureName} (Proposed Wedge)
               </div>
             </div>
 
@@ -189,33 +230,42 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                 const posX = Math.max(12, Math.min(88, ((comp.coordinates.x + 100) / 200) * 100));
                 const posY = Math.max(12, Math.min(88, 100 - ((comp.coordinates.y + 100) / 200) * 100));
                 const isSelected = selectedCompId === comp.id;
+                const isDimmed = focusMode && selectedCompId != null && !isSelected;
 
                 return (
                   <div
                     key={comp.id}
                     className={`absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all ${
-                      isSelected ? 'scale-125 z-30' : 'hover:scale-110'
+                      isSelected
+                        ? 'scale-115 z-30'
+                        : isDimmed
+                        ? 'opacity-25 hover:opacity-100'
+                        : 'hover:scale-105'
                     }`}
                     style={{ left: `${posX}%`, top: `${posY}%` }}
                     onClick={() => setSelectedCompId(comp.id)}
                   >
                     <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold border transition-colors shadow-md ${
+                      className={`w-7 h-7 rounded flex items-center justify-center text-[10px] font-bold border transition-colors shadow-sm ${
                         isSelected
-                          ? 'bg-[#8A6D2B] text-[#F5F1EB] border-[#8A6D2B]'
+                          ? 'bg-[#2C3527] text-[#FAF8F5] border-[#2C3527]'
                           : comp.isUserAdded
-                          ? 'bg-[#5B6B7F]/15 text-[#2B3D4F] border-[#5B6B7F]/40 hover:border-[#2B3D4F]'
-                          : 'bg-[#ECE6DA] text-[#4A5E73] border-[#DDD5C5] hover:border-[#2B3D4F]/40'
+                          ? 'bg-[#3E6F4A] text-[#FAF8F5] border-[#3E6F4A]'
+                          : comp.category === 'direct'
+                          ? 'bg-[#9C4738] text-[#FAF8F5] border-[#9C4738]'
+                          : comp.category === 'indirect'
+                          ? 'bg-[#7D6536] text-[#FAF8F5] border-[#7D6536]'
+                          : 'bg-[#4A5B6C] text-[#FAF8F5] border-[#4A5B6C]'
                       }`}
                       title={comp.name}
                     >
                       {comp.name.substring(0, 2).toUpperCase()}
                     </div>
                     <div
-                      className={`mt-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-center whitespace-nowrap shadow border ${
+                      className={`mt-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-center whitespace-nowrap shadow-sm border ${
                         isSelected
-                          ? 'bg-[#8A6D2B] text-[#F5F1EB] border-[#8A6D2B] font-bold'
-                          : 'bg-[#F5F1EB]/90 text-[#4A5E73] border-[#DDD5C5]'
+                          ? 'bg-[#2C3527] text-[#FAF8F5] border-[#2C3527] font-bold'
+                          : 'bg-[#FAF8F5] text-[#2C3527] border-[#DDD5C5]'
                       }`}
                     >
                       {comp.name}
@@ -224,18 +274,18 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                 );
               })
             ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-[#F5F1EB]/92 backdrop-blur-[1px]">
-                <span className="text-xs font-mono text-[#6B7D90] mb-2 uppercase">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-[#F5F2EB]/95">
+                <span className="text-xs font-mono text-[#5E6857] mb-2 uppercase font-bold">
                   No verified competitor data available
                 </span>
-                <p className="text-xs text-[#4A5E73] max-w-sm mb-4">
+                <p className="text-xs text-[#5E6857] max-w-sm mb-4">
                   Add direct market players or legacy alternatives to map out your strategic differentiation wedge.
                 </p>
                 {onAddCompetitor && (
                   <button
                     type="button"
                     onClick={() => setShowAddModal(true)}
-                    className="px-3 py-1.5 rounded-lg bg-[#2B3D4F] hover:bg-[#2B3D4F] text-white text-xs font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-[#2C3527] hover:bg-[#3C4736] text-[#FAF8F5] text-xs font-semibold"
                   >
                     + Add First Competitor
                   </button>
@@ -244,14 +294,14 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             )}
           </div>
 
-          <div className="mt-2 flex items-center justify-between text-[11px] font-mono text-[#6B7D90]">
+          <div className="mt-2 flex items-center justify-between text-[11px] font-mono text-[#5E6857]">
             <span>Click any node to inspect market positioning and observed gaps.</span>
-            <span>Plotting: {competitors.length + 1} entities</span>
+            <span>Plotting: {competitors.length + 1} entities · Dashed lines show displacement vectors</span>
           </div>
         </div>
 
         {/* Selected Entity Inspector (Right 4 cols) */}
-        <div className="lg:col-span-4 bg-white border border-[#DDD5C5] rounded-xl p-5 flex flex-col gap-4 shadow-sm">
+         <div className="lg:col-span-4 bg-[#FAF8F5] border border-[#DDD5C5] rounded-xl p-5 flex flex-col gap-4 shadow-md">
           {selectedCompId === 'focal_brand' ? (
             <div>
               <div className="flex items-center gap-2 pb-3 border-b border-[#E8E1D3]">

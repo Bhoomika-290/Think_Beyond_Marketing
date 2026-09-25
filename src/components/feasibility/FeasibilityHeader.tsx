@@ -74,7 +74,8 @@ export const FeasibilityHeader: React.FC<FeasibilityHeaderProps> = ({ onRefresh 
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-[#DDD5C5]">
         <div>
           <div className="flex items-center gap-2.5 mb-1.5">
-            <span className="font-mono text-xs text-[#2B3D4F] font-semibold tracking-widest uppercase">
+            <span className="font-mono text-xs text-[#2B3D4F] font-semibold tracking-widest uppercase inline-flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#7C8B6F]" title="Stage 02 analytical identity" />
               STAGE 02 // VALIDATION
             </span>
             <span className="text-[#DDD5C5]">•</span>

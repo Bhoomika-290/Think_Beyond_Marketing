@@ -31,6 +31,10 @@ export function generateMarketIntelligenceReport(
   const location = businessModel.location;
   const locationStr = [location.cityRegion, location.country].filter(Boolean).join(', ') || 'Global / Unspecified';
 
+  const fullText = `${idea.name} ${idea.problem} ${idea.rawInput} ${idea.targetAudience} ${idea.differentiation} ${location.cityRegion} ${location.country}`.toLowerCase();
+  const isApparel = fullText.includes('cloth') || fullText.includes('apparel') || fullText.includes('winter') || fullText.includes('wool') || fullText.includes('garment') || fullText.includes('fashion') || fullText.includes('fabric');
+  const isCoffee = fullText.includes('coffee') || fullText.includes('roast') || fullText.includes('bean') || fullText.includes('brew');
+
   // 1. Available Positioning Axes based on business category & user needs
   const availableAxes: PositioningAxis[] = [
     {
@@ -231,14 +235,17 @@ export function generateMarketIntelligenceReport(
       relativeRelevance: 92,
       painIntensity: 'High',
       coreNeed: problem.slice(0, 85) + '...',
-      buyingTrigger:
-        productType === 'physical'
-          ? 'Tasting stale supermarket beans after setting up a premium home grinder, triggering search for peak roast freshness.'
-          : 'Discovering discrepancies in blended ad platform ROAS reporting, leading to immediate wasted ad spend concerns.',
+      buyingTrigger: isApparel
+        ? 'Experiencing cold-weather discomfort in synthetic fast-fashion winterwear and seeking authentic, breathable heritage warmth.'
+        : isCoffee
+        ? 'Tasting stale supermarket beans after setting up a premium home grinder, triggering search for peak roast freshness.'
+        : productType === 'physical'
+        ? 'Frustration with generic mass-market goods lacking craft durability or provenance.'
+        : 'Discovering discrepancies in blended ad platform ROAS reporting, leading to immediate wasted ad spend concerns.',
       potentialFit: 'High',
       adoptionBarriers: [
         'Overcoming habituated status quo workarounds',
-        'Need for verified proof before committing to monthly subscription/retainer',
+        'Need for verified proof before committing to purchase or subscription',
       ],
       confidence: 'High',
       provenance: state.idea.targetAudience ? 'USER_PROVIDED' : 'AI_INFERENCE',
@@ -248,10 +255,13 @@ export function generateMarketIntelligenceReport(
       name: 'Discerning Practitioners & Enthusiasts',
       relativeRelevance: 78,
       painIntensity: 'Medium',
-      coreNeed:
-        productType === 'physical'
-          ? 'Transparent estate sourcing, traceable lot elevations, and predictable recurring delivery schedules.'
-          : 'Server-side attribution integration without managing dedicated data pipelines.',
+      coreNeed: isApparel
+        ? 'Transparent natural-fiber sourcing (camel wool, merino, handspun yarns), verified artisan loom provenance, and enduring fit.'
+        : isCoffee
+        ? 'Transparent estate sourcing, traceable lot elevations, and predictable recurring delivery schedules.'
+        : productType === 'physical'
+        ? 'Transparent material sourcing, traceable lot provenance, and consistent craftsmanship.'
+        : 'Server-side attribution integration without managing dedicated data pipelines.',
       buyingTrigger:
         'Seeking reproducible quality benchmarks and values alignment that mass commercial vendors fail to provide.',
       potentialFit: 'High',
@@ -424,9 +434,12 @@ export function generateMarketIntelligenceReport(
     opportunities: [
       {
         id: 'diff_opp_1',
-        differentiationArea: 'Radical Transparency & Provenance Tracing',
-        currentCompetitiveSituation:
-          'Incumbents rely on opaque commodity sourcing with generic certifications and zero harvest visibility.',
+        differentiationArea: isApparel
+          ? 'Regional Artisan Craft & Direct Wool Provenance'
+          : 'Radical Transparency & Provenance Tracing',
+        currentCompetitiveSituation: isApparel
+          ? 'Commercial winterwear brands blend cheap polyester/acrylic into wool and obscure factory origins behind synthetic trade names.'
+          : 'Incumbents rely on opaque commodity sourcing with generic certifications and zero harvest visibility.',
         connectedMarketGap: 'Connoisseurs and conscious buyers deeply distrust unverifiable marketing claims.',
         whyThisMatters:
           'Converts operational honesty into a proprietary brand moat that commands a 20–30% price premium without ad fatigue.',
@@ -439,31 +452,49 @@ export function generateMarketIntelligenceReport(
       },
       {
         id: 'diff_opp_2',
-        differentiationArea: 'Roast-to-Order / Zero-Lag Velocity',
-        currentCompetitiveSituation:
-          'Supermarket beans sit on shelves for 3–9 months; specialty roasteries ship on irregular erratic schedules.',
-        connectedMarketGap:
-          'Customers with premium brewing gear lose 60% of flavor complexity to stale beans roasted weeks prior.',
+        differentiationArea: isApparel
+          ? 'Functional Heritage Weave & Breathable Thermal Density'
+          : isCoffee
+          ? 'Roast-to-Order / Zero-Lag Velocity'
+          : 'Direct Craft Execution & Uncompromised Freshness',
+        currentCompetitiveSituation: isApparel
+          ? 'Mass winter coats are bulky yet poorly insulated; traditional regional handlooms lack modern silhouettes and easy doorstep availability.'
+          : isCoffee
+          ? 'Supermarket beans sit on shelves for 3–9 months; specialty roasteries ship on irregular erratic schedules.'
+          : 'Mass products sit in distributor warehouses for months losing intrinsic quality and freshness.',
+        connectedMarketGap: isApparel
+          ? 'Buyers in regions with sharp temperature drops need genuine cold insulation without heavy plastic-fiber perspiration.'
+          : isCoffee
+          ? 'Customers with premium brewing gear lose 60% of flavor complexity to stale beans roasted weeks prior.'
+          : 'Customers pay premium prices but receive degraded warehouse inventory.',
         whyThisMatters:
-          'Creates an immediate sensory "aha!" moment on the first sip, driving organic word-of-mouth loops.',
-        supportingEvidence: 'Sensory degradation studies on roasted whole-bean coffee after 21 days from roast.',
+          'Creates an immediate sensory "aha!" moment on first wear or use, driving organic word-of-mouth loops.',
+        supportingEvidence: isApparel
+          ? 'Thermal testing comparing natural camel-hair and sheep wool blends against polyester fiberfill.'
+          : 'Sensory degradation studies on roasted whole-bean coffee after 21 days from roast.',
         confidence: 'High',
-        validationRequirement: 'Validate 48-hour delivery SLAs with regional express logistics partners.',
+        validationRequirement: isApparel
+          ? 'Validate doorstep sizing exchange SLAs and fabric durability across wear testing.'
+          : 'Validate 48-hour delivery SLAs with regional express logistics partners.',
         statusLabel: 'Evidence-supported gap',
         provenance: 'AI_INFERENCE',
       },
       {
         id: 'diff_opp_3',
-        differentiationArea: 'Curated Simplicity Over Jargon Bloat',
-        currentCompetitiveSituation:
-          'Specialty coffee gatekeeps with intimidating technical jargon; mass coffee ignores flavor notes completely.',
-        connectedMarketGap:
-          'Aspiring home baristas want delicious single-origin coffee without feeling judged or overwhelmed by jargon.',
+        differentiationArea: isApparel
+          ? 'Curated Capsule Sizing Over Mass Fitting Chaos'
+          : 'Curated Simplicity Over Jargon Bloat',
+        currentCompetitiveSituation: isApparel
+          ? 'Fast fashion brands have erratic fit tolerances resulting in 35%+ return rates; bespoke tailoring is slow and inaccessible.'
+          : 'Specialty coffee gatekeeps with intimidating technical jargon; mass coffee ignores flavor notes completely.',
+        connectedMarketGap: isApparel
+          ? 'Customers want verified shoulder and chest tailoring with doorstep exchange certainty.'
+          : 'Aspiring home baristas want delicious single-origin coffee without feeling judged or overwhelmed by jargon.',
         whyThisMatters:
-          'Expands addressable market beyond snobbish hobbyists into lucrative high-LTV remote professionals.',
-        supportingEvidence: 'Discovery flow interviews documenting intimidation and frustration with traditional specialty cafes.',
+          'Reduces reverse logistics returns by half and expands addressable market beyond niche luxury buyers.',
+        supportingEvidence: 'Discovery flow interviews documenting sizing frustration and hesitation when ordering winter outerwear online.',
         confidence: 'Medium',
-        validationRequirement: 'A/B test tasting note cards with simplified taste tags vs. traditional cupping scores.',
+        validationRequirement: 'A/B test interactive fit recommendation guide vs standard static sizing chart.',
         statusLabel: 'Emerging opportunity',
         provenance: 'AI_INFERENCE',
       },
@@ -668,10 +699,16 @@ export function generateMarketIntelligenceReport(
       role: 'market_intelligence',
       roleName: 'Market Intelligence Lead',
       badge: '🧭',
-      keyPerspective:
-        'Incumbents are vulnerable because their scale prevents them from offering agile micro-batch freshness or direct farmer profit sharing.',
-      challengeOrCaveat:
-        'Beware of regional logistics bottlenecks: a 24-hour delay in express fulfillment destroys the core freshness proposition.',
+      keyPerspective: isApparel
+        ? 'Incumbents are vulnerable because their mass supply chains rely on synthetic yarn blends and impersonal overseas factories with zero regional craft identity.'
+        : isCoffee
+        ? 'Incumbents are vulnerable because their scale prevents them from offering agile micro-batch freshness or direct farmer profit sharing.'
+        : 'Incumbents are vulnerable because their monolithic architectures prevent them from delivering agile, high-touch vertical solutions.',
+      challengeOrCaveat: isApparel
+        ? 'Beware of regional logistics bottlenecks: customer expectations during peak winter weeks require rapid dispatch and reliable doorstep size swaps.'
+        : isCoffee
+        ? 'Beware of regional logistics bottlenecks: a 24-hour delay in express fulfillment destroys the core freshness proposition.'
+        : 'Beware of integration friction: lengthy onboarding flows will stall initial adoption velocity.',
     },
     {
       role: 'growth_marketing',
@@ -686,10 +723,16 @@ export function generateMarketIntelligenceReport(
       role: 'challenger',
       roleName: 'Challenger / Red Team',
       badge: '🥊',
-      keyPerspective:
-        'Founders consistently underestimate customer habit inertia. People drink mediocre coffee or use messy spreadsheets for years without changing. Your trial experience must be 10x better in 60 seconds.',
-      challengeOrCaveat:
-        'If the first order packaging is confusing or late, 80% of subscription prospects will immediately churn.',
+      keyPerspective: isApparel
+        ? 'Founders consistently underestimate customer habit inertia. People settle for mediocre synthetic jackets or ill-fitting coats for years without changing. Your unboxing and tailoring experience must feel unmistakable on first try.'
+        : isCoffee
+        ? 'Founders consistently underestimate customer habit inertia. People drink mediocre coffee or use messy spreadsheets for years without changing. Your trial experience must be 10x better in 60 seconds.'
+        : 'Founders consistently underestimate customer habit inertia. People stick with messy spreadsheets or manual workarounds for years without changing. Your time-to-value must be instantaneous.',
+      challengeOrCaveat: isApparel
+        ? 'If the initial garment sizing is off and reverse exchanges are cumbersome, 70% of first-time buyers will never return.'
+        : isCoffee
+        ? 'If the first order packaging is confusing or late, 80% of subscription prospects will immediately churn.'
+        : 'If the setup process requires engineering intervention, churn will occur before first value.',
     },
     {
       role: 'evaluator',
@@ -704,10 +747,16 @@ export function generateMarketIntelligenceReport(
       role: 'brand',
       roleName: 'Brand Architect',
       badge: '🏛️',
-      keyPerspective:
-        'Position the brand as "The Craftsman / Sage": uncompromising standards, radically transparent, and deeply respectful of the customer’s discernment.',
-      challengeOrCaveat:
-        'Never use generic corporate sustainability buzzwords. Use concrete numbers: exact harvest dates, estate elevations, and farmer payouts.',
+      keyPerspective: isApparel
+        ? 'Position the brand as "The Master Weaver / Provenance Guardian": uncompromising natural fibers, transparent cluster origins, and timeless silhouette integrity.'
+        : isCoffee
+        ? 'Position the brand as "The Craftsman / Sage": uncompromising standards, radically transparent, and deeply respectful of the customer’s discernment.'
+        : 'Position the brand as "The Empirical Authority": uncompromising accuracy, radically transparent methodology, and respectful of the user’s autonomy.',
+      challengeOrCaveat: isApparel
+        ? 'Never use generic marketing buzzwords like "eco-friendly" or "artisanal" without proof. Highlight exact wool GSM weights, shearing clusters, and master weaver signatures.'
+        : isCoffee
+        ? 'Never use generic corporate sustainability buzzwords. Use concrete numbers: exact harvest dates, estate elevations, and farmer payouts.'
+        : 'Never use generic corporate marketing buzzwords. Use concrete empirical metrics, verified data points, and transparent methodologies.',
     },
   ];
 

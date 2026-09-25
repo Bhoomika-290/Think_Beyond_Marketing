@@ -9,6 +9,19 @@ import { BrandHandoff } from '../components/brand-roadmap/BrandHandoff';
 
 type SectionTab = 'all' | 'roadmap' | 'decisions' | 'resources' | 'handoff';
 
+const SECTION_ANCHORS: Record<SectionTab, string | null> = {
+  all: null,
+  roadmap: 'section-roadmap',
+  decisions: 'section-strategic-decisions',
+  resources: 'section-resources',
+  handoff: 'section-handoff',
+};
+
+const VALID_TABS: SectionTab[] = ['all', 'roadmap', 'decisions', 'resources', 'handoff'];
+
+const toSectionTab = (id: string): SectionTab =>
+  (VALID_TABS.includes(id as SectionTab) ? id : 'roadmap') as SectionTab;
+
 export const BrandRoadmapPage: React.FC = () => {
   const {
     state,
@@ -42,10 +55,14 @@ export const BrandRoadmapPage: React.FC = () => {
         report={brandReport}
         activeSection={activeTab}
         onSelectSection={(id) => {
-          setActiveTab(id as SectionTab);
-          const el = document.getElementById(`section-${id}`);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
+          const tab = toSectionTab(id);
+          setActiveTab(tab);
+          const anchor = SECTION_ANCHORS[tab];
+          if (anchor) {
+            const el = document.getElementById(anchor);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth' });
+            }
           }
         }}
         onRefresh={refreshBrandRoadmap}
@@ -90,26 +107,28 @@ export const BrandRoadmapPage: React.FC = () => {
           { id: 'decisions', label: '02 Strategic Decisions & Reality Check' },
           { id: 'resources', label: '03 Founder Learning & Case Studies' },
           { id: 'handoff', label: '04 Stage 05 Build Handoff' },
-        ].map((tab) => (
+        ].map((tabItem) => (
           <button
-            key={tab.id}
+            key={tabItem.id}
             type="button"
             onClick={() => {
-              setActiveTab(tab.id as SectionTab);
-              if (tab.id !== 'all') {
-                const el = document.getElementById(`section-${tab.id}`);
+              const next = toSectionTab(tabItem.id);
+              setActiveTab(next);
+              const anchor = SECTION_ANCHORS[next];
+              if (anchor) {
+                const el = document.getElementById(anchor);
                 if (el) {
                   el.scrollIntoView({ behavior: 'smooth' });
                 }
               }
             }}
             className={`px-3.5 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-              activeTab === tab.id
+              activeTab === tabItem.id
                 ? 'bg-[#2B3D4F] text-white font-bold shadow-sm'
                 : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
             }`}
           >
-            {tab.label}
+            {tabItem.label}
           </button>
         ))}
       </div>
@@ -117,7 +136,7 @@ export const BrandRoadmapPage: React.FC = () => {
       {/* 01. Strategic Brand Transformation Roadmap */}
       {(activeTab === 'all' || activeTab === 'roadmap') && (
         <BrandTransformationRoadmap
-          milestones={brandReport.transformationRoadmap}
+          milestones={brandReport.transformationRoadmap ?? []}
           ventureName={ventureName}
         />
       )}
@@ -125,8 +144,19 @@ export const BrandRoadmapPage: React.FC = () => {
       {/* 02. Brand Strategic Decisions & 4-Quadrant Reality Board */}
       {(activeTab === 'all' || activeTab === 'decisions') && (
         <BrandStrategicDecisions
-          strategicDecisions={brandReport.strategicDecisions}
-          decisionBoard={brandReport.decisionBoard}
+          strategicDecisions={brandReport.strategicDecisions ?? {
+            recommendedPositioningDirection: '',
+            differentiationTerritory: '',
+            strategicPriorities: [],
+            brandRisks: [],
+            sequencingStrategy: '',
+          }}
+          decisionBoard={brandReport.decisionBoard ?? {
+            decided: [],
+            needsReview: [],
+            openQuestions: [],
+            validationRequired: [],
+          }}
           ventureName={ventureName}
         />
       )}
@@ -134,8 +164,8 @@ export const BrandRoadmapPage: React.FC = () => {
       {/* 03. Founder Learning & Strategic Case Studies */}
       {(activeTab === 'all' || activeTab === 'resources') && (
         <FounderLearningResources
-          resources={brandReport.learningResources}
-          category={brandReport.category}
+          resources={brandReport.learningResources ?? []}
+          category={brandReport.category ?? 'venture'}
           ventureName={ventureName}
         />
       )}
@@ -154,7 +184,7 @@ export const BrandRoadmapPage: React.FC = () => {
       <CompetitorRoadmapsModal
         isOpen={isCompetitorModalOpen}
         onClose={() => setIsCompetitorModalOpen(false)}
-        competitors={brandReport.competitorRoadmaps}
+        competitors={brandReport.competitorRoadmaps ?? []}
         ventureName={ventureName}
       />
     </div>

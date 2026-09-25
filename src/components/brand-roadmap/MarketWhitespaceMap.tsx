@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Layers, ChevronRight, TrendingUp } from 'lucide-react';
 import type { CompetitorItem, DifferentiatorCandidate, IdeaData } from '../../types/project';
 

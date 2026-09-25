@@ -57,7 +57,11 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
     brandRoadmap?.differentiatorChain?.candidates?.find((c) => c.isSelected)?.differentiator ||
     'Proprietary precision workflow and radical operational transparency';
 
-  const isPhysical = productType === 'physical';
+  const ideaCombined = `${ventureName} ${idea.name || ''} ${idea.problem || ''} ${idea.rawInput || ''} ${idea.targetAudience || ''} ${businessModel.location?.cityRegion || ''} ${businessModel.location?.country || ''} ${businessModel.location?.operatingLocation || ''}`.toLowerCase();
+  const isPhysical = productType === 'physical' || /(clothing|apparel|garment|fashion|wear|winterwear|winter wear|jacket|sweater|shawl|textile|boutique|handloom|fabric|wool|fleece|coffee|bean|roast|hardware|device|shoe)/i.test(ideaCombined);
+  const isApparel = isPhysical && /(apparel|clothing|garment|fashion|wear|winterwear|winter wear|jacket|sweater|shawl|textile|boutique|handloom|fabric|wool|fleece)/i.test(ideaCombined);
+  const isCoffee = isPhysical && !isApparel && /(coffee|roast|bean|brew|cafe|espresso)/i.test(ideaCombined);
+  const isIndia = Boolean(businessModel.location?.country?.toLowerCase().includes('india') || ideaCombined.includes('rajasthan') || ideaCombined.includes('india') || ideaCombined.includes('jaipur') || ideaCombined.includes('bikaner'));
 
   // 1. BUILD READINESS METRICS (Derived strictly from upstream completion)
   const hasIdea = Boolean(idea.name && idea.problem && idea.targetAudience);
@@ -219,9 +223,13 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       label: 'Core Job-to-be-Done',
       category: 'job',
       title: 'Functional & Emotional Job',
-      description: isPhysical
+      description: isApparel
+        ? 'Procure authentic, regionally-loomed winter garments with verified wool provenance and reliable thermal warmth.'
+        : isCoffee
         ? 'Procure unadulterated, single-origin goods with verifiable batch roast dates and seamless recurring replenishment.'
-        : 'Derive verified multi-touch business insights with zero manual spreadsheet wrangling or engineering overhead.',
+        : isPhysical
+        ? 'Procure durable, high-utility physical goods with verified craftsmanship and direct manufacturer support.'
+        : 'Derive verified business insights and operational automation with zero manual spreadsheet wrangling or engineering overhead.',
       provenance: 'AI_INFERENCE',
       originatingStage: '03 Customer Segments',
       buildImplication: 'Establishes the core feature that MUST be functional in sprint 01.',
@@ -241,9 +249,13 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       label: 'Product Experience',
       category: 'experience',
       title: 'Signature Interaction Loop',
-      description: isPhysical
+      description: isApparel
+        ? 'Curated winter capsule lookbook + interactive sizing fit guide + transparent artisan cluster traceability.'
+        : isCoffee
         ? 'Curated sensory subscription portal + QR batch transparency lookup on package + single-click pause/swap.'
-        : 'Frictionless script installation → automated data unification → proactive intelligence alerts on Slack/Email.',
+        : isPhysical
+        ? 'Streamlined direct purchase flow + transparent physical dispatch tracking + responsive customer service.'
+        : 'Frictionless setup → automated execution of core workflow → proactive intelligence alerts.',
       provenance: 'AI_INFERENCE',
       originatingStage: '04 Customer Journey',
       buildImplication: 'Defines the end-to-end screen sitemap, telemetry events, and user flow.',
@@ -253,8 +265,12 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       label: 'Business & User Outcome',
       category: 'outcome',
       title: 'Sustained Value Creation',
-      description: isPhysical
+      description: isApparel
+        ? 'High margin direct-to-consumer sales (60%+ gross margin) with low return rates via precision fit guidance and artisan brand loyalty.'
+        : isCoffee
         ? 'High LTV via 68%+ gross margin direct-to-consumer subscriptions with predictable roasting inventory turnover.'
+        : isPhysical
+        ? 'Sustainable unit economics via direct-to-consumer margins and high repeat customer referrals.'
         : 'High retention and net revenue expansion via mission-critical daily workflow integration and automated ROI attribution.',
       provenance: 'AI_INFERENCE',
       originatingStage: '02 Viability Engine',
@@ -284,7 +300,80 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
 
   let modalityBlueprint: ProductModalityBlueprint;
 
-  if (modalityType === 'hardware') {
+  if (isApparel) {
+    modalityBlueprint = {
+      modality: 'hardware',
+      branchA: {
+        title: 'ATELIER & WEAVING WORKFLOW',
+        items: [
+          {
+            id: 'app_flow_1',
+            name: 'Raw Wool Grading & Fiber Sorting',
+            description: 'Fiber sorting from regional pastoralist camel & merino herds.',
+            detail: 'Sorting raw fleece by staple length and micron count to guarantee 480 GSM warmth without synthetic fillers.',
+          },
+          {
+            id: 'app_flow_2',
+            name: 'Artisan Looming & Fabric Calendering',
+            description: 'Traditional shuttle handlooms and semi-mechanized cluster weaving.',
+            detail: 'Tension-controlled handloom weaving producing wind-resistant textile density with natural water-shedding.',
+          },
+          {
+            id: 'app_flow_3',
+            name: 'Master Pattern Cutting & Tailored Assembly',
+            description: 'Pattern cutting and seam reinforcement by master cluster tailors.',
+            detail: 'Double-needle bonded saddle seams, draft-proof collar articulation, and concealed fastener integration.',
+          },
+        ],
+      },
+      branchB: {
+        title: 'GARMENT SPECIFICATIONS',
+        items: [
+          {
+            id: 'app_spec_1',
+            name: '480 GSM Pure Desert Camel Wool',
+            description: 'Core thermal shell with natural breathability and windbreak density.',
+            detail: 'Naturally thermo-regulating hollow fiber structure outperforming synthetic petroleum fleeces.',
+          },
+          {
+            id: 'app_spec_2',
+            name: 'Articulated Storm Collar & Saddle Seams',
+            description: 'Ergonomic pattern engineering blocking winter draft entry.',
+            detail: 'Contoured neck coverage with soft brushed wool lining preventing chin abrasion.',
+          },
+          {
+            id: 'app_spec_3',
+            name: 'Natural Horn & Concealed Magnetic Snaps',
+            description: 'Zero-plastic closure hardware built for cold-weather glove operation.',
+            detail: 'High-strength N52 concealed magnetic fasteners and hand-turned natural horn buttons.',
+          },
+        ],
+      },
+      branchC: {
+        title: 'D2C COMMERCE & LOGISTICS',
+        items: [
+          {
+            id: 'app_ux_1',
+            name: 'Next.js 15 Capsule Lookbook & Storefront',
+            description: 'High-res visual storytelling and dynamic garment swatch inspector.',
+            detail: 'Sub-second load times on mobile networks with responsive fabric drape micro-previews.',
+          },
+          {
+            id: 'app_ux_2',
+            name: 'Interactive Size Fit Recommendation Engine',
+            description: 'Reduces return rates by cross-referencing customer body metrics with garment tolerances.',
+            detail: 'Algorithmic size recommendation cutting exchange rates by over 40%.',
+          },
+          {
+            id: 'app_ux_3',
+            name: 'Reverse Logistics & Cluster Batch Portal',
+            description: 'Automated return/exchange routing and regional artisan batch tracing.',
+            detail: 'Integrated courier reverse pickup with automated exchange dispatch.',
+          },
+        ],
+      },
+    };
+  } else if (modalityType === 'hardware') {
     modalityBlueprint = {
       modality: 'hardware',
       branchA: {
@@ -541,7 +630,115 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
   // 3. MVP SCOPE SYSTEM (Categorized MoSCoW features with complexity & value)
   let features: MVPFeatureItem[] = [];
 
-  if (isPhysical) {
+  if (isApparel) {
+    features = [
+      {
+        id: 'feat_app_1',
+        name: 'Curated Winter Capsule Catalog & Fit Finder',
+        category: 'Core Experience',
+        userProblem: 'Shoppers hesitate to buy winter outerwear online due to uncertain sizing and thermal grade.',
+        customerValue: 9,
+        technicalComplexity: 'Medium',
+        complexityScore: 5,
+        priority: 'must',
+        reason: 'Essential storefront capability required to convert browsers and provide fit confidence.',
+        dependencies: ['Garment Variant Schema', isIndia ? 'Razorpay Gateway API' : 'Stripe Checkout API'],
+        originatingStage: '01 Idea Lab',
+        validationStatus: 'VERIFIED',
+        provenance: 'USER_PROVIDED',
+      },
+      {
+        id: 'feat_app_2',
+        name: 'Artisan Cluster Provenance & Wool Traceability',
+        category: 'Differentiation',
+        userProblem: 'Buyers distrust generic fast-fashion claims of "pure wool" without verifiable supply chain proof.',
+        customerValue: 9,
+        technicalComplexity: 'Low',
+        complexityScore: 3,
+        priority: 'must',
+        reason: 'Direct physical implementation of the brand moat and regional artisan heritage.',
+        dependencies: ['Artisan Batch DB Entity', 'Public Provenance Route'],
+        originatingStage: '04 Brand Roadmap',
+        validationStatus: 'VERIFIED',
+        provenance: 'USER_PROVIDED',
+      },
+      {
+        id: 'feat_app_3',
+        name: 'Limited-Batch Pre-Order & Cluster Allocation',
+        category: 'Monetization & Operations',
+        userProblem: 'Apparel brands over-produce and suffer from deadstock, or under-produce and lose peak winter sales.',
+        customerValue: 8,
+        technicalComplexity: 'Medium',
+        complexityScore: 6,
+        priority: 'must',
+        reason: 'Enables lean production runs tied directly to confirmed customer demand and pre-orders.',
+        dependencies: ['Order State Machine', 'Inventory Allocator'],
+        originatingStage: '02 Viability',
+        validationStatus: 'VERIFIED',
+        provenance: 'AI_INFERENCE',
+      },
+      {
+        id: 'feat_app_4',
+        name: 'Frictionless Size Exchange & Reverse Logistics Portal',
+        category: 'Customer Experience',
+        userProblem: 'Complex return friction discourages high-ticket outerwear online purchases.',
+        customerValue: 9,
+        technicalComplexity: 'Medium',
+        complexityScore: 5,
+        priority: 'should',
+        reason: 'Reduces return drop-off and converts size mismatches into happy repeat customers.',
+        dependencies: ['Customer Auth', isIndia ? 'Shiprocket Return API' : 'Carrier Return API'],
+        originatingStage: '04 CX Map',
+        validationStatus: 'ASSUMPTION',
+        provenance: 'AI_INFERENCE',
+      },
+      {
+        id: 'feat_app_5',
+        name: 'Artisan Weaving & Fabric Inventory Tracker',
+        category: 'Operations',
+        userProblem: 'Risk of inventory stockouts or delayed deliveries without synchronized cluster production queues.',
+        customerValue: 7,
+        technicalComplexity: 'Medium',
+        complexityScore: 5,
+        priority: 'should',
+        reason: 'Operational dashboard for founders to track fabric meters, cutting progress, and finished garment counts.',
+        dependencies: ['Batch Schema', 'Logistics Webhooks'],
+        originatingStage: '02 Operational Feasibility',
+        validationStatus: 'VERIFIED',
+        provenance: 'AI_INFERENCE',
+      },
+      {
+        id: 'feat_app_6',
+        name: 'Virtual Styling Concierge & Video Fit Consultation',
+        category: 'Intelligence',
+        userProblem: 'Premium customers want personalized styling advice for high-ticket tailored coats.',
+        customerValue: 6,
+        technicalComplexity: 'Low',
+        complexityScore: 3,
+        priority: 'could',
+        reason: 'Brand differentiator for high-value VIP customers, non-essential for initial Day-1 MVP.',
+        dependencies: ['Appointment Booking Schema'],
+        originatingStage: '05 Build Architecture',
+        validationStatus: 'NEEDS_VALIDATION',
+        provenance: 'AI_INFERENCE',
+      },
+      {
+        id: 'feat_app_7',
+        name: 'B2B Wholesale Boutique Showroom Portal',
+        category: 'Expansion',
+        userProblem: 'Independent multi-brand boutiques in tourist hubs want to stock physical pieces on wholesale terms.',
+        customerValue: 5,
+        technicalComplexity: 'High',
+        complexityScore: 7,
+        priority: 'not_now',
+        reason: 'Post-MVP expansion after establishing direct-to-consumer brand equity.',
+        dependencies: ['B2B Invoicing', 'Wholesale Credit Terms'],
+        originatingStage: '03 Market Expansion',
+        validationStatus: 'NEEDS_VALIDATION',
+        provenance: 'AI_INFERENCE',
+      },
+    ];
+  } else if (isPhysical) {
     features = [
       {
         id: 'feat_phys_1',
@@ -820,7 +1017,13 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
         name: f.name,
         category: f.category,
         purpose: f.reason,
-        targetUser: isPhysical ? 'Roasters & Operations Team' : 'Admins & Power Users',
+        targetUser: isApparel
+          ? 'Apparel Production & Sourcing Team'
+          : isCoffee
+          ? 'Roasters & Operations Team'
+          : isPhysical
+          ? 'Supply Chain & Fulfillment Team'
+          : 'Admins & Power Users',
         dependencies: f.dependencies,
         priority: f.priority,
         dataRequired: isPhysical ? ['Batch Inventory', 'Carrier Tracking'] : ['Aggregated Analytics', 'LLM Context'],
@@ -839,7 +1042,114 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
   // 5. SYSTEM ARCHITECTURE LAYERS
   let architectureLayers: ArchitectureLayer[] = [];
 
-  if (isPhysical) {
+  if (isApparel) {
+    architectureLayers = [
+      {
+        id: 'layer_client',
+        name: 'Client Presentation Tier',
+        tierNumber: 1,
+        role: 'Responsive storefront rendering seasonal winter capsule, fabric drape, and interactive sizing fit finder.',
+        components: [
+          {
+            name: 'Next.js 15 Storefront App',
+            role: 'Server-rendered pages for ultra-fast SEO, high-res lookbook media, and responsive garment swatches.',
+            tech: 'Next.js + Tailwind CSS',
+            justification: 'Sub-second load times on mobile devices and high Google PageSpeed scores for high-intent shoppers.',
+            alternatives: ['Shopify Hydrogen', 'Remix'],
+            complexity: 'Low',
+            provenance: 'AI_INFERENCE',
+          },
+          {
+            name: 'Interactive Cluster Provenance & Sizing Fit Guide',
+            role: 'Client-side portal showing artisan cluster verification, 480 GSM wool certification, and algorithmic size recommendations.',
+            tech: 'React Micro-App / Edge Route',
+            justification: 'Validates raw wool origin and cuts size-related return rates by over 40% before order confirmation.',
+            alternatives: ['Static HTML', 'Webflow Embed'],
+            complexity: 'Low',
+            provenance: 'AI_INFERENCE',
+          },
+        ],
+      },
+      {
+        id: 'layer_api',
+        name: 'Commerce & Application Tier',
+        tierNumber: 2,
+        role: 'Handles cart state, promo mechanics, order creation, and size exchange ticket routing.',
+        components: [
+          {
+            name: 'API Gateway & Edge Functions',
+            role: 'Secure endpoint routing for cart checkout, customer auth, and pre-order reservation state.',
+            tech: 'Next.js Route Handlers / Cloudflare Workers',
+            justification: 'Zero cold starts, global edge execution, and simple developer maintenance.',
+            alternatives: ['Node.js Express', 'FastAPI'],
+            complexity: 'Low',
+            provenance: 'AI_INFERENCE',
+          },
+          {
+            name: isIndia ? 'Razorpay Payment & UPI Webhook Worker' : 'Stripe Payment Webhook Worker',
+            role: 'Processes instant UPI payments, card checkouts, and updates order states asynchronously.',
+            tech: isIndia ? 'Razorpay Node SDK + Webhooks' : 'Stripe Node SDK + Supabase Functions',
+            justification: isIndia ? 'Native UPI integration ensuring 99%+ transaction success rates in India.' : 'Standard international payment processing.',
+            alternatives: isIndia ? ['Cashfree', 'PayU'] : ['LemonSqueezy', 'Paddle'],
+            complexity: 'Medium',
+            provenance: 'VERIFIED_SOURCE',
+          },
+        ],
+      },
+      {
+        id: 'layer_data',
+        name: 'Database & Inventory Tier',
+        tierNumber: 3,
+        role: 'Stores garment styles, size/color SKU inventory levels, artisan cluster lots, and customer orders.',
+        components: [
+          {
+            name: 'Relational Database (PostgreSQL)',
+            role: 'Strict transactional consistency for order states, inventory stock levels per size, and batch tracking.',
+            tech: 'Supabase PostgreSQL',
+            justification: 'ACID transactions prevent double-selling limited-run winter capsule garments.',
+            alternatives: ['Neon Postgres', 'PlanetScale MySQL'],
+            complexity: 'Low',
+            provenance: 'AI_INFERENCE',
+          },
+          {
+            name: 'In-Memory Cache (Redis)',
+            role: 'Caches live inventory counts and temporary guest cart state.',
+            tech: 'Upstash Redis',
+            justification: 'Sub-5ms response time for cart operations during launch marketing surges.',
+            alternatives: ['Memcached', 'In-memory Map'],
+            complexity: 'Low',
+            provenance: 'AI_INFERENCE',
+          },
+        ],
+      },
+      {
+        id: 'layer_external',
+        name: 'Fulfillment & Logistics Tier',
+        tierNumber: 4,
+        role: 'Synchronizes physical dispatch, label generation, carrier tracking, and automated size exchange pickups.',
+        components: [
+          {
+            name: isIndia ? 'Shiprocket / Delhivery 3PL Express API' : 'ShipStation / Carrier API Integration',
+            role: 'Generates shipping labels, coordinates door-to-door courier pickups, and automates reverse logistics.',
+            tech: isIndia ? 'Shiprocket REST API / Webhooks' : 'ShipStation REST API / Webhooks',
+            justification: 'Pre-integrated with multi-carrier express parcel networks with automated reverse exchange pickup.',
+            alternatives: isIndia ? ['BlueDart Direct', 'Delhivery API'] : ['EasyPost', 'Shippo'],
+            complexity: 'Medium',
+            provenance: 'VERIFIED_SOURCE',
+          },
+          {
+            name: isIndia ? 'Transactional WhatsApp & Email Relay' : 'Transactional Email & SMS Relay',
+            role: 'Dispatches order confirmations, out-for-delivery tracking alerts, and sizing assistance.',
+            tech: isIndia ? 'Gupshup / Interakt + Resend' : 'Resend + Twilio SMS',
+            justification: 'High deliverability across preferred communication channels with rich tracking media.',
+            alternatives: ['SendGrid', 'Postmark'],
+            complexity: 'Low',
+            provenance: 'VERIFIED_SOURCE',
+          },
+        ],
+      },
+    ];
+  } else if (isPhysical) {
     architectureLayers = [
       {
         id: 'layer_client',
@@ -1071,9 +1381,17 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       id: 'stack_frontend',
       category: 'frontend',
       categoryLabel: 'Frontend / Presentation',
-      currentTech: 'Next.js 15 (React 19 + TypeScript)',
+      currentTech: 'Next.js 15 (React 19 + TypeScript + Tailwind)',
       options: ['Next.js 15', 'Remix / React Router v7', 'Vite React SPA', 'Shopify Liquid'],
       fitRationale: 'Industry standard for modern web applications, combining SSR performance with rich interactive components.',
+      whyExists: 'Provides the high-speed customer storefront, interactive fit guide, and brand storytelling canvas.',
+      whatItDoes: 'Server-renders catalog pages, manages cart client state, and communicates with commerce route handlers.',
+      whyFitsVenture: isApparel
+        ? 'High-end apparel requires rich media and fast mobile load times to prevent customer drop-off on cellular connections.'
+        : 'Essential presentation layer for responsive user interaction and conversion.',
+      dependencies: ['Tailwind CSS Tokens', 'API Route Handlers'],
+      costSource: 'Free tier on Vercel Hobby / $20/mo Pro at scale',
+      validationStatus: 'VERIFIED',
       complexity: 'Low',
       confidence: 'High',
       provenance: 'USER_PROVIDED',
@@ -1087,6 +1405,12 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       currentTech: isPhysical ? 'Next.js Server Actions + Route Handlers' : 'Node.js / Express + Cloudflare Workers',
       options: ['Next.js Route Handlers', 'FastAPI (Python)', 'Go Fiber', 'Nest.js'],
       fitRationale: 'Unified TypeScript code sharing between UI and API reduces context switching for early-stage velocity.',
+      whyExists: 'Processes cart checkout payloads, verifies order integrity, and dispatches webhooks.',
+      whatItDoes: 'Executes transactional server functions with atomic database transactions.',
+      whyFitsVenture: 'Zero server maintenance overhead allows founder to focus on sourcing and product craft.',
+      dependencies: ['Supabase Client', 'Payment Gateway SDK'],
+      costSource: 'Included in Vercel / serverless runtime allocations',
+      validationStatus: 'VERIFIED',
       complexity: 'Low',
       confidence: 'High',
       provenance: 'AI_INFERENCE',
@@ -1100,6 +1424,14 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       currentTech: 'PostgreSQL (Supabase Managed)',
       options: ['Supabase PostgreSQL', 'Neon Serverless Postgres', 'PlanetScale MySQL', 'MongoDB Atlas'],
       fitRationale: 'ACID compliance, built-in Row Level Security (RLS), and automated daily backups out-of-the-box.',
+      whyExists: 'Stores persistent application state including products, inventory SKUs, customer profiles, and orders.',
+      whatItDoes: 'Enforces relational integrity and prevents double-selling limited-batch inventory.',
+      whyFitsVenture: isApparel
+        ? 'Guarantees exact inventory control across size/color garment variations without race conditions.'
+        : 'Guarantees reliable transactional consistency for accounts and billing.',
+      dependencies: ['PostgreSQL 16 Engine', 'pgcrypto Extension'],
+      costSource: 'Supabase Free Tier (500MB DB) / $25/mo Pro tier',
+      validationStatus: 'VERIFIED',
       complexity: 'Low',
       confidence: 'High',
       provenance: 'VERIFIED_SOURCE',
@@ -1110,9 +1442,17 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       id: 'stack_auth',
       category: 'auth',
       categoryLabel: 'Authentication & Accounts',
-      currentTech: 'Supabase Auth (JWT + Social + Magic Link)',
+      currentTech: isIndia ? 'Supabase Auth (Mobile OTP + Google SSO)' : 'Supabase Auth (JWT + Magic Link + Google SSO)',
       options: ['Supabase Auth', 'Clerk Auth', 'NextAuth / Auth.js', 'Auth0'],
       fitRationale: 'Deeply integrated with database RLS policies with zero per-user pricing penalties up to 50k MAUs.',
+      whyExists: 'Authenticates customers, saves shipping addresses, and protects order history.',
+      whatItDoes: 'Issues secure JWT sessions and manages passwordless mobile logins.',
+      whyFitsVenture: isIndia
+        ? 'Supports seamless mobile OTP login which is the dominant preference for Indian shoppers.'
+        : 'Frictionless passwordless auth with zero maintenance.',
+      dependencies: ['Database User Schema', 'SMS / Email Gateway'],
+      costSource: 'Included in Supabase tier (50,000 MAU free)',
+      validationStatus: 'VERIFIED',
       complexity: 'Low',
       confidence: 'High',
       provenance: 'AI_INFERENCE',
@@ -1123,26 +1463,58 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       id: 'stack_payments',
       category: 'payments',
       categoryLabel: 'Payments & Billing',
-      currentTech: 'Stripe Billing & Checkout Elements',
-      options: ['Stripe Billing', 'LemonSqueezy', 'Shopify Payments', 'Paddle'],
-      fitRationale: 'Gold standard API for both direct product checkouts and recurring subscription lifecycle management.',
+      currentTech: isIndia ? 'Razorpay Payment Gateway (UPI, Cards, NetBanking, EMI)' : 'Stripe Billing & Checkout Elements',
+      options: isIndia ? ['Razorpay', 'Cashfree', 'Stripe India', 'PayU'] : ['Stripe Billing', 'LemonSqueezy', 'Shopify Payments', 'Paddle'],
+      fitRationale: isIndia
+        ? 'Gold standard for Indian commerce with 99.9% UPI success rates, QR instant checkout, and automated settlement.'
+        : 'Gold standard API for direct product checkouts and recurring subscription management.',
+      whyExists: 'Securely processes customer funds and tokenizes payment credentials without PCI compliance burden.',
+      whatItDoes: 'Validates transactions, routes bank settlements, and triggers order confirmation webhooks.',
+      whyFitsVenture: isIndia
+        ? 'Enables native Google Pay, PhonePe, Paytm, and UPI QR codes which drive 80%+ of Indian D2C payments.'
+        : 'Universal international credit card acceptance and currency conversion.',
+      dependencies: ['Order Schema', 'Gateway Webhook Signature Validator'],
+      costSource: isIndia ? '2.0% per transaction (Standard RBI Ratecard)' : '2.9% + $0.30 per transaction (Standard Stripe)',
+      validationStatus: 'VERIFIED',
       complexity: 'Medium',
       confidence: 'High',
       provenance: 'VERIFIED_SOURCE',
-      costTier: '2.9% + $0.30 per transaction',
+      costTier: isIndia ? '2.0% per transaction (No monthly fee)' : '2.9% + $0.30 per transaction',
       lockInRisk: 'Medium',
     },
     {
-      id: 'stack_hosting',
+      id: 'stack_logistics',
       category: 'hosting',
-      categoryLabel: 'Infrastructure & Hosting',
-      currentTech: 'Vercel Edge Network + Cloudflare DNS',
-      options: ['Vercel', 'AWS ECS / Fargate', 'Railway', 'Fly.io'],
-      fitRationale: 'Instant zero-configuration Git deployments, global CDN distribution, and automated SSL.',
-      complexity: 'Low',
+      categoryLabel: isPhysical ? 'Logistics & 3PL Carrier API' : 'Infrastructure & Hosting',
+      currentTech: isIndia && isPhysical
+        ? 'Shiprocket / Delhivery 3PL Logistics API'
+        : isPhysical
+        ? 'ShipStation Fulfillment & Carrier API'
+        : 'Vercel Edge Network + Cloudflare DNS',
+      options: isIndia && isPhysical
+        ? ['Shiprocket', 'Delhivery Direct', 'BlueDart Express', 'iThink Logistics']
+        : isPhysical
+        ? ['ShipStation', 'EasyPost', 'Shippo', 'ShipBob']
+        : ['Vercel', 'AWS ECS / Fargate', 'Railway', 'Fly.io'],
+      fitRationale: isPhysical
+        ? 'Multi-carrier parcel routing with automated reverse pickup for size exchanges.'
+        : 'Instant zero-configuration Git deployments, global CDN distribution, and automated SSL.',
+      whyExists: isPhysical
+        ? 'Automates shipping label generation, courier pickup scheduling, and reverse logistics.'
+        : 'Hosts application code globally with sub-50ms edge delivery.',
+      whatItDoes: isPhysical
+        ? 'Generates shipping AWBs, relays live tracking webhooks, and manages courier dispatch.'
+        : 'Serves static assets, executes route handlers, and provisions TLS certificates.',
+      whyFitsVenture: isApparel
+        ? 'Critical for apparel: automated reverse pickup is essential to handle size exchanges painlessly.'
+        : 'Guarantees reliable high-availability hosting.',
+      dependencies: isPhysical ? ['Order Dispatch Event', 'Warehouse Address Schema'] : ['Git Repository', 'DNS Records'],
+      costSource: isIndia && isPhysical ? '₹45–₹85 per 500g domestic express parcel' : '$20/seat/month on Vercel Pro',
+      validationStatus: 'VERIFIED',
+      complexity: isPhysical ? 'Medium' : 'Low',
       confidence: 'High',
-      provenance: 'AI_INFERENCE',
-      costTier: '$20/seat/month',
+      provenance: isPhysical ? 'VERIFIED_SOURCE' : 'AI_INFERENCE',
+      costTier: isIndia && isPhysical ? 'Pay-per-shipment (₹45-₹85/parcel)' : isPhysical ? '$29/mo starter' : '$20/seat/month',
       lockInRisk: 'Low',
     },
     {
@@ -1152,6 +1524,12 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       currentTech: 'PostHog (Open-Source Product Analytics)',
       options: ['PostHog', 'Mixpanel', 'Google Analytics 4', 'Plausible'],
       fitRationale: 'Event capture, feature flags, and session recordings in one privacy-compliant dashboard.',
+      whyExists: 'Tracks storefront conversion drop-off points, funnel friction, and visitor search queries.',
+      whatItDoes: 'Captures anonymous client telemetry and generates aggregate conversion funnels.',
+      whyFitsVenture: 'Identifies which apparel lookbook styles convert best and where checkout friction occurs.',
+      dependencies: ['Next.js Client Provider', 'PostHog Project API Key'],
+      costSource: 'Free tier up to 1M events/month',
+      validationStatus: 'VERIFIED',
       complexity: 'Low',
       confidence: 'High',
       provenance: 'AI_INFERENCE',
@@ -1163,10 +1541,18 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       category: 'ai',
       categoryLabel: 'AI / Intelligence Layer',
       currentTech: isPhysical ? 'Deterministic Logic + OpenAI Whisper/GPT for Support' : 'OpenAI GPT-4o-mini + LangChain/Vercel AI SDK',
-      options: ['OpenAI GPT-4o-mini', 'Anthropic Claude 3.5 Haiku', 'Local Llama 3', 'Deterministic Only'],
+      options: ['Deterministic Logic Only', 'OpenAI GPT-4o-mini', 'Anthropic Claude 3.5 Haiku', 'Local Llama 3'],
       fitRationale: isPhysical
         ? 'Physical craft ventures require reliable deterministic operations; AI is restricted to support assist.'
         : 'Fast token throughput and cost-efficient structured JSON extraction for recurring analytical digests.',
+      whyExists: 'Provides intelligent customer sizing guidance and customer support triage.',
+      whatItDoes: 'Answers fabric and fit questions, parses sizing nuances, and routes complex inquiries to founders.',
+      whyFitsVenture: isApparel
+        ? 'Ensures customers get instant answers to care instructions (e.g. wool washing) without founder distraction.'
+        : 'Accelerates analytical data digestion.',
+      dependencies: ['Catalog Knowledge Base', 'OpenAI API Token'],
+      costSource: 'Pay-per-token (~$5-$10/month projected)',
+      validationStatus: 'ASSUMPTION',
       complexity: isPhysical ? 'Low' : 'Medium',
       confidence: 'High',
       provenance: 'AI_INFERENCE',
@@ -1183,7 +1569,111 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
   // 7. DATA & ENTITY MODEL (ERD)
   let entities: DataEntity[] = [];
 
-  if (isPhysical) {
+  if (isApparel) {
+    entities = [
+      {
+        id: 'ent_customer',
+        name: 'Customer',
+        purpose: 'Stores registered shoppers, verified shipping addresses, and sizing preferences.',
+        fields: [
+          { name: 'id', type: 'UUID', isKey: true, description: 'Primary customer identifier' },
+          { name: 'email', type: 'VARCHAR(255)', isKey: false, nullable: false, description: 'Contact email' },
+          { name: 'phone', type: 'VARCHAR(20)', description: 'Mobile number for delivery and WhatsApp dispatch alerts' },
+          { name: 'full_name', type: 'VARCHAR(150)', description: 'Customer recipient name' },
+          { name: 'shipping_address', type: 'JSONB', description: 'Address, city, pin code, state' },
+          { name: 'preferred_size', type: 'VARCHAR(10)', description: 'XS / S / M / L / XL / XXL' },
+          { name: 'created_at', type: 'TIMESTAMP WITH TIME ZONE', description: 'Account creation instant' },
+        ],
+        relationships: [
+          { targetEntity: 'Order', type: '1:N', description: 'Customer places zero or many Orders' },
+          { targetEntity: 'ExchangeTicket', type: '1:N', description: 'Customer creates zero or more Size Exchanges' },
+        ],
+        featuresUsing: ['Storefront Checkout', 'Fit Guide', 'WhatsApp Alerts'],
+        provenance: 'VERIFIED_SOURCE',
+      },
+      {
+        id: 'ent_garment_sku',
+        name: 'GarmentSKU',
+        purpose: 'Catalog SKUs representing distinct styles, sizes, and artisan wool fabric compositions.',
+        fields: [
+          { name: 'id', type: 'UUID', isKey: true, description: 'SKU identifier' },
+          { name: 'style_code', type: 'VARCHAR(40)', isKey: false, nullable: false, description: 'Style code (e.g. WTR-JKT-01)' },
+          { name: 'title', type: 'VARCHAR(120)', description: 'E.g. Desert Camel Wool Tailored Overcoat' },
+          { name: 'fabric_spec', type: 'VARCHAR(100)', description: '480 GSM Desert Camel Wool / Merino Handloom' },
+          { name: 'size', type: 'VARCHAR(10)', description: 'XS / S / M / L / XL / XXL' },
+          { name: 'color_name', type: 'VARCHAR(40)', description: 'E.g. Raw Camel, Desert Charcoal, Deep Indigo' },
+          { name: 'color_hex', type: 'VARCHAR(10)', description: 'Display hex code' },
+          { name: 'price_inr', type: 'INTEGER', description: 'Retail price in INR or base currency' },
+          { name: 'inventory_available', type: 'INTEGER', description: 'Units ready in fulfillment center' },
+          { name: 'is_active', type: 'BOOLEAN', description: 'Catalog visibility flag' },
+        ],
+        relationships: [
+          { targetEntity: 'ArtisanClusterBatch', type: 'N:1', description: 'Loomed within a specific artisan batch' },
+          { targetEntity: 'OrderItem', type: '1:N', description: 'Ordered across customer transactions' },
+        ],
+        featuresUsing: ['Capsule Catalog', 'Fit Finder', 'Inventory Tracker'],
+        provenance: 'USER_PROVIDED',
+      },
+      {
+        id: 'ent_artisan_batch',
+        name: 'ArtisanClusterBatch',
+        purpose: 'Tracks artisan weaving runs, regional cluster origin, raw wool shearing lots, and master artisan signatures.',
+        fields: [
+          { name: 'id', type: 'VARCHAR(32)', isKey: true, description: 'Public batch code (e.g. BKN-2026-W01)' },
+          { name: 'cluster_name', type: 'VARCHAR(100)', description: 'E.g. Bikaner Wool Cluster / Sitapura Atelier' },
+          { name: 'master_weaver', type: 'VARCHAR(120)', description: 'Master artisan lead signature' },
+          { name: 'yarn_lot_number', type: 'VARCHAR(50)', description: 'Raw wool shearing lot identifier' },
+          { name: 'fabric_meters_loomed', type: 'DECIMAL(6,2)', description: 'Total handloom output meters' },
+          { name: 'pieces_completed', type: 'INTEGER', description: 'Finished garments inspected' },
+          { name: 'quality_grade', type: 'VARCHAR(30)', description: 'Grade-A Artisan Certified' },
+        ],
+        relationships: [
+          { targetEntity: 'GarmentSKU', type: '1:N', description: 'Produces specific garment SKUs' },
+        ],
+        featuresUsing: ['Artisan Provenance Portal', 'Weaving Tracker'],
+        provenance: 'AI_INFERENCE',
+      },
+      {
+        id: 'ent_order',
+        name: 'Order',
+        purpose: 'Transactional record of completed garment purchases, payments, and parcel tracking.',
+        fields: [
+          { name: 'id', type: 'UUID', isKey: true, description: 'Order reference number' },
+          { name: 'customer_id', type: 'UUID', description: 'Foreign key referencing Customer' },
+          { name: 'status', type: 'VARCHAR(30)', description: 'Placed / Loomed / Dispatched / Delivered' },
+          { name: 'total_cents_or_inr', type: 'INTEGER', description: 'Total transaction amount' },
+          { name: 'gateway_reference', type: 'VARCHAR(100)', description: 'Razorpay or Stripe payment reference' },
+          { name: 'awb_tracking_number', type: 'VARCHAR(60)', description: 'Shiprocket / Delhivery courier AWB' },
+          { name: 'created_at', type: 'TIMESTAMP', description: 'Purchase timestamp' },
+        ],
+        relationships: [
+          { targetEntity: 'Customer', type: '1:1', description: 'Belongs to Customer' },
+          { targetEntity: 'ExchangeTicket', type: '1:1', description: 'Subject of optional size exchange' },
+        ],
+        featuresUsing: ['Storefront Checkout', 'Order Fulfillment', 'Logistics API'],
+        provenance: 'VERIFIED_SOURCE',
+      },
+      {
+        id: 'ent_exchange_ticket',
+        name: 'ExchangeTicket',
+        purpose: 'Self-serve reverse logistics ticket facilitating seamless garment size exchanges.',
+        fields: [
+          { name: 'id', type: 'UUID', isKey: true, description: 'Exchange ticket identifier' },
+          { name: 'order_id', type: 'UUID', description: 'Original order foreign key' },
+          { name: 'original_sku_id', type: 'UUID', description: 'Current size being returned' },
+          { name: 'requested_sku_id', type: 'UUID', description: 'Replacement size to dispatch' },
+          { name: 'exchange_reason', type: 'VARCHAR(50)', description: 'Too Small / Too Large / Fit Preference' },
+          { name: 'reverse_awb', type: 'VARCHAR(60)', description: 'Reverse pickup courier tracking code' },
+          { name: 'status', type: 'VARCHAR(30)', description: 'Pickup_Scheduled / Received / Replaced' },
+        ],
+        relationships: [
+          { targetEntity: 'Order', type: '1:1', description: 'Linked to parent Order' },
+        ],
+        featuresUsing: ['Reverse Logistics Portal', 'Fulfillment Dashboard'],
+        provenance: 'AI_INFERENCE',
+      },
+    ];
+  } else if (isPhysical) {
     entities = [
       {
         id: 'ent_customer',
@@ -1365,7 +1855,13 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       stepNumber: 2,
       stageName: 'Exploration & Selection',
       userGoal: 'Filter choices according to specific needs without decision fatigue.',
-      screenRequired: isPhysical ? 'Bean Catalog & Flavor Profiler' : 'Interactive Demo / Value Calculator',
+      screenRequired: isApparel
+        ? 'Winter Capsule Catalog & Fit Finder'
+        : isCoffee
+        ? 'Bean Catalog & Flavor Profiler'
+        : isPhysical
+        ? 'Product Catalog & Variant Selector'
+        : 'Interactive Demo / Value Calculator',
       userAction: 'Selects product variant, answers interactive preference questions.',
       backendRequirement: 'Dynamic catalog API with inventory verification check.',
       dataRequirement: 'Available variant catalog, stock levels, and price tiers.',
@@ -1378,8 +1874,8 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       stageName: 'Conversion / Checkout',
       userGoal: 'Complete purchase or initiate trial with maximum trust and minimum friction.',
       screenRequired: 'Frictionless Checkout Modal',
-      userAction: 'Enters payment credentials via Apple Pay / Stripe Elements and confirms order.',
-      backendRequirement: 'Stripe PaymentIntent validation and atomic inventory decrement.',
+      userAction: 'Enters payment credentials via Apple Pay / UPI / Cards and confirms order.',
+      backendRequirement: 'PaymentIntent validation and atomic inventory decrement.',
       dataRequirement: 'Cart state, shipping details, and encrypted payment token.',
       successTelemetry: 'order_completed, payment_succeeded',
       touchpointLink: 'Stage 04 CX Map: Sign Up / Buy',
@@ -1389,8 +1885,20 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       stepNumber: 4,
       stageName: 'Onboarding & Aha Moment',
       userGoal: 'Experience immediate tangible confirmation of value within 3 minutes.',
-      screenRequired: isPhysical ? 'Order Confirmation & Batch Tracker' : 'Script Install & Real-time Verifier',
-      userAction: isPhysical ? 'Scans roast schedule and sets delivery preference.' : 'Pastes 1-line script and sees live event ping.',
+      screenRequired: isApparel
+        ? 'Order Confirmation & Loom Batch Tracker'
+        : isCoffee
+        ? 'Order Confirmation & Batch Tracker'
+        : isPhysical
+        ? 'Order Confirmation & Dispatch Tracker'
+        : 'Script Install & Real-time Verifier',
+      userAction: isApparel
+        ? 'Inspects artisan batch provenance and sets delivery/exchange preference.'
+        : isCoffee
+        ? 'Scans roast schedule and sets delivery preference.'
+        : isPhysical
+        ? 'Reviews physical dispatch ETA and care instructions.'
+        : 'Pastes 1-line script and sees live event ping.',
       backendRequirement: 'Asynchronous welcome email dispatch and initial account provisioning.',
       dataRequirement: 'Customer account record and assigned initial batch/workspace.',
       successTelemetry: 'aha_moment_reached, onboarding_completed',
@@ -1401,8 +1909,20 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       stepNumber: 5,
       stageName: 'Core Ongoing Usage',
       userGoal: 'Rely on the product as a seamless, essential part of their routine.',
-      screenRequired: isPhysical ? 'Customer Subscription Portal' : 'Attribution Intelligence Dashboard',
-      userAction: isPhysical ? 'Inspects upcoming roast date and adjusts grind.' : 'Inspects campaign ROI breakdown and exports report.',
+      screenRequired: isApparel
+        ? 'Customer Order & Size Exchange Hub'
+        : isCoffee
+        ? 'Customer Subscription Portal'
+        : isPhysical
+        ? 'Customer Account & Tracking Portal'
+        : 'Attribution Intelligence Dashboard',
+      userAction: isApparel
+        ? 'Tracks winterwear delivery, initiates 1-click size exchange, or views garment care guide.'
+        : isCoffee
+        ? 'Inspects upcoming roast date and adjusts grind.'
+        : isPhysical
+        ? 'Inspects shipment status and reviews past orders.'
+        : 'Inspects campaign ROI breakdown and exports report.',
       backendRequirement: 'Authenticated query with 99.9% read availability.',
       dataRequirement: 'Subscription status or aggregated attribution charts.',
       successTelemetry: 'daily_active_interaction, view_core_dashboard',
@@ -1430,7 +1950,82 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
   };
 
   // 9. SCREEN ARCHITECTURE (Visual sitemap)
-  const screens: ScreenItem[] = isPhysical
+  const screens: ScreenItem[] = isApparel
+    ? [
+        {
+          id: 'scr_landing',
+          name: 'Artisan Heritage & Winter Capsule Showcase',
+          routePath: '/',
+          purpose: 'Communicate regional handloom heritage, showcase camel wool/pashmina collections, and drive pre-orders.',
+          targetUser: 'High-intent winter apparel buyers & conscious consumers',
+          requiredComponents: ['HeroWeaveStory', 'CollectionCapsuleGrid', 'ArtisanClusterBadge', 'FitGuideTeaser', 'Footer'],
+          dataDependencies: ['Featured Garments', 'Active Loom Batch'],
+          apiEndpoints: ['/api/products?featured=true'],
+          isMVP: true,
+          priority: 'must',
+        },
+        {
+          id: 'scr_catalog',
+          name: 'Winter Capsule Catalog & Fit Profiler',
+          routePath: '/collection',
+          purpose: 'Browse winter garments by weave type, GSM weight, natural dye, and silhouette.',
+          targetUser: 'Shoppers looking for tailored natural-fiber winterwear',
+          requiredComponents: ['FilterSidebar', 'GarmentCardGrid', 'FabricWeightPill', 'ArtisanProvenanceTag'],
+          dataDependencies: ['Active Garment Catalog'],
+          apiEndpoints: ['/api/products'],
+          isMVP: true,
+          priority: 'must',
+        },
+        {
+          id: 'scr_pdp',
+          name: 'Garment Specification & Sizing Advisor',
+          routePath: '/collection/[slug]',
+          purpose: 'In-depth material composition (e.g. 480 GSM Rajasthani wool), artisan cluster provenance, sizing advisor, and pre-order reservation.',
+          targetUser: 'High-intent buyers verifying fit and weave quality',
+          requiredComponents: ['GarmentGallery', 'SizingMatrixSelector', 'ArtisanStoryCard', 'ReserveBatchCTA'],
+          dataDependencies: ['Garment Details', 'Artisan Cluster Batch Data'],
+          apiEndpoints: ['/api/products/[slug]'],
+          isMVP: true,
+          priority: 'must',
+        },
+        {
+          id: 'scr_checkout',
+          name: 'Direct D2C Checkout & Pincode Validation',
+          routePath: '/checkout',
+          purpose: 'High-conversion single-page order form with pincode delivery validation, UPI/Cards, and doorstep size exchange guarantee.',
+          targetUser: 'Purchasers completing winterwear orders',
+          requiredComponents: ['OrderSummary', 'ShippingForm', 'PaymentElement', 'ExchangeGuaranteeBadge'],
+          dataDependencies: ['Cart Items', 'Calculated GST & Shipping'],
+          apiEndpoints: ['/api/checkout/create-intent'],
+          isMVP: true,
+          priority: 'must',
+        },
+        {
+          id: 'scr_trace',
+          name: 'QR Artisan Batch & Provenance Portal',
+          routePath: '/provenance/[batchCode]',
+          purpose: 'Interactive public page reached via QR code woven into garment label showing cluster lineage and shearing origin.',
+          targetUser: 'Customers who received physical garment delivery',
+          requiredComponents: ['MasterWeaverSignature', 'OriginClusterMap', 'WoolGradingPill', 'GarmentCareGuide'],
+          dataDependencies: ['Batch Record', 'Artisan Cluster Media'],
+          apiEndpoints: ['/api/batch/[batchCode]'],
+          isMVP: true,
+          priority: 'must',
+        },
+        {
+          id: 'scr_account',
+          name: 'Customer Orders & 1-Click Size Exchange Hub',
+          routePath: '/account/orders',
+          purpose: 'Self-serve customer portal to track courier dispatch or initiate 1-click doorstep size exchange.',
+          targetUser: 'Active customers tracking delivery or requesting fit swaps',
+          requiredComponents: ['TrackingTimeline', 'SizeExchangeModal', 'InvoiceDownload', 'CareInstructions'],
+          dataDependencies: ['Customer Order Records', 'Courier Tracking Status'],
+          apiEndpoints: ['/api/account/orders', '/api/account/exchange'],
+          isMVP: false,
+          priority: 'should',
+        },
+      ]
+    : isPhysical
     ? [
         {
           id: 'scr_landing',
@@ -1586,7 +2181,62 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
   };
 
   // 10. API & INTEGRATION MAP
-  const integrations: APIIntegrationItem[] = isPhysical
+  const integrations: APIIntegrationItem[] = isApparel
+    ? [
+        {
+          id: 'api_payments',
+          serviceName: isIndia ? 'Razorpay Payment Gateway & UPI' : 'Stripe D2C Checkout',
+          category: 'Payments',
+          provider: isIndia ? 'Razorpay Software Pvt Ltd' : 'Stripe, Inc.',
+          purpose: 'Handles domestic UPI QR, NetBanking, credit/debit cards, and payment verification webhooks.',
+          dataExchanged: 'Customer contact, billing pincode, order total INR, payment confirmation token.',
+          riskAndLockIn: 'Moderate; standard migration to alternative gateways (Cashfree/PayU/Stripe) if needed.',
+          fallbackStrategy: 'Backup payment gateway integration or direct bank transfer (IMPS/NEFT) checkout option.',
+          costModel: isIndia ? '2% per domestic UPI/Card transaction. Zero monthly recurring fee.' : '2.9% + $0.30 per transaction.',
+          status: 'Active Candidate',
+          provenance: 'VERIFIED_SOURCE',
+        },
+        {
+          id: 'api_shipping',
+          serviceName: isIndia ? 'Shiprocket Multi-Carrier Logistics API' : 'ShipStation Fulfillment API',
+          category: 'Logistics',
+          provider: isIndia ? 'Shiprocket (BigFoot Retail Solutions)' : 'ShipStation',
+          purpose: 'Automates courier allocation (Bluedart, Delhivery, DTDC), AWB generation, and doorstep reverse pickup for size exchanges.',
+          dataExchanged: 'Consignee shipping address, weight/dimensions, pickup cluster pincode, tracking updates.',
+          riskAndLockIn: 'Low; multi-carrier aggregator architecture allows carrier re-routing on delay.',
+          fallbackStrategy: 'Direct carrier contract with Delhivery or India Post Speed Post API.',
+          costModel: isIndia ? 'Pay-per-shipment (₹45-80/500g domestic standard). Free integration tier.' : '$29/mo tier.',
+          status: 'Active Candidate',
+          provenance: 'VERIFIED_SOURCE',
+        },
+        {
+          id: 'api_resend',
+          serviceName: 'Resend & WhatsApp Business Notifications',
+          category: 'Communications',
+          provider: 'Resend / Meta WhatsApp Cloud API',
+          purpose: 'Sends order dispatch alerts, courier tracking URLs, and artisan batch provenance links.',
+          dataExchanged: 'Customer phone/email, order number, live tracking link.',
+          riskAndLockIn: 'Low; standard REST webhook trigger.',
+          fallbackStrategy: 'Direct transactional SMS via Twilio or Gupshup.',
+          costModel: 'Free tier up to 3,000 emails/month; WhatsApp conversational fee (~₹0.40/utility message).',
+          status: 'Active Candidate',
+          provenance: 'VERIFIED_SOURCE',
+        },
+        {
+          id: 'api_posthog',
+          serviceName: 'PostHog Storefront Analytics',
+          category: 'Analytics',
+          provider: 'PostHog, Inc.',
+          purpose: 'Monitors catalog browsing velocity, size-guide modal engagement, and checkout drop-offs.',
+          dataExchanged: 'Anonymized page views, size selector clicks, cart abandonment telemetry.',
+          riskAndLockIn: 'Low; GDPR/DPDP compliant.',
+          fallbackStrategy: 'Plausible Analytics or server-side Google Analytics 4.',
+          costModel: 'Free tier for first 1,000,000 events/month.',
+          status: 'Active Candidate',
+          provenance: 'AI_INFERENCE',
+        },
+      ]
+    : isPhysical
     ? [
         {
           id: 'api_stripe',
@@ -1704,7 +2354,36 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
   // 11. AI / INTELLIGENCE ARCHITECTURE
   let aiArchitecture: AIArchitectureSystem;
 
-  if (isPhysical) {
+  if (isApparel) {
+    aiArchitecture = {
+      isAIPrimary: false,
+      roleSummary: 'Fit Guidance Advisor & Artisan Cluster Inventory Forecasting (Deterministic Core)',
+      justification: `${ventureName} is a physical craft and heritage winter apparel brand. Core garment quality, natural fiber sourcing, and doorstep logistics are physical craft operations. AI serves as a non-critical auxiliary utility for fit sizing recommendations and seasonal pre-order demand forecasting.`,
+      costSensitivityNotice: 'Zero runtime AI dependency required for storefront browsing, checkout, or courier dispatch.',
+      pipeline: [
+        {
+          id: 'ai_step_1',
+          stepNumber: 1,
+          role: 'Customer Sizing Advisor',
+          component: 'Deterministic Fit & Measurement Assistant',
+          purpose: 'Recommends optimal garment size based on customer measurements, silhouette ease, and return minimization rules.',
+          inputs: ['Customer chest/shoulder/height inputs', 'Garment Grading Matrix'],
+          outputs: ['Recommended SKU Size (e.g. L) with fit confidence score and ease notes'],
+          fallback: 'Static measurement table with visual sizing chart diagram.',
+        },
+        {
+          id: 'ai_step_2',
+          stepNumber: 2,
+          role: 'Cluster Yarn & Wool Forecaster',
+          component: 'Seasonal Loom Batch Estimator',
+          purpose: 'Analyzes pre-order velocity and regional winter climate data to forecast wool yarn procurement per artisan cluster.',
+          inputs: ['Pre-order checkout velocity', 'Historical winter temperature dips by region'],
+          outputs: ['Loom batch requirement checklist by SKU and cluster'],
+          fallback: 'Manual inventory buffer spreadsheet calculated by production lead.',
+        },
+      ],
+    };
+  } else if (isPhysical) {
     aiArchitecture = {
       isAIPrimary: false,
       roleSummary: 'Operational Assistance & Customer Service (Non-Critical to Core Product Loop)',
@@ -1792,7 +2471,9 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       roleName: 'Product Strategist',
       avatarIcon: 'Target',
       stance: 'Relentlessly protect Day-1 MVP velocity by cutting secondary features.',
-      keyRecommendation: isPhysical
+      keyRecommendation: isApparel
+        ? 'Launch with a tight 3-SKU winter capsule (e.g. overcoat, shawl/stole, textured sweater) rather than an expansive 20-piece collection.'
+        : isPhysical
         ? 'Do not build a custom wholesale B2B portal or complex brewing app before proving single-origin consumer demand.'
         : 'Focus purely on the tracking snippet and core overview dashboard. Defer predictive ML allocation models.',
       flaggedRisk: 'Scope creep pushing launch past the target timeline and burning founder energy.',
@@ -1802,7 +2483,9 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       roleName: 'Technical Architect',
       avatarIcon: 'Server',
       stance: 'Adopt standard battle-tested primitives (PostgreSQL, Next.js, Stripe) over esoteric microservices.',
-      keyRecommendation: isPhysical
+      keyRecommendation: isApparel
+        ? 'Deploy a lightweight headless D2C storefront with localized pincode serviceability checks and deterministic stock locks.'
+        : isPhysical
         ? 'Use Supabase PostgreSQL with ACID locks for inventory to prevent selling beans you do not have in stock.'
         : 'Separate high-throughput event ingestion from analytical queries via edge workers to protect database performance.',
       flaggedRisk: 'Premature distributed architecture introducing unnecessary deployment and debugging complexity.',
@@ -1812,27 +2495,31 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       roleName: 'Business Specialist',
       avatarIcon: 'DollarSign',
       stance: 'Ensure unit economics and infrastructure costs remain negligible until revenue is generated.',
-      keyRecommendation: isPhysical
+      keyRecommendation: isApparel
+        ? 'Target gross margin >68% on direct-to-consumer sales to comfortably absorb return/exchange shipping and seasonal holding costs.'
+        : isPhysical
         ? 'Target gross margin >65% on subscriptions to easily absorb 2.9% Stripe fees and parcel postage.'
         : 'Leverage generous serverless free tiers (Vercel, Supabase, Upstash) to keep Day-1 cloud spend under $30/month.',
-      flaggedRisk: 'Fixed monthly SaaS overhead eating runway before acquiring the first 50 paying customers.',
+      flaggedRisk: 'Fixed monthly overhead eating runway before acquiring the first 50 paying customers.',
     },
     {
       role: 'ux_specialist',
       roleName: 'UX/Product Specialist',
       avatarIcon: 'Sparkles',
       stance: 'First-time user onboarding must deliver an unmistakable value moment in under 3 minutes.',
-      keyRecommendation: isPhysical
+      keyRecommendation: isApparel
+        ? 'Integrate a comprehensive visual sizing guide and QR craft provenance tag so customers experience the artisan heritage upon unboxing.'
+        : isPhysical
         ? 'Include the QR batch transparency card in the physical package so unboxing creates an emotional craft bond.'
         : 'Display a real-time event verification beacon the second the tracking snippet is installed.',
-      flaggedRisk: 'Founders abandoning setup due to complex DNS records or multi-step configuration forms.',
+      flaggedRisk: 'Founders abandoning setup due to complex configuration or fit confusion.',
     },
     {
       role: 'security_specialist',
       roleName: 'Security & Compliance Specialist',
       avatarIcon: 'ShieldAlert',
       stance: 'Delegate sensitive payment and authentication liabilities entirely to certified vendors.',
-      keyRecommendation: 'Never touch raw credit card numbers. Delegate 100% of card processing to Stripe Elements and vaulting.',
+      keyRecommendation: 'Never touch raw credit card numbers. Delegate 100% of card processing to certified payment gateway Elements and tokenization.',
       flaggedRisk: 'PCI-DSS regulatory compliance violations or customer data leaks from home-grown auth routines.',
     },
     {
@@ -2032,26 +2719,42 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       name: 'Core MVP Feature Set',
       objective: 'Implement the primary value-creation loop that solves the core customer dilemma.',
       deliverables: [
-        isPhysical ? 'Single-origin bean catalog' : 'Lightweight tracking script (<8kb)',
-        isPhysical ? 'Batch provenance lookup' : 'Attribution overview dashboard',
+        isApparel
+          ? 'Winter capsule garment catalog'
+          : isPhysical
+          ? 'Single-origin bean catalog'
+          : 'Lightweight tracking script (<8kb)',
+        isApparel
+          ? 'Artisan QR provenance & sizing exchange portal'
+          : isPhysical
+          ? 'Batch provenance lookup'
+          : 'Attribution overview dashboard',
       ],
       tasks: [
         {
           id: 'task_2_1',
           phaseId: 'phase_2',
-          title: isPhysical ? 'Build responsive product catalog grid with roast filters' : 'Implement edge ingestion endpoint handling HTTP POST beacons',
+          title: isApparel
+            ? 'Build responsive winter capsule collection grid with fabric and GSM filters'
+            : isPhysical
+            ? 'Build responsive product catalog grid with roast filters'
+            : 'Implement edge ingestion endpoint handling HTTP POST beacons',
           rationale: 'Core operational pipeline for the business.',
           dependencies: ['task_1_2'],
           estimatedComplexity: 'Medium',
           priority: 'High',
           roleOwner: 'Full-Stack Engineer',
           status: 'IN_PROGRESS',
-          relatedFeature: isPhysical ? 'Single-Origin Catalog' : 'Tracking Ingestion',
+          relatedFeature: isApparel ? 'Winter Capsule Catalog' : isPhysical ? 'Single-Origin Catalog' : 'Tracking Ingestion',
         },
         {
           id: 'task_2_2',
           phaseId: 'phase_2',
-          title: isPhysical ? 'Create QR batch provenance landing page with farm story' : 'Develop multi-touch attribution aggregation algorithm',
+          title: isApparel
+            ? 'Create QR artisan cluster provenance landing page with weaver profiles'
+            : isPhysical
+            ? 'Create QR batch provenance landing page with farm story'
+            : 'Develop multi-touch attribution aggregation algorithm',
           rationale: 'Core differentiator separating product from legacy alternatives.',
           dependencies: ['task_2_1'],
           estimatedComplexity: 'High',
@@ -2189,13 +2892,17 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
     {
       id: 'risk_tech_1',
       dimension: 'Technical',
-      risk: isPhysical
+      risk: isApparel
+        ? 'Inventory desynchronization between artisan cluster weaving batches and digital SKU storefront availability.'
+        : isPhysical
         ? 'Inventory desynchronization between physical roasting batch weights and digital SKU stock.'
         : 'Browser ad-blockers or privacy extensions preventing client-side telemetry beacon transmission.',
       impact: 4,
       likelihood: 3,
       severity: 'High',
-      mitigation: isPhysical
+      mitigation: isApparel
+        ? 'Implement conservative pre-order allocations with real-time inventory decrement hooks in Supabase.'
+        : isPhysical
         ? 'Implement conservative stock buffer buffers and real-time inventory decrement hooks.'
         : 'Deploy first-party CNAME proxy routing beacons through the customer’s own apex domain.',
       validationTest: 'Test script execution against uBlock Origin and Brave browser defaults.',
@@ -2237,13 +2944,17 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
     {
       id: 'risk_ops_1',
       dimension: 'Operational',
-      risk: isPhysical
+      risk: isApparel
+        ? 'Seasonal return/size-exchange spikes during peak winter weeks straining reverse logistics.'
+        : isPhysical
         ? 'Carrier delays during extreme weather degrading bean freshness promise.'
         : 'Single founder becoming critical bottleneck for technical support and bug triage.',
       impact: 4,
       likelihood: 3,
       severity: 'High',
-      mitigation: isPhysical
+      mitigation: isApparel
+        ? 'Provide interactive sizing advisor pre-purchase and pre-negotiated reverse pickup SLAs via Shiprocket/Delhivery.'
+        : isPhysical
         ? 'Automate carrier delay notifications with credit voucher issued automatically.'
         : 'Embed contextual troubleshooting documentation and automated self-serve diagnostic tools.',
       validationTest: 'Audit support ticket resolution workflows during pilot testing.',
@@ -2390,8 +3101,16 @@ export function generateBuildArchitectureReport(state: ProjectState): BuildArchi
       dimension: 'Voice & Tone',
       brandToken: voiceTraits,
       productTranslation: 'Zero marketing fluff. Direct, concise error messages and empirical system notifications.',
-      uiImplementation: 'Actionable microcopy: "Batch roasted 12h ago. Dispatched on Monday." rather than generic hype.',
-      messagingExample: 'Empty state: "No events recorded in past 24 hours. Verify your tracking script here."',
+      uiImplementation: isApparel
+        ? 'Actionable microcopy: "Hand-spun Bikaner camel wool. Dispatched within 24h." rather than generic fashion hype.'
+        : isCoffee
+        ? 'Actionable microcopy: "Batch roasted 12h ago. Dispatched on Monday." rather than generic hype.'
+        : 'Actionable microcopy: "Attribution sync complete (12m ago). Zero dropped events." rather than generic hype.',
+      messagingExample: isApparel
+        ? 'Empty state: "Zero exchanges initiated. Your size guarantee remains active for 30 days."'
+        : isCoffee
+        ? 'Empty state: "No active subscriptions. Select your origin and roast profile to begin."'
+        : 'Empty state: "No events recorded in past 24 hours. Verify your tracking script here."',
     },
     {
       dimension: 'Brand Differentiator',

@@ -192,6 +192,12 @@ export interface TechStackItem {
   provenance: ProvenanceType;
   costTier: string;
   lockInRisk: 'Low' | 'Medium' | 'High';
+  whyExists?: string;
+  whatItDoes?: string;
+  whyFitsVenture?: string;
+  dependencies?: string[];
+  costSource?: string;
+  validationStatus?: string;
 }
 
 export interface TechStackSystem {

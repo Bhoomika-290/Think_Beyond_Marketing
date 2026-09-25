@@ -36,7 +36,7 @@ import type {
 import { STAGES } from '../types/project';
 import { generateFeasibilityReport } from '../services/feasibilityEngine';
 import { generateMarketIntelligenceReport } from '../services/marketIntelligenceEngine';
-import { generateBrandRoadmapReport } from '../services/brandRoadmapEngine';
+import { generateBrandRoadmapReport, generateLogoSvg } from '../services/brandRoadmapEngine';
 import { generateBuildArchitectureReport } from '../services/buildArchitectureEngine';
 import { generateExecutionReport } from '../services/executionEngine';
 import { generateSimulationReport } from '../services/simulationEngine';
@@ -174,6 +174,8 @@ interface ProjectContextValue {
   simulationReport: SimulationReport;
   refreshSimulation: () => void;
   saveSimulationReport: (report: SimulationReport) => void;
+  requestedServices: Record<string, { status: 'REQUESTED' | 'WAITLISTED'; notes?: string; requestedAt: string }>;
+  requestService: (serviceId: string, status: 'REQUESTED' | 'WAITLISTED', notes?: string) => void;
 }
 
 const ProjectContext = createContext<ProjectContextValue | undefined>(undefined);
@@ -230,13 +232,71 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }));
   };
 
-  const updateIdea = (partial: Partial<IdeaData>) => {
+  const updateIdea = (partial: Partial<IdeaData> & { isNewVenture?: boolean }) => {
     setState((prev) => {
+      const isSampleVenture = prev.project.id.startsWith('proj_sample_');
+      const isNewVenture = Boolean(partial.isNewVenture || isSampleVenture);
+
+      if (isNewVenture && partial.rawInput) {
+        // Reset old project parameters completely to prevent sample/stale pollution
+        const cleanName = partial.name || (partial.rawInput.length > 32 ? partial.rawInput.slice(0, 32).trim() + '...' : partial.rawInput.trim());
+        const cleanIdea: IdeaData = {
+          rawInput: partial.rawInput,
+          name: partial.name || cleanName,
+          problem: partial.problem || '',
+          targetAudience: partial.targetAudience || '',
+          context: partial.context || '',
+          goals: partial.goals || '',
+          constraints: partial.constraints || '',
+          differentiation: partial.differentiation || '',
+          openQuestions: partial.openQuestions || [],
+        };
+        const cleanBusinessModel: BusinessModelData = {
+          productType: null,
+          deliveryModel: null,
+          customerType: null,
+          location: {
+            country: '',
+            cityRegion: '',
+            operatingLocation: '',
+          },
+        };
+
+        return {
+          ...prev,
+          project: {
+            id: `proj_${Date.now()}`,
+            name: cleanName,
+            category: 'Unclassified',
+            status: 'discovery',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+          idea: cleanIdea,
+          businessModel: cleanBusinessModel,
+          workflow: {
+            currentStage: 'idea-lab',
+            completedStages: [],
+            stageOutputs: {},
+          },
+          feasibility: undefined,
+          marketIntelligence: undefined,
+          brandRoadmap: undefined,
+          buildArchitecture: undefined,
+          execution: undefined,
+          simulation: undefined,
+        };
+      }
+
       const newIdea = { ...prev.idea, ...partial };
       let projectName = prev.project.name;
       if (partial.name && partial.name.trim()) {
         projectName = partial.name;
-      } else if (prev.project.name === 'Untitled Venture' && partial.rawInput && partial.rawInput.trim()) {
+      } else if (
+        (prev.project.name === 'Untitled Venture' || isSampleVenture) &&
+        partial.rawInput &&
+        partial.rawInput.trim()
+      ) {
         projectName = partial.rawInput.slice(0, 32).trim() + (partial.rawInput.length > 32 ? '...' : '');
       }
 
@@ -972,6 +1032,12 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
               idea: ideaPatch ? { ...prev.idea, ...ideaPatch } : prev.idea,
               businessModel: businessModelPatch ? { ...prev.businessModel, ...businessModelPatch } : prev.businessModel,
               decisions: recordedDecision ? [recordedDecision, ...(prev.decisions || [])] : prev.decisions,
+              feasibility: undefined,
+              marketIntelligence: undefined,
+              brandRoadmap: undefined,
+              buildArchitecture: undefined,
+              execution: undefined,
+              simulation: undefined,
               project: {
                 ...prev.project,
                 name: ideaPatch?.name || prev.project.name,
@@ -998,10 +1064,14 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
   );
 
   const brandReport = useMemo(() => {
+    const fresh = generateBrandRoadmapReport(state);
     if (state.brandRoadmap) {
-      return state.brandRoadmap;
+      // Merge persisted report over a fresh one so caches written by older
+      // schemas (missing newer keys like transformationRoadmap) can never
+      // produce undefined arrays that crash Stage 04 consumers.
+      return { ...fresh, ...state.brandRoadmap };
     }
-    return generateBrandRoadmapReport(state);
+    return fresh;
   }, [state]);
 
   const refreshBrandRoadmap = useCallback(() => {
@@ -1307,14 +1377,17 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setState((prev) => {
       const current = prev.brandRoadmap || generateBrandRoadmapReport(prev);
       const activeId = current.logoGenerator.selectedConceptId;
+      const initials = (prev.idea?.name || prev.project?.name || 'TB').slice(0, 2).toUpperCase();
       const updatedConcepts = current.logoGenerator.concepts.map((c) => {
         if (c.id === activeId) {
+          const mergedCustom = {
+            ...c.customization,
+            ...customization,
+          };
           return {
             ...c,
-            customization: {
-              ...c.customization,
-              ...customization,
-            },
+            customization: mergedCustom,
+            svgMarkup: generateLogoSvg(c.id, initials, mergedCustom),
           };
         }
         return c;
@@ -2157,6 +2230,40 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }));
   }, []);
 
+  // Stage 06 Execution Assisted Service Requests
+  const [requestedServices, setRequestedServices] = useState<Record<string, {
+    status: 'REQUESTED' | 'WAITLISTED';
+    notes?: string;
+    requestedAt: string;
+  }>>(() => {
+    try {
+      const saved = localStorage.getItem('tbm_requested_services_v1');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    return {};
+  });
+
+  const requestService = useCallback((serviceId: string, status: 'REQUESTED' | 'WAITLISTED', notes?: string) => {
+    setRequestedServices((prev) => {
+      const updated = {
+        ...prev,
+        [serviceId]: {
+          status,
+          notes,
+          requestedAt: new Date().toISOString(),
+        },
+      };
+      try {
+        localStorage.setItem('tbm_requested_services_v1', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
+  }, []);
+
   return (
     <ProjectContext.Provider
       value={{
@@ -2230,6 +2337,8 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         simulationReport,
         refreshSimulation,
         saveSimulationReport,
+        requestedServices,
+        requestService,
       }}
     >
       {children}

@@ -23,14 +23,69 @@ interface CompetitorRoadmapsModalProps {
 export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = ({
   isOpen,
   onClose,
-  competitors,
+  competitors = [],
   comparisons,
   ventureName,
 }) => {
-  const [selectedId, setSelectedId] = useState<string>(competitors[0]?.id || '');
+  const [selectedId, setSelectedId] = useState<string>('');
   const [viewMode, setViewMode] = useState<'journey' | 'comparison'>('journey');
 
+  // Lock body scroll while modal is open to prevent accidental background interaction
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
+  // Handle Escape key to close modal
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
+
+  if (competitors.length === 0) {
+    return (
+      <div
+        className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
+      >
+        <div className="w-full max-w-md bg-[#0D141F] border border-[#263244] rounded-2xl p-6 text-center space-y-4 shadow-2xl">
+          <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto">
+            <Compass className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-[#F3F4F6] uppercase tracking-wider font-mono">
+              NO COMPETITOR DATA AVAILABLE
+            </h3>
+            <p className="text-xs text-[#AAB4C3] leading-relaxed mt-2">
+              Competitor trajectories for {ventureName} require competitor intelligence from Stage 03 Market Intelligence.
+              Please populate or verify competitors in Stage 03 first.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full py-2.5 rounded-xl bg-[#111823] hover:bg-[#1a2436] text-[#F3F4F6] border border-[#263244] text-xs font-mono font-bold transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const activeCompetitor = competitors.find((c) => c.id === selectedId) || competitors[0];
 
@@ -63,7 +118,12 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div className="relative w-full max-w-5xl max-h-[92vh] flex flex-col bg-[#0B1017] border border-[#263244] rounded-2xl shadow-2xl overflow-hidden">
         {/* Modal Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 border-b border-[#1C2635] bg-[#0E1520] gap-4">
@@ -251,7 +311,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     Positioning Lesson
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.positioningLesson || activeCompetitor.takeaways.positioningDecisions}
+                    {activeCompetitor.takeaways.positioningLesson || activeCompetitor.takeaways.positioningDecisions || 'Needs validation'}
                   </p>
                 </div>
 
@@ -262,7 +322,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     Sequencing Lesson
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.sequencingLesson || activeCompetitor.takeaways.sequencingLessons}
+                    {activeCompetitor.takeaways.sequencingLesson || activeCompetitor.takeaways.sequencingLessons || 'Needs validation'}
                   </p>
                 </div>
 
@@ -273,7 +333,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     Product → Brand Transition
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.productToBrandTransition}
+                    {activeCompetitor.takeaways.productToBrandTransition || 'Needs validation'}
                   </p>
                 </div>
 
@@ -284,7 +344,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     Customer Acquisition Lesson
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.customerAcquisitionLesson || activeCompetitor.takeaways.distributionStrategy}
+                    {activeCompetitor.takeaways.customerAcquisitionLesson || activeCompetitor.takeaways.distributionStrategy || 'Needs validation'}
                   </p>
                 </div>
 
@@ -295,7 +355,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     Distribution Lesson
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.distributionLesson || activeCompetitor.takeaways.distributionStrategy}
+                    {activeCompetitor.takeaways.distributionLesson || activeCompetitor.takeaways.distributionStrategy || 'Needs validation'}
                   </p>
                 </div>
 
@@ -306,7 +366,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     Expansion Lesson
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.expansionLesson || 'Scale adjacencies after core wedge reaches retention plateau.'}
+                    {activeCompetitor.takeaways.expansionLesson || 'Needs validation'}
                   </p>
                 </div>
 
@@ -317,7 +377,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     Brand Identity Lesson
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.brandIdentityLesson || 'Distinct visual signifiers created recognition before features were explained.'}
+                    {activeCompetitor.takeaways.brandIdentityLesson || 'Needs validation'}
                   </p>
                 </div>
 
@@ -328,7 +388,7 @@ export const CompetitorRoadmapsModal: React.FC<CompetitorRoadmapsModalProps> = (
                     What NOT to Copy
                   </div>
                   <p className="text-xs text-[#E1E7EF] leading-relaxed">
-                    {activeCompetitor.takeaways.whatNotToCopy}
+                    {activeCompetitor.takeaways.whatNotToCopy || 'Needs validation'}
                   </p>
                 </div>
               </div>

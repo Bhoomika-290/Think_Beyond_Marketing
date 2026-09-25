@@ -9,27 +9,27 @@ export const FAQEntryPrompts: React.FC<FAQEntryPromptsProps> = ({ onSelectPrompt
   const commonQuestions = [
     {
       q: 'Is my idea actually worth pursuing?',
-      intent: 'I want to validate whether my idea has genuine viability and real customer demand before investing time or capital.',
+      intent: 'How can I validate whether this venture has genuine viability and real customer demand before investing capital?',
       tag: 'Viability',
     },
     {
       q: 'Who should I build this for?',
-      intent: 'I need to sharpen my target audience, identify ideal customer profiles, and understand who suffers most from this problem.',
+      intent: 'How can I sharpen my target audience, identify ideal customer profiles, and understand who suffers most from this problem?',
       tag: 'Audience',
     },
     {
       q: 'How do I know if the market is crowded?',
-      intent: 'I need to evaluate market saturation, map existing alternatives, and uncover underserved niches in this category.',
+      intent: 'How can I evaluate market saturation, map existing alternatives, and uncover underserved niches in this category?',
       tag: 'Competition',
     },
     {
       q: 'How do I differentiate my idea?',
-      intent: 'I want to discover an unfair advantage, unique value proposition, or non-obvious angle that competitors cannot easily copy.',
+      intent: 'How can I discover an unfair advantage, unique value proposition, or non-obvious angle that competitors cannot easily copy?',
       tag: 'Positioning',
     },
     {
       q: 'How do I turn an idea into a real brand?',
-      intent: 'I want to transform my product hypothesis into a structured brand system with identity, voice, and launch mechanics.',
+      intent: 'How can I transform my product hypothesis into a structured brand system with identity, voice, and launch mechanics?',
       tag: 'Brand System',
     },
   ];

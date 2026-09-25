@@ -92,7 +92,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#DDD5C5] pb-6">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-[#2B3D4F]/15 text-[#2B3D4F] border border-[#2B3D4F]/30">
+            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-[#B99B7A]/15 text-[#7A5F42] border border-[#B99B7A]/40">
               STAGE 03
             </span>
             <span className="text-xs font-mono text-[#6B7D90]">MACRO INTELLIGENCE</span>

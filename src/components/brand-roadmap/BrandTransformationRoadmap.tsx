@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   ArrowRight,
   CheckCircle2,
@@ -23,7 +23,7 @@ interface BrandTransformationRoadmapProps {
 }
 
 export const BrandTransformationRoadmap: React.FC<BrandTransformationRoadmapProps> = ({
-  milestones,
+  milestones = [],
   ventureName,
 }) => {
   const [selectedMilestoneId, setSelectedMilestoneId] = useState<string>(milestones[0]?.id || '');

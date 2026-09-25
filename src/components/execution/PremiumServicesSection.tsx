@@ -1,11 +1,59 @@
 import React, { useState } from 'react';
-import { CheckCircle2, X } from 'lucide-react';
+import { CheckCircle2, X, Search, BarChart3, MessageCircle, Users, Truck } from 'lucide-react';
 
 import type { ExecutionReport, PremiumServiceOffering } from '../../types/project';
 
 interface PremiumServicesSectionProps {
   report: ExecutionReport;
 }
+
+const CATEGORY_STYLES: Record<string, {
+  icon: React.ReactNode;
+  dot: string;
+  border: string;
+  badge: string;
+}> = {
+  sourcing_agent: {
+    icon: <Truck className="w-4 h-4" />,
+    dot: 'bg-[#F59E0B]',
+    border: 'border-t-2 border-[#F59E0B]/30',
+    badge: 'bg-[#FEF3C7] text-[#92400E] border-[#F59E0B]/30',
+  },
+  seo: {
+    icon: <Search className="w-4 h-4" />,
+    dot: 'bg-[#10B981]',
+    border: 'border-t-2 border-[#10B981]/30',
+    badge: 'bg-[#DCFCE7] text-[#15803D] border-[#10B981]/30',
+  },
+  meta_ads: {
+    icon: <BarChart3 className="w-4 h-4" />,
+    dot: 'bg-[#8B5CF6]',
+    border: 'border-t-2 border-[#8B5CF6]/30',
+    badge: 'bg-[#EDE9FE] text-[#5B21B6] border-[#8B5CF6]/30',
+  },
+  crm: {
+    icon: <Users className="w-4 h-4" />,
+    dot: 'bg-[#06B6D4]',
+    border: 'border-t-2 border-[#06B6D4]/30',
+    badge: 'bg-[#CFFAFE] text-[#083344] border-[#06B6D4]/30',
+  },
+  analytics: {
+    icon: <BarChart3 className="w-4 h-4" />,
+    dot: 'bg-[#38BDF8]',
+    border: 'border-t-2 border-[#38BDF8]/30',
+    badge: 'bg-[#E0F2FE] text-[#0C2D47] border-[#38BDF8]/30',
+  },
+  growth: {
+    icon: <MessageCircle className="w-4 h-4" />,
+    dot: 'bg-[#F97316]',
+    border: 'border-t-2 border-[#F97316]/30',
+    badge: 'bg-[#FFEDD5] text-[#9A3412] border-[#F97316]/30',
+  },
+};
+
+const getCategoryStyle = (category: string) => {
+  return CATEGORY_STYLES[category] ?? CATEGORY_STYLES.analytics;
+};
 
 export const PremiumServicesSection: React.FC<PremiumServicesSectionProps> = ({ report }) => {
   const { synthesis, ventureName } = report;
@@ -54,17 +102,27 @@ export const PremiumServicesSection: React.FC<PremiumServicesSectionProps> = ({ 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {services.map((svc: PremiumServiceOffering) => {
           const isAvailable = svc.status === 'ASSISTED_EXECUTION_AVAILABLE';
+          const catStyle = getCategoryStyle(svc.category);
 
           return (
             <div
               key={svc.id}
-              className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-4 flex flex-col justify-between hover:border-[#1E40AF]/40 transition-colors shadow-2xs"
+              className={`rounded-xl border p-5 flex flex-col justify-between transition-all duration-200 shadow-xs ${catStyle.border} ${
+                isAvailable
+                  ? 'bg-[#FFFFFF] hover:shadow-md hover:-translate-y-0.5'
+                  : 'bg-[#FFFFFF]/60 hover:bg-[#FFFFFF]'
+              }`}
             >
               <div>
-                <div className="flex items-start justify-between gap-1 pb-2 border-b border-[#E8E2D8]">
-                  <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-[#F1F5F9] text-[#475569] border border-[#E2E8F0]">
-                    {svc.badge}
-                  </span>
+                <div className="flex items-start justify-between gap-1 pb-2.5 border-b border-[#E8E2D8]">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-4 h-4 rounded-full flex items-center justify-center ${catStyle.dot}/15 border ${catStyle.dot}/30 text-xs`}>
+                      {catStyle.icon}
+                    </span>
+                    <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded ${catStyle.badge}`}>
+                      {svc.badge}
+                    </span>
+                  </div>
                   <span
                     className={`text-[9px] font-mono font-medium px-1.5 py-0.5 rounded ${
                       isAvailable

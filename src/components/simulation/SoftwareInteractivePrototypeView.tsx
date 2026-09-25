@@ -259,6 +259,15 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
               >
                 3. Automations
               </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('telemetry')}
+                className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
+                  activeTab === 'telemetry' ? 'bg-[#4D8DFF] text-[#080B10] font-bold' : 'text-[#AAB4C3] hover:text-white hover:bg-[#1A2536]'
+                }`}
+              >
+                4. Telemetry
+              </button>
             </div>
           </div>
 
@@ -317,10 +326,10 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                     <BarChart3 className="w-4 h-4 text-[#4D8DFF]" />
                     <span className="text-xs font-mono font-bold text-[#F3F4F6]">
                       {softwareOverrides.chartTypeOverride === 'funnel'
-                        ? 'Live Conversion Funnel Analysis'
+                        ? (archetype === 'ecommerce' ? 'Storefront Conversion & Sizing Funnel' : 'Live Conversion Funnel Analysis')
                         : softwareOverrides.chartTypeOverride === 'timeseries'
-                        ? '30-Day Ingestion & Attribution Trendlines'
-                        : 'Multi-Touch Channel Attribution Breakdown'}
+                        ? (archetype === 'ecommerce' ? '30-Day Artisan Loom Dispatch Velocity' : '30-Day Ingestion & Attribution Trendlines')
+                        : (archetype === 'ecommerce' ? 'Omnichannel D2C Channel & Fulfillment Breakdown' : 'Multi-Touch Channel Attribution Breakdown')}
                     </span>
                   </div>
 
@@ -330,7 +339,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                       onClick={() => handleApplySoftwareOverrides({ ...softwareOverrides, chartTypeOverride: 'attribution' })}
                       className={`px-2 py-0.5 rounded ${(!softwareOverrides.chartTypeOverride || softwareOverrides.chartTypeOverride === 'attribution') ? 'bg-[#263244] text-white font-bold' : 'text-[#738095] hover:text-white'}`}
                     >
-                      Attribution
+                      {archetype === 'ecommerce' ? 'Channels' : 'Attribution'}
                     </button>
                     <button
                       type="button"
@@ -344,7 +353,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                       onClick={() => handleApplySoftwareOverrides({ ...softwareOverrides, chartTypeOverride: 'timeseries' })}
                       className={`px-2 py-0.5 rounded ${softwareOverrides.chartTypeOverride === 'timeseries' ? 'bg-[#263244] text-white font-bold' : 'text-[#738095] hover:text-white'}`}
                     >
-                      Trend
+                      {archetype === 'ecommerce' ? 'Dispatch' : 'Trend'}
                     </button>
                   </div>
                 </div>
@@ -352,12 +361,20 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                 {/* RENDER FUNNEL VIEW */}
                 {softwareOverrides.chartTypeOverride === 'funnel' && (
                   <div className="space-y-3 py-2">
-                    {[
-                      { stage: '1. Ad Impressions & Touchpoints', count: '128,400', pct: 100, color: '#3B82F6', drop: '0%' },
-                      { stage: '2. High-Intent Landing Page Visits', count: '42,600', pct: 33.2, color: '#60A5FA', drop: '-66.8%' },
-                      { stage: '3. Cart / Checkout Initiated', count: '12,800', pct: 10.0, color: '#10B981', drop: '-69.9%' },
-                      { stage: '4. Verified Conversions & Revenue', count: '4,920', pct: 3.8, color: '#34D399', drop: '-61.5%' },
-                    ].map((step, sIdx) => (
+                    {(archetype === 'ecommerce'
+                      ? [
+                          { stage: '1. Collection Capsule Visitors', count: '24,600', pct: 100, color: '#3B82F6', drop: '0%' },
+                          { stage: '2. Garment PDP & Sizing Guide Viewed', count: '8,400', pct: 34.1, color: '#60A5FA', drop: '-65.9%' },
+                          { stage: '3. Cart & Pincode Serviceability', count: '2,180', pct: 8.9, color: '#10B981', drop: '-74.0%' },
+                          { stage: '4. Orders Dispatched & Delivered', count: '680', pct: 2.8, color: '#34D399', drop: '-68.8%' },
+                        ]
+                      : [
+                          { stage: '1. Ad Impressions & Touchpoints', count: '128,400', pct: 100, color: '#3B82F6', drop: '0%' },
+                          { stage: '2. High-Intent Landing Page Visits', count: '42,600', pct: 33.2, color: '#60A5FA', drop: '-66.8%' },
+                          { stage: '3. Cart / Checkout Initiated', count: '12,800', pct: 10.0, color: '#10B981', drop: '-69.9%' },
+                          { stage: '4. Verified Conversions & Revenue', count: '4,920', pct: 3.8, color: '#34D399', drop: '-61.5%' },
+                        ]
+                    ).map((step, sIdx) => (
                       <div key={sIdx} className="space-y-1">
                         <div className="flex items-center justify-between text-xs font-mono">
                           <span className="text-[#F3F4F6] font-semibold">{step.stage}</span>
@@ -391,29 +408,37 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                       ))}
                     </div>
                     <div className="flex items-center justify-between text-[10px] font-mono text-[#738095]">
-                      <span>Day 1 (Baseline)</span>
-                      <span>Day 15 (Optimization Trigger)</span>
-                      <span>Day 30 (Current Run)</span>
+                      <span>{archetype === 'ecommerce' ? 'Week 1 (Loom Pre-Order)' : 'Day 1 (Baseline)'}</span>
+                      <span>{archetype === 'ecommerce' ? 'Week 2 (Cluster Shearing Dispatch)' : 'Day 15 (Optimization Trigger)'}</span>
+                      <span>{archetype === 'ecommerce' ? 'Week 4 (Peak Winter Delivery)' : 'Day 30 (Current Run)'}</span>
                     </div>
                   </div>
                 )}
 
-                {/* RENDER DEFAULT MULTI-TOUCH ATTRIBUTION VIEW */}
+                {/* RENDER DEFAULT CHANNEL BREAKDOWN VIEW */}
                 {(!softwareOverrides.chartTypeOverride || softwareOverrides.chartTypeOverride === 'attribution') && (
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 py-2">
-                    {[
-                      { channel: 'Paid Search (Google/Meta)', share: '42.4%', roas: '4.8x', spend: '$14.2k' },
-                      { channel: 'Organic & Content SEO', share: '28.1%', roas: '8.2x', spend: '$3.5k' },
-                      { channel: 'Direct & Brand Referral', share: '18.3%', roas: '12.1x', spend: '$1.1k' },
-                      { channel: 'Lifecycle Email / SMS', share: '11.2%', roas: '16.4x', spend: '$0.8k' },
-                    ].map((chan, cIdx) => (
+                    {(archetype === 'ecommerce'
+                      ? [
+                          { channel: 'Direct D2C Web & Mobile', share: '52.4%', roas: '71% Margin', spend: '₹4.8L Rev' },
+                          { channel: 'Artisan Popups & Trunk Shows', share: '24.2%', roas: '68% Margin', spend: '₹2.2L Rev' },
+                          { channel: 'Curated Boutique Wholesale', share: '14.6%', roas: '54% Margin', spend: '₹1.3L Rev' },
+                          { channel: 'WhatsApp Concierge & Repeat', share: '8.8%', roas: '74% Margin', spend: '₹0.8L Rev' },
+                        ]
+                      : [
+                          { channel: 'Paid Search (Google/Meta)', share: '42.4%', roas: '4.8x', spend: '$14.2k' },
+                          { channel: 'Organic & Content SEO', share: '28.1%', roas: '8.2x', spend: '$3.5k' },
+                          { channel: 'Direct & Brand Referral', share: '18.3%', roas: '12.1x', spend: '$1.1k' },
+                          { channel: 'Lifecycle Email / SMS', share: '11.2%', roas: '16.4x', spend: '$0.8k' },
+                        ]
+                    ).map((chan, cIdx) => (
                       <div key={cIdx} className="p-3 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1">
                         <div className="text-[10px] font-mono text-[#738095] truncate">{chan.channel}</div>
                         <div className="text-base font-bold text-white flex items-center justify-between">
                           <span>{chan.share}</span>
                           <span className="text-xs font-mono text-[#34D399]">{chan.roas}</span>
                         </div>
-                        <div className="text-[10px] font-mono text-[#AAB4C3]">Spend: {chan.spend}</div>
+                        <div className="text-[10px] font-mono text-[#AAB4C3]">{chan.spend}</div>
                       </div>
                     ))}
                   </div>
@@ -689,6 +714,54 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                   <span className="text-[#4D8DFF] font-bold">SCHEDULED</span>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* TAB 4: TELEMETRY & PERFORMANCE VIEW */}
+          {activeTab === 'telemetry' && (
+            <div className="space-y-4">
+              <div className="text-xs font-mono text-[#AAB4C3]">
+                Real-time telemetry heartbeat from connected data sources:
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {dataSources.filter((s) => s.isConnected).map((src) => {
+                  const Icon = getSourceIcon(src.iconName);
+                  return (
+                    <div key={src.id} className={`${ui.cardBg} p-4 rounded-xl border border-[#263244] space-y-2`}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[#1E293B] text-[#4D8DFF] flex items-center justify-center">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-xs font-bold text-[#F3F4F6]">{src.name}</div>
+                          <div className="text-[10px] font-mono text-[#738095]">
+                            {src.type} • {src.recordCount} records ({src.latencyMs}ms)
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between text-[10px]">
+                          <span className="text-[#738095]">Latency (p99)</span>
+                          <span className="text-[#34D399] font-mono">{src.latencyMs}ms</span>
+                        </div>
+                        <div className="flex items-center justify-between text-[10px]">
+                          <span className="text-[#738095]">Status</span>
+                          <span className="text-[#34D399] font-mono">● Connected</span>
+                        </div>
+                        <div className="flex items-center justify-between text-[10px]">
+                          <span className="text-[#738095]">Throughput</span>
+                          <span className="text-[#34D399] font-mono">{(src.recordCount / 60).toFixed(1)} rec/s</span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {dataSources.filter((s) => s.isConnected).length === 0 && (
+                <div className="text-center py-8 text-xs text-[#6B7D90] font-mono">
+                  No data sources connected. Toggle connectors above to activate telemetry.
+                </div>
+              )}
             </div>
           )}
         </div>

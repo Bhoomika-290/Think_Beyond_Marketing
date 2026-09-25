@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import type { ColorPaletteSystem } from '../../types/project';
 
 interface ColorSystemProps {

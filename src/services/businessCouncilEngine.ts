@@ -76,8 +76,12 @@ export function classifyMessageIntent(query: string, hasExistingIdea: boolean): 
     }
   }
 
-  // C. MIXED MESSAGE RULE: Check for IDEA so "Hi, I want to build..." is NEW_IDEA
-  if (containsIdeaPattern(normalized)) {
+  const isQuestion =
+    /^(?:how|what|why|who|where|when|can|is|are|should|could|would)\b/i.test(normalized) ||
+    normalized.endsWith('?');
+
+  // C. MIXED MESSAGE RULE: Check for IDEA so "Hi, I want to build..." is NEW_IDEA only when idea is not yet established
+  if (!hasExistingIdea && !isQuestion && containsIdeaPattern(normalized)) {
     return { intent: 'NEW_IDEA' };
   }
 
@@ -121,8 +125,8 @@ export function classifyMessageIntent(query: string, hasExistingIdea: boolean): 
     return { intent: 'GREETING' };
   }
 
-  // If there's no idea yet and message contains a sentence (4+ words), treat as NEW_IDEA
-  if (!hasExistingIdea && normalized.split(/\s+/).length >= 4) {
+  // If there's no idea yet and message contains an explicit idea pattern (and is not a question), treat as NEW_IDEA
+  if (!hasExistingIdea && !isQuestion && containsIdeaPattern(normalized)) {
     return { intent: 'NEW_IDEA' };
   }
 

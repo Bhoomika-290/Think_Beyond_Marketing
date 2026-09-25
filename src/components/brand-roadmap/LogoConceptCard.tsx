@@ -40,8 +40,8 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
     <div
       className={`rounded-2xl border p-5 transition-all flex flex-col justify-between ${
         isSelected
-          ? 'bg-[#ECE6DA] border-[#2B3D4F] shadow-sm ring-2 ring-[#2B3D4F]'
-          : 'bg-white border-[#DDD5C5] hover:border-[#5A7A96]/40'
+          ? 'bg-[#ECE6DA] border-[#2B3D4F]/60 shadow-xl ring-2 ring-[#2B3D4F]/50 scale-[1.02]'
+          : 'bg-white border-[#DDD5C5] hover:border-[#5A7A96]/40 hover:shadow-md hover:-translate-y-0.5'
       }`}
     >
       <div>
@@ -72,12 +72,20 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
         <h3 className="text-base font-bold text-[#2B3D4F] mb-1">
           {concept.name}
         </h3>
-        <p className="text-xs text-[#4A5E73] mb-4 line-clamp-2">
+        <p className="text-xs text-[#4A5E73] mb-2.5 line-clamp-2">
           {concept.rationale}
         </p>
 
+        {/* Usage Suitability */}
+        {concept.usageSuitability && (
+          <div className="mb-3 px-2.5 py-1.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]/80 text-[10px] font-mono text-[#4A5E73]">
+            <span className="font-bold text-[#2B3D4F]">SUITABILITY: </span>
+            {concept.usageSuitability}
+          </div>
+        )}
+
         {/* View Mode Switcher */}
-        <div className="flex items-center gap-1 p-1 bg-[#F5F1EB] rounded-lg border border-[#DDD5C5] mb-3 text-[10px] font-mono">
+        <div className="flex items-center gap-1 p-1 bg-[#F5F1EB] rounded-xl border border-[#DDD5C5] mb-3 text-[10px] font-mono overflow-hidden">
           <button
             type="button"
             onClick={() => setViewMode('combination')}
@@ -111,8 +119,7 @@ export const LogoConceptCard: React.FC<LogoConceptCardProps> = ({
         <div
           className="w-full aspect-[16/10] rounded-xl border border-[#DDD5C5] flex items-center justify-center p-6 relative overflow-hidden group"
           style={{ backgroundColor: concept.customization.backgroundColor || '#F5F1EB' }}
-        >
-          {/* Subtle grid pattern background */}
+        >          {/* Subtle grid pattern background */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#2B3D4F_1px,transparent_1px)] [background-size:16px_16px]" />
 
           {viewMode === 'mark' && (

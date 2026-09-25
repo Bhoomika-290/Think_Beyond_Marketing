@@ -217,16 +217,22 @@ function titleCase(s: string): string {
 
 // --- Casual intent detection ------------------------------------------------
 
-type CasualKind = 'joke' | 'scary' | 'greeting' | 'thanks' | 'capabilities' | 'bye' | null;
+type CasualKind = 'joke' | 'scary' | 'greeting' | 'thanks' | 'capabilities' | 'bye' | 'personal' | 'unrelated' | null;
 
 function detectCasual(text: string): CasualKind {
   const t = text.toLowerCase().trim();
+  if (/\b(?:(?:ur|your|u|give\s+me)\s+(?:phone\s*)?(?:number|contact|whatsapp|insta|snap|address)|call\s+me|are\s+you\s+single|date\s+me|love\s+you|marry\s+me)\b/i.test(t)) {
+    return 'personal';
+  }
   if (/\bjoke\b|\bfunny\b|\bmake me laugh\b/.test(t)) return 'joke';
   if (/\bscary\b|\bscarier\b|\bspooky\b|\bhorror\b|\bfrighten/.test(t)) return 'scary';
   if (/^(hi|hey|hello|namaste|yo|sup)\b/.test(t) && t.length < 30) return 'greeting';
   if (/\bthank\b|\bthanks\b|\bshukriya\b/.test(t)) return 'thanks';
   if (/\bwhat can you do\b|\bhow do you work\b|\bhelp me\b|\bwho are you\b/.test(t)) return 'capabilities';
   if (/^(bye|goodbye|see you)\b/.test(t) && t.length < 30) return 'bye';
+  if (/\b(?:weather|temperature|movie|song|recipe|cook|food\s+recipe|cricket\s+score|game\s+score|president|prime\s+minister)\b/i.test(t)) {
+    return 'unrelated';
+  }
   return null;
 }
 
@@ -821,6 +827,29 @@ export function buildInterviewReply(
       probeId: null,
     };
   }
+  if (casual === 'personal') {
+    return {
+      replyText:
+        `I am your Business Intelligence Interviewer, an AI discovery system designed strictly to analyze and structure business ventures.\n\n` +
+        `I don't have a phone number, personal contact details, or social media. My sole objective is helping turn your business concept into a validated, structured venture profile.\n\n` +
+        `What product, service, or customer problem are you looking to build?`,
+      updates,
+      savedSummary,
+      chips: [],
+      probeId: null,
+    };
+  }
+  if (casual === 'unrelated') {
+    return {
+      replyText:
+        `That falls outside our venture discovery scope. As your Business Intelligence Interviewer, my focus is structuring your business model, customer beachhead, unit economics, and operational feasibility.\n\n` +
+        `Let's focus on your venture: what product or service are you planning to bring to market?`,
+      updates,
+      savedSummary,
+      chips: [],
+      probeId: null,
+    };
+  }
 
   // --- Honest boundary: no live market data ----------------------------------
   const dataBoundary = wantsMarketData(currentText)
@@ -952,6 +981,15 @@ export function buildInterviewReply(
   // --- Compose the reply ------------------------------------------------------
   const lines: string[] = [];
 
+  // First substantive exchange: acknowledge capture conversationally before
+  // reasoning output, so the interview opens like an interviewer, not a form.
+  if (historyUserTexts.length === 0 && savedSummary.length > 0) {
+    lines.push(`Good. I've captured the raw idea.`);
+    lines.push('');
+    lines.push(`Before we evaluate it, I want to understand the business itself.`);
+    lines.push('');
+  }
+
   if (answeredProbe) {
     lines.push(`Locked in — "${truncate(currentText, 80)}". Filed as VERIFIED (your pick).`);
     lines.push('');
@@ -962,81 +1000,84 @@ export function buildInterviewReply(
     lines.push('');
   }
 
-  const picked: string[] = [];
-  if (signals.productType) {
-    const label = PRODUCT_SIGNALS.find((s) => s.type === signals.productType)?.label;
-    picked.push(
-      `• Venture vehicle looks like ${label} (${signals.productTypeConfidence} confidence, cues: ${signals.productTypeEvidence.join(', ') || 'context'}) — MODEL INFERENCE`,
-    );
+  // 1. Captured Section:
+  const captured: string[] = [];
+  if (savedSummary.length > 0) {
+    for (const s of savedSummary) {
+      captured.push(`• [VERIFIED FROM FOUNDER] ${s}`);
+    }
+  } else if (snapshot.rawInput && historyUserTexts.length <= 1) {
+    captured.push(`• [VERIFIED FROM FOUNDER] "${truncate(currentText.trim(), 120)}"`);
+  }
+
+  if (signals.cityRegion || signals.country) {
+    const geo = [signals.cityRegion, signals.country].filter(Boolean).join(', ');
+    if (!captured.some((c) => c.includes(geo))) {
+      captured.push(`• [VERIFIED FROM FOUNDER] Operating geography: ${geo}`);
+    }
+  }
+
+  // Clear distinction: INFERRED
+  if (signals.productType && !snapshot.productType) {
+    const label = PRODUCT_SIGNALS.find((s) => s.type === signals.productType)?.label ?? signals.productType;
+    captured.push(`• [INFERRED] Venture vehicle: ${label} (${signals.productTypeConfidence} confidence, cues: ${signals.productTypeEvidence.join(', ') || 'context'})`);
   }
   if (signals.archetypes.length > 1) {
-    picked.push(`• Operating pattern: ${signals.archetypes.slice(1).join(' + ')} — MODEL INFERENCE`);
-  }
-  if (signals.cityRegion || signals.country) {
-    picked.push(
-      `• Geography signal: ${[signals.cityRegion, signals.country].filter(Boolean).join(', ')} — VERIFIED (your words); implications are ASSUMPTION until validated`,
-    );
-  }
-  if (signals.topics.length > 0) {
-    picked.push(`• Also hearing: ${signals.topics.join(', ')} — I will thread these into later questions`);
-  }
-  if (picked.length > 0) {
-    lines.push('WHAT I PICKED UP — MODEL INFERENCE (patterns, not verified research):');
-    lines.push(...picked);
-    lines.push('');
+    captured.push(`• [INFERRED] Operating pattern: ${signals.archetypes.slice(1).join(' + ')}`);
   }
 
-  const patternInfo = findPatternInfo(signals.archetypes);
-  if (patternInfo) {
-    lines.push('PATTERN MATCH');
-    lines.push(`"${patternInfo.label}"`);
-    lines.push('WHY IT MATTERS');
-    lines.push(patternInfo.why);
-    lines.push('VALIDATE');
-    lines.push(patternInfo.validate);
-    lines.push('');
+  lines.push('Captured:');
+  if (captured.length > 0) {
+    lines.push(...captured);
+  } else {
+    lines.push('• Context noted — existing venture vectors confirmed.');
   }
-
-  if (savedSummary.length > 0) {
-    lines.push('SAVED TO YOUR VENTURE PROFILE (VERIFIED — your words, editable anytime):');
-    for (const s of savedSummary) lines.push(`• ${s}`);
-    lines.push('Review or edit any of these in the structured fields on the right — your edits always win.');
-    // Occasional dry observation: at most every third user message that advanced the profile.
-    if (historyUserTexts.length % 3 === 2) {
-      lines.push('');
-      lines.push(`_${DRY_ASIDES[historyUserTexts.length % DRY_ASIDES.length]}_`);
-    }
-    lines.push('');
-  } else if (snapshot.rawInput) {
-    lines.push('Nothing new to file this time — your profile already holds this. Pushing deeper instead.');
-    lines.push('');
-  }
-
-  lines.push(
-    `PROFILE: ${completeness.done}/${completeness.total} vectors complete` +
-      (completeness.missing.length > 0 ? ` — still open: ${completeness.missing.slice(0, 3).join(', ').toLowerCase()}` : ' — fully grounded'),
-  );
   lines.push('');
 
+  // 2. Confidence Section
+  lines.push('Confidence:');
+  const confLevel = signals.productTypeConfidence ?? (savedSummary.length > 0 ? 'High' : 'Medium');
+  const confCap = typeof confLevel === 'string' ? confLevel.charAt(0).toUpperCase() + confLevel.slice(1) : 'Medium';
+  lines.push(`• ${confCap} grounding from founder statements (${completeness.done}/${completeness.total} venture vectors mapped)`);
+  lines.push('');
+
+  // 3. What this changes Section
+  lines.push('What this changes:');
+  if (signals.productType === 'physical') {
+    lines.push('• Focuses Stage 02 feasibility on physical sourcing, artisan/manufacturing lead times, and inventory cashflow.');
+    lines.push('• Downstream brand & architecture will structure physical distribution and fulfillment.');
+  } else if (signals.productType === 'saas') {
+    lines.push('• Focuses Stage 02 feasibility on technical delivery, subscription LTV/CAC, and user onboarding.');
+    lines.push('• Downstream architecture will structure software infrastructure and data models.');
+  } else if (signals.productType === 'marketplace') {
+    lines.push('• Focuses Stage 02 feasibility on two-sided cold-start liquidity and supply-demand trust.');
+  } else if (savedSummary.length > 0) {
+    lines.push(`• Locks in ${savedSummary.slice(0, 2).map((s) => s.split('→')[0].trim()).join(' and ')} across subsequent stages.`);
+  } else {
+    lines.push('• Tightens the strategic baseline across subsequent feasibility, market sizing, and brand stages.');
+  }
+  lines.push('');
+
+  // 4. Next question Section
   let chips: string[] = [];
   let probeId: string | null = null;
   if (activeProbe && !answeredProbe) {
-    lines.push(`NEXT QUESTION [${activeProbe.vectorLabel}] — pick one or type your own:`);
+    lines.push(`Next question [${activeProbe.vectorLabel}]:`);
     lines.push(activeProbe.question);
     lines.push('');
     activeProbe.options.forEach((opt, i) => lines.push(`${String.fromCharCode(65 + i)}) ${opt}`));
     lines.push('');
-    lines.push(`WHY THIS MATTERS: ${activeProbe.whyItMatters}`);
+    lines.push(`Why this matters: ${activeProbe.whyItMatters}`);
     chips = activeProbe.options;
     probeId = activeProbe.id;
   } else {
-    lines.push(`NEXT QUESTION [${planned.vectorLabel}]:`);
+    lines.push(`Next question [${planned.vectorLabel}]:`);
     lines.push(planned.question);
     lines.push('');
-    lines.push(`WHY THIS MATTERS: ${planned.whyItMatters}`);
+    lines.push(`Why this matters: ${planned.whyItMatters}`);
   }
   lines.push('');
-  lines.push(dataBoundary + 'STATUS: inferences above are MODEL INFERENCE / ASSUMPTION — NEEDS VALIDATION before you spend. Stage 02 exists for exactly that.');
+  lines.push(dataBoundary + 'STATUS: [VERIFIED FROM FOUNDER] items are stored in your profile; [INFERRED] items require validation in Stage 02.');
 
   return { replyText: lines.join('\n'), updates, savedSummary, chips, probeId };
 }

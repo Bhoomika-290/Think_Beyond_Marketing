@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ArrowDown, Sparkles, Copy, Check } from 'lucide-react';
 import type { PositioningStatement } from '../../types/project';
 
@@ -12,6 +12,13 @@ export const PositioningStatementBuilder: React.FC<PositioningStatementBuilderPr
   onChangeField,
 }) => {
   const [copied, setCopied] = React.useState(false);
+  const [highlightedField, setHighlightedField] = React.useState<string | null>(null);
+
+  const getPreviewHighlight = (fieldKey: string) => {
+    if (!highlightedField) return '';
+    if (highlightedField === fieldKey) return ' ring-1 ring-cyan-300 bg-cyan-400/20 rounded px-0.5';
+    return ' opacity-40';
+  };
 
   const fullPitch =
     positioning.fullStatement ||
@@ -102,7 +109,10 @@ export const PositioningStatementBuilder: React.FC<PositioningStatementBuilderPr
         <div className="lg:col-span-7 space-y-2">
           {steps.map((step, idx) => (
             <React.Fragment key={step.key}>
-              <div className="p-3.5 rounded-xl bg-[#111823] border border-[#263244] focus-within:border-cyan-500 transition-all hover:border-[#38BDF8]/40 shadow-sm">
+              <div
+                onMouseEnter={() => setHighlightedField(step.key)}
+                onMouseLeave={() => setHighlightedField(null)}
+                className="p-3.5 rounded-xl bg-[#111823] border border-[#263244] focus-within:border-cyan-500 transition-all hover:border-[#38BDF8]/40 shadow-sm">
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#0B1017] border border-[#263244] text-[#F3F4F6]">
@@ -121,6 +131,8 @@ export const PositioningStatementBuilder: React.FC<PositioningStatementBuilderPr
                   type="text"
                   value={step.value}
                   onChange={(e) => onChangeField(step.key, e.target.value)}
+                  onFocus={() => setHighlightedField(step.key)}
+                  onBlur={() => setHighlightedField(null)}
                   placeholder={`Define ${step.subtitle}...`}
                   className="w-full bg-[#080B10] px-3 py-2 rounded-lg border border-[#263244] text-xs font-medium text-[#F3F4F6] focus:outline-none focus:border-cyan-400 transition-colors"
                 />
@@ -157,12 +169,12 @@ export const PositioningStatementBuilder: React.FC<PositioningStatementBuilderPr
 
             {/* Color-coded live preview (ported from light port, recolored dark-readable) */}
             <p className="text-xs sm:text-sm font-medium leading-relaxed italic bg-[#080B10]/80 p-4 rounded-xl border border-[#263244] text-[#F3F4F6]">
-              &ldquo;For <span className="text-blue-300 font-semibold not-italic underline decoration-blue-300/40">{positioning.forTarget || '[target]'}</span>, who{' '}
-              <span className="text-rose-300 font-semibold not-italic underline decoration-rose-300/40">{positioning.whoProblem || '[problem]'}</span>, our venture is a{' '}
-              <span className="text-purple-300 font-semibold not-italic underline decoration-purple-300/40">{positioning.category || '[category]'}</span> that{' '}
-              <span className="text-cyan-300 font-semibold not-italic underline decoration-cyan-300/40">{positioning.valuePromise || '[promise]'}</span>, unlike{' '}
-              <span className="text-amber-300 font-semibold not-italic underline decoration-amber-300/40">{positioning.unlikeAlternative || '[alternatives]'}</span>, because{' '}
-              <span className="text-emerald-300 font-bold not-italic underline decoration-emerald-300">{positioning.becauseDifferentiator || '[reason]'}</span>.&rdquo;
+              &ldquo;For <span className={`text-blue-300 font-semibold not-italic underline decoration-blue-300/40 transition-all${getPreviewHighlight('forTarget')}`}>{positioning.forTarget || '[target]'}</span>, who{' '}
+              <span className={`text-rose-300 font-semibold not-italic underline decoration-rose-300/40 transition-all${getPreviewHighlight('whoProblem')}`}>{positioning.whoProblem || '[problem]'}</span>, our venture is a{' '}
+              <span className={`text-purple-300 font-semibold not-italic underline decoration-purple-300/40 transition-all${getPreviewHighlight('category')}`}>{positioning.category || '[category]'}</span> that{' '}
+              <span className={`text-cyan-300 font-semibold not-italic underline decoration-cyan-300/40 transition-all${getPreviewHighlight('valuePromise')}`}>{positioning.valuePromise || '[promise]'}</span>, unlike{' '}
+              <span className={`text-amber-300 font-semibold not-italic underline decoration-amber-300/40 transition-all${getPreviewHighlight('unlikeAlternative')}`}>{positioning.unlikeAlternative || '[alternatives]'}</span>, because{' '}
+              <span className={`text-emerald-300 font-bold not-italic underline decoration-emerald-300 transition-all${getPreviewHighlight('becauseDifferentiator')}`}>{positioning.becauseDifferentiator || '[reason]'}</span>.&rdquo;
             </p>
 
             <div className="flex items-center justify-between text-[11px] font-mono text-[#64748B]">

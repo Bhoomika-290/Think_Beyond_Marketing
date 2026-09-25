@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import type { LogoGeneratorSystem, LogoConcept } from '../../types/project';
 import { LogoConceptCard } from './LogoConceptCard';
 import { LogoCustomizer } from './LogoCustomizer';

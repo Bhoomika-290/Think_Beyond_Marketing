@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, Zap, SlidersHorizontal } from 'lucide-react';
 import type { DifferentiatorEngineData, DifferentiationOpportunityItem } from '../../types/project';
+import { ChartEmptyState } from '../common/ChartEmptyState';
 
 interface DifferentiatorEngineViewProps {
   data: DifferentiatorEngineData;
@@ -124,9 +126,39 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
             </div>
           </div>
 
-          {/* Strategy Dimension Bars */}
+          {/* Strategy Dimension Bars — empty guard names the Stage 01 differentiation input */}
           <div className="space-y-3 my-2">
-            {filteredDimensions.map((dim) => {
+            {filteredDimensions.length === 0 ? (
+              <ChartEmptyState
+                title={data.dimensions.length === 0 ? 'No differentiation dimensions yet' : 'No dimensions match this filter'}
+                message={
+                  data.dimensions.length === 0
+                    ? 'The strategy canvas unlocks from your Stage 01 differentiation input — describe what makes you different to score dimensions.'
+                    : 'No strategy dimensions match the current filter — clear it or refine your Stage 01 differentiation input.'
+                }
+                hint="Stage 01 → differentiation"
+                action={
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <Link
+                      to="/idea-lab"
+                      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+                    >
+                      Complete Stage 01 in Idea Lab →
+                    </Link>
+                    {data.dimensions.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedDimensionFilter('all')}
+                        className="text-xs font-mono font-semibold text-[#4A5E73] underline underline-offset-2 hover:text-[#2B3D4F]"
+                      >
+                        Clear filter
+                      </button>
+                    )}
+                  </div>
+                }
+              />
+            ) : (
+              filteredDimensions.map((dim) => {
               const delta = dim.ventureScore - dim.incumbentAvgScore;
               return (
                 <div key={dim.dimensionKey} className="space-y-1">
@@ -166,7 +198,8 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
                   </div>
                 </div>
               );
-            })}
+            })
+            )}
           </div>
 
           <div className="pt-3 border-t border-[#DDD5C5] text-[11px] font-mono text-[#6B7D90] flex items-center justify-between">
@@ -181,7 +214,22 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
             Surfaced Differentiation Vectors ({data.opportunities.length}):
           </div>
 
-          {data.opportunities.map((opp) => {
+          {data.opportunities.length === 0 ? (
+            <ChartEmptyState
+              title="No differentiation vectors yet"
+              message="Differentiation vectors unlock from your Stage 01 differentiation input — describe your edge to surface moats."
+              hint="Stage 01 → differentiation"
+              action={
+                <Link
+                  to="/idea-lab"
+                  className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+                >
+                  Complete Stage 01 in Idea Lab →
+                </Link>
+              }
+            />
+          ) : (
+            data.opportunities.map((opp) => {
             const isSelected = selectedOpportunity?.id === opp.id;
             return (
               <div
@@ -252,7 +300,8 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
                 </div>
               </div>
             );
-          })}
+          })
+          )}
         </div>
       </div>
     </div>
