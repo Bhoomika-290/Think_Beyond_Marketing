@@ -110,7 +110,7 @@ interface ProjectContextValue {
   marketReport: MarketIntelligenceReport;
   specialistMessages: MarketSpecialistMessage[];
   updateProject: (partial: Partial<ProjectMetadata>) => void;
-  updateIdea: (partial: Partial<IdeaData>) => void;
+  updateIdea: (partial: Partial<IdeaData> & { isNewVenture?: boolean }) => void;
   updateBusinessModel: (partial: Partial<BusinessModelData>) => void;
   setProductType: (productType: ProductType) => void;
   setLocation: (location: Partial<LocationData>) => void;

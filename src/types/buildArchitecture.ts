@@ -216,7 +216,7 @@ export interface EntityField {
 
 export interface EntityRelationship {
   targetEntity: string;
-  type: '1:1' | '1:N' | 'N:M';
+  type: '1:1' | '1:N' | 'N:1' | 'N:M';
   description: string;
 }
 

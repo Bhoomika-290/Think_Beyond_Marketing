@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# This project installs with npm (package-lock.json is the lockfile of record).
+# Ignore stray pnpm artifacts so Vercel does not switch package manager.
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.pnpm-store
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

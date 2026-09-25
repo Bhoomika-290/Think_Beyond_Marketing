@@ -1041,6 +1041,13 @@ export function buildInterviewReply(
   lines.push(`• ${confCap} grounding from founder statements (${completeness.done}/${completeness.total} venture vectors mapped)`);
   lines.push('');
 
+  // A dry observation, only on the turn where the profile actually advanced.
+  // Rotated deterministically by message length — never random, never praise.
+  if (savedSummary.length > 0 && currentText.trim().length > 40) {
+    lines.push(DRY_ASIDES[currentText.length % DRY_ASIDES.length]);
+    lines.push('');
+  }
+
   // 3. What this changes Section
   lines.push('What this changes:');
   if (signals.productType === 'physical') {
@@ -1055,6 +1062,13 @@ export function buildInterviewReply(
     lines.push(`• Locks in ${savedSummary.slice(0, 2).map((s) => s.split('→')[0].trim()).join(' and ')} across subsequent stages.`);
   } else {
     lines.push('• Tightens the strategic baseline across subsequent feasibility, market sizing, and brand stages.');
+  }
+
+  // Recognized operating pattern: name the failure mode and the test for it.
+  const patternInfo = findPatternInfo(signals.archetypes);
+  if (patternInfo) {
+    lines.push(`• Pattern risk (${patternInfo.label}): ${patternInfo.why}`);
+    lines.push(`• Validation test: ${patternInfo.validate}`);
   }
   lines.push('');
 
