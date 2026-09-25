@@ -35,7 +35,20 @@ export const SimulationPage: React.FC = () => {
       ? 'software'
       : 'physical';
 
-  const [activePathway, setActivePathway] = useState<'physical' | 'software'>(defaultPathway);
+  const [userSelectedPathway, setUserSelectedPathway] = useState<{ defaultOrigin: 'physical' | 'software'; selected: 'physical' | 'software' }>({
+    defaultOrigin: defaultPathway,
+    selected: defaultPathway,
+  });
+
+  const activePathway = userSelectedPathway.defaultOrigin === defaultPathway
+    ? userSelectedPathway.selected
+    : defaultPathway;
+
+  const setActivePathway = (pathway: 'physical' | 'software') => {
+    setUserSelectedPathway({ defaultOrigin: defaultPathway, selected: pathway });
+    setActiveStageIndex(0);
+  };
+
   const [activeStageIndex, setActiveStageIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [appearance, setAppearance] = useState<SimulationAppearance>(() => {

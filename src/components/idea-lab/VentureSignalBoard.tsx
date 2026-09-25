@@ -19,23 +19,60 @@ export const VentureSignalBoard: React.FC = () => {
     businessModel.deliveryModel ? `${businessModel.deliveryModel} presence` : null,
   ].filter(Boolean);
 
-  const filledCount = [
-    idea.rawInput.trim(),
-    businessModel.productType,
-    idea.targetAudience.trim() || businessModel.customerType,
-    idea.problem.trim(),
-    geo,
-  ].filter(Boolean).length;
-  const confidence =
-    filledCount >= 4 ? 'High' : filledCount >= 2 ? 'Medium' : 'Partial';
+  const hasRaw = Boolean(idea.rawInput && idea.rawInput.trim().length > 3);
+  const rawPreview = hasRaw
+    ? idea.rawInput.slice(0, 28).trim() + (idea.rawInput.length > 28 ? '...' : '')
+    : 'Listening…';
 
-  const rows: { label: string; value: string; known: boolean; accent: string; status: 'KNOWN' | 'NEEDS VALIDATION' }[] = [
-    { label: 'IDEA SIGNAL', value: productLabel ?? 'Listening…', known: productLabel !== null, accent: '#486581', status: productLabel !== null ? 'KNOWN' : 'NEEDS VALIDATION' },
-    { label: 'CUSTOMER', value: idea.targetAudience || (businessModel.customerType ? businessModel.customerType.toUpperCase() : 'Not yet defined'), known: Boolean(idea.targetAudience || businessModel.customerType), accent: '#4F8064', status: idea.targetAudience ? 'KNOWN' : 'NEEDS VALIDATION' },
-    { label: 'GEOGRAPHY', value: geo || 'Not yet defined', known: geo.length > 0, accent: '#A87932', status: geo.length > 0 ? 'KNOWN' : 'NEEDS VALIDATION' },
-    { label: 'MODEL', value: modelBits.length > 0 ? modelBits.join(' · ') : 'Unknown', known: modelBits.length > 0, accent: '#76658F', status: modelBits.length > 1 ? 'KNOWN' : 'NEEDS VALIDATION' },
-    { label: 'CONFIDENCE', value: confidence, known: filledCount >= 2, accent: '#A96555', status: filledCount >= 4 ? 'KNOWN' : 'NEEDS VALIDATION' },
-    { label: 'OPEN QUESTIONS', value: `${idea.openQuestions.length}`, known: idea.openQuestions.length > 0, accent: '#62748A', status: 'NEEDS VALIDATION' },
+  const rows: {
+    label: string;
+    value: string;
+    known: boolean;
+    accent: string;
+    status: 'CONFIRMED' | 'COUNCIL PROPOSAL' | 'NEEDS VALIDATION';
+  }[] = [
+    {
+      label: 'IDEA SIGNAL',
+      value: rawPreview,
+      known: hasRaw,
+      accent: '#486581',
+      status: hasRaw ? 'CONFIRMED' : 'NEEDS VALIDATION',
+    },
+    {
+      label: 'CUSTOMER',
+      value: idea.targetAudience.trim() || 'Not yet defined',
+      known: Boolean(idea.targetAudience.trim()),
+      accent: '#4F8064',
+      status: idea.targetAudience.trim() ? 'CONFIRMED' : 'NEEDS VALIDATION',
+    },
+    {
+      label: 'PRODUCT TYPE',
+      value: productLabel ?? 'Assessing...',
+      known: Boolean(businessModel.productType),
+      accent: '#76658F',
+      status: businessModel.productType ? 'CONFIRMED' : 'COUNCIL PROPOSAL',
+    },
+    {
+      label: 'GEOGRAPHY',
+      value: geo || 'Not yet defined',
+      known: geo.length > 0,
+      accent: '#A87932',
+      status: geo.length > 0 ? 'CONFIRMED' : 'NEEDS VALIDATION',
+    },
+    {
+      label: 'MODEL',
+      value: modelBits.length > 0 ? modelBits.join(' · ') : 'Assessing...',
+      known: modelBits.length > 0,
+      accent: '#A96555',
+      status: modelBits.length > 0 ? 'COUNCIL PROPOSAL' : 'NEEDS VALIDATION',
+    },
+    {
+      label: 'OPEN QUESTIONS',
+      value: `${idea.openQuestions.length} recorded`,
+      known: idea.openQuestions.length > 0,
+      accent: '#62748A',
+      status: 'NEEDS VALIDATION',
+    },
   ];
 
   const journey: { label: string; state: 'identified' | 'partial' | 'downstream' }[] = [
@@ -75,11 +112,19 @@ export const VentureSignalBoard: React.FC = () => {
             </span>
             <span
               className={`text-[8px] font-mono px-1.5 py-0.5 rounded border shrink-0 ${
-                row.status === 'KNOWN'
+                row.status === 'CONFIRMED'
                   ? 'text-[#4A7C59] bg-[#4A7C59]/10 border-[#4A7C59]/30'
-                  : 'text-[#8A6D2B] bg-[#8A6D2B]/10 border-[#8A6D2B]/30'
+                  : row.status === 'COUNCIL PROPOSAL'
+                    ? 'text-[#76658F] bg-[#76658F]/10 border-[#76658F]/30'
+                    : 'text-[#8A6D2B] bg-[#8A6D2B]/10 border-[#8A6D2B]/30'
               }`}
-              title={row.status === 'KNOWN' ? 'Grounded in session input' : 'Requires validation or further input'}
+              title={
+                row.status === 'CONFIRMED'
+                  ? 'Grounded in direct founder input'
+                  : row.status === 'COUNCIL PROPOSAL'
+                    ? 'Derived strategic proposal by AI Council'
+                    : 'Requires validation or further input'
+              }
             >
               {row.status}
             </span>

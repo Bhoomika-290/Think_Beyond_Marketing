@@ -51,17 +51,24 @@ export const FeasibilityPage: React.FC = () => {
           <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
             <button
               type="button"
-              onClick={() => loadSampleVenture('coffee_d2c')}
+              onClick={() => loadSampleVenture('skincare_d2c')}
               className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
             >
-              ☕ Sample D2C
+              🌿 Skincare D2C
             </button>
             <button
               type="button"
-              onClick={() => loadSampleVenture('ai_saas')}
+              onClick={() => loadSampleVenture('restaurant_ai')}
               className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
             >
-              ⚡ Sample SaaS
+              ⚡ Restaurant AI
+            </button>
+            <button
+              type="button"
+              onClick={() => loadSampleVenture('tutoring_marketplace')}
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
+            >
+              🎓 Tutoring Mkt
             </button>
             <Link
               to="/idea-lab"

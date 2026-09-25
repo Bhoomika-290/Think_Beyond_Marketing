@@ -835,6 +835,90 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
       kineticRingsRef.current = kineticGroup;
       activationFxGroup.add(kineticGroup);
 
+    } else if (category === 'skincare') {
+      // -----------------------------------------------------------------------
+      // SKINCARE / APOTHECARY DROPPER BOTTLE 3D MODEL
+      // -----------------------------------------------------------------------
+      const glassMat = new THREE.MeshStandardMaterial({
+        color: 0x78350f, // Amber glass
+        roughness: 0.1,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.92,
+      });
+
+      // 1. Amber Glass Cylinder Body
+      const bottleGeo = new THREE.CylinderGeometry(0.5, 0.52, 1.4, 32);
+      const bottle = new THREE.Mesh(bottleGeo, glassMat);
+      bottle.position.set(0, -0.2, 0);
+      bottle.castShadow = true;
+      bottle.receiveShadow = true;
+      productGroup.add(bottle);
+
+      // 2. Bottle Shoulder & Neck
+      const neckGeo = new THREE.CylinderGeometry(0.24, 0.48, 0.35, 32);
+      const neck = new THREE.Mesh(neckGeo, glassMat);
+      neck.position.set(0, 0.65, 0);
+      productGroup.add(neck);
+
+      // 3. Matte Black / White Dropper Collar
+      const collarGeo = new THREE.CylinderGeometry(0.26, 0.26, 0.28, 32);
+      const collarMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5, metalness: 0.2 });
+      const collar = new THREE.Mesh(collarGeo, collarMat);
+      collar.position.set(0, 0.88, 0);
+      productGroup.add(collar);
+
+      // 4. Silicone Squeeze Bulb
+      const bulbGeo = new THREE.SphereGeometry(0.22, 24, 24);
+      bulbGeo.scale(1.0, 1.4, 1.0);
+      const bulbMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.9 });
+      const bulb = new THREE.Mesh(bulbGeo, bulbMat);
+      bulb.position.set(0, 1.15, 0);
+      productGroup.add(bulb);
+
+      // 5. Minimalist Apothecary Label Band
+      const labelGeo = new THREE.CylinderGeometry(0.505, 0.525, 0.8, 32, 1, true, 0, Math.PI * 1.6);
+      const labelMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.7 });
+      const labelMesh = new THREE.Mesh(labelGeo, labelMat);
+      labelMesh.position.set(0, -0.2, 0);
+      labelMesh.rotation.y = -Math.PI * 0.8;
+      productGroup.add(labelMesh);
+
+      // EXPLODED VIEW (Stage 4 - Skincare Dissection)
+      const expBulb = new THREE.Mesh(bulbGeo, bulbMat);
+      expBulb.position.set(0, 1.6, 0);
+      explodedGroup.add(expBulb);
+
+      const expCollar = new THREE.Mesh(collarGeo, collarMat);
+      expCollar.position.set(0, 1.1, 0);
+      explodedGroup.add(expCollar);
+
+      // Glass Pipette Tube
+      const pipetteGeo = new THREE.CylinderGeometry(0.04, 0.04, 1.2, 16);
+      const pipetteMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.05, transparent: true, opacity: 0.8 });
+      const expPipette = new THREE.Mesh(pipetteGeo, pipetteMat);
+      expPipette.position.set(0, 0.5, 0);
+      explodedGroup.add(expPipette);
+
+      const expBottle = new THREE.Mesh(bottleGeo, glassMat);
+      expBottle.position.set(0, -0.4, 0);
+      explodedGroup.add(expBottle);
+
+      // ACTIVATION FX (Stage 5 - Bio-Lipid Serum Drop)
+      const serumDropGeo = new THREE.SphereGeometry(0.08, 24, 24);
+      serumDropGeo.scale(1.0, 1.6, 1.0);
+      const serumDropMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        emissive: 0x0ea5e9,
+        emissiveIntensity: 1.2,
+        roughness: 0.05,
+        transparent: true,
+        opacity: 0.9,
+      });
+      const serumDrop = new THREE.Mesh(serumDropGeo, serumDropMat);
+      serumDrop.position.set(0, 0.1, 0.55);
+      activationFxGroup.add(serumDrop);
+
     } else {
       // -----------------------------------------------------------------------
       // GENERAL GOODS / PRECISION CONSUMER PRODUCT

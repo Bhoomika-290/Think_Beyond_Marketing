@@ -41,6 +41,7 @@ import { generateBuildArchitectureReport } from '../services/buildArchitectureEn
 import { generateExecutionReport } from '../services/executionEngine';
 import { generateSimulationReport } from '../services/simulationEngine';
 import { executeBusinessCouncilQuery } from '../services/businessCouncilEngine';
+import { isSubstantiveIdea, isGenericCategoryOnly } from '../services/ideaLabInterviewEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
@@ -135,7 +136,7 @@ interface ProjectContextValue {
   addCompetitor: (competitor: Omit<CompetitorItem, 'id' | 'provenance'>) => void;
   updatePositioningAxes: (xAxis: PositioningAxis, yAxis: PositioningAxis) => void;
   sendSpecialistQuery: (queryOrAction: string) => void;
-  loadSampleVenture: (sampleType: 'coffee_d2c' | 'ai_saas') => void;
+  loadSampleVenture: (sampleType: 'skincare_d2c' | 'restaurant_ai' | 'tutoring_marketplace' | 'ai_saas' | 'coffee_d2c') => void;
   brandReport: BrandRoadmapReport;
   refreshBrandRoadmap: () => void;
   saveBrandRoadmapReport: (report: BrandRoadmapReport) => void;
@@ -232,6 +233,21 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }));
   };
 
+function isGreetingOrCasualText(text: string): boolean {
+  if (!text || !text.trim()) return true;
+  const t = text.toLowerCase().trim();
+  const casualWords = [
+    'hi', 'hello', 'hey', 'hii', 'hiii', 'heyy', 'namaste', 'yo', 'sup', 'howdy', 'hola',
+    'good morning', 'good evening', 'good afternoon', 'thanks', 'thank you', 'ok', 'okay',
+    'cool', 'sure', 'untitled venture', 'bye', 'goodbye',
+  ];
+  if (casualWords.includes(t)) return true;
+  if (/^(?:hi|hey|hello|hii|good\s+(?:morning|afternoon|evening)|yo|howdy)\b/i.test(t) && t.split(/\s+/).length <= 3) {
+    return true;
+  }
+  return false;
+}
+
   const updateIdea = (partial: Partial<IdeaData> & { isNewVenture?: boolean }) => {
     setState((prev) => {
       const isSampleVenture = prev.project.id.startsWith('proj_sample_');
@@ -290,14 +306,21 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
       const newIdea = { ...prev.idea, ...partial };
       let projectName = prev.project.name;
-      if (partial.name && partial.name.trim()) {
-        projectName = partial.name;
+      if (partial.name && partial.name.trim() && isSubstantiveIdea(partial.name)) {
+        projectName = partial.name.trim();
+      } else if (partial.rawInput === '') {
+        projectName = 'Untitled Venture';
       } else if (
-        (prev.project.name === 'Untitled Venture' || isSampleVenture) &&
+        (prev.project.name === 'Untitled Venture' || isGreetingOrCasualText(prev.project.name) || isGenericCategoryOnly(prev.project.name) !== null) &&
         partial.rawInput &&
-        partial.rawInput.trim()
+        isSubstantiveIdea(partial.rawInput)
       ) {
-        projectName = partial.rawInput.slice(0, 32).trim() + (partial.rawInput.length > 32 ? '...' : '');
+        const cleanRaw = partial.rawInput
+          .replace(/^(?:i\s+want\s+to\s+(?:build|start|create|make|launch)\s+(?:a|an)?|i'm\s+building\s+(?:a|an)?|i\s+am\s+building\s+(?:a|an)?|building\s+(?:a|an)?|starting\s+(?:a|an)?|creating\s+(?:a|an)?)\s*/i, '')
+          .trim();
+        if (cleanRaw.length >= 4 && isSubstantiveIdea(cleanRaw)) {
+          projectName = (cleanRaw[0].toUpperCase() + cleanRaw.slice(1, 32)).trim() + (cleanRaw.length > 32 ? '...' : '');
+        }
       }
 
       return {
@@ -565,14 +588,21 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Determine whether minimum discovery exists
   const hasMinimumDiscovery = useMemo(() => {
-    const hasRaw = Boolean(state.idea.rawInput && state.idea.rawInput.trim().length > 3);
-    const hasType = Boolean(state.businessModel.productType);
-    const hasAudienceOrProblem = Boolean(
+    const raw = state.idea.rawInput?.trim() || '';
+    const name = state.idea.name?.trim() || '';
+    const hasRaw = Boolean(
+      (raw.length >= 4 && isSubstantiveIdea(raw)) ||
+      (name.length >= 3 && isSubstantiveIdea(name))
+    );
+    const hasBasicContext = Boolean(
       (state.idea.targetAudience && state.idea.targetAudience.trim()) ||
       (state.idea.problem && state.idea.problem.trim()) ||
+      (state.idea.context && state.idea.context.trim()) ||
+      (state.idea.outcome && state.idea.outcome.trim()) ||
+      Boolean(state.businessModel.productType) ||
       (state.businessModel.location.country && state.businessModel.location.country.trim())
     );
-    return hasRaw && hasType && hasAudienceOrProblem;
+    return hasRaw && hasBasicContext;
   }, [state]);
 
   const isStageUnlocked = (stageId: StageId): boolean => {
@@ -731,9 +761,152 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     []
   );
 
-  const loadSampleVenture = useCallback((sampleType: 'coffee_d2c' | 'ai_saas') => {
-    if (sampleType === 'coffee_d2c') {
-      const sampleState: ProjectState = {
+  const loadSampleVenture = useCallback((sampleType: 'skincare_d2c' | 'restaurant_ai' | 'tutoring_marketplace' | 'ai_saas' | 'coffee_d2c') => {
+    let sampleState: ProjectState;
+
+    if (sampleType === 'skincare_d2c') {
+      sampleState = {
+        project: {
+          id: 'proj_sample_skincare',
+          name: 'Aura Botanicals',
+          category: 'physical',
+          status: 'feasibility_ready',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        idea: {
+          rawInput:
+            'A premium sustainable skincare brand and e-commerce website for sensitive skin, featuring cold-pressed bio-lipids and a zero-waste refillable amber glass packaging system.',
+          name: 'Aura Botanicals',
+          problem:
+            'Commercial sensitive-skin products use synthetic thickeners and non-recyclable plastic pumps that degrade active botanicals, while ultra-niche organic balms lack clinical stability and dermatological certification.',
+          targetAudience:
+            'Eco-conscious millennials & Gen-Z consumers aged 22–38 suffering from reactive skin barriers, seeking minimalist, dermatologist-tested clinical botanicals.',
+          context:
+            'Formulating in certified GMP facility in Mumbai/Pune; launching with direct-to-consumer Shopify storefront, amber borosilicate droppers, and compostable refill sachets.',
+          goals:
+            'Achieve 1,200 active monthly subscribers within 9 months while maintaining a 62% product gross margin and zero plastic waste.',
+          constraints:
+            'Requires BIS and CDSCO cosmetic regulatory testing (patch tests, 90-day accelerated stability, heavy metal screening) prior to commercial distribution.',
+          differentiation:
+            '100% bio-compatible lipid barrier serums with verified cold-pressed extraction batch certificates and returnable aluminum refill pods.',
+          openQuestions: [
+            'Will first-time customers adopt the refill pouch subscription vs buying a new glass bottle every 60 days?',
+            'What is the shelf-life stability of cold-pressed oils in high-humidity regional transit?',
+          ],
+        },
+        businessModel: {
+          productType: 'physical',
+          deliveryModel: 'online',
+          customerType: 'd2c',
+          location: {
+            country: 'India',
+            cityRegion: 'Mumbai / Maharashtra',
+            operatingLocation: 'GMP facility in Pune, direct shipping pan-India',
+          },
+        },
+        workflow: {
+          currentStage: 'feasibility',
+          completedStages: ['idea-lab'],
+          stageOutputs: {},
+        },
+      };
+    } else if (sampleType === 'restaurant_ai') {
+      sampleState = {
+        project: {
+          id: 'proj_sample_restaurant_ai',
+          name: 'PrepIQ',
+          category: 'saas',
+          status: 'feasibility_ready',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        idea: {
+          rawInput:
+            'An AI platform that helps independent restaurants forecast daily food demand, automate morning kitchen prep sheets, and reduce raw ingredient spoilage waste.',
+          name: 'PrepIQ',
+          problem:
+            'Independent restaurants operate on thin 3–7% net margins and lose 8–14% of revenue to over-prepping and food waste because chefs rely on guesswork and static spreadsheets rather than weather/event-aware predictive intelligence.',
+          targetAudience:
+            'Independent multi-outlet restaurant owners, head chefs, and kitchen general managers doing $500k–$3M annual revenue.',
+          context:
+            'Direct POS integrations (Toast, Square, Petpooja) combined with local weather, reservations, and municipal events to deliver daily 6:00 AM WhatsApp prep forecasts.',
+          goals:
+            'Reduce food spoilage by 22% and save 45 minutes of head-chef prep planning time daily across 50 pilot restaurants.',
+          constraints:
+            'Must integrate seamlessly without requiring kitchen staff to learn complex enterprise ERP software.',
+          differentiation:
+            'Actionable morning WhatsApp kitchen prep alerts with 1-click recipe batch adjustments directly mapped to current walk-in cooler inventory.',
+          openQuestions: [
+            'How willingly will head chefs follow AI prep recommendations over their historical culinary intuition?',
+            'What is the onboarding friction for legacy on-premise POS systems without modern REST APIs?',
+          ],
+        },
+        businessModel: {
+          productType: 'saas',
+          deliveryModel: 'online',
+          customerType: 'b2b',
+          location: {
+            country: 'United States',
+            cityRegion: 'Austin, TX',
+            operatingLocation: 'Cloud infrastructure deployed on AWS/Supabase',
+          },
+        },
+        workflow: {
+          currentStage: 'feasibility',
+          completedStages: ['idea-lab'],
+          stageOutputs: {},
+        },
+      };
+    } else if (sampleType === 'tutoring_marketplace') {
+      sampleState = {
+        project: {
+          id: 'proj_sample_tutoring',
+          name: 'PeerConnect',
+          category: 'marketplace',
+          status: 'feasibility_ready',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        idea: {
+          rawInput:
+            'A peer tutoring marketplace connecting college students with verified high-performing classmates for affordable, subject-specific on-demand study sessions.',
+          name: 'PeerConnect',
+          problem:
+            'University students struggle in stem/calculus weed-out courses while traditional tutoring services charge $60–$100/hr, and generic online platforms lack syllabus-specific course alignment.',
+          targetAudience:
+            'Undergraduate university students in STEM, economics, and pre-med programs needing course-specific exam prep.',
+          context:
+            'Campus-by-campus launch starting with 3 major state universities; vetting tutors by verified GPA (3.7+ in course) and student ID verification.',
+          goals:
+            'Facilitate 1,000 paid 1-on-1 tutoring hours within the first semester with a 15% platform take-rate.',
+          constraints:
+            'Must maintain balanced 2-sided liquidity across specific university course codes (e.g. CHEM 101, MATH 220).',
+          differentiation:
+            'Course-syllabus-matched peer tutors who took the exact professor and exam within the past 2 semesters with built-in escrow payment protection.',
+          openQuestions: [
+            'How do we maintain student retention during mid-semester breaks and summer holidays?',
+            'Will tutors and tutees attempt to disintermediate the platform after their first paid session?',
+          ],
+        },
+        businessModel: {
+          productType: 'marketplace',
+          deliveryModel: 'online',
+          customerType: 'b2c',
+          location: {
+            country: 'United States',
+            cityRegion: 'Ann Arbor, MI',
+            operatingLocation: 'University campus clusters with WebRTC live classrooms',
+          },
+        },
+        workflow: {
+          currentStage: 'feasibility',
+          completedStages: ['idea-lab'],
+          stageOutputs: {},
+        },
+      };
+    } else if (sampleType === 'coffee_d2c') {
+      sampleState = {
         project: {
           id: 'proj_sample_coffee',
           name: 'Aura Roast',
@@ -779,22 +952,8 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
           stageOutputs: {},
         },
       };
-      const report = generateFeasibilityReport(sampleState);
-      sampleState.feasibility = report;
-      sampleState.workflow.stageOutputs.feasibility = report;
-      const mktReport = generateMarketIntelligenceReport(sampleState);
-      sampleState.marketIntelligence = mktReport;
-      sampleState.workflow.stageOutputs.marketIntelligence = mktReport;
-      const brReport = generateBrandRoadmapReport(sampleState);
-      sampleState.brandRoadmap = brReport;
-      sampleState.workflow.stageOutputs.brandRoadmap = brReport;
-      const baReport = generateBuildArchitectureReport(sampleState);
-      sampleState.buildArchitecture = baReport;
-      sampleState.workflow.stageOutputs.buildArchitecture = baReport;
-      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence', 'brand-roadmap'];
-      setState(sampleState);
     } else {
-      const sampleState: ProjectState = {
+      sampleState = {
         project: {
           id: 'proj_sample_saas',
           name: 'MetricPulse',
@@ -840,21 +999,22 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
           stageOutputs: {},
         },
       };
-      const report = generateFeasibilityReport(sampleState);
-      sampleState.feasibility = report;
-      sampleState.workflow.stageOutputs.feasibility = report;
-      const mktReport = generateMarketIntelligenceReport(sampleState);
-      sampleState.marketIntelligence = mktReport;
-      sampleState.workflow.stageOutputs.marketIntelligence = mktReport;
-      const brReport = generateBrandRoadmapReport(sampleState);
-      sampleState.brandRoadmap = brReport;
-      sampleState.workflow.stageOutputs.brandRoadmap = brReport;
-      const baReport = generateBuildArchitectureReport(sampleState);
-      sampleState.buildArchitecture = baReport;
-      sampleState.workflow.stageOutputs.buildArchitecture = baReport;
-      sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence', 'brand-roadmap'];
-      setState(sampleState);
     }
+
+    const report = generateFeasibilityReport(sampleState);
+    sampleState.feasibility = report;
+    sampleState.workflow.stageOutputs.feasibility = report;
+    const mktReport = generateMarketIntelligenceReport(sampleState);
+    sampleState.marketIntelligence = mktReport;
+    sampleState.workflow.stageOutputs.marketIntelligence = mktReport;
+    const brReport = generateBrandRoadmapReport(sampleState);
+    sampleState.brandRoadmap = brReport;
+    sampleState.workflow.stageOutputs.brandRoadmap = brReport;
+    const baReport = generateBuildArchitectureReport(sampleState);
+    sampleState.buildArchitecture = baReport;
+    sampleState.workflow.stageOutputs.buildArchitecture = baReport;
+    sampleState.workflow.completedStages = ['idea-lab', 'feasibility', 'market-intelligence', 'brand-roadmap'];
+    setState(sampleState);
   }, []);
 
   // Market Intelligence State & Specialist Chatbot

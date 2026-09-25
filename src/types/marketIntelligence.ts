@@ -7,6 +7,12 @@ export type MarketEvidenceProvenance =
 
 export type SignalLevel = 'Strong' | 'Moderate' | 'Weak' | 'Needs Validation';
 
+export type CompetitorEvidenceType =
+  | 'VERIFIED_COMPETITOR'
+  | 'OBSERVED_MARKET_PLAYER'
+  | 'CATEGORY_ARCHETYPE'
+  | 'COUNCIL_HYPOTHESIS';
+
 export interface CompetitorItem {
   id: string;
   name: string;
@@ -18,6 +24,8 @@ export interface CompetitorItem {
   weaknesses: string[];
   differentiationFactor: string;
   provenance: MarketEvidenceProvenance;
+  competitorType?: CompetitorEvidenceType;
+  websiteUrl?: string;
   isUserAdded?: boolean;
   coordinates: { x: number; y: number }; // normalized -100 to +100
   // Detailed metadata for inspection panel

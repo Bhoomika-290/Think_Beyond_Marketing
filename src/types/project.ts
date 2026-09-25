@@ -162,16 +162,40 @@ export interface LocationData {
   operatingLocation: string; // e.g. "Primary in Jaipur, shipping pan-India"
 }
 
+export type FactConfidence = 'CONFIRMED' | 'INFERRED' | 'NEEDS_VALIDATION' | 'UNKNOWN';
+
+export interface VentureFact {
+  id: string;
+  dimension: 'idea' | 'customer' | 'problem' | 'context' | 'outcome';
+  label: string;
+  userText: string;
+  status: 'CONFIRMED' | 'UNKNOWN';
+}
+
+export interface CouncilInference {
+  id: string;
+  category: 'differentiation' | 'constraints' | 'business_model' | 'pricing' | 'gtm' | 'risks';
+  title: string;
+  proposal: string;
+  confidence: FactConfidence;
+  proposingSpecialist: string;
+  userOverride?: string;
+  status: 'PROPOSED' | 'ACCEPTED' | 'REJECTED' | 'MODIFIED';
+}
+
 export interface IdeaData {
   rawInput: string;
   name: string;
   problem: string;
   targetAudience: string;
   context: string;
+  outcome?: string;
   goals: string;
-  constraints: string;
-  differentiation: string;
+  constraints?: string;
+  differentiation?: string;
   openQuestions: string[];
+  userFacts?: VentureFact[];
+  councilInferences?: CouncilInference[];
 }
 
 export interface BusinessModelData {

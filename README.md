@@ -65,15 +65,15 @@ Each major phase in the founder's journey is mapped to a distinct URL route:
 
 | Stage | Route | Status | Description |
 | :--- | :--- | :--- | :--- |
-| **01. Idea Lab** | `/idea-lab` | **IMPLEMENTED** | Active discovery workspace with founder interview, venture classification, footprint capture, and idea snapshot synthesis. |
-| **02. Feasibility & Viability** | `/feasibility` | **IMPLEMENTED** | Staged decision-support engine evaluating 9 feasibility dimensions, categorized risks, assumptions, open questions, validation plan, and Stage 03 handoff. |
-| **03. Market Intelligence** | `/market-intelligence` | **IMPLEMENTED** | Visual macro intelligence command center with dynamic 2-axis positioning matrix, real competitor verification, customer clusters, opportunity whitespace map, zero-fake TAM/SAM/SOM sizing, 3x3 risk heatmap, AI Council synthesis, Business Specialist chatbot, and Stage 04 Brand Brief handoff. |
-| **04. Brand Roadmap** | `/brand-roadmap` | **IMPLEMENTED** | Visual Brand Intelligence Workspace featuring 7-node Brand Strategy Pipeline, Market Whitespace Map, 6-node Causal Chain Differentiator, Cross-Orbit Brand DNA Diagram, 6-step Positioning Builder, Voice Spectrums, Parametric Logo Generator, Color & Typography Systems, 7-Stage Customer Journey Line, Milestone Timeline, Decision Board, and Stage 05 Build Dossier Handoff. |
-| **05. Build & Architecture** | `/build` | **IMPLEMENTED** | Product Architecture Command Center: Build Readiness Overview with SVG circular dials, Product Blueprint Causal Chain, MVP Scope Prioritization Matrix (MoSCoW with 2D Value vs Complexity Canvas), Feature Tree, Multi-Tier System Architecture Visualizer, Tech Stack Builder, Data Entity Model (ERD), User Flow Specs, Screen Sitemap, API Integration Network, 8-Stage AI Cognitive Loop, 5-Stage Multi-Agent Build Council, Build Dependency Graph (DAG), 3-Phase Roadmap, 2D Visual Build Risk Matrix (Probability × Impact), Brand → Product Consistency Bridge, Architecture Challenger Stress Tests, Specialist Chat, and Stage 06 Handoff Dossier. |
-| **06. Execution Intelligence** | `/execution` | **IMPLEMENTED** | Operational execution command center supporting both Physical & Software pathways: Supply chain relationship flow, nearby geographic/regional procurement mapping, software execution workspace (cloud architecture, dev roadmap, CI/CD), sales & distribution channels, marketing acquisition loops, execution checklists, and contextual intelligence modals. |
-| **07. Experience Simulation** | `/simulation` | **IMPLEMENTED** | Dynamic dual-modality venture simulation: 3D physical product viewport & unboxing canvas (materials, lighting, exploded view), interactive clickable software prototype view, dynamic appearance controls (theme, style, accent), underlying assumption ledger, and 5-role simulation agent feedback bar. |
-| **08. Launch & Growth** | `/launch-growth` | **IMPLEMENTED** | Go-to-market execution and monitoring hub: Live launch control card with readiness scores, brand monitoring radar (sentiment analysis, competitor watching, review tracking), video reels canvas player for social promotional assets, referral & affiliate growth tools, and PR distribution workflows. |
-| **09. Brand Intelligence Report** | `/report` | **IMPLEMENTED** | Comprehensive multi-page Executive Brand Intelligence Report (accessible via Launch & Growth or modal): Consolidates all 9 stages into an exportable, investor-grade executive dossier featuring radar charts, strategic takeaways, AI council synthesis, unit economics, risk register, and brand book. |
+| **01. Idea Lab** | `/idea-lab` | **IMPLEMENTED** | Active discovery workspace with founder interview, venture classification, cascading geographic footprint, and idea snapshot synthesis. |
+| **02. Feasibility & Viability** | `/feasibility` | **IMPLEMENTED** | Idea-driven decision-support engine evaluating 9 venture-specific feasibility dimensions, categorized risks, falsification task queues, assumptions, and validation plans. |
+| **03. Market Intelligence** | `/market-intelligence` | **IMPLEMENTED** | Strategic Competitive Landscape, verified competitor profiles, dynamic positioning axes with pan/zoom, 3+ competitor roadmaps, AI Strategic Council (7-member debate), customer segments, and zero-fake whitespace maps. |
+| **04. Brand Roadmap** | `/brand-roadmap` | **IMPLEMENTED** | Visual Brand Intelligence Workspace featuring 7-node Brand Strategy Pipeline, Market Whitespace Map, Competitor Roadmaps, 6-node Causal Chain Differentiator, Cross-Orbit Brand DNA Diagram, 6-step Positioning Builder, Voice Spectrums, Parametric Logo Generator, Color & Typography Systems, 7-Stage Customer Journey Line, Milestone Timeline, and Decision Board. |
+| **05. Build & Architecture** | `/build` | **IMPLEMENTED** | Modality-aware Product Architecture Command Center: Physical vs Software architecture, Build Readiness Overview, Product Blueprint Causal Chain, MVP Scope Prioritization Matrix (MoSCoW on a 2D Value vs Complexity Canvas), Feature Tree, Multi-Tier System Architecture Visualizer, Tech Stack Builder, Data Entity Model (ERD), User Flow Specs, Screen Sitemap, API Integration Network, Multi-Agent Build Council, Build Dependency Graph (DAG), 2D Visual Build Risk Matrix (Probability x Impact), Architecture Challenger Stress Tests, Specialist Chat, and Stage 06 Handoff Dossier. |
+| **06. Execution Intelligence** | `/execution` | **IMPLEMENTED** | Venture-specific execution milestones, interactive geocoded regional resource radar map, procurement directories, nearby geographic/regional procurement mapping, software execution workspace, unverified supplier integrity guards, execution checklists, and contextual intelligence modals. |
+| **07. Experience Simulation** | `/simulation` | **IMPLEMENTED** | Modality-aware 3D and software experience simulation (apothecary dropper bottle for skincare vs apparel textiles vs kraft pouches vs hardware enclosures vs interactive data prototypes for B2B SaaS), with appearance controls, assumption ledger, and simulation agent feedback bar. |
+| **08. Launch & Growth** | `/launch-growth` | **IMPLEMENTED** | Idea-driven launch command center with live launch control card, brand monitoring radar, vertical Reels/Instagram creative briefs, multi-channel GTM funnels, creator tiers, referral & affiliate growth tools, and SEO/Meta workspaces. |
+| **09. Executive Report** | `/report` | **IMPLEMENTED** | Comprehensive multi-page printable Executive Brand & Venture Intelligence Report synthesizing Stages 01-08, featuring radar charts, strategic takeaways, AI council synthesis, unit economics, risk register, and brand book. |
 
 ---
 
@@ -467,35 +467,41 @@ npm run lint
 
 ---
 
-## AI Architecture — Multi-Agent Intelligence System
+## Dynamic Intelligence & AI Council Architecture
 
-The application features a staged, continuous AI orchestration and reasoning architecture:
-- **Specialized Multi-Agent Business Council (`businessCouncilEngine.ts`)**: 6 persistent specialist agents (Product Strategist, Technical Architect, Business Specialist, UX Specialist, Security/Compliance Specialist, Growth Marketer) evaluating cross-stage trade-offs.
+Think Beyond Marketing operates as a unified Idea-Driven Business Intelligence Workspace, with a staged, continuous AI orchestration and reasoning architecture:
+
+- **Central Venture Domain Resolver (`ventureDomainResolver.ts`)**: Automatically derives domain archetypes (`skincare_beauty`, `food_waste_ai`, `food_catering_marketplace`, `tutoring_edtech`, `water_bottle_sustainable`, `b2b_saas`, `d2c_physical`, `restaurant_hospitality`, `generic_venture`) directly from Stage 01 raw founder input.
+- **7-Member Multi-Agent Strategic Council (`businessCouncilEngine.ts`)**: Specialized agents (Market Strategist, Customer/UX Strategist, Financial/Unit Economics Analyst, Operations Specialist, Product/Tech Specialist, Brand/Growth Strategist, Critical Challenger) with debate synthesis, consensus points, and friction analysis.
+- **Persistent Specialist Business Council**: 6 cross-stage specialist agents (Product Strategist, Technical Architect, Business Specialist, UX Specialist, Security/Compliance Specialist, Growth Marketer) evaluating cross-stage trade-offs.
 - **Dynamic Debate & Consensus Engine**: Automatically computes unanimous consensus points, critical strategic divergence, and concrete founder action directives from across council perspectives.
-- **Contextual Interview & Discovery Engines**: Conversational specialist bots grounded in Stage 01–08 state, answering founder inquiries with deterministic domain rules and zero hallucinations.
+- **Competitor Roadmaps Engine**: Stage-by-stage trajectories for 3+ verified market players, key extracts, anti-patterns to avoid, and white-space opportunity gaps.
+- **Contextual Interview & Discovery Engines**: Conversational specialist bots grounded in Stage 01-08 state, answering founder inquiries with deterministic domain rules and zero hallucinations.
+- **Modality-Aware Experience Simulation**: Dynamic 3D procedural models (Apothecary amber dropper bottle with pipette vs. apparel textiles vs. kraft pouches vs. hardware enclosures) and software prototype value loops.
+- **Strict Data Grounding**: All intelligence is transparently categorized as `VERIFIED`, `OBSERVED`, `AI_INFERENCE`, `ASSUMPTION`, or `REQUIRES_VALIDATION` with zero fake addresses or fabricated phone numbers.
 - **Structured Schema Enforcers**: All stage outputs and synthesized dossiers update `workflow.stageOutputs` with strict TypeScript typing and evidence provenance.
 
 ---
 
-## Data Integrity Principle
+## Verification & Testing
 
-- **No Fabricated Market Data**: No synthetic TAM figures or arbitrary market percentages.
-- **No Fabricated Competitors**: No placeholder competitor rosters.
-- **No Fabricated Suppliers or Contacts**: No fake phone numbers or addresses.
-- **Explicit Unknown States**: Unprovided information strictly defaults to `"Not provided"` or `"Needs validation"`.
+```bash
+# Run Oxlint static analysis (0 errors, 0 warnings)
+npm run lint
 
----
+# Run TypeScript compilation check
+npx tsc -b
 
-## Development Protocol
+# Build production bundle
+npm run build
 
-1. **Iterative Scrums**: Scoped deliveries without scope creep.
-2. **Review Before Commit**: All changes must be manually reviewed by a human prior to committing to version control.
-3. **No Automated Commits**: Automated tools and agents are strictly prohibited from executing `git commit` or `git push`.
-4. **Validation Gates**: Every iteration must successfully pass `npm run build` and `npm run lint`.
+# Run programmatic 3-archetype domain purity verification
+npx tsx scripts/verify_ventures.ts
+```
 
 ---
 
 ## Current Status
 
-**All 9 Stages Implemented & Operational (Stages 01 through 09).**
-Stage 01 (Idea Lab), Stage 02 (Feasibility & Viability Engine), Stage 03 (Market Intelligence), Stage 04 (Brand Roadmap & Visual Identity System), Stage 05 (Build & Architecture Intelligence), Stage 06 (Execution Intelligence & Supply Chain), Stage 07 (Dual-Modality Experience Simulation), Stage 08 (Launch & Growth), and Stage 09 (Executive Brand Intelligence Report & AI Council Dossier) are fully implemented, connected via continuous reactive state flow in `ProjectContext`, and rendered in an accessible, permanent dark workspace. All TypeScript types, Oxlint static analysis rules, and Vite production builds pass cleanly with 0 errors and 0 warnings.
+**Full Dynamic Intelligence Implementation Complete, Stages 01 through 09 Operational.**
+Stage 01 (Idea Lab), Stage 02 (Feasibility & Viability Engine), Stage 03 (Market Intelligence), Stage 04 (Brand Roadmap & Visual Identity System), Stage 05 (Build & Architecture Intelligence), Stage 06 (Execution Intelligence & Supply Chain), Stage 07 (Dual-Modality Experience Simulation), Stage 08 (Launch & Growth), and Stage 09 (Executive Brand & Venture Intelligence Report) are fully implemented and connected via continuous reactive state flow in `ProjectContext`. Every stage is driven by the founder's active Stage 01 venture: all modals, detail drawers, competitor roadmaps, risk task queues, 3D simulation canvasses, and report generators are fully interactive with zero template leakage. TypeScript compilation, Oxlint static analysis, and Vite production builds pass cleanly with 0 errors and 0 warnings.

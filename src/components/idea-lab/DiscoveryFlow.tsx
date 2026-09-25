@@ -1,101 +1,126 @@
 import React, { useState } from 'react';
 import { useProject } from '../../context/ProjectContext';
 import { Card } from '../common/Card';
-import { Input } from '../common/Input';
 import { Textarea } from '../common/Textarea';
 import { Button } from '../common/Button';
 import { Badge } from '../common/Badge';
 import {
+  Lightbulb,
   Users,
   Target,
-  Sparkles,
-  AlertTriangle,
-  HelpCircle,
-  Plus,
-  Trash2,
+  Compass,
+  Award,
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
+  Sparkles,
+  Info,
 } from 'lucide-react';
 
 export const DiscoveryFlow: React.FC = () => {
   const {
     state,
     updateIdea,
-    addOpenQuestion,
-    removeOpenQuestion,
   } = useProject();
 
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [newQuestionInput, setNewQuestionInput] = useState('');
 
   const steps = [
     {
-      id: 'audience',
-      title: 'Target Audience & Persona',
-      subtitle: 'Who experiences the sharpest need for what you are building?',
+      id: 'idea',
+      num: '01',
+      title: 'Idea Concept',
+      tabLabel: '01 Idea',
+      question: 'What are you thinking of building?',
+      subtitle: 'Describe your concept in plain words. Even a rough one-sentence thought is enough to start.',
+      helpText: 'No business jargon needed. Just tell us what you want to create.',
+      icon: Lightbulb,
+      field: 'rawInput',
+      placeholder: 'e.g. I want to build an app that helps college students find affordable peer tutors...',
+    },
+    {
+      id: 'customer',
+      num: '02',
+      title: 'Customer / User',
+      tabLabel: '02 Customer',
+      question: 'Who do you imagine using it?',
+      subtitle: 'Who feels this need? If you are not completely sure, describe the person you think might need it.',
+      helpText: 'Think about their daily life, school, work, or situation.',
       icon: Users,
+      field: 'targetAudience',
+      placeholder: 'e.g. College and university students struggling with difficult classes on a tight budget...',
     },
     {
       id: 'problem',
-      title: 'Problem & Pain Point',
-      subtitle: 'What specific friction, inadequacy, or cost currently exists?',
+      num: '03',
+      title: 'Problem / Need',
+      tabLabel: '03 Problem',
+      question: 'What problem or frustration are you trying to solve?',
+      subtitle: 'What made you think this should exist? What feels broken, annoying, or overpriced today?',
+      helpText: 'What are people doing right now instead, and why does it fail them?',
       icon: Target,
+      field: 'problem',
+      placeholder: 'e.g. Private tutors cost $40-60/hour, university tutoring centers have long waitlists, and free online videos lack 1-on-1 personalized guidance...',
     },
     {
-      id: 'differentiation',
-      title: 'Differentiation & Edge',
-      subtitle: 'What makes this distinctly better, faster, or culturally unique?',
-      icon: Sparkles,
+      id: 'context',
+      num: '04',
+      title: 'Context / Situation',
+      tabLabel: '04 Context',
+      question: 'Where or in what situation would people use this?',
+      subtitle: 'The setting, location, or daily moment when someone reaches for your solution.',
+      helpText: 'Examples shown as guidance only (never inserted as data): on campus, during exam weeks, at work, at home, or on mobile.',
+      icon: Compass,
+      field: 'context',
+      placeholder: 'e.g. On college campuses across the country, primarily during midterm and finals weeks, via mobile app or video chat...',
     },
     {
-      id: 'constraints',
-      title: 'Constraints & Ambitions',
-      subtitle: 'What limitations (capital, tech, regulatory) and goals bound this venture?',
-      icon: AlertTriangle,
-    },
-    {
-      id: 'questions',
-      title: 'Open Founder Inquiries',
-      subtitle: 'What critical uncertainties or blind spots must subsequent stages resolve?',
-      icon: HelpCircle,
+      id: 'outcome',
+      num: '05',
+      title: 'Desired Outcome',
+      tabLabel: '05 Outcome',
+      question: 'What would you want to be different for the customer if this worked?',
+      subtitle: 'If this venture is successful, what tangible change does the customer experience?',
+      helpText: 'Focus on the human benefit or relief you want to deliver.',
+      icon: Award,
+      field: 'outcome',
+      placeholder: 'e.g. Students pass their exams with less stress and lower cost, while student tutors earn steady income helping their peers...',
     },
   ];
 
-  const handleAddQuestion = () => {
-    if (!newQuestionInput.trim()) return;
-    addOpenQuestion(newQuestionInput.trim());
-    setNewQuestionInput('');
-  };
-
-  const handleQuestionKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAddQuestion();
-    }
-  };
+  const currentStep = steps[activeStep];
 
   return (
     <Card
-      title="Adaptive Discovery Interview"
-      subtitle="Progressively structure your intuition into quantifiable business intelligence vectors."
+      title={
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-[#2B3D4F]" />
+          <span className="font-semibold text-sm text-[#2B3D4F]">Founder Discovery Dimensions</span>
+        </div>
+      }
+      subtitle="Answer simple questions about what you know. Our AI Business Council will derive differentiation, positioning, and strategy for you."
       badge={
         <Badge variant="active" size="sm">
-          Step {activeStep + 1} of {steps.length}
+          Dimension {activeStep + 1} of {steps.length}
         </Badge>
       }
     >
-      {/* Step Selector Pills */}
+      {/* 5 Discovery Dimension Pills */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-5 border-b border-[#DDD5C5] no-scrollbar">
         {steps.map((step, idx) => {
           const StepIcon = step.icon;
           const isCurrent = activeStep === idx;
-          const isFilled =
-            (idx === 0 && Boolean(state.idea.targetAudience)) ||
-            (idx === 1 && Boolean(state.idea.problem)) ||
-            (idx === 2 && Boolean(state.idea.differentiation)) ||
-            (idx === 3 && Boolean(state.idea.constraints || state.idea.goals)) ||
-            (idx === 4 && state.idea.openQuestions.length > 0);
+          const val =
+            step.field === 'rawInput'
+              ? state.idea.rawInput
+              : step.field === 'targetAudience'
+                ? state.idea.targetAudience
+                : step.field === 'problem'
+                  ? state.idea.problem
+                  : step.field === 'context'
+                    ? state.idea.context
+                    : state.idea.outcome;
+          const isFilled = Boolean(val && val.trim().length > 2);
 
           return (
             <button
@@ -109,7 +134,7 @@ export const DiscoveryFlow: React.FC = () => {
               }`}
             >
               <StepIcon className="w-3.5 h-3.5" />
-              <span>{step.title.split(' ')[0]}</span>
+              <span>{step.tabLabel}</span>
               {isFilled && <CheckCircle2 className="w-3 h-3 text-[#4A7C59]" />}
             </button>
           );
@@ -117,162 +142,50 @@ export const DiscoveryFlow: React.FC = () => {
       </div>
 
       {/* Step Content */}
-      <div className="min-h-[220px]">
-        {/* Step 0: Audience */}
-        {activeStep === 0 && (
-          <div className="space-y-4 animate-fade-in">
-            <div>
-              <h4 className="text-sm font-semibold text-[#2B3D4F]">
-                Who is this product specifically for?
-              </h4>
-              <p className="text-xs text-[#6B7D90] mt-0.5">
-                Define the primary persona who has urgency, budget, or emotional alignment.
-              </p>
-            </div>
-            <Textarea
-              label="Target Audience & Customer Profile"
-              placeholder="e.g. Young urban professionals living in North India looking for aesthetic, lightweight winterwear suited for sudden cold snaps..."
-              value={state.idea.targetAudience}
-              onChange={(e) => updateIdea({ targetAudience: e.target.value })}
-              rows={3}
-            />
+      <div className="min-h-[200px] space-y-4 animate-fade-in">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono font-bold text-[#8A6D2B] px-1.5 py-0.5 rounded bg-[#8A6D2B]/10 border border-[#8A6D2B]/30">
+              {currentStep.num}
+            </span>
+            <h4 className="text-sm font-semibold text-[#2B3D4F]">
+              {currentStep.question}
+            </h4>
           </div>
-        )}
+          <p className="text-xs text-[#6B7D90]">
+            {currentStep.subtitle}
+          </p>
+        </div>
 
-        {/* Step 1: Problem */}
-        {activeStep === 1 && (
-          <div className="space-y-4 animate-fade-in">
-            <div>
-              <h4 className="text-sm font-semibold text-[#2B3D4F]">
-                What core problem or void does this address?
-              </h4>
-              <p className="text-xs text-[#6B7D90] mt-0.5">
-                Explain what is broken, missing, or overpriced in existing alternatives.
-              </p>
-            </div>
-            <Textarea
-              label="Core Problem Hypothesis"
-              placeholder="e.g. Most winter wear in hot/semi-arid states is imported heavy wool or cheap synthetic fast fashion with poor breathability and generic Western aesthetics..."
-              value={state.idea.problem}
-              onChange={(e) => updateIdea({ problem: e.target.value })}
-              rows={3}
-            />
-          </div>
-        )}
+        <Textarea
+          label={currentStep.title}
+          placeholder={currentStep.placeholder}
+          value={
+            currentStep.field === 'rawInput'
+              ? state.idea.rawInput
+              : currentStep.field === 'targetAudience'
+                ? state.idea.targetAudience
+                : currentStep.field === 'problem'
+                  ? state.idea.problem
+                  : currentStep.field === 'context'
+                    ? state.idea.context
+                    : state.idea.outcome || ''
+          }
+          onChange={(e) => {
+            const val = e.target.value;
+            if (currentStep.field === 'rawInput') updateIdea({ rawInput: val });
+            else if (currentStep.field === 'targetAudience') updateIdea({ targetAudience: val });
+            else if (currentStep.field === 'problem') updateIdea({ problem: val });
+            else if (currentStep.field === 'context') updateIdea({ context: val });
+            else if (currentStep.field === 'outcome') updateIdea({ outcome: val });
+          }}
+          rows={3}
+        />
 
-        {/* Step 2: Differentiation */}
-        {activeStep === 2 && (
-          <div className="space-y-4 animate-fade-in">
-            <div>
-              <h4 className="text-sm font-semibold text-[#2B3D4F]">
-                What makes this distinctly differentiated?
-              </h4>
-              <p className="text-xs text-[#6B7D90] mt-0.5">
-                Your proprietary angle, craft, distribution shortcut, or cultural moat.
-              </p>
-            </div>
-            <Textarea
-              label="Value Proposition & Moat"
-              placeholder="e.g. Blending traditional Rajasthani quilting (Jaipuri Razai craft) with contemporary weatherproof technical fabrics for high style and thermal regulation..."
-              value={state.idea.differentiation}
-              onChange={(e) => updateIdea({ differentiation: e.target.value })}
-              rows={3}
-            />
-          </div>
-        )}
-
-        {/* Step 3: Constraints & Goals */}
-        {activeStep === 3 && (
-          <div className="space-y-4 animate-fade-in">
-            <div>
-              <h4 className="text-sm font-semibold text-[#2B3D4F]">
-                Operational Bounds & Milestones
-              </h4>
-              <p className="text-xs text-[#6B7D90] mt-0.5">
-                Clarify known boundaries to anchor realistic downstream planning.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Textarea
-                label="Identified Constraints (Capital, Logistics, Time)"
-                placeholder="e.g. Bootstrapped with ₹5 Lakhs, no in-house manufacturing, winter window is strictly Oct-Feb..."
-                value={state.idea.constraints}
-                onChange={(e) => updateIdea({ constraints: e.target.value })}
-                rows={3}
-              />
-              <Textarea
-                label="Target 12-Month Objective"
-                placeholder="e.g. Launch a 400-piece limited capsule collection, reach ₹20L revenue in Year 1, 80% D2C website sales..."
-                value={state.idea.goals}
-                onChange={(e) => updateIdea({ goals: e.target.value })}
-                rows={3}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Step 4: Open Questions */}
-        {activeStep === 4 && (
-          <div className="space-y-4 animate-fade-in">
-            <div>
-              <h4 className="text-sm font-semibold text-[#2B3D4F]">
-                Open Questions & Founder Doubts
-              </h4>
-              <p className="text-xs text-[#6B7D90] mt-0.5">
-                List the exact critical uncertainties you need the AI workspace to stress-test in Stage 02 (Feasibility).
-              </p>
-            </div>
-
-            <div className="flex gap-2">
-              <Input
-                placeholder="Add an inquiry (e.g. How to manage seasonal inventory during non-winter months?)"
-                value={newQuestionInput}
-                onChange={(e) => setNewQuestionInput(e.target.value)}
-                onKeyDown={handleQuestionKeyDown}
-              />
-              <Button
-                type="button"
-                variant="secondary"
-                size="md"
-                onClick={handleAddQuestion}
-                disabled={!newQuestionInput.trim()}
-                icon={<Plus className="w-4 h-4" />}
-              >
-                Add
-              </Button>
-            </div>
-
-            <div className="space-y-2 pt-2">
-              {state.idea.openQuestions.length === 0 ? (
-                <div className="text-xs text-[#6B7D90] italic p-3 bg-[#F5F1EB] rounded-lg border border-[#DDD5C5]">
-                  No open inquiries recorded yet. Add specific dilemmas you want the feasibility agent to examine.
-                </div>
-              ) : (
-                state.idea.openQuestions.map((q, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between gap-3 p-2.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] text-xs text-[#2B3D4F]"
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-mono text-[10px] text-[#2B3D4F] font-semibold">
-                        Q{idx + 1}
-                      </span>
-                      <span className="truncate">{q}</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeOpenQuestion(idx)}
-                      className="text-[#6B7D90] hover:text-[#9E4A4A] p-1 transition-colors"
-                      title="Remove question"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        )}
+        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-[#ECE6DA]/50 border border-[#DDD5C5]/60 text-[11px] text-[#5B6B7F]">
+          <Info className="w-3.5 h-3.5 text-[#2B3D4F] shrink-0 mt-0.5" />
+          <span>{currentStep.helpText}</span>
+        </div>
       </div>
 
       {/* Step Navigation Controls */}
@@ -285,11 +198,11 @@ export const DiscoveryFlow: React.FC = () => {
           onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
           icon={<ArrowLeft className="w-3.5 h-3.5" />}
         >
-          Previous Step
+          Previous
         </Button>
 
         <div className="text-xs font-mono text-[#6B7D90] hidden sm:block">
-          {activeStep + 1} / {steps.length}
+          Dimension {activeStep + 1} of {steps.length}
         </div>
 
         {activeStep < steps.length - 1 ? (
@@ -301,11 +214,11 @@ export const DiscoveryFlow: React.FC = () => {
             icon={<ArrowRight className="w-3.5 h-3.5" />}
             iconPosition="right"
           >
-            Next Step
+            Next Dimension
           </Button>
         ) : (
           <Badge variant="success" size="md">
-            All Discovery Vectors Addressed
+            Discovery Dimensions Completed
           </Badge>
         )}
       </div>

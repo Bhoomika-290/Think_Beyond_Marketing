@@ -45,19 +45,27 @@ export const FeasibilityHeader: React.FC<FeasibilityHeaderProps> = ({ onRefresh 
           </span>
           <button
             type="button"
-            onClick={() => loadSampleVenture('coffee_d2c')}
+            onClick={() => loadSampleVenture('skincare_d2c')}
             className="px-2.5 py-1 text-xs font-mono rounded bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
-            title="Load Coffee D2C Physical Goods Venture"
+            title="Load Clean Skincare D2C Physical Goods Venture"
           >
-            ☕ Coffee D2C
+            🌿 Skincare D2C
           </button>
           <button
             type="button"
-            onClick={() => loadSampleVenture('ai_saas')}
+            onClick={() => loadSampleVenture('restaurant_ai')}
             className="px-2.5 py-1 text-xs font-mono rounded bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
-            title="Load Attribution AI SaaS Venture"
+            title="Load Restaurant AI Waste Prediction Venture"
           >
-            ⚡ AI SaaS
+            ⚡ Restaurant AI
+          </button>
+          <button
+            type="button"
+            onClick={() => loadSampleVenture('tutoring_marketplace')}
+            className="px-2.5 py-1 text-xs font-mono rounded bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
+            title="Load Peer Tutoring Marketplace Venture"
+          >
+            🎓 Tutoring Mkt
           </button>
           <Button
             size="sm"

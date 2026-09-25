@@ -21,10 +21,10 @@ export type MessageIntent =
 function containsIdeaPattern(text: string): boolean {
   const lower = text.toLowerCase().trim();
   const ideaPatterns = [
-    /(?:i\s+want\s+to|i'd\s+like\s+to|i\s+plan\s+to|i\s+am\s+thinking\s+of|i'm\s+thinking\s+of)\s+(?:build|start|create|launch|make|develop|open|run)\b/i,
+    /(?:i\s+want\s+to|i'd\s+like\s+to|i\s+plan\s+to|i\s+am\s+thinking\s+of|i'm\s+thinking\s+of|i\s+am\s+building|i'm\s+building|we\s+are\s+building)\s+(?:build|start|create|launch|make|develop|open|run|a|an)\b/i,
     /(?:my\s+idea\s+is|the\s+idea\s+is|concept\s+is)\b/i,
-    /(?:a|an)\s+(?:saas|platform|marketplace|subscription|service|app|business|brand|tool|website|network|store|startup)\s+(?:for|that|to|helping|connecting)\b/i,
-    /(?:build|building|launch|launching|create|creating|make|making)\s+(?:an?\s+)?(?:app|platform|marketplace|website|tool|software|business|store)\b/i,
+    /(?:a|an)\s+(?:saas|platform|marketplace|subscription|service|app|business|brand|tool|website|network|store|startup|company)\s+(?:for|that|to|helping|connecting)\b/i,
+    /(?:build|building|launch|launching|create|creating|make|making|start|starting)\s+(?:an?\s+)?(?:app|platform|marketplace|website|tool|software|business|store|brand|company|product|bottle)\b/i,
     /(?:helps?|enable|allow|connect|connects)\s+.*?\s+(?:to\s+find|find|manage|buy|sell|rent|learn|book|order|track|deliver)\b/i,
   ];
   return ideaPatterns.some((pattern) => pattern.test(lower));
@@ -87,7 +87,7 @@ export function classifyMessageIntent(query: string, hasExistingIdea: boolean): 
 
   // D. IDEA MODIFICATION / DECISION COMMITMENT
   const modificationPatterns = [
-    /(?:actually,?\s*)?(?:i\s+want\s+to\s+)?(?:change|update|set|switch)\s+(?:the\s+)?(?:target\s+)?(?:customer|audience|icp|segment)\s+to\s+/i,
+    /(?:actually,?\s*)?(?:i\s+want\s+to\s+)?(?:change|update|set|switch|make)\s+(?:the\s+)?(?:target\s+)?(?:customer|audience|icp|segment)\s+/i,
     /(?:actually,?\s*)?(?:i\s+want\s+to\s+)?(?:target|focus\s+on)\s+(?:restaurants|students|enterprises|freelancers|b2b|b2c|d2c|small\s+businesses)\s*(?:instead)?/i,
     /(?:change|update|set|switch)\s+(?:the\s+)?(?:product\s+type|business\s+type|category|offering|product)\s+to\s+/i,
     /(?:change|update|set|relocate|move|focus\s+on)\s+(?:the\s+)?(?:location|operating\s+region|city|geography)\s+to\s+/i,
@@ -144,9 +144,9 @@ export function extractVentureModification(
 ): { isModification: boolean; patch?: CouncilQueryResponse['modificationPatch'] } {
   const lower = query.toLowerCase().trim();
 
-  // Target Customer / ICP modification (e.g., "Actually, I want to target restaurants instead" or "target restaurants instead")
+  // Target Customer / ICP modification (e.g., "Actually, I want to target restaurants instead" or "Actually, make the customer working professionals")
   const customerMatch =
-    lower.match(/(?:actually,?\s*)?(?:i\s+want\s+to\s+)?(?:change|update|set|switch)\s+(?:the\s+)?(?:target\s+)?(?:customer|audience|icp|segment)\s+to\s+([^.?!]+)/i) ||
+    lower.match(/(?:actually,?\s*)?(?:i\s+want\s+to\s+)?(?:change|update|set|switch|make)\s+(?:the\s+)?(?:target\s+)?(?:customer|audience|icp|segment)\s+(?:to\s+|into\s+|be\s+)?([^.?!]+)/i) ||
     lower.match(/(?:actually,?\s*)?(?:i\s+want\s+to\s+)?(?:target|focus\s+on)\s+(?!customer\b|audience\b|icp\b)([^.?!]+?)(?:\s+instead|\.|\?|$)/i);
 
   if (customerMatch && customerMatch[1]) {
@@ -223,7 +223,6 @@ export function extractVentureModification(
     return {
       isModification: true,
       patch: {
-        ideaPatch: { name: matchedText.length < 30 ? matchedText : undefined },
         businessModelPatch: { productType: identifiedType },
         recordedDecision: decision,
       },
@@ -247,7 +246,7 @@ export function extractVentureModification(
       patch: {
         businessModelPatch: {
           location: {
-            country: 'Primary Target Market',
+            country: '',
             cityRegion: newLocation,
             operatingLocation: newLocation,
           },
@@ -295,8 +294,9 @@ function extractInitialIdeaFields(query: string): {
   productType: ProductType;
   customerType: CustomerType;
   deliveryModel: DeliveryModel;
+  proposedDifferentiation: string;
+  proposedConstraints: string;
 } {
-  // Strip leading greetings like "Hi, ", "Hello! "
   const cleaned = query
     .replace(/^(?:hi|hello|hey|good\s+(?:morning|afternoon|evening))\s*[,!.:-]*\s*/i, '')
     .trim();
@@ -312,7 +312,11 @@ function extractInitialIdeaFields(query: string): {
   } else if (lower.includes('college student') || lower.includes('student')) {
     targetAudience = 'college students';
   } else if (lower.includes('restaurant')) {
-    targetAudience = 'restaurants';
+    targetAudience = 'small restaurants & kitchens';
+  } else if (lower.includes('office worker') || lower.includes('meal delivery') || lower.includes('worker')) {
+    targetAudience = 'office workers & busy professionals';
+  } else if (lower.includes('home repair') || lower.includes('handyman') || lower.includes('homeowner')) {
+    targetAudience = 'homeowners & local technicians';
   } else if (lower.includes('freelancer')) {
     targetAudience = 'freelancers';
   } else if (lower.includes('coffee roaster') || lower.includes('roaster')) {
@@ -321,33 +325,61 @@ function extractInitialIdeaFields(query: string): {
 
   // Product Type extraction
   let productType: ProductType = 'saas';
-  if (lower.includes('coffee') || lower.includes('clothing') || lower.includes('apparel') || lower.includes('winter') || lower.includes('food') || lower.includes('hardware') || lower.includes('physical product')) {
-    productType = 'physical';
-  } else if (lower.includes('marketplace') || lower.includes('tutor') || lower.includes('peer-to-peer') || lower.includes('p2p') || lower.includes('rental') || lower.includes('platform connecting')) {
+  let proposedDifferentiation = 'Transparent, high-trust value delivery with zero lock-in';
+  let proposedConstraints = 'Early user adoption and switching friction';
+
+  if (lower.includes('tutor') || lower.includes('peer-to-peer') || lower.includes('p2p') || lower.includes('marketplace') || lower.includes('home repair')) {
     productType = 'marketplace';
-  } else if (lower.includes('agency') || lower.includes('consulting') || lower.includes('service') || lower.includes('advisory')) {
+    if (lower.includes('tutor')) {
+      proposedDifferentiation = 'Verified peer & near-peer student tutors with transparent, budget-friendly hourly pricing';
+      proposedConstraints = 'Two-sided liquidity cold start and exam-cycle seasonality';
+    } else if (lower.includes('repair')) {
+      proposedDifferentiation = 'Instant upfront price card booking with background-checked local master technicians';
+      proposedConstraints = 'Technician supply vetting and emergency arrival dispatch SLA';
+    }
+  } else if (lower.includes('meal') || lower.includes('food delivery') || lower.includes('healthy meal')) {
     productType = 'service';
-  } else if (lower.includes('community') || lower.includes('membership')) {
-    productType = 'community';
-  } else if (lower.includes('course') || lower.includes('newsletter') || lower.includes('creator')) {
-    productType = 'creator';
+    proposedDifferentiation = 'Chef-crafted, macro-balanced daily lunches delivered directly to office desks in thermal insulated packaging';
+    proposedConstraints = 'Narrow 12:00–1:00 PM delivery window and cold-chain logistics';
+  } else if (lower.includes('waste') || lower.includes('restaurant') || lower.includes('pos') || lower.includes('software')) {
+    productType = 'saas';
+    if (lower.includes('waste') || lower.includes('food')) {
+      proposedDifferentiation = 'Zero-friction 60-second end-of-day logging with automated predictive prep sheet reduction';
+      proposedConstraints = 'Fast-paced kitchen staff compliance and low SaaS budget tolerance';
+    }
+  } else if (lower.includes('coffee') || lower.includes('clothing') || lower.includes('apparel') || lower.includes('skincare') || lower.includes('physical product')) {
+    productType = 'physical';
+    proposedDifferentiation = 'Radically transparent micro-batch craft with direct origin provenance';
+    proposedConstraints = 'Small-batch manufacturing minimum order quantities and packaging logistics';
   }
 
   // Problem extraction
   let problem = cleaned;
-  const problemMatch = lower.match(/(?:helps?|enable|allow|to)\s+([a-zA-Z\s]+(?:\s+find|\s+manage|\s+solve|\s+afford|\s+access)[^.?!]*)/i);
+  const problemMatch = lower.match(/(?:helps?|enable|allow|to)\s+([a-zA-Z\s]+(?:\s+find|\s+manage|\s+solve|\s+afford|\s+access|\s+reduce|\s+deliver)[^.?!]*)/i);
   if (problemMatch && problemMatch[1]) {
     problem = problemMatch[1].trim();
   }
 
   // Name extraction
-  let name = cleaned.slice(0, 36).trim();
+  const strippedIdea = cleaned
+    .replace(/^(?:i\s+want\s+to\s+(?:build|start|create|make|launch)\s+(?:a|an)?|i'm\s+building\s+(?:a|an)?|building\s+(?:a|an)?)\s*/i, '')
+    .trim();
+  let name = strippedIdea.length > 0 ? (strippedIdea[0].toUpperCase() + strippedIdea.slice(1, 36)).trim() : 'Untitled Venture';
+
   if (lower.includes('tutor')) {
-    name = 'Affordable Tutor Hub';
-  } else if (lower.includes('winter clothing')) {
-    name = 'Winter Apparel Collective';
+    name = 'PeerTutor Hub';
+  } else if (lower.includes('meal')) {
+    name = 'OfficeBite Daily';
+  } else if (lower.includes('waste')) {
+    name = 'WasteLess Kitchen';
+  } else if (lower.includes('home repair') || lower.includes('handyman')) {
+    name = 'LocalPro Direct';
+  } else if (lower.includes('winter clothing') || lower.includes('apparel')) {
+    name = 'WinterCraft Collective';
   } else if (lower.includes('coffee')) {
     name = 'Roaster Direct Platform';
+  } else if (lower.includes('water bottle') || lower.includes('bottle')) {
+    name = strippedIdea.length > 0 ? (strippedIdea[0].toUpperCase() + strippedIdea.slice(1, 36)).trim() : 'AquaCraft Bottles';
   }
 
   return {
@@ -358,6 +390,8 @@ function extractInitialIdeaFields(query: string): {
     productType,
     customerType: targetAudience.includes('restaurant') || targetAudience.includes('business') ? 'b2b' : 'b2c',
     deliveryModel: productType === 'physical' ? 'hybrid' : 'online',
+    proposedDifferentiation,
+    proposedConstraints,
   };
 }
 
@@ -533,25 +567,30 @@ export function executeBusinessCouncilQuery(request: CouncilQueryRequest): Counc
     };
 
     const structured: CouncilStructuredOutput = {
-      insight: `Venture crystallized as **${extracted.productType.toUpperCase()}**: "${extracted.rawInput.slice(0, 80)}..."`,
-      why: `The concept targets an identifiable friction for ${extracted.targetAudience || 'early adopters'}.`,
-      risk: `Unvalidated customer switching friction and willingness-to-pay.`,
-      recommendation: `Lock your primary Beachhead ICP (${extracted.targetAudience || 'adopters'}) and verify your Product Type in Stage 01.`,
-      nextAction: `Review your Product Type, Target Audience, and Location in the sections below to complete Idea Lab.`,
+      insight: `Venture crystallized as **${extracted.productType.toUpperCase()}**: "${extracted.name}"`,
+      why: `The concept targets real friction for ${extracted.targetAudience || 'early adopters'}: "${extracted.problem}".`,
+      risk: `Key challenge identified by Red Team: ${extracted.proposedConstraints}.`,
+      recommendation: `Proposed Differentiation Wedge: "${extracted.proposedDifferentiation}". You can accept, reject, or modify this anytime.`,
+      nextAction: `Review your discovery snapshot on the right, or continue directly to Stage 02 (Feasibility) to stress-test these assumptions.`,
     };
 
     return {
       replyText: [
-        `### 💡 Venture Concept Initialized`,
+        `### 💡 Venture Concept Initialized & Council Convened`,
         ``,
         `I have recorded your idea into the central project state:`,
         `> *"${extracted.rawInput}"*`,
         ``,
-        `**1. Initial Classification:** ${extracted.productType.toUpperCase()} model`,
-        `**2. Target Audience:** ${extracted.targetAudience || 'Early Adopters'}`,
-        `**3. Core Friction:** ${extracted.problem}`,
+        `**Confirmed User Facts:**`,
+        `• **Target Audience:** ${extracted.targetAudience || 'Early Adopters'}`,
+        `• **Core Problem:** ${extracted.problem}`,
+        `• **Inferred Vehicle:** ${extracted.productType.toUpperCase()} model`,
         ``,
-        `👉 **Next Step:** Review and confirm your **Product Type**, **Target Audience**, and **Operating Location** below to unlock **Stage 02 (Feasibility & Viability)**.`,
+        `**Council Proposals (Initial Assessment — Needs Validation):**`,
+        `• **Proposed Differentiation:** ${extracted.proposedDifferentiation}`,
+        `• **Identified Constraint to Test:** ${extracted.proposedConstraints}`,
+        ``,
+        `👉 **Next Step:** Your discovery is complete! Continue to **Stage 02 (Feasibility & Viability)** to audit economics and stress-test assumptions.`,
       ].join('\n'),
       intent: 'NEW_IDEA',
       isOffTopic: false,
@@ -562,6 +601,8 @@ export function executeBusinessCouncilQuery(request: CouncilQueryRequest): Counc
           name: extracted.name,
           problem: extracted.problem,
           targetAudience: extracted.targetAudience,
+          differentiation: extracted.proposedDifferentiation,
+          constraints: extracted.proposedConstraints,
         },
         businessModelPatch: {
           productType: extracted.productType,

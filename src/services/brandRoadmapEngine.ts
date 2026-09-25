@@ -20,7 +20,8 @@ import type {
   BrandStrategicDecisionsData,
   CompetitorItem,
 } from '../types/project';
-import { generateMarketIntelligenceReport } from './marketIntelligenceEngine';
+  import { generateMarketIntelligenceReport } from './marketIntelligenceEngine';
+  import { resolveVentureDomainProfile } from './ventureDomainResolver';
 
 export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapReport {
   const { idea, businessModel, project, marketIntelligence, feasibility } = state;
@@ -33,6 +34,8 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
     marketIntelligence?.differentiatorEngine?.opportunities?.[0]?.differentiationArea ||
     'Radical operational transparency and specialized craft';
 
+  const domainProfile = resolveVentureDomainProfile(idea, businessModel, project);
+
   const initials =
     ventureName
       .split(' ')
@@ -42,108 +45,57 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
       .join('')
       .toUpperCase() || 'TB';
 
-  // 1. BRAND DNA NODES (Connected visual system of 9 strategic elements)
-  const brandDnaNodes: BrandDNANode[] = [
-    {
-      id: 'dna_cust',
-      label: 'Target Customer',
-      value: targetAudience,
-      whatItMeans: 'The exact persona or business segment experiencing the pain acutely right now.',
-      source: 'Stage 01 Idea Lab Discovery',
-      originatingStage: '01 Idea Lab',
-      evidenceState: idea.targetAudience ? 'USER INPUT' : 'AI INFERENCE',
-      howItAffectsBrand: 'Dictates the tone, visual sophistication, and pricing accessibility of the brand identity.',
-      reasoning: 'Directly sourced from the founder’s target audience profile defined during initial discovery.',
-    },
-    {
-      id: 'dna_prob',
-      label: 'Core Problem',
-      value: problem.length > 70 ? problem.slice(0, 67) + '...' : problem,
-      whatItMeans: 'The acute point of friction and dissatisfaction with current market alternatives.',
-      source: 'Stage 01 Problem Definition',
-      originatingStage: '01 Idea Lab',
-      evidenceState: idea.problem ? 'USER INPUT' : 'AI INFERENCE',
-      howItAffectsBrand: 'Forms the narrative adversary in all brand copy, headlines, and value propositions.',
-      reasoning: 'The acute friction point in the customer’s status quo that the brand exists to dismantle.',
-    },
-    {
-      id: 'dna_need',
-      label: 'Customer Need',
-      value: 'Uncompromised quality paired with verifiable origin transparency and predictable delivery.',
-      whatItMeans: 'The deeper functional and emotional job-to-be-done that the customer seeks to fulfill.',
-      source: 'Stage 03 Customer Segments Analysis',
-      originatingStage: '03 Market Intelligence',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Determines the core product benefits and customer onboarding journey requirements.',
-      reasoning: 'Synthesized from buyer friction patterns observed across legacy and commodity competitors.',
-    },
-    {
-      id: 'dna_purp',
-      label: 'Brand Purpose',
-      value: `To liberate ${targetAudience.slice(0, 30)} from opaque compromises by establishing an open benchmark.`,
-      whatItMeans: 'The foundational why that drives the company beyond immediate transactional margin.',
-      source: 'Stage 04 Brand Strategy Synthesis',
-      originatingStage: '04 Brand Strategy',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Guides company culture, public advocacy, community initiatives, and long-term brand equity.',
-      reasoning: 'Anchored in the contrast between traditional profit extraction and transparent craft partnership.',
-    },
-    {
-      id: 'dna_prom',
-      label: 'Brand Promise',
-      value: '100% operational transparency and verifiable craft standards in every single delivery.',
-      whatItMeans: 'The inviolable contract made to every customer on every purchase.',
-      source: 'Stage 04 Brand Promise Charter',
-      originatingStage: '04 Brand Strategy',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Sets the benchmark for customer service, return policies, and product packaging details.',
-      reasoning: 'The foundational commitment made to the customer that guides all product and messaging decisions.',
-    },
-    {
-      id: 'dna_val',
-      label: 'Core Value',
-      value: feasibility?.promisingAspects?.[0] || 'Empirical authenticity over marketing posturing.',
-      whatItMeans: 'The guiding internal principle that overrides expediency or cheap shortcuts.',
-      source: 'Stage 02 Feasibility Assessment',
-      originatingStage: '02 Feasibility',
-      evidenceState: feasibility ? 'VERIFIED' : 'ASSUMPTION',
-      howItAffectsBrand: 'Prevents brand dilution and guides design choices toward minimalism and substance.',
-      reasoning: 'Validated by unit economics, operational feasibility assessments, and customer pain intensity.',
-    },
-    {
-      id: 'dna_gap',
-      label: 'Market Gap',
-      value: 'Absence of an accessible premium brand that pairs artisanal craft with automated reliability.',
-      whatItMeans: 'The structural void in the competitive landscape that incumbents fail to address.',
-      source: 'Stage 03 Opportunity Whitespace Map',
-      originatingStage: '03 Market Intelligence',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Defines the open territory on the positioning matrix that the brand claims as its wedge.',
-      reasoning: 'Derived from polarization between mass low-trust commodities and erratic boutique retainers.',
-    },
-    {
-      id: 'dna_diff',
-      label: 'Differentiator',
-      value: defaultDiff,
-      whatItMeans: 'The unique, defensible mechanism that competitors cannot easily copy or ignore.',
-      source: 'Stage 01 Idea Lab / Stage 03 Differentiator Engine',
-      originatingStage: '01 Idea Lab',
-      evidenceState: idea.differentiation ? 'USER INPUT' : 'AI INFERENCE',
-      howItAffectsBrand: 'Powers the core tagline, sales scripts, comparison pages, and hero packaging.',
-      reasoning: 'The primary competitive moat that makes alternatives irrelevant for the target segment.',
-    },
-    {
-      id: 'dna_perc',
-      label: 'Desired Perception',
-      value: 'The undisputed, honest benchmark: uncompromising in standards, refreshingly direct, and indispensable.',
-      whatItMeans: 'What customers say about the brand to their peers when the founder is not in the room.',
-      source: 'Stage 04 Brand Architecture',
-      originatingStage: '04 Brand Strategy',
-      evidenceState: 'AI INFERENCE',
-      howItAffectsBrand: 'Drives visual identity restraint, editorial typography selection, and customer delight rituals.',
-      reasoning: 'Represents the intended mental positioning achieved through consistent touchpoint execution.',
-    },
-  ];
+  // 1. BRAND DNA NODES (Connected visual system of strategic elements)
+  const brandDnaNodes: BrandDNANode[] = domainProfile.brandDnaNodes.length >= 4
+    ? [
+        ...domainProfile.brandDnaNodes,
+        {
+          id: 'dna_val',
+          label: 'Core Value',
+          value: feasibility?.promisingAspects?.[0] || 'Empirical authenticity over marketing posturing.',
+          whatItMeans: 'The guiding internal principle that overrides expediency or cheap shortcuts.',
+          source: 'Stage 02 Feasibility Assessment',
+          originatingStage: '02 Feasibility',
+          evidenceState: feasibility ? 'VERIFIED' : 'ASSUMPTION',
+          howItAffectsBrand: 'Prevents brand dilution and guides design choices toward minimalism and substance.',
+          reasoning: 'Validated by unit economics, operational feasibility assessments, and customer pain intensity.',
+        },
+        {
+          id: 'dna_diff',
+          label: 'Differentiator',
+          value: defaultDiff,
+          whatItMeans: 'The unique, defensible mechanism that competitors cannot easily copy or ignore.',
+          source: 'Stage 01 Idea Lab / Stage 03 Differentiator Engine',
+          originatingStage: '01 Idea Lab',
+          evidenceState: idea.differentiation ? 'USER INPUT' : 'AI INFERENCE',
+          howItAffectsBrand: 'Powers the core tagline, sales scripts, comparison pages, and hero packaging.',
+          reasoning: 'The primary competitive moat that makes alternatives irrelevant for the target segment.',
+        },
+      ]
+    : [
+        {
+          id: 'dna_cust',
+          label: 'Target Customer',
+          value: targetAudience,
+          whatItMeans: 'The exact persona or business segment experiencing the pain acutely right now.',
+          source: 'Stage 01 Idea Lab Discovery',
+          originatingStage: '01 Idea Lab',
+          evidenceState: idea.targetAudience ? 'USER INPUT' : 'AI INFERENCE',
+          howItAffectsBrand: 'Dictates the tone, visual sophistication, and pricing accessibility of the brand identity.',
+          reasoning: 'Directly sourced from the founder’s target audience profile defined during initial discovery.',
+        },
+        {
+          id: 'dna_prob',
+          label: 'Core Problem',
+          value: problem.length > 70 ? problem.slice(0, 67) + '...' : problem,
+          whatItMeans: 'The acute point of friction and dissatisfaction with current market alternatives.',
+          source: 'Stage 01 Problem Definition',
+          originatingStage: '01 Idea Lab',
+          evidenceState: idea.problem ? 'USER INPUT' : 'AI INFERENCE',
+          howItAffectsBrand: 'Forms the narrative adversary in all brand copy, headlines, and value propositions.',
+          reasoning: 'The acute friction point in the customer’s status quo that the brand exists to dismantle.',
+        },
+      ];
 
   // 2. MARKET GAP -> BRAND DIFFERENTIATOR
   const differentiatorCandidates: DifferentiatorCandidate[] = [
@@ -168,7 +120,7 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
       differentiator: 'Predictable On-Demand Cadence with Zero Gatekeeping Friction',
       brandPosition: 'The Modern High-Fidelity Everyday Standard',
       evidenceState: 'INFERRED',
-      reasoning: 'Combines the artisanal excellence of boutique roasters/studios with seamless modern UX.',
+      reasoning: 'Combines the specialized excellence of top practitioners with seamless modern UX.',
       isSelected: false,
     },
     {
@@ -517,7 +469,7 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
     {
       id: 'col_warning',
       role: 'warning',
-      name: 'Amber Audit Flag',
+      name: 'Warning Audit Accent',
       hex: '#F59E0B',
       rgb: '245, 158, 11',
       psychology: 'Highlights assumptions requiring empirical customer testing before commit.',
@@ -726,9 +678,7 @@ export function generateBrandRoadmapReport(state: ProjectState): BrandRoadmapRep
   // 15. BRAND TRANSFORMATION ROADMAP (Strategic 8-Stage Progression)
   const isPhysical =
     category.toLowerCase().includes('physical') ||
-    category.toLowerCase().includes('coffee') ||
     category.toLowerCase().includes('d2c') ||
-    category.toLowerCase().includes('beverage') ||
     category.toLowerCase().includes('hardware');
 
   const transformationRoadmap: BrandTransformationMilestone[] = [

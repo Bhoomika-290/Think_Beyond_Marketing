@@ -5,8 +5,12 @@ import { Send, Mic, Bot, User, CheckCircle2, Plus, X, FileText, Sparkles, Shield
 import {
   buildInterviewReply,
   attachmentNotice,
+  detectCasual,
+  isGenericCategoryOnly,
+  isSubstantiveIdea,
   type VentureSnapshot,
 } from '../../services/ideaLabInterviewEngine';
+import { classifyMessageIntent } from '../../services/businessCouncilEngine';
 
 interface InterviewerChatProps {
   onRawIdeaSubmitted?: (rawText: string) => void;
@@ -320,44 +324,133 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     setPendingChips([]);
     setPendingProbeId(null);
 
-    // 1. Add user message (representing exactly what the user sent)
+    // 1. Add user message to conversation history (exactly what was sent)
     addMessage(
       fileNames.length > 0 ? `${submittedText}\n\n[Attachments: ${fileNames.join(', ')}]` : submittedText,
       'user',
     );
 
-    // 2. Detect if this message introduces a brand new venture (e.g. switching from sample SaaS/coffee to winter wear)
-    const isNewVentureStatement =
-      /^(?:i\s+(?:want|plan|would\s+like)\s+to\s+(?:start|build|create|launch|make|open)|my\s+idea\s+is|i'?m\s+(?:starting|building|creating|launching)|(?:starting|launching)\s+a)\b/i.test(submittedText) ||
-      state.project.id.startsWith('proj_sample_') ||
-      (Boolean(state.idea.rawInput) && !state.idea.rawInput.toLowerCase().includes(submittedText.toLowerCase().slice(0, 15)) && /(?:winter\s+clothing|garment|apparel|handloom|fashion|coffee|saas|marketplace)/i.test(submittedText));
+    // 2. Casual intent: resolved first so greetings/pleasantries never mutate
+    //    venture state or the project name.
+    const casual = detectCasual(submittedText);
 
-    const isQuestion = /^(?:how|what|why|who|where|when|can|is|are|should|could|would)\b/i.test(submittedText) || submittedText.trim().endsWith('?');
-    const previousRaw = isNewVentureStatement ? '' : (state.idea.rawInput?.trim() ?? '');
-    let nextRaw = previousRaw;
-    if (!isQuestion && (!previousRaw || previousRaw.length < 2000 || isNewVentureStatement)) {
-      const attachmentSuffix =
-        fileNames.length > 0 ? `\n[Reference files: ${fileNames.join(', ')}]` : '';
-      nextRaw = (
-        previousRaw.length === 0
-          ? `${submittedText}${attachmentSuffix}`
-          : `${previousRaw}\n\n${submittedText}${attachmentSuffix}`
-      ).slice(0, 4000);
-      updateIdea({ rawInput: nextRaw, isNewVenture: isNewVentureStatement });
+    // An explicit "I want to build X" statement is treated as a venture
+    // replacement, which also clears any sample-project pollution downstream.
+    const isNewVentureStatement =
+      /^(?:i\s+(?:want|plan|would\s+like)\s+to\s+(?:start|build|create|launch|make|open)|my\s+idea\s+is|i'?m\s+(?:starting|building|creating|launching)|(?:starting|launching)\s+a)\b/i.test(submittedText);
+
+    // 2. Casual / Greeting intent: Never mutate venture state or project name
+    if (casual === 'greeting' || casual === 'thanks' || casual === 'bye' || casual === 'joke' || casual === 'scary' || casual === 'capabilities') {
+      const history = messages.map((m) => ({ sender: m.sender, text: m.text }));
+      const snapshot: VentureSnapshot = {
+        rawInput: state.idea.rawInput || '',
+        productType: state.businessModel.productType,
+        targetAudience: state.idea.targetAudience,
+        problem: state.idea.problem,
+        differentiation: state.idea.differentiation || '',
+        constraints: state.idea.constraints || '',
+        goals: state.idea.goals,
+        context: state.idea.context,
+        openQuestions: state.idea.openQuestions,
+        country: state.businessModel.location.country,
+        cityRegion: state.businessModel.location.cityRegion,
+        deliveryModel: state.businessModel.deliveryModel,
+        customerType: state.businessModel.customerType,
+      };
+      const result = buildInterviewReply(submittedText, history, snapshot, activeProbe);
+      setIsThinking(true);
+      setTimeout(() => {
+        addMessage(result.replyText, 'ai');
+        setIsThinking(false);
+      }, 500);
+
+      setInputText('');
+      setAttachedFiles([]);
+      return;
     }
 
-    // 3. Business-intelligence reasoning over the message + conversation history.
-    // Guarded: the engine is deterministic local code, but a failure must
-    // degrade to an honest conversational fallback — never a crash, never
-    // fake intelligence. Teammate's central council engine is preserved as
-    // degraded fallback path (intent routing for idea-lab).
+    // 3. Authoritative Raw Idea Management:
+    // Check if user submitted only a generic category without a product concept
+    const genericCat = isGenericCategoryOnly(submittedText);
+    const existingRaw = state.idea.rawInput?.trim() || '';
+    const hasExistingRaw = Boolean(existingRaw.length > 3 && !detectCasual(existingRaw) && !isGenericCategoryOnly(existingRaw));
+
+    if (genericCat && !hasExistingRaw) {
+      setProductType(genericCat);
+      const snapshot: VentureSnapshot = {
+        rawInput: '',
+        productType: genericCat,
+        targetAudience: '',
+        problem: '',
+        differentiation: '',
+        constraints: '',
+        goals: '',
+        context: '',
+        openQuestions: [],
+        country: '',
+        cityRegion: '',
+        deliveryModel: null,
+        customerType: null,
+      };
+      const history = messages.map((m) => ({ sender: m.sender, text: m.text }));
+      const result = buildInterviewReply(submittedText, history, snapshot, activeProbe);
+      setIsThinking(true);
+      setTimeout(() => {
+        addMessage(result.replyText, 'ai');
+        setIsThinking(false);
+        setPendingChips(result.chips);
+      }, 500);
+
+      setInputText('');
+      setAttachedFiles([]);
+      return;
+    }
+
+    // Determine if this is an initial idea submission or an explicit replacement of the venture
+    const intentResult = classifyMessageIntent(submittedText, hasExistingRaw);
+    const isNewIdeaStatement =
+      intentResult.intent === 'NEW_IDEA' ||
+      /^(?:i\s+want\s+to\s+build|i\s+am\s+building|i'm\s+building|let'?s\s+build|new\s+idea[:\s]|we\s+are\s+building|building\s+a)\b/i.test(submittedText);
+
+    const isSubstantive = isSubstantiveIdea(submittedText);
+    let authoritativeRaw = existingRaw;
+
+    if (!hasExistingRaw) {
+      if (isSubstantive && !genericCat) {
+        // First substantive raw idea submission
+        authoritativeRaw = submittedText.trim();
+        updateIdea({ rawInput: authoritativeRaw });
+      } else {
+        authoritativeRaw = '';
+      }
+    } else if ((isNewIdeaStatement || isNewVentureStatement) && isSubstantive && !genericCat) {
+      // Intentional venture replacement / pivot with a substantive idea
+      authoritativeRaw = submittedText.trim();
+      updateIdea({
+        rawInput: authoritativeRaw,
+        isNewVenture: true,
+        name: '',
+        targetAudience: '',
+        problem: '',
+        differentiation: '',
+        constraints: '',
+        goals: '',
+        context: '',
+        outcome: '',
+        openQuestions: [],
+      });
+    }
+    // If hasExistingRaw is true and it's NOT a new substantive idea statement (e.g. follow-up answer, chip click, structured fact),
+    // authoritativeRaw remains unchanged and is NEVER concatenated with follow-ups.
+
+    // 4. Intelligence reasoning over the message + clean snapshot
     const snapshot: VentureSnapshot = {
-      rawInput: nextRaw,
+      rawInput: authoritativeRaw,
       productType: state.businessModel.productType,
       targetAudience: state.idea.targetAudience,
       problem: state.idea.problem,
-      differentiation: state.idea.differentiation,
-      constraints: state.idea.constraints,
+      differentiation: state.idea.differentiation || '',
+      constraints: state.idea.constraints || '',
       goals: state.idea.goals,
       context: state.idea.context,
       openQuestions: state.idea.openQuestions,
@@ -371,8 +464,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     try {
       result = buildInterviewReply(submittedText, history, snapshot, activeProbe);
     } catch {
-      // Degraded path: try central council engine before static fallback,
-      // preserving teammate's intent routing (NEW_IDEA) when local engine fails.
+      // Degraded path: try central council engine before static fallback
       try {
         const councilResponse = queryCouncil(submittedText, 'idea-lab');
         result = {
@@ -400,7 +492,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
           replyText:
             'Intelligence service hiccup — I could not reason over that message just now. ' +
             'Your words are safely stored in the project state above. Try sending again, or continue ' +
-            'filling the structured fields on the right manually. (LOCAL FALLBACK — no analysis was run.)',
+            'filling the structured fields on the right manually.',
           updates: {
             productType: null,
             targetAudience: null,
@@ -422,8 +514,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
       }
     }
 
-    // 4. Apply proposed structured updates through the existing architecture
-    //    (idea fields batched in one call; classification setters only when set)
+    // 5. Apply proposed structured updates through dedicated setters
     const ideaPatch: Record<string, string> = {};
     if (result.updates.targetAudience) ideaPatch.targetAudience = result.updates.targetAudience;
     if (result.updates.problem) ideaPatch.problem = result.updates.problem;
@@ -432,6 +523,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     if (result.updates.goals) ideaPatch.goals = result.updates.goals;
     if (result.updates.context) ideaPatch.context = result.updates.context;
     if (Object.keys(ideaPatch).length > 0) updateIdea(ideaPatch);
+
     if (result.updates.productType) setProductType(result.updates.productType);
     if (result.updates.country || result.updates.cityRegion) {
       setLocation({
@@ -443,8 +535,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     if (result.updates.deliveryModel) setDeliveryModel(result.updates.deliveryModel);
     for (const q of result.updates.openQuestions) addOpenQuestion(q);
 
-    // 5. Respond as the Business Intelligence Interviewer (with honest
-    //    attachment handling — never claims to have analyzed file contents)
+    // 6. Respond as the Business Intelligence Interviewer
     const notice = attachmentNotice(fileNames);
     const reply = notice ? `${result.replyText}\n\n${notice}` : result.replyText;
     setInputText('');
