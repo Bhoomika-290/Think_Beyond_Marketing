@@ -28,6 +28,7 @@ import type {
   ExecutionReport,
   ExecutionTaskItem,
   ExecutionSpecialistMessage,
+  SimulationReport,
 } from '../types/project';
 import { STAGES } from '../types/project';
 import { generateFeasibilityReport } from '../services/feasibilityEngine';
@@ -35,6 +36,7 @@ import { generateMarketIntelligenceReport } from '../services/marketIntelligence
 import { generateBrandRoadmapReport } from '../services/brandRoadmapEngine';
 import { generateBuildArchitectureReport } from '../services/buildArchitectureEngine';
 import { generateExecutionReport } from '../services/executionEngine';
+import { generateSimulationReport } from '../services/simulationEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
@@ -154,6 +156,9 @@ interface ProjectContextValue {
   addResourceToPlan: (resourceId: string) => void;
   executionSpecialistMessages: ExecutionSpecialistMessage[];
   sendExecutionSpecialistQuery: (queryOrAction: string, resourceId?: string) => void;
+  simulationReport: SimulationReport;
+  refreshSimulation: () => void;
+  saveSimulationReport: (report: SimulationReport) => void;
 }
 
 
@@ -339,10 +344,10 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const markStageCompleted = (stageId: StageId) => {
     setState((prev) => {
       const alreadyCompleted = prev.workflow.completedStages.includes(stageId);
-      const completedStages = alreadyCompleted
-        ? prev.workflow.completedStages
-        : [...prev.workflow.completedStages, stageId];
-      
+      if (alreadyCompleted) {
+        return prev;
+      }
+      const completedStages = [...prev.workflow.completedStages, stageId];
       return {
         ...prev,
         workflow: {
@@ -1918,6 +1923,50 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     [state, executionReport]
   );
 
+  const simulationReport = useMemo(() => {
+    if (state.simulation) {
+      return state.simulation;
+    }
+    return generateSimulationReport(state);
+  }, [state]);
+
+  const refreshSimulation = useCallback(() => {
+    const fresh = generateSimulationReport(state);
+    setState((prev) => ({
+      ...prev,
+      simulation: fresh,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          simulation: fresh,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, [state]);
+
+  const saveSimulationReport = useCallback((report: SimulationReport) => {
+    setState((prev) => ({
+      ...prev,
+      simulation: report,
+      workflow: {
+        ...prev.workflow,
+        stageOutputs: {
+          ...prev.workflow.stageOutputs,
+          simulation: report,
+        },
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, []);
+
   return (
     <ProjectContext.Provider
       value={{
@@ -1985,10 +2034,12 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         addResourceToPlan,
         executionSpecialistMessages,
         sendExecutionSpecialistQuery,
+        simulationReport,
+        refreshSimulation,
+        saveSimulationReport,
       }}
     >
       {children}
-
     </ProjectContext.Provider>
   );
 };

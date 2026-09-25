@@ -201,11 +201,13 @@ export * from './marketIntelligence';
 export * from './brandRoadmap';
 export * from './buildArchitecture';
 export * from './execution';
+export * from './simulation';
 import type { FeasibilityReport } from './feasibility';
 import type { MarketIntelligenceReport } from './marketIntelligence';
 import type { BrandRoadmapReport } from './brandRoadmap';
 import type { BuildArchitectureReport } from './buildArchitecture';
 import type { ExecutionReport } from './execution';
+import type { SimulationReport } from './simulation';
 
 export interface ProjectState {
   project: ProjectMetadata;
@@ -216,6 +218,7 @@ export interface ProjectState {
   brandRoadmap?: BrandRoadmapReport;
   buildArchitecture?: BuildArchitectureReport;
   execution?: ExecutionReport;
+  simulation?: SimulationReport;
   workflow: WorkflowData;
 }
 

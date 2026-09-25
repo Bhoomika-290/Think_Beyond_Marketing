@@ -7,10 +7,8 @@ import { MarketIntelligencePage } from '../pages/MarketIntelligencePage';
 import { BrandRoadmapPage } from '../pages/BrandRoadmapPage';
 import { BuildPage } from '../pages/BuildPage';
 import { ExecutionPage } from '../pages/ExecutionPage';
-import {
-  SimulationPage,
-  LaunchGrowthPage,
-} from '../pages/StagePages';
+import { SimulationPage } from '../pages/SimulationPage';
+import { LaunchGrowthPage } from '../pages/StagePages';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 export const AppRouter: React.FC = () => {

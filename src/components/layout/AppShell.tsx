@@ -27,7 +27,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       <AppHeader onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)} />
 
       {/* Main Workspace Body: Sidebar + Page Content */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex">
         {/* Left Sidebar (Desktop persistent, Mobile/Tablet drawer) */}
         <AppSidebar
           isOpen={isSidebarOpen}
@@ -37,7 +37,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
         {/* Primary Page Content Area */}
         <main
           ref={mainRef}
-          className="flex-1 overflow-y-auto bg-grid-pattern relative min-h-[calc(100vh-4rem)] scroll-smooth"
+          className="flex-1 bg-grid-pattern relative min-h-[calc(100vh-4rem)]"
         >
           {children}
         </main>
