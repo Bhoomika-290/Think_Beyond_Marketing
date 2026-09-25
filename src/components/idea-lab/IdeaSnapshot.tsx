@@ -121,7 +121,7 @@ export const IdeaSnapshot: React.FC = () => {
               IDEA CONCEPT
             </div>
             <div className="text-sm font-medium text-[#F3F4F6]">
-              {displayVal(idea.rawInput, 'Awaiting raw idea input')}
+              {displayVal(idea.rawInput, 'Waiting for venture idea')}
             </div>
           </div>
 

@@ -29,6 +29,9 @@ import type {
   ExecutionTaskItem,
   ExecutionSpecialistMessage,
   SimulationReport,
+  VentureDecision,
+  ExternalIntegrationState,
+  CouncilQueryResponse,
 } from '../types/project';
 import { STAGES } from '../types/project';
 import { generateFeasibilityReport } from '../services/feasibilityEngine';
@@ -37,6 +40,7 @@ import { generateBrandRoadmapReport } from '../services/brandRoadmapEngine';
 import { generateBuildArchitectureReport } from '../services/buildArchitectureEngine';
 import { generateExecutionReport } from '../services/executionEngine';
 import { generateSimulationReport } from '../services/simulationEngine';
+import { executeBusinessCouncilQuery } from '../services/businessCouncilEngine';
 
 const STORAGE_KEY = 'think_beyond_marketing_project_state_v1';
 const MESSAGES_KEY = 'think_beyond_marketing_messages_v1';
@@ -79,6 +83,14 @@ const INITIAL_PROJECT_STATE: ProjectState = {
     completedStages: [],
     stageOutputs: {},
   },
+  decisions: [],
+  externalConnections: {
+    crm: { isConnected: false },
+    meta: { isConnected: false },
+    stripe: { isConnected: false },
+    analytics: { isConnected: false },
+    search: { isConnected: false },
+  },
 };
 
 const INITIAL_MESSAGES: InterviewMessage[] = [
@@ -111,6 +123,9 @@ interface ProjectContextValue {
   addMessage: (text: string, sender: 'ai' | 'user') => void;
   resetProject: () => void;
   hasMinimumDiscovery: boolean;
+  recordDecision: (decision: Omit<VentureDecision, 'id' | 'timestamp'>) => void;
+  updateExternalConnections: (partial: Partial<ExternalIntegrationState>) => void;
+  queryCouncil: (query: string, stageId?: StageId) => CouncilQueryResponse;
   refreshFeasibility: () => void;
   saveFeasibilityReport: (report: FeasibilityReport) => void;
   toggleValidationTask: (taskId: string) => void;
@@ -160,7 +175,6 @@ interface ProjectContextValue {
   refreshSimulation: () => void;
   saveSimulationReport: (report: SimulationReport) => void;
 }
-
 
 const ProjectContext = createContext<ProjectContextValue | undefined>(undefined);
 
@@ -234,6 +248,12 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
           updatedAt: new Date().toISOString(),
         },
         idea: newIdea,
+        feasibility: undefined,
+        marketIntelligence: undefined,
+        brandRoadmap: undefined,
+        buildArchitecture: undefined,
+        execution: undefined,
+        simulation: undefined,
       };
     });
   };
@@ -245,6 +265,12 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         ...prev.businessModel,
         ...partial,
       },
+      feasibility: undefined,
+      marketIntelligence: undefined,
+      brandRoadmap: undefined,
+      buildArchitecture: undefined,
+      execution: undefined,
+      simulation: undefined,
       project: {
         ...prev.project,
         updatedAt: new Date().toISOString(),
@@ -259,6 +285,12 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         ...prev.businessModel,
         productType,
       },
+      feasibility: undefined,
+      marketIntelligence: undefined,
+      brandRoadmap: undefined,
+      buildArchitecture: undefined,
+      execution: undefined,
+      simulation: undefined,
       project: {
         ...prev.project,
         category: productType,
@@ -277,6 +309,9 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
           ...locationPartial,
         },
       },
+      feasibility: undefined,
+      marketIntelligence: undefined,
+      brandRoadmap: undefined,
       project: {
         ...prev.project,
         updatedAt: new Date().toISOString(),
@@ -291,6 +326,9 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         ...prev.businessModel,
         deliveryModel,
       },
+      feasibility: undefined,
+      marketIntelligence: undefined,
+      brandRoadmap: undefined,
       project: {
         ...prev.project,
         updatedAt: new Date().toISOString(),
@@ -305,6 +343,9 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         ...prev.businessModel,
         customerType,
       },
+      feasibility: undefined,
+      marketIntelligence: undefined,
+      brandRoadmap: undefined,
       project: {
         ...prev.project,
         updatedAt: new Date().toISOString(),
@@ -362,6 +403,105 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
       };
     });
   };
+
+  const recordDecision = useCallback((decision: Omit<VentureDecision, 'id' | 'timestamp'>) => {
+    setState((prev) => {
+      const newDecision: VentureDecision = {
+        ...decision,
+        id: `dec_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+        timestamp: new Date().toISOString(),
+      };
+      return {
+        ...prev,
+        decisions: [newDecision, ...(prev.decisions || [])],
+        project: {
+          ...prev.project,
+          updatedAt: new Date().toISOString(),
+        },
+      };
+    });
+  }, []);
+
+  const updateExternalConnections = useCallback((partial: Partial<ExternalIntegrationState>) => {
+    setState((prev) => ({
+      ...prev,
+      externalConnections: {
+        ...(prev.externalConnections || {
+          crm: { isConnected: false },
+          meta: { isConnected: false },
+          stripe: { isConnected: false },
+          analytics: { isConnected: false },
+          search: { isConnected: false },
+        }),
+        ...partial,
+      },
+      project: {
+        ...prev.project,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  }, []);
+
+  const queryCouncil = useCallback(
+    (query: string, stageId?: StageId): CouncilQueryResponse => {
+      const result = executeBusinessCouncilQuery({
+        query,
+        projectState: state,
+        stageId: stageId || state.workflow.currentStage,
+        decisionHistory: state.decisions,
+        externalConnections: state.externalConnections,
+      });
+
+      if (result.isModification && result.modificationPatch) {
+        const { ideaPatch, businessModelPatch, recordedDecision } = result.modificationPatch;
+
+        setState((prev) => {
+          let updatedIdea = prev.idea;
+          let updatedBusinessModel = prev.businessModel;
+          let updatedDecisions = prev.decisions || [];
+
+          if (ideaPatch) {
+            updatedIdea = { ...updatedIdea, ...ideaPatch };
+          }
+          if (businessModelPatch) {
+            updatedBusinessModel = {
+              ...updatedBusinessModel,
+              ...businessModelPatch,
+              location: {
+                ...updatedBusinessModel.location,
+                ...(businessModelPatch.location || {}),
+              },
+            };
+          }
+          if (recordedDecision) {
+            updatedDecisions = [recordedDecision, ...updatedDecisions];
+          }
+
+          return {
+            ...prev,
+            idea: updatedIdea,
+            businessModel: updatedBusinessModel,
+            decisions: updatedDecisions,
+            feasibility: undefined,
+            marketIntelligence: undefined,
+            brandRoadmap: undefined,
+            buildArchitecture: undefined,
+            execution: undefined,
+            simulation: undefined,
+            project: {
+              ...prev.project,
+              name: ideaPatch?.name || prev.project.name,
+              category: businessModelPatch?.productType || prev.project.category,
+              updatedAt: new Date().toISOString(),
+            },
+          };
+        });
+      }
+
+      return result;
+    },
+    [state]
+  );
 
   // Determine whether minimum discovery exists
   const hasMinimumDiscovery = useMemo(() => {
@@ -810,10 +950,37 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
           specialistName = 'Brand Architect';
           break;
 
-        default:
-          replyText = `Based on your venture context for **${ventureName}** (${category}), addressing **${audience}**: regarding "${queryOrAction}", our market analysis indicates you should maintain focus on validating customer willingness-to-pay and highlighting "${diff.slice(0, 40)}..." as your key differentiator against legacy alternatives.`;
-          specialistName = 'Business Specialist';
+        default: {
+          const councilResult = executeBusinessCouncilQuery({
+            query: queryOrAction,
+            projectState: state,
+            stageId: 'market-intelligence',
+            decisionHistory: state.decisions,
+            externalConnections: state.externalConnections,
+          });
+          replyText = councilResult.replyText;
+          specialistName = councilResult.isOffTopic
+            ? 'Council Guardrail'
+            : councilResult.isModification
+            ? 'Council Intent Engine'
+            : 'Multi-Agent Council';
+
+          if (councilResult.isModification && councilResult.modificationPatch) {
+            const { ideaPatch, businessModelPatch, recordedDecision } = councilResult.modificationPatch;
+            setState((prev) => ({
+              ...prev,
+              idea: ideaPatch ? { ...prev.idea, ...ideaPatch } : prev.idea,
+              businessModel: businessModelPatch ? { ...prev.businessModel, ...businessModelPatch } : prev.businessModel,
+              decisions: recordedDecision ? [recordedDecision, ...(prev.decisions || [])] : prev.decisions,
+              project: {
+                ...prev.project,
+                name: ideaPatch?.name || prev.project.name,
+                updatedAt: new Date().toISOString(),
+              },
+            }));
+          }
           break;
+        }
       }
 
       const aiMsg: MarketSpecialistMessage = {
@@ -1655,9 +1822,32 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
           replyText = `**Handoff to Stage 06 (Execution Intelligence):**\nYour engineering specifications, MoSCoW MVP feature backlog, relational schemas, and 6-phase roadmap are ready. Once you review and lock your tech stack and task owners, you can proceed directly to sprint planning and resource allocation.`;
           break;
 
-        default:
-          replyText = `Regarding "${queryOrAction}" for **${ventureName}** (${state.businessModel.productType || 'venture'}): Our technical recommendation is to maintain strict adherence to your MVP perimeter (${buildReport.mvpScope.matrixSummary.mustCount} core features), prioritize database indexing for your primary entities, and rely on managed serverless primitives to keep fixed overhead near zero until revenue traction is proven.`;
+        default: {
+          const councilResult = executeBusinessCouncilQuery({
+            query: queryOrAction,
+            projectState: state,
+            stageId: 'build',
+            decisionHistory: state.decisions,
+            externalConnections: state.externalConnections,
+          });
+          replyText = councilResult.replyText;
+
+          if (councilResult.isModification && councilResult.modificationPatch) {
+            const { ideaPatch, businessModelPatch, recordedDecision } = councilResult.modificationPatch;
+            setState((prev) => ({
+              ...prev,
+              idea: ideaPatch ? { ...prev.idea, ...ideaPatch } : prev.idea,
+              businessModel: businessModelPatch ? { ...prev.businessModel, ...businessModelPatch } : prev.businessModel,
+              decisions: recordedDecision ? [recordedDecision, ...(prev.decisions || [])] : prev.decisions,
+              project: {
+                ...prev.project,
+                name: ideaPatch?.name || prev.project.name,
+                updatedAt: new Date().toISOString(),
+              },
+            }));
+          }
           break;
+        }
       }
 
       const aiMsg: BuildSpecialistMessage = {
@@ -1990,6 +2180,9 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
         addMessage,
         resetProject,
         hasMinimumDiscovery,
+        recordDecision,
+        updateExternalConnections,
+        queryCouncil,
         refreshFeasibility,
         saveFeasibilityReport,
         toggleValidationTask,

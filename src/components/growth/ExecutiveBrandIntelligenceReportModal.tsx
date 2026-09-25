@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   X, 
+  ArrowLeft,
   Printer, 
   Copy, 
   Check, 
@@ -54,6 +55,18 @@ export const ExecutiveBrandIntelligenceReportModal: React.FC<ExecutiveBrandIntel
   const [synthesisStep, setSynthesisStep] = useState<number>(0);
   const [regeneratedReport, setRegeneratedReport] = useState<ExecutiveBrandIntelligenceReport | null>(null);
 
+  // Keyboard Escape listener to close report
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   const derivedReport = useMemo(() => 
     generateExecutiveBrandReport({
       projectState,
@@ -70,6 +83,7 @@ export const ExecutiveBrandIntelligenceReportModal: React.FC<ExecutiveBrandIntel
   const intelligenceReport = regeneratedReport || derivedReport;
 
   if (!isOpen) return null;
+
 
   const synthesisSteps = [
     'Aggregating multi-stage project state...',
@@ -165,6 +179,15 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
         {/* Top Dark Header Toolbar (Screen only - Hidden in print) */}
         <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 border-b border-[#1E293B] bg-[#0E1522] print:hidden shrink-0">
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1E293B] hover:bg-[#334155] text-xs font-mono font-bold text-white border border-[#475569] transition-colors"
+              title="Close report and return to Launch & Growth (Esc)"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back / Close</span>
+            </button>
             <div className="w-8 h-8 rounded-lg bg-[#3B82F6]/10 border border-[#3B82F6]/30 flex items-center justify-center text-[#3B82F6]">
               <ShieldCheck className="w-4 h-4" />
             </div>

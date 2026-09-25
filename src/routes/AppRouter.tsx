@@ -22,9 +22,13 @@ export const AppRouter: React.FC = () => {
           <Route path="/market-intelligence" element={<MarketIntelligencePage />} />
           <Route path="/brand-roadmap" element={<BrandRoadmapPage />} />
           <Route path="/build" element={<BuildPage />} />
+          <Route path="/build-architecture" element={<BuildPage />} />
           <Route path="/execution" element={<ExecutionPage />} />
+          <Route path="/execution-intelligence" element={<ExecutionPage />} />
           <Route path="/simulation" element={<SimulationPage />} />
+          <Route path="/experience-simulation" element={<SimulationPage />} />
           <Route path="/launch-growth" element={<LaunchGrowthPage />} />
+          <Route path="/growth" element={<LaunchGrowthPage />} />
           <Route path="/report" element={<Navigate to="/launch-growth" replace />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

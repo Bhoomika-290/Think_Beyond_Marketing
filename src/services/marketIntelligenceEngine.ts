@@ -113,27 +113,72 @@ export function generateMarketIntelligenceReport(
     yAxis: defaultYAxis,
   };
 
-  // 2. Competitors & Alternative Workarounds
+  // 2. Dynamic Competitors & Alternative Workarounds grounded in the current venture
+  const lowerIdea = (idea.rawInput + ' ' + idea.problem + ' ' + targetAudience + ' ' + ventureName).toLowerCase();
+
+  let massName = 'Mass Incumbent Providers';
+  let massOffering = `Generic mass-market solutions for ${targetAudience} prioritizing volume over tailored quality.`;
+  let boutiqueName = 'Boutique Bespoke Specialists';
+  let boutiqueOffering = `High-fee boutique alternatives catering to high-end enterprise or luxury segments.`;
+  let statusQuoName = 'Status Quo: DIY Ad-Hoc Workarounds';
+  let statusQuoOffering = `Founders and customers currently using manual spreadsheets, informal networks, or fragmented workarounds.`;
+
+  if (lowerIdea.includes('tutor') || lowerIdea.includes('student') || lowerIdea.includes('education') || lowerIdea.includes('learning')) {
+    massName = 'Commercial Tutoring Agencies';
+    massOffering = 'High-volume commercial agencies with large tutor pools, standardized curricula, and high platform commissions.';
+    boutiqueName = 'Private Academic Coaches';
+    boutiqueOffering = 'Exclusive 1-on-1 private academic coaching charging $100+/hr with high retainers.';
+    statusQuoName = 'Status Quo: Campus Message Boards & Informal Word-of-Mouth';
+    statusQuoOffering = 'Students asking friends or searching unverified bulletin boards to find peer help.';
+  } else if (lowerIdea.includes('restaurant') || lowerIdea.includes('food') || lowerIdea.includes('dining')) {
+    massName = 'Mass Delivery Aggregators';
+    massOffering = 'Large commission-heavy delivery portals offering generic discovery without brand loyalty.';
+    boutiqueName = 'Boutique Culinary Consultancies';
+    boutiqueOffering = 'High-end custom marketing and operations agencies with steep monthly retainers.';
+    statusQuoName = 'Status Quo: Phone-In Orders & Paper Logbooks';
+    statusQuoOffering = 'Restaurant staff manually managing incoming reservations and orders with basic spreadsheets.';
+  } else if (lowerIdea.includes('coffee') || lowerIdea.includes('roaster')) {
+    massName = 'Commercial Supermarket Roasters';
+    massOffering = 'Mass-roasted commercial blends distributed through national grocery chains with 6–12 month shelf life.';
+    boutiqueName = 'Boutique Artisan Roasteries';
+    boutiqueOffering = 'Single-lot micro roasters with exceptional cup scores, sold in physical cafes or erratic boutique drops.';
+    statusQuoName = 'Status Quo: Supermarket Instant / Pods';
+    statusQuoOffering = 'Instant soluble powders or standard Nespresso capsules consumed out of habitual convenience.';
+  } else if (lowerIdea.includes('clothing') || lowerIdea.includes('apparel') || lowerIdea.includes('winter') || lowerIdea.includes('fashion')) {
+    massName = 'Fast-Fashion Mass Retailers';
+    massOffering = 'Mass-produced apparel lines with rapid obsolescence and generic synthetic fabrics.';
+    boutiqueName = 'High-End Designer Ateliers';
+    boutiqueOffering = 'Luxury bespoke fashion houses charging high premiums for hand-finished garments.';
+    statusQuoName = 'Status Quo: Off-the-Rack Commodity Garments';
+    statusQuoOffering = 'Buyers settling for standard department store inventory lacking thermal or ethical craft.';
+  } else if (productType === 'saas') {
+    massName = 'Legacy Enterprise Suites';
+    massOffering = `Broad multi-tool enterprise software suites with complex manual setups and high licensing overhead.`;
+    boutiqueName = 'Bespoke Development Agencies';
+    boutiqueOffering = `Custom development agencies building one-off internal solutions with prolonged timelines and high retainers.`;
+    statusQuoName = 'Status Quo: Manual Spreadsheets & Fragmented Tools';
+    statusQuoOffering = `Teams manually exporting CSVs into spreadsheets and stitching tools together manually.`;
+  } else if (productType === 'marketplace') {
+    massName = 'Generalist Classifieds & Portals';
+    massOffering = 'Unvetted open marketplaces with high fraud rates, hidden fees, and zero buyer verification.';
+    boutiqueName = 'Closed White-Glove Brokerages';
+    boutiqueOffering = 'Exclusive brokerages charging 20–30% transaction commissions with lengthy qualification gates.';
+    statusQuoName = 'Status Quo: Social Media Groups & Direct Outreach';
+    statusQuoOffering = 'Users negotiating directly via social messaging groups without escrow or verified standards.';
+  }
+
   const defaultArchetypeCompetitors: CompetitorItem[] = [
     {
       id: 'comp_1',
-      name:
-        productType === 'physical'
-          ? 'Commercial Supermarket Roasters'
-          : productType === 'saas'
-          ? 'Legacy Analytics Suites'
-          : 'Generic Incumbent Platform',
+      name: massName,
       category: 'direct',
       positioningLabel: 'High-volume commercial commodity with broad retail/search presence',
       priceTier: 'budget',
-      offeringSummary:
-        productType === 'physical'
-          ? 'Mass-roasted commercial blends distributed through national grocery chains with 6–12 month shelf life.'
-          : 'Broad multi-tool analytics dashboards with complex manual event configurations and generalized reporting.',
+      offeringSummary: massOffering,
       strengths: ['Mass distribution footprint', 'Strong historical brand recall', 'Low nominal unit price point'],
       weaknesses: ['Zero batch freshness transparency', 'Generic mass-market quality', 'Impersonal customer support'],
       differentiationFactor: 'Distribution scale over personalized craft and real-time freshness.',
-      targetCustomer: 'Price-sensitive mass consumers looking for familiar default options',
+      targetCustomer: `Price-sensitive segment looking for familiar default options in ${locationStr}`,
       businessPricingModel: 'High-volume wholesale retail margins (low unit gross margin)',
       confidence: 'High',
       evidenceSource: 'Stage 01 Market Category Context & Public Retailing Benchmarks',
@@ -142,23 +187,15 @@ export function generateMarketIntelligenceReport(
     },
     {
       id: 'comp_2',
-      name:
-        productType === 'physical'
-          ? 'Boutique Artisan Roasteries'
-          : productType === 'saas'
-          ? 'Enterprise Bespoke Platforms'
-          : 'High-End Specialty Retainers',
+      name: boutiqueName,
       category: 'direct',
       positioningLabel: 'Ultra-premium artisanal offerings catering to discerning collectors/enterprises',
       priceTier: 'enterprise',
-      offeringSummary:
-        productType === 'physical'
-          ? 'Single-lot micro roasters with exceptional cup scores, sold in physical cafes or erratic boutique drops.'
-          : 'White-glove attribution suites with dedicated data engineering teams and lengthy 6-month enterprise onboarding.',
+      offeringSummary: boutiqueOffering,
       strengths: ['Exceptional product craftsmanship', 'Deep niche brand credibility', 'High customer loyalty among purists'],
       weaknesses: ['Prohibitive price ceiling', 'Erratic supply & delivery friction', 'Steep learning curve for newcomers'],
       differentiationFactor: 'Exclusivity and high-touch artisanal pedigree over accessible consistency.',
-      targetCustomer: 'High-budget connoisseurs and enterprise organizations with dedicated budgets',
+      targetCustomer: `High-budget connoisseurs and enterprise organizations seeking specialized solutions`,
       businessPricingModel: 'High gross margin ($$$) with low transaction volume',
       confidence: 'High',
       evidenceSource: 'Specialty Industry Reports & Enterprise Pricing Benchmarks',
@@ -167,23 +204,15 @@ export function generateMarketIntelligenceReport(
     },
     {
       id: 'comp_3',
-      name:
-        productType === 'physical'
-          ? 'Status Quo: Supermarket Instant / Pods'
-          : productType === 'saas'
-          ? 'Status Quo: Spreadsheets & Platform Native ROAS'
-          : 'Status Quo: DIY Ad-Hoc Workarounds',
+      name: statusQuoName,
       category: 'alternative_workaround',
       positioningLabel: 'Default habit and free built-in workarounds',
       priceTier: 'budget',
-      offeringSummary:
-        productType === 'physical'
-          ? 'Instant soluble powders or standard Nespresso capsules consumed out of habitual convenience.'
-          : 'Founders manually exporting Meta/Google Ads CSVs into Google Sheets and blending with Shopify exports.',
+      offeringSummary: statusQuoOffering,
       strengths: ['Zero financial switching cost', 'Immediate availability', 'Familiar daily routine'],
       weaknesses: ['Inferior sensory/analytical outcome', 'Double-counted metrics / poor taste', 'Time-consuming manual drudgery'],
       differentiationFactor: 'Extreme inertia and familiarity despite documented inefficiency.',
-      targetCustomer: 'Busy operators and everyday consumers defaulting to path of least resistance',
+      targetCustomer: `${targetAudience} defaulting to path of least resistance`,
       businessPricingModel: 'Free / sunk-cost built-in utility',
       confidence: 'High',
       evidenceSource: 'Stage 01 Founder Problem Statement & Customer Discovery Interviews',

@@ -15,7 +15,7 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
   externalPrompt,
   onClearExternalPrompt,
 }) => {
-  const { state, updateIdea, messages, addMessage } = useProject();
+  const { state, messages, addMessage, queryCouncil } = useProject();
   const [inputText, setInputText] = useState('');
   const [isListeningPlaceholder, setIsListeningPlaceholder] = useState(false);
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
@@ -46,25 +46,24 @@ export const InterviewerChat: React.FC<InterviewerChatProps> = ({
     const cleanText = inputText.trim();
     if (!cleanText) return;
 
-    // 1. Add user message
+    // 1. Add user message to conversation history
     addMessage(cleanText, 'user');
-
-    // 2. Capture raw input into project state
-    updateIdea({ rawInput: cleanText });
-
-    // 3. System responds with business interviewer acknowledgment
-    setTimeout(() => {
-      addMessage(
-        `Understood. I have recorded your raw idea:\n\n"${cleanText}"\n\nTo build a defensible brand and viable business model from this, let's step through the structured discovery vectors below (Product Type, Audience, Problem, Location, and Open Questions).`,
-        'ai'
-      );
-    }, 400);
-
     setInputText('');
-    if (onRawIdeaSubmitted) {
-      onRawIdeaSubmitted(cleanText);
-    }
+
+    // 2. Query Central Business Council Engine with Intent Routing
+    setTimeout(() => {
+      const councilResponse = queryCouncil(cleanText, 'idea-lab');
+
+      // Display AI response
+      addMessage(councilResponse.replyText, 'ai');
+
+      // Only notify parent if a genuine new idea was initialized
+      if (councilResponse.intent === 'NEW_IDEA' && onRawIdeaSubmitted) {
+        onRawIdeaSubmitted(cleanText);
+      }
+    }, 250);
   };
+
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
