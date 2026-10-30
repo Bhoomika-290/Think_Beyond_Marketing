@@ -35,23 +35,23 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
     {
       id: 'DECIDED',
       label: 'Decided & Locked',
-      icon: <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />,
-      colorClass: 'text-emerald-400 border-emerald-500/30',
-      headerBg: 'bg-emerald-500/10',
+      icon: <CheckCircle2 className="w-3.5 h-3.5 text-[#19A875]" />,
+      colorClass: 'text-[#19A875] border-[#19A875]/30',
+      headerBg: 'bg-[#E8F8F1]',
     },
     {
       id: 'NEEDS_REVIEW',
       label: 'Needs Review',
-      icon: <Clock className="w-3.5 h-3.5 text-blue-400" />,
-      colorClass: 'text-blue-400 border-blue-500/30',
-      headerBg: 'bg-blue-500/10',
+      icon: <Clock className="w-3.5 h-3.5 text-[#2684F7]" />,
+      colorClass: 'text-[#2684F7] border-[#2684F7]/30',
+      headerBg: 'bg-[#E8F2FF]',
     },
     {
       id: 'OPEN_QUESTION',
       label: 'Open Question',
       icon: <HelpCircle className="w-3.5 h-3.5 text-amber-400" />,
-      colorClass: 'text-amber-400 border-amber-500/30',
-      headerBg: 'bg-amber-500/10',
+      colorClass: 'text-amber-400 border-[#F29A42]/30',
+      headerBg: 'bg-[#FFF3E7]',
     },
     {
       id: 'VALIDATION_REQUIRED',
@@ -79,18 +79,18 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
   };
 
   return (
-    <div className="rounded-2xl bg-[#0D141F] border border-[#263244] p-6 shadow-xl space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2635] pb-4">
+    <div className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-xl space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2EAF4] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-base sm:text-lg font-bold text-[#F3F4F6]">
+            <h2 className="text-base sm:text-lg font-bold text-[#14213D]">
               Section 18 — Build Decision Board
             </h2>
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/30">
+            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               CERTAINTY MATRIX
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">
+          <p className="text-xs text-[#8495AE] mt-1">
             Makes uncertainty visible instead of pretending everything is settled. Click buttons to move decisions between quadrants.
           </p>
         </div>
@@ -98,7 +98,7 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
         <button
           type="button"
           onClick={() => setIsAdding(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono font-medium transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2684F7] hover:bg-[#1769D2] text-white text-xs font-mono font-medium transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Log Decision</span>
@@ -113,19 +113,19 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
           return (
             <div
               key={quad.id}
-              className="rounded-xl bg-[#111823] border border-[#263244] flex flex-col justify-between overflow-hidden"
+              className="rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col justify-between overflow-hidden"
             >
               <div>
                 <div
-                  className={`p-3 border-b border-[#1C2635] flex items-center justify-between ${quad.headerBg}`}
+                  className={`p-3 border-b border-[#E2EAF4] flex items-center justify-between ${quad.headerBg}`}
                 >
                   <div className="flex items-center gap-2">
                     {quad.icon}
-                    <span className="text-xs font-mono font-bold text-[#F3F4F6] uppercase">
+                    <span className="text-xs font-mono font-bold text-[#14213D] uppercase">
                       {quad.label}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-[#738095]">
+                  <span className="text-[10px] font-mono text-[#60738F]">
                     {items.length}
                   </span>
                 </div>
@@ -134,38 +134,38 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
                   {items.map((item) => (
                     <div
                       key={item.id}
-                      className="p-3 rounded-lg bg-[#0D141F] border border-[#263244] space-y-2 hover:border-[#34445A] transition-colors"
+                      className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-2 hover:border-[#34445A] transition-colors"
                     >
-                      <div className="flex items-center justify-between text-[9px] font-mono text-[#738095]">
-                        <span className="text-blue-400 truncate max-w-[120px]">
+                      <div className="flex items-center justify-between text-[9px] font-mono text-[#60738F]">
+                        <span className="text-[#2684F7] truncate max-w-[120px]">
                           {item.connectedFeature}
                         </span>
                         <span>{item.provenance}</span>
                       </div>
 
-                      <h4 className="text-xs font-semibold text-[#F3F4F6] leading-snug">
+                      <h4 className="text-xs font-semibold text-[#14213D] leading-snug">
                         {item.title}
                       </h4>
 
-                      <p className="text-[10px] text-[#AAB4C3] leading-relaxed">
-                        <span className="text-[#738095]">Basis:</span> {item.assumption}
+                      <p className="text-[10px] text-[#8495AE] leading-relaxed">
+                        <span className="text-[#60738F]">Basis:</span> {item.assumption}
                       </p>
 
                       {item.resolvedAction && (
-                        <p className="text-[10px] text-emerald-400 leading-relaxed font-mono">
+                        <p className="text-[10px] text-[#19A875] leading-relaxed font-mono">
                           Action: {item.resolvedAction}
                         </p>
                       )}
 
                       {/* Move Buttons */}
-                      <div className="pt-2 border-t border-[#1C2635] flex items-center justify-between gap-1 text-[9px] font-mono">
-                        <span className="text-[#738095]">Move:</span>
+                      <div className="pt-2 border-t border-[#E2EAF4] flex items-center justify-between gap-1 text-[9px] font-mono">
+                        <span className="text-[#60738F]">Move:</span>
                         <div className="flex items-center gap-1">
                           {quad.id !== 'DECIDED' && (
                             <button
                               type="button"
                               onClick={() => onMoveDecision(item.id, 'DECIDED')}
-                              className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20"
+                              className="px-1.5 py-0.5 rounded bg-[#E8F8F1] text-[#19A875] hover:bg-emerald-500/20"
                               title="Move to Decided"
                             >
                               Lock
@@ -175,7 +175,7 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
                             <button
                               type="button"
                               onClick={() => onMoveDecision(item.id, 'NEEDS_REVIEW')}
-                              className="px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 hover:bg-blue-500/20"
+                              className="px-1.5 py-0.5 rounded bg-[#E8F2FF] text-[#2684F7] hover:bg-[#1769D2]/20"
                               title="Move to Needs Review"
                             >
                               Review
@@ -197,7 +197,7 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
                   ))}
 
                   {items.length === 0 && (
-                    <div className="text-center py-8 text-[#738095] text-xs font-mono">
+                    <div className="text-center py-8 text-[#60738F] text-xs font-mono">
                       No decisions in this quadrant
                     </div>
                   )}
@@ -212,16 +212,16 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
       {isAdding && (
         <form
           onSubmit={handleAddSubmit}
-          className="rounded-xl bg-[#111823] border border-blue-500/50 p-5 space-y-4"
+          className="rounded-xl bg-[#FFFFFF] border border-blue-500/50 p-5 space-y-4"
         >
-          <div className="flex items-center justify-between border-b border-[#1C2635] pb-2">
-            <h3 className="text-xs font-mono font-bold text-[#F3F4F6]">
+          <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-2">
+            <h3 className="text-xs font-mono font-bold text-[#14213D]">
               Log Architectural or Scope Decision
             </h3>
             <button
               type="button"
               onClick={() => setIsAdding(false)}
-              className="text-xs text-[#738095] hover:text-[#F3F4F6]"
+              className="text-xs text-[#60738F] hover:text-[#14213D]"
             >
               Cancel
             </button>
@@ -229,7 +229,7 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 DECISION SUMMARY *
               </label>
               <input
@@ -238,12 +238,12 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
                 onChange={(e) => setNewTitle(e.target.value)}
                 placeholder="E.g., Require 2FA on all administrative user accounts"
                 required
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 CONNECTED FEATURE / MODULE
               </label>
               <input
@@ -251,14 +251,14 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
                 value={newFeature}
                 onChange={(e) => setNewFeature(e.target.value)}
                 placeholder="Authentication, Checkout, Database..."
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 UNDERLYING ASSUMPTION / REASONING
               </label>
               <input
@@ -266,18 +266,18 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
                 value={newAssumption}
                 onChange={(e) => setNewAssumption(e.target.value)}
                 placeholder="Why is this decision being proposed?"
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 INITIAL QUADRANT
               </label>
               <select
                 value={newQuadrant}
                 onChange={(e) => setNewQuadrant(e.target.value as BuildDecisionQuadrant)}
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               >
                 <option value="DECIDED">Decided &amp; Locked</option>
                 <option value="NEEDS_REVIEW">Needs Review</option>
@@ -291,13 +291,13 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
             <button
               type="button"
               onClick={() => setIsAdding(false)}
-              className="px-3 py-1.5 rounded-lg bg-[#151E2B] text-[#AAB4C3] text-xs font-mono"
+              className="px-3 py-1.5 rounded-lg bg-[#151E2B] text-[#8495AE] text-xs font-mono"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono font-medium"
+              className="px-4 py-1.5 rounded-lg bg-[#2684F7] hover:bg-[#1769D2] text-white text-xs font-mono font-medium"
             >
               Log Decision
             </button>

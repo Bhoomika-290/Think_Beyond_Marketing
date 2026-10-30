@@ -94,7 +94,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
     const sceneProgress = Math.min(1, Math.max(0, (currentTimeSec - activeFrame.startTimeSec) / sceneDuration));
 
     // Dynamic color tokens
-    const primaryColor = reel.brandColorPrimary || '#4D8DFF';
+    const primaryColor = reel.brandColorPrimary || '#2684F7';
     const accentColor = reel.brandColorAccent || '#10B981';
     const isSaaS = reel.productType.toLowerCase().includes('saas') || reel.productType.toLowerCase().includes('software');
 
@@ -200,7 +200,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
       ctx.fill();
 
       // App Title in UI bar
-      ctx.fillStyle = '#AAB4C3';
+      ctx.fillStyle = '#8495AE';
       ctx.font = 'bold 11px monospace';
       ctx.fillText(`${ventureName.toUpperCase()} // WORKSPACE`, uiX + 60, uiY + 22);
 
@@ -214,10 +214,10 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
       ctx.roundRect(uiX + 54, uiY + 48, (uiW - 68) * 0.48, 52, 8);
       ctx.fill();
 
-      ctx.fillStyle = '#738095';
+      ctx.fillStyle = '#8495AE';
       ctx.font = '9px monospace';
       ctx.fillText('VELOCITY INDEX', uiX + 62, uiY + 64);
-      ctx.fillStyle = '#34D399';
+      ctx.fillStyle = '#19A875';
       ctx.font = 'bold 16px monospace';
       ctx.fillText('+98.4%', uiX + 62, uiY + 86);
 
@@ -226,7 +226,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
       ctx.roundRect(uiX + 54 + (uiW - 68) * 0.52, uiY + 48, (uiW - 68) * 0.48, 52, 8);
       ctx.fill();
 
-      ctx.fillStyle = '#738095';
+      ctx.fillStyle = '#8495AE';
       ctx.font = '9px monospace';
       ctx.fillText('TELEMETRY STATUS', uiX + 62 + (uiW - 68) * 0.52, uiY + 64);
       ctx.fillStyle = primaryColor;
@@ -288,7 +288,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
       ctx.shadowBlur = 40;
       const prodGrad = ctx.createLinearGradient(centerX - 80, centerY - 100, centerX + 80, centerY + 100);
       prodGrad.addColorStop(0, '#E2E8F0');
-      prodGrad.addColorStop(0.5, '#1E293B');
+      prodGrad.addColorStop(0.5, '#EEF4FB');
       prodGrad.addColorStop(1, '#0F172A');
       ctx.fillStyle = prodGrad;
 
@@ -308,7 +308,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
       ctx.arc(centerX + Math.sin(rot) * 10, centerY - 10, 26, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = '#080B10';
+      ctx.fillStyle = '#FFFFFF';
       ctx.font = 'bold 12px monospace';
       ctx.textAlign = 'center';
       ctx.fillText(ventureName.slice(0, 3).toUpperCase(), centerX + Math.sin(rot) * 10, centerY - 6);
@@ -431,10 +431,10 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
   return (
     <div className="space-y-4 animate-fadeIn">
       {/* 1. Main Reel Workspace Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 p-4 sm:p-5 rounded-2xl bg-[#0D121B] border border-[#263244] shadow-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] shadow-xl">
         {/* Left Column: 9:16 Social Reel Viewport */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-3">
-          <div className="w-full max-w-[340px] aspect-[9/16] relative rounded-[28px] bg-black border-4 border-[#1E293B] shadow-2xl overflow-hidden flex flex-col justify-between">
+          <div className="w-full max-w-[340px] aspect-[9/16] relative rounded-[28px] bg-black border-4 border-[#EEF4FB] shadow-2xl overflow-hidden flex flex-col justify-between">
             {/* 60FPS Canvas Layer */}
             <canvas
               ref={canvasRef}
@@ -446,15 +446,15 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
             {/* Floating Top Reel Status Bar */}
             <div className="relative z-10 p-4 flex items-center justify-between bg-gradient-to-b from-black/80 via-black/40 to-transparent">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-[#4D8DFF] flex items-center justify-center font-mono text-[10px] font-bold text-[#080B10] shadow-md">
+                <div className="w-7 h-7 rounded-full bg-[#2684F7] flex items-center justify-center font-mono text-[10px] font-bold text-[#FFFFFF] shadow-md">
                   {ventureName.slice(0, 2).toUpperCase()}
                 </div>
                 <div>
                   <div className="text-xs font-bold text-white tracking-wide truncate max-w-[120px]">
                     {ventureName}
                   </div>
-                  <div className="text-[9px] font-mono text-[#34D399] flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping" />
+                  <div className="text-[9px] font-mono text-[#19A875] flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#19A875] animate-ping" />
                     SPONSORED REEL
                   </div>
                 </div>
@@ -466,7 +466,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
                 onClick={() => setIsMuted(!isMuted)}
                 className="p-1.5 rounded-full bg-black/50 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 transition-colors"
               >
-                {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-[#38BDF8]" />}
+                {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-[#2684F7]" />}
               </button>
             </div>
 
@@ -481,10 +481,10 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
             <div className="relative z-10 p-5 space-y-3 bg-gradient-to-t from-black/95 via-black/70 to-transparent">
               {/* Feature Pill Badge */}
               <div className="flex items-center justify-between">
-                <span className="px-2.5 py-0.5 rounded-md bg-[#4D8DFF]/20 border border-[#4D8DFF]/40 text-[10px] font-mono font-bold text-[#60A5FA]">
+                <span className="px-2.5 py-0.5 rounded-md bg-[#2684F7]/20 border border-[#2684F7]/30 text-[10px] font-mono font-bold text-[#2684F7]">
                   {activeFrame.featureHighlight || ventureName}
                 </span>
-                <span className="text-[9px] font-mono text-[#738095] bg-black/50 px-2 py-0.5 rounded border border-white/10">
+                <span className="text-[9px] font-mono text-[#60738F] bg-black/50 px-2 py-0.5 rounded border border-white/10">
                   {formatTime(currentTimeSec)} / {formatTime(durationSec)}
                 </span>
               </div>
@@ -498,13 +498,13 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
               {activeFrameIndex === reel.frames.length - 1 ? (
                 <button
                   type="button"
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#4D8DFF] to-[#38BDF8] text-[#080B10] font-mono text-xs font-extrabold shadow-lg shadow-[#4D8DFF]/30 tracking-wider flex items-center justify-center gap-1.5 animate-pulse"
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#2684F7] to-[#2684F7] text-[#FFFFFF] font-mono text-xs font-extrabold shadow-lg shadow-[#2684F7]/30 tracking-wider flex items-center justify-center gap-1.5 animate-pulse"
                 >
                   <span>{reel.ctaText}</span>
                   <span>→</span>
                 </button>
               ) : (
-                <div className="w-full bg-white/10 backdrop-blur-md py-1.5 rounded-lg text-center text-[10px] font-mono text-[#AAB4C3] border border-white/10">
+                <div className="w-full bg-white/10 backdrop-blur-md py-1.5 rounded-lg text-center text-[10px] font-mono text-[#8495AE] border border-white/10">
                   VO: &ldquo;{activeFrame.voiceoverOrAudio}&rdquo;
                 </div>
               )}
@@ -512,7 +512,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
               {/* Scene Progress Timeline Bar */}
               <div className="w-full bg-white/20 h-1 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#38BDF8] transition-all duration-100 rounded-full"
+                  className="h-full bg-[#2684F7] transition-all duration-100 rounded-full"
                   style={{ width: `${(currentTimeSec / durationSec) * 100}%` }}
                 />
               </div>
@@ -524,7 +524,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
             <button
               type="button"
               onClick={() => setIsPlaying(!isPlaying)}
-              className="px-4 py-2 rounded-xl bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-mono text-xs font-bold flex items-center gap-2 shadow-md transition-colors"
+              className="px-4 py-2 rounded-xl bg-[#9272DB] hover:bg-[#7C3AED] text-white font-mono text-xs font-bold flex items-center gap-2 shadow-md transition-colors"
             >
               {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
               <span>{isPlaying ? 'Pause' : 'Play Reel'}</span>
@@ -533,7 +533,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
             <button
               type="button"
               onClick={() => setCurrentTimeSec(0)}
-              className="p-2 rounded-xl bg-[#111823] hover:bg-[#1A2536] text-[#AAB4C3] hover:text-white border border-[#263244] transition-colors"
+              className="p-2 rounded-xl bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
               title="Replay from start"
             >
               <RotateCcw className="w-4 h-4" />
@@ -543,7 +543,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
               type="button"
               onClick={handleExportReel}
               disabled={isExporting}
-              className="px-3 py-2 rounded-xl bg-[#111823] hover:bg-[#1A2536] text-[#34D399] font-mono text-xs font-bold flex items-center gap-1.5 border border-[#10B981]/40 transition-colors"
+              className="px-3 py-2 rounded-xl bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#19A875] font-mono text-xs font-bold flex items-center gap-1.5 border border-[#19A875]/30 transition-colors"
             >
               {exportSuccess ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5" />}
               <span>{isExporting ? 'Exporting...' : exportSuccess ? 'Exported!' : 'Export Reel'}</span>
@@ -554,20 +554,20 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
         {/* Right Column: Visual Timeline & Creative Editing Agent */}
         <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
           {/* Reel Header & Audio Meta */}
-          <div className="p-3.5 rounded-xl bg-[#111823] border border-[#263244] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#8B5CF6]/20 text-[#A78BFA]">
+                <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#F2EDFF] text-[#9272DB]">
                   {reel.durationSeconds}s SOCIAL REEL
                 </span>
                 <span className="text-xs font-bold text-white truncate">{reel.title}</span>
               </div>
-              <div className="text-[11px] text-[#38BDF8] italic mt-0.5">
+              <div className="text-[11px] text-[#2684F7] italic mt-0.5">
                 Hook: &ldquo;{reel.hookHeadline}&rdquo;
               </div>
             </div>
 
-            <div className="text-[10px] font-mono text-[#738095] bg-[#0D121B] px-2.5 py-1 rounded border border-[#263244] shrink-0">
+            <div className="text-[10px] font-mono text-[#60738F] bg-[#FFFFFF] px-2.5 py-1 rounded border border-[#E2EAF4] shrink-0">
               Audio: {reel.audioTrackVibe}
             </div>
           </div>
@@ -576,7 +576,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs font-mono font-bold text-white">
               <span>Scene Timeline ({reel.frames.length} Scenes)</span>
-              <span className="text-[10px] text-[#738095]">Click thumbnail to seek</span>
+              <span className="text-[10px] text-[#60738F]">Click thumbnail to seek</span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -593,21 +593,21 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
                     className={`p-3 rounded-xl border cursor-pointer transition-all flex flex-col justify-between space-y-2 ${
                       isCurrent
                         ? 'bg-[#151E2B] border-[#8B5CF6] ring-2 ring-[#8B5CF6]/40 shadow-lg'
-                        : 'bg-[#111823] border-[#263244] hover:border-[#384860]'
+                        : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#384860]'
                     }`}
                   >
                     <div className="space-y-1">
-                      <div className="flex items-center justify-between text-[9px] font-mono text-[#738095]">
-                        <span className="font-bold text-[#A78BFA]">0{frame.frameNumber}</span>
+                      <div className="flex items-center justify-between text-[9px] font-mono text-[#60738F]">
+                        <span className="font-bold text-[#9272DB]">0{frame.frameNumber}</span>
                         <span>{frame.timestamp}</span>
                       </div>
                       <div className="text-xs font-bold text-white truncate">{frame.kineticHeadline}</div>
-                      <p className="text-[10px] text-[#AAB4C3] leading-snug line-clamp-2">{frame.visualDirection}</p>
+                      <p className="text-[10px] text-[#8495AE] leading-snug line-clamp-2">{frame.visualDirection}</p>
                     </div>
 
-                    <div className="pt-1.5 border-t border-[#1A2536] flex items-center justify-between text-[9px] font-mono text-[#738095]">
-                      <span className="uppercase text-[#38BDF8]">{frame.motionType.replace('_', ' ')}</span>
-                      {isCurrent && <span className="text-[#10B981] font-bold">PLAYING</span>}
+                    <div className="pt-1.5 border-t border-[#E2EAF4] flex items-center justify-between text-[9px] font-mono text-[#60738F]">
+                      <span className="uppercase text-[#2684F7]">{frame.motionType.replace('_', ' ')}</span>
+                      {isCurrent && <span className="text-[#19A875] font-bold">PLAYING</span>}
                     </div>
                   </div>
                 );
@@ -617,35 +617,35 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
 
           {/* Quick Modifier Action Pills */}
           <div className="space-y-1.5">
-            <div className="text-[10px] font-mono text-[#738095] uppercase font-bold">
+            <div className="text-[10px] font-mono text-[#60738F] uppercase font-bold">
               Quick Creative Modifiers:
             </div>
             <div className="flex flex-wrap gap-1.5 text-xs font-mono">
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Make the opening hook punchier')}
-                className="px-2.5 py-1 rounded-lg bg-[#111823] hover:bg-[#1A2536] text-[#AAB4C3] hover:text-white border border-[#263244] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
               >
                 ⚡ Punchier Hook
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Make it 15 seconds short')}
-                className="px-2.5 py-1 rounded-lg bg-[#111823] hover:bg-[#1A2536] text-[#AAB4C3] hover:text-white border border-[#263244] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
               >
                 ⏱ 15s High-Velocity
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Make tone ultra minimal and premium')}
-                className="px-2.5 py-1 rounded-lg bg-[#111823] hover:bg-[#1A2536] text-[#AAB4C3] hover:text-white border border-[#263244] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
               >
                 💎 Ultra-Minimal
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Update closing CTA')}
-                className="px-2.5 py-1 rounded-lg bg-[#111823] hover:bg-[#1A2536] text-[#AAB4C3] hover:text-white border border-[#263244] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
               >
                 🎯 Refine CTA
               </button>
@@ -653,16 +653,16 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
           </div>
 
           {/* Creative Editing Agent Interactive Form */}
-          <form onSubmit={(e) => handleApplyAgentEdit(e)} className="p-3.5 rounded-xl bg-[#111823] border border-[#263244] space-y-2.5">
+          <form onSubmit={(e) => handleApplyAgentEdit(e)} className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-2.5">
             <div className="flex items-center justify-between text-[10px] font-mono">
-              <span className="text-[#8B5CF6] font-bold flex items-center gap-1.5">
+              <span className="text-[#9272DB] font-bold flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" /> Creative Video Editing Agent
               </span>
               {agentHistory.length > 0 && (
                 <button
                   type="button"
                   onClick={handleUndo}
-                  className="text-[#F59E0B] hover:underline"
+                  className="text-[#F29A42] hover:underline"
                 >
                   Undo Edit
                 </button>
@@ -675,11 +675,11 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
                 placeholder="Tell the creative agent what to change in the video (e.g. 'Make opening more dramatic', 'Change CTA')..."
                 value={agentPrompt}
                 onChange={(e) => setAgentPrompt(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-lg bg-[#0D121B] border border-[#263244] text-xs text-white placeholder-[#738095]"
+                className="flex-1 px-3 py-2 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white placeholder-[#8495AE]"
               />
               <button
                 type="submit"
-                className="px-4 py-2 rounded-lg bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-xs font-mono font-bold flex items-center gap-1.5 shadow-md shrink-0 transition-colors"
+                className="px-4 py-2 rounded-lg bg-[#9272DB] hover:bg-[#7C3AED] text-white text-xs font-mono font-bold flex items-center gap-1.5 shadow-md shrink-0 transition-colors"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Apply</span>
@@ -687,7 +687,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
             </div>
 
             {agentFeedback && (
-              <div className="text-[10px] font-mono text-[#34D399] animate-fadeIn flex items-center gap-1">
+              <div className="text-[10px] font-mono text-[#19A875] animate-fadeIn flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
                 <span>{agentFeedback}</span>
               </div>

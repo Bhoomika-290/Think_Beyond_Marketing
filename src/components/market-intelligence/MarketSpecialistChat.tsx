@@ -96,8 +96,8 @@ export const MarketSpecialistChat: React.FC<MarketSpecialistChatProps> = ({
             <div
               className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs ${
                 msg.sender === 'user'
-                  ? 'bg-[#ECE6DA] border border-[#DDD5C5] text-[#4A5E73]'
-                  : 'bg-[#2B3D4F]/20 border border-[#2B3D4F]/40 text-[#2B3D4F]'
+                  ? 'bg-[#EEF4FB] border border-[#E2EAF4] text-[#60738F]'
+                  : 'bg-[#14213D]/20 border border-[#14213D]/40 text-[#14213D]'
               }`}
             >
               {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
@@ -106,13 +106,13 @@ export const MarketSpecialistChat: React.FC<MarketSpecialistChatProps> = ({
             <div
               className={`max-w-[82%] p-3.5 rounded-xl text-xs space-y-1 ${
                 msg.sender === 'user'
-                  ? 'bg-[#ECE6DA] text-[#2B3D4F] border border-[#DDD5C5] rounded-tr-none'
-                  : 'bg-[#ECE6DA] text-[#2B3D4F] border border-[#DDD5C5] rounded-tl-none leading-relaxed'
+                  ? 'bg-[#EEF4FB] text-[#14213D] border border-[#E2EAF4] rounded-tr-none'
+                  : 'bg-[#EEF4FB] text-[#14213D] border border-[#E2EAF4] rounded-tl-none leading-relaxed'
               }`}
             >
               {msg.sender === 'ai' && (
-                <div className="flex items-center justify-between text-[10px] font-mono text-[#6B7D90] pb-1 border-b border-[#DDD5C5]/60 mb-1.5">
-                  <span className="text-[#2B3D4F] font-semibold">{msg.specialistName || 'Specialist'}</span>
+                <div className="flex items-center justify-between text-[10px] font-mono text-[#60738F] pb-1 border-b border-[#E2EAF4] mb-1.5">
+                  <span className="text-[#14213D] font-semibold">{msg.specialistName || 'Specialist'}</span>
                   <span>{new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
               )}

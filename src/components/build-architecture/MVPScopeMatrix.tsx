@@ -59,30 +59,30 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
   const getPriorityBadgeClass = (priority: MVPFeaturePriority) => {
     switch (priority) {
       case 'must':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+        return 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/30';
       case 'should':
-        return 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+        return 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30';
       case 'could':
         return 'bg-purple-500/10 text-purple-400 border-purple-500/30';
       case 'not_now':
-        return 'bg-[#263244] text-[#AAB4C3] border-[#34445A]';
+        return 'bg-[#E2EAF4] text-[#8495AE] border-[#34445A]';
     }
   };
 
   return (
-    <div className="rounded-2xl bg-[#0D141F] border border-[#263244] p-6 shadow-xl space-y-6">
+    <div className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-xl space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2635] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2EAF4] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-base sm:text-lg font-bold text-[#F3F4F6]">
+            <h2 className="text-base sm:text-lg font-bold text-[#14213D]">
               Section 03 — MVP Scope Prioritization Matrix (MoSCoW)
             </h2>
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30">
               INTERACTIVE SCOPE
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">
+          <p className="text-xs text-[#8495AE] mt-1">
             Prioritize essential Day-1 capabilities versus later enhancements. Moving features updates your execution roadmap.
           </p>
         </div>
@@ -90,7 +90,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
         <button
           type="button"
           onClick={() => setIsAddingFeature(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono font-medium transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2684F7] hover:bg-[#1769D2] text-white text-xs font-mono font-medium transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Custom Feature</span>
@@ -98,42 +98,42 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
       </div>
 
       {/* 2D Prioritization Matrix Canvas: Value vs Complexity */}
-      <div className="rounded-xl bg-[#111823] border border-[#263244] p-5">
+      <div className="rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] p-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-semibold text-[#F3F4F6]">
+            <span className="text-xs font-mono font-semibold text-[#14213D]">
               2D VALUE VS. COMPLEXITY MATRIX
             </span>
-            <span className="text-[11px] font-mono text-[#738095]">
+            <span className="text-[11px] font-mono text-[#60738F]">
               (High Value + Low-Med Complexity = MVP Sweetspot)
             </span>
           </div>
-          <span className="text-xs font-mono text-emerald-400">
+          <span className="text-xs font-mono text-[#19A875]">
             {matrixSummary.mustCount} Must-Have Features (~{matrixSummary.mvpEffortWeeks} wks)
           </span>
         </div>
 
         {/* Matrix Visualization Grid */}
-        <div className="relative border border-[#263244] rounded-xl bg-[#080B10] p-4 h-72 sm:h-80 flex flex-col justify-between overflow-hidden">
+        <div className="relative border border-[#E2EAF4] rounded-xl bg-[#FFFFFF] p-4 h-72 sm:h-80 flex flex-col justify-between overflow-hidden">
           {/* Background quadrant guidelines */}
           <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
-            <div className="border-r border-b border-[#1C2635] p-2">
-              <span className="text-[9px] font-mono text-emerald-400/50 uppercase tracking-widest">
+            <div className="border-r border-b border-[#E2EAF4] p-2">
+              <span className="text-[9px] font-mono text-[#19A875]/50 uppercase tracking-widest">
                 QUADRANT I: SWEET SPOT (MUST BUILD)
               </span>
             </div>
-            <div className="border-b border-[#1C2635] p-2 text-right">
-              <span className="text-[9px] font-mono text-blue-400/50 uppercase tracking-widest">
+            <div className="border-b border-[#E2EAF4] p-2 text-right">
+              <span className="text-[9px] font-mono text-[#2684F7]/50 uppercase tracking-widest">
                 QUADRANT II: STRATEGIC INVESTMENTS
               </span>
             </div>
-            <div className="border-r border-[#1C2635] p-2 flex items-end">
+            <div className="border-r border-[#E2EAF4] p-2 flex items-end">
               <span className="text-[9px] font-mono text-purple-400/50 uppercase tracking-widest">
                 QUADRANT III: LOW-HANGING FRUIT
               </span>
             </div>
             <div className="p-2 flex items-end justify-end text-right">
-              <span className="text-[9px] font-mono text-[#738095]/40 uppercase tracking-widest">
+              <span className="text-[9px] font-mono text-[#60738F]/40 uppercase tracking-widest">
                 QUADRANT IV: DE-PRIORITIZE (LATER)
               </span>
             </div>
@@ -164,7 +164,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                         ? 'bg-blue-500/20 text-blue-300 border-blue-500'
                         : feature.priority === 'could'
                         ? 'bg-purple-500/20 text-purple-300 border-purple-500'
-                        : 'bg-[#151E2B] text-[#AAB4C3] border-[#34445A]'
+                        : 'bg-[#151E2B] text-[#8495AE] border-[#34445A]'
                     } ${isSelected ? 'scale-125 ring-2 ring-white z-20' : 'hover:scale-115'}`}
                   >
                     {feature.priority === 'must'
@@ -177,9 +177,9 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                   </div>
 
                   {/* Tooltip on hover */}
-                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:block z-30 w-48 p-2 rounded-lg bg-[#0D141F] border border-[#263244] shadow-xl text-left pointer-events-none">
-                    <p className="text-[10px] font-bold text-[#F3F4F6] truncate">{feature.name}</p>
-                    <p className="text-[9px] text-[#AAB4C3] mt-0.5">
+                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:block z-30 w-48 p-2 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] shadow-xl text-left pointer-events-none">
+                    <p className="text-[10px] font-bold text-[#14213D] truncate">{feature.name}</p>
+                    <p className="text-[9px] text-[#8495AE] mt-0.5">
                       Val: {feature.customerValue}/10 • Cplx: {feature.technicalComplexity}
                     </p>
                   </div>
@@ -189,7 +189,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
           </div>
 
           {/* Axes labels */}
-          <div className="flex items-center justify-between text-[10px] font-mono text-[#738095] pt-2 border-t border-[#1C2635] z-10">
+          <div className="flex items-center justify-between text-[10px] font-mono text-[#60738F] pt-2 border-t border-[#E2EAF4] z-10">
             <span>← LOW COMPLEXITY</span>
             <span>TECHNICAL EFFORT &amp; COMPLEXITY</span>
             <span>HIGH COMPLEXITY →</span>
@@ -205,8 +205,8 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             onClick={() => setActiveTierFilter('all')}
             className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
               activeTierFilter === 'all'
-                ? 'bg-blue-600 text-white'
-                : 'bg-[#111823] text-[#AAB4C3] border border-[#263244]'
+                ? 'bg-[#2684F7] text-white'
+                : 'bg-[#FFFFFF] text-[#8495AE] border border-[#E2EAF4]'
             }`}
           >
             All Features ({features.length})
@@ -217,7 +217,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
               activeTierFilter === 'must'
                 ? 'bg-emerald-600 text-white'
-                : 'bg-[#111823] text-emerald-400 border border-emerald-500/30'
+                : 'bg-[#FFFFFF] text-[#19A875] border border-[#19A875]/30'
             }`}
           >
             Must Have ({matrixSummary.mustCount})
@@ -227,8 +227,8 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             onClick={() => setActiveTierFilter('should')}
             className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
               activeTierFilter === 'should'
-                ? 'bg-blue-600 text-white'
-                : 'bg-[#111823] text-blue-400 border border-blue-500/30'
+                ? 'bg-[#2684F7] text-white'
+                : 'bg-[#FFFFFF] text-[#2684F7] border border-[#2684F7]/30'
             }`}
           >
             Should Have ({matrixSummary.shouldCount})
@@ -239,7 +239,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
               activeTierFilter === 'could'
                 ? 'bg-purple-600 text-white'
-                : 'bg-[#111823] text-purple-400 border border-purple-500/30'
+                : 'bg-[#FFFFFF] text-purple-400 border border-purple-500/30'
             }`}
           >
             Could Have ({matrixSummary.couldCount})
@@ -250,14 +250,14 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors ${
               activeTierFilter === 'not_now'
                 ? 'bg-slate-600 text-white'
-                : 'bg-[#111823] text-[#AAB4C3] border border-[#263244]'
+                : 'bg-[#FFFFFF] text-[#8495AE] border border-[#E2EAF4]'
             }`}
           >
             Not Now ({matrixSummary.notNowCount})
           </button>
         </div>
 
-        <span className="text-[11px] font-mono text-[#738095]">
+        <span className="text-[11px] font-mono text-[#60738F]">
           Select feature below to reassign MoSCoW priority
         </span>
       </div>
@@ -273,11 +273,11 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
               className={`rounded-xl border p-4 transition-all duration-200 ${
                 isSelected
                   ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500'
-                  : 'bg-[#111823] border-[#263244] hover:border-[#34445A]'
+                  : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
               }`}
             >
               <div className="flex items-start justify-between gap-2 mb-2">
-                <span className="text-xs font-bold text-[#F3F4F6] leading-snug">
+                <span className="text-xs font-bold text-[#14213D] leading-snug">
                   {feature.name}
                 </span>
                 <span
@@ -289,27 +289,27 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                 </span>
               </div>
 
-              <p className="text-xs text-[#AAB4C3] leading-relaxed mb-3">
+              <p className="text-xs text-[#8495AE] leading-relaxed mb-3">
                 {feature.userProblem}
               </p>
 
-              <div className="grid grid-cols-3 gap-2 py-2 border-y border-[#1C2635] text-[10px] font-mono text-[#738095] mb-3">
+              <div className="grid grid-cols-3 gap-2 py-2 border-y border-[#E2EAF4] text-[10px] font-mono text-[#60738F] mb-3">
                 <div>
-                  <span className="block text-[#738095]">VALUE</span>
-                  <span className="text-[#F3F4F6] font-bold">{feature.customerValue}/10</span>
+                  <span className="block text-[#60738F]">VALUE</span>
+                  <span className="text-[#14213D] font-bold">{feature.customerValue}/10</span>
                 </div>
                 <div>
-                  <span className="block text-[#738095]">COMPLEXITY</span>
-                  <span className="text-[#F3F4F6] font-bold">{feature.technicalComplexity}</span>
+                  <span className="block text-[#60738F]">COMPLEXITY</span>
+                  <span className="text-[#14213D] font-bold">{feature.technicalComplexity}</span>
                 </div>
                 <div>
-                  <span className="block text-[#738095]">CATEGORY</span>
-                  <span className="text-blue-400 truncate block">{feature.category}</span>
+                  <span className="block text-[#60738F]">CATEGORY</span>
+                  <span className="text-[#2684F7] truncate block">{feature.category}</span>
                 </div>
               </div>
 
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] font-mono text-[#738095] truncate">
+                <span className="text-[10px] font-mono text-[#60738F] truncate">
                   Dep: {feature.dependencies.join(', ')}
                 </span>
 
@@ -323,8 +323,8 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                       title={`Move to ${p.replace('_', ' ')}`}
                       className={`px-2 py-0.5 rounded text-[9px] font-mono font-semibold uppercase transition-colors ${
                         feature.priority === p
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-[#151E2B] text-[#738095] hover:text-[#F3F4F6] border border-[#263244]'
+                          ? 'bg-[#2684F7] text-white'
+                          : 'bg-[#151E2B] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4]'
                       }`}
                     >
                       {p === 'must' ? 'M' : p === 'should' ? 'S' : p === 'could' ? 'C' : 'N'}
@@ -341,16 +341,16 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
       {isAddingFeature && (
         <form
           onSubmit={handleAddSubmit}
-          className="rounded-xl bg-[#111823] border border-blue-500/50 p-5 space-y-4"
+          className="rounded-xl bg-[#FFFFFF] border border-blue-500/50 p-5 space-y-4"
         >
-          <div className="flex items-center justify-between border-b border-[#1C2635] pb-2">
-            <h3 className="text-xs font-mono font-bold text-[#F3F4F6]">
+          <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-2">
+            <h3 className="text-xs font-mono font-bold text-[#14213D]">
               Add Custom Venture Feature
             </h3>
             <button
               type="button"
               onClick={() => setIsAddingFeature(false)}
-              className="text-xs text-[#738095] hover:text-[#F3F4F6]"
+              className="text-xs text-[#60738F] hover:text-[#14213D]"
             >
               Cancel
             </button>
@@ -358,7 +358,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 FEATURE TITLE *
               </label>
               <input
@@ -367,12 +367,12 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                 onChange={(e) => setNewTitle(e.target.value)}
                 placeholder="E.g., Automated Return Portal"
                 required
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 CATEGORY
               </label>
               <input
@@ -380,13 +380,13 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
                 placeholder="Core Experience, Retention, Ops..."
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-mono text-[#738095] mb-1">
+            <label className="block text-[11px] font-mono text-[#60738F] mb-1">
               USER PROBLEM SOLVED
             </label>
             <input
@@ -394,13 +394,13 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
               value={newProblem}
               onChange={(e) => setNewProblem(e.target.value)}
               placeholder="What friction or obstacle does this remove for the customer?"
-              className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+              className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
             />
           </div>
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 CUSTOMER VALUE (1-10)
               </label>
               <input
@@ -409,18 +409,18 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                 max="10"
                 value={newValue}
                 onChange={(e) => setNewValue(Number(e.target.value))}
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 COMPLEXITY
               </label>
               <select
                 value={newComplexity}
                 onChange={(e) => setNewComplexity(e.target.value as 'Low' | 'Medium' | 'High')}
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               >
                 <option value="Low">Low (1-2 days)</option>
                 <option value="Medium">Medium (3-5 days)</option>
@@ -429,13 +429,13 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             </div>
 
             <div>
-              <label className="block text-[11px] font-mono text-[#738095] mb-1">
+              <label className="block text-[11px] font-mono text-[#60738F] mb-1">
                 PRIORITY TIER
               </label>
               <select
                 value={newPriority}
                 onChange={(e) => setNewPriority(e.target.value as MVPFeaturePriority)}
-                className="w-full rounded-lg bg-[#080B10] border border-[#263244] px-3 py-1.5 text-xs text-[#F3F4F6] focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] px-3 py-1.5 text-xs text-[#14213D] focus:outline-none focus:border-blue-500"
               >
                 <option value="must">Must Have (MVP)</option>
                 <option value="should">Should Have</option>
@@ -449,13 +449,13 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             <button
               type="button"
               onClick={() => setIsAddingFeature(false)}
-              className="px-3 py-1.5 rounded-lg bg-[#151E2B] text-[#AAB4C3] text-xs font-mono"
+              className="px-3 py-1.5 rounded-lg bg-[#151E2B] text-[#8495AE] text-xs font-mono"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono font-medium"
+              className="px-4 py-1.5 rounded-lg bg-[#2684F7] hover:bg-[#1769D2] text-white text-xs font-mono font-medium"
             >
               Save Feature to Scope
             </button>

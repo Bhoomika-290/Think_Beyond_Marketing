@@ -99,7 +99,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
   };
 
   return (
-    <div className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl p-5 shadow-md space-y-5">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-5 shadow-md space-y-5">
       {noticeMessage && (
         <div className="flex items-center justify-between p-3 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 text-xs font-mono">
           <span>{noticeMessage}</span>
@@ -113,18 +113,18 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
         </div>
       )}
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#E8E2D8]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#1E40AF]"></span>
-            <h2 className="text-base font-bold text-[#1E293B] tracking-tight">
+            <h2 className="text-base font-bold text-[#14213D] tracking-tight">
               {isPhysical ? 'Physical Procurement & Sourcing Map' : 'Software Infrastructure & Services Map'}
             </h2>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EFF6FF] text-[#1E40AF] border border-[#BFDBFE]">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EFF6FF] text-[#2684F7] border border-[#BFDBFE]">
               {filteredItems.length} of {items.length} mapped
             </span>
           </div>
-          <p className="text-xs text-[#64748B] mt-1">
+          <p className="text-xs text-[#8495AE] mt-1">
             {isPhysical
               ? `Audited suppliers, contract manufacturers, packaging, and testing facilities in ${location.cityRegion || location.country}.`
               : `Production-grade cloud, database, auth, hosting, and API infrastructure tailored to your build specifications.`}
@@ -133,14 +133,14 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
 
         {/* View Toggle */}
         <div className="flex items-center gap-2 shrink-0 self-start md:self-center">
-          <div className="flex items-center bg-[#FAF8F5] border border-[#E5DFD5] rounded-lg p-0.5">
+          <div className="flex items-center bg-[#FFFFFF] border border-[#E2EAF4] rounded-lg p-0.5">
             <button
               type="button"
               onClick={() => setViewMode('table')}
               className={`p-1.5 rounded-md text-xs font-medium transition-colors ${
                 viewMode === 'table'
-                  ? 'bg-[#FFFFFF] text-[#1E40AF] shadow-2xs'
-                  : 'text-[#64748B] hover:text-[#1E293B]'
+                  ? 'bg-[#FFFFFF] text-[#2684F7] shadow-2xs'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
               title="Table View"
             >
@@ -151,8 +151,8 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
               onClick={() => setViewMode('cards')}
               className={`p-1.5 rounded-md text-xs font-medium transition-colors ${
                 viewMode === 'cards'
-                  ? 'bg-[#FFFFFF] text-[#1E40AF] shadow-2xs'
-                  : 'text-[#64748B] hover:text-[#1E293B]'
+                  ? 'bg-[#FFFFFF] text-[#2684F7] shadow-2xs'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
               title="Card Grid View"
             >
@@ -171,8 +171,8 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
             onClick={() => setActiveFilter('all')}
             className={`px-3 py-1.5 rounded-lg font-medium transition-colors shrink-0 ${
               activeFilter === 'all'
-                ? 'bg-[#1E293B] text-white'
-                : 'bg-[#FAF8F5] text-[#64748B] hover:text-[#1E293B] border border-[#E5DFD5]'
+                ? 'bg-[#EEF4FB] text-white'
+                : 'bg-[#FFFFFF] text-[#8495AE] hover:text-[#14213D] border border-[#E2EAF4]'
             }`}
           >
             All Resources ({items.length})
@@ -183,7 +183,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
             className={`px-3 py-1.5 rounded-lg font-medium transition-colors shrink-0 flex items-center gap-1.5 ${
               activeFilter === 'day1'
                 ? 'bg-[#B91C1C] text-white'
-                : 'bg-[#FAF8F5] text-[#B91C1C] hover:bg-[#FEF2F2] border border-[#FEE2E2]'
+                : 'bg-[#FFFFFF] text-[#B91C1C] hover:bg-[#FEF2F2] border border-[#FEE2E2]'
             }`}
           >
             <AlertTriangle className="w-3.5 h-3.5" />
@@ -195,7 +195,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
             className={`px-3 py-1.5 rounded-lg font-medium transition-colors shrink-0 flex items-center gap-1.5 ${
               activeFilter === 'local'
                 ? 'bg-[#15803D] text-white'
-                : 'bg-[#FAF8F5] text-[#15803D] hover:bg-[#F0FDF4] border border-[#DCFCE7]'
+                : 'bg-[#FFFFFF] text-[#19A875] hover:bg-[#F0FDF4] border border-[#DCFCE7]'
             }`}
           >
             <MapPin className="w-3.5 h-3.5" />
@@ -206,20 +206,20 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
         {/* Search & Category Filter */}
         <div className="flex items-center gap-2">
           <div className="relative flex-1 sm:w-64">
-            <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-2.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-[#8495AE] absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search resource or spec..."
-              className="w-full pl-8 pr-3 py-1.5 rounded-lg text-xs bg-[#FAF8F5] border border-[#E5DFD5] text-[#1E293B] placeholder-[#94A3B8] focus:outline-hidden focus:border-[#1E40AF]"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg text-xs bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D] placeholder-[#8495AE] focus:outline-hidden focus:border-[#1E40AF]"
             />
           </div>
 
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg text-xs bg-[#FAF8F5] border border-[#E5DFD5] text-[#334155] focus:outline-hidden focus:border-[#1E40AF]"
+            className="px-2.5 py-1.5 rounded-lg text-xs bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D] focus:outline-hidden focus:border-[#1E40AF]"
           >
             <option value="all">All Categories</option>
             {categories.map((cat) => (
@@ -233,9 +233,9 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
 
       {/* Main Content: Table or Cards */}
       {viewMode === 'table' ? (
-        <div className="overflow-x-auto rounded-lg border border-[#E8E2D8]">
+        <div className="overflow-x-auto rounded-lg border border-[#E2EAF4]">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAF8F5] border-b border-[#E8E2D8] text-[10px] font-mono uppercase text-[#64748B]">
+            <thead className="bg-[#FFFFFF] border-b border-[#E2EAF4] text-[10px] font-mono uppercase text-[#8495AE]">
               <tr>
                 <th className="py-2.5 px-3">Resource & Category</th>
                 <th className="py-2.5 px-3">Specification & Purpose</th>
@@ -252,21 +252,21 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
 
                 return (
                   <React.Fragment key={item.id}>
-                    <tr className="hover:bg-[#FAF8F5] transition-colors">
+                    <tr className="hover:bg-[#FFFFFF] transition-colors">
                       {/* Column 1: Resource & Category */}
                       <td className="py-3 px-3 align-top">
                         <div className="flex items-start gap-2">
                           {item.priority === 'DAY_1_CRITICAL' && (
                             <span 
-                              className="w-2 h-2 rounded-full bg-[#EF4444] shrink-0 mt-1" 
+                              className="w-2 h-2 rounded-full bg-[#E46D68] shrink-0 mt-1" 
                               title="Day 1 Launch Critical"
                             />
                           )}
                           <div>
-                            <div className="font-bold text-[#1E293B]">
+                            <div className="font-bold text-[#14213D]">
                               {item.name}
                             </div>
-                            <span className="inline-block mt-0.5 text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#F1F5F9] text-[#475569] border border-[#E2E8F0]">
+                            <span className="inline-block mt-0.5 text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#F1F5F9] text-[#60738F] border border-[#E2E8F0]">
                               {item.categoryLabel}
                             </span>
                           </div>
@@ -275,26 +275,26 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
 
                       {/* Column 2: Specification & Purpose */}
                       <td className="py-3 px-3 align-top max-w-xs">
-                        <div className="text-[#334155] font-medium leading-snug">
+                        <div className="text-[#14213D] font-medium leading-snug">
                           {item.purpose}
                         </div>
-                        <div className="text-[11px] text-[#64748B] mt-0.5 leading-snug">
+                        <div className="text-[11px] text-[#8495AE] mt-0.5 leading-snug">
                           {item.specification}
                         </div>
                       </td>
 
                       {/* Column 3: Location / Cluster */}
                       <td className="py-3 px-3 align-top">
-                        <div className="flex items-center gap-1 text-[#1E293B] font-medium">
-                          <MapPin className="w-3.5 h-3.5 text-[#1E40AF] shrink-0" />
+                        <div className="flex items-center gap-1 text-[#14213D] font-medium">
+                          <MapPin className="w-3.5 h-3.5 text-[#2684F7] shrink-0" />
                           <span>{item.location}</span>
                         </div>
                         {item.isLocalToVenture && (
-                          <span className="inline-block mt-1 text-[9px] font-mono font-semibold px-1.5 py-0.2 rounded bg-[#DCFCE7] text-[#15803D] border border-[#BBF7D0]">
+                          <span className="inline-block mt-1 text-[9px] font-mono font-semibold px-1.5 py-0.2 rounded bg-[#DCFCE7] text-[#19A875] border border-[#BBF7D0]">
                             LOCAL CLUSTER
                           </span>
                         )}
-                        <div className="text-[10px] font-mono text-[#64748B] mt-0.5">
+                        <div className="text-[10px] font-mono text-[#8495AE] mt-0.5">
                           Lead: ~{item.leadTimeWeeks}w
                         </div>
                       </td>
@@ -304,10 +304,10 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                         <div className="flex items-center gap-1.5 flex-wrap">
                           <span className={`inline-flex items-center gap-1 text-[10px] font-mono font-medium px-2 py-0.5 rounded border ${
                             isVerified
-                              ? 'bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]'
+                              ? 'bg-[#ECFDF5] text-[#19A875] border-[#A7F3D0]'
                               : isTrade
-                              ? 'bg-[#EFF6FF] text-[#1E40AF] border-[#BFDBFE]'
-                              : 'bg-[#FFFBEB] text-[#92400E] border-[#FDE68A]'
+                              ? 'bg-[#EFF6FF] text-[#2684F7] border-[#BFDBFE]'
+                              : 'bg-[#FFFBEB] text-[#F29A42] border-[#FDE68A]'
                           }`}>
                             <ShieldCheck className="w-3 h-3" />
                             {item.verificationStatus.replace(/_/g, ' ')}
@@ -317,12 +317,12 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                         {/* Contact details */}
                         <div className="mt-1.5 space-y-0.5 text-[11px]">
                           {item.phone && item.phone !== 'Not verified' && !item.phone.toLowerCase().includes('unavailable') ? (
-                            <div className="text-[#334155] font-mono flex items-center gap-1">
-                              <Phone className="w-3 h-3 text-[#64748B]" />
+                            <div className="text-[#14213D] font-mono flex items-center gap-1">
+                              <Phone className="w-3 h-3 text-[#8495AE]" />
                               <span>{item.phone}</span>
                             </div>
                           ) : (
-                            <div className="text-[#94A3B8] italic font-mono text-[10px]">
+                            <div className="text-[#8495AE] italic font-mono text-[10px]">
                               Data unavailable / verification required
                             </div>
                           )}
@@ -332,13 +332,13 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                               href={item.website}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[#1E40AF] hover:underline flex items-center gap-1 font-mono text-[11px]"
+                              className="text-[#2684F7] hover:underline flex items-center gap-1 font-mono text-[11px]"
                             >
                               <span>Official Site</span>
                               <ExternalLink className="w-2.5 h-2.5" />
                             </a>
                           ) : (
-                            <div className="text-[#94A3B8] italic text-[10px]">
+                            <div className="text-[#8495AE] italic text-[10px]">
                               Direct portal enquiry
                             </div>
                           )}
@@ -352,7 +352,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                           <button
                             type="button"
                             onClick={() => setAuditTargetResource(item)}
-                            className="p-1.5 rounded-md text-[#1E40AF] bg-[#EFF6FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] transition-colors"
+                            className="p-1.5 rounded-md text-[#2684F7] bg-[#EFF6FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] transition-colors"
                             title="Contextual Intelligence Audit"
                           >
                             <Sparkles className="w-3.5 h-3.5" />
@@ -362,7 +362,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                           <button
                             type="button"
                             onClick={() => handleOpenMap(item)}
-                            className="p-1.5 rounded-md text-[#475569] bg-[#FFFFFF] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
+                            className="p-1.5 rounded-md text-[#60738F] bg-[#FFFFFF] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
                             title="Open Google Maps"
                           >
                             <MapPin className="w-3.5 h-3.5" />
@@ -373,7 +373,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                             <button
                               type="button"
                               onClick={() => handleCall(item)}
-                              className="p-1.5 rounded-md text-[#065F46] bg-[#ECFDF5] hover:bg-[#D1FAE5] border border-[#A7F3D0] transition-colors"
+                              className="p-1.5 rounded-md text-[#19A875] bg-[#ECFDF5] hover:bg-[#D1FAE5] border border-[#A7F3D0] transition-colors"
                               title="Call Provider"
                             >
                               <Phone className="w-3.5 h-3.5" />
@@ -386,8 +386,8 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                             onClick={() => onToggleSave(item.id)}
                             className={`p-1.5 rounded-md border transition-colors ${
                               item.isSaved
-                                ? 'bg-[#FEF3C7] text-[#D97706] border-[#FDE68A]'
-                                : 'bg-[#FFFFFF] text-[#64748B] hover:text-[#1E293B] border-[#E2E8F0]'
+                                ? 'bg-[#FEF3C7] text-[#F29A42] border-[#FDE68A]'
+                                : 'bg-[#FFFFFF] text-[#8495AE] hover:text-[#14213D] border-[#E2E8F0]'
                             }`}
                             title={item.isSaved ? 'Remove from Saved' : 'Save Resource'}
                           >
@@ -404,18 +404,18 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                             onClick={() => onAddToPlan(item.id)}
                             className={`px-2 py-1 rounded-md text-[11px] font-medium border transition-colors flex items-center gap-1 ${
                               item.addedToPlan
-                                ? 'bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]'
-                                : 'bg-[#FFFFFF] text-[#334155] hover:bg-[#F8FAFC] border-[#CBD5E1]'
+                                ? 'bg-[#ECFDF5] text-[#19A875] border-[#A7F3D0]'
+                                : 'bg-[#FFFFFF] text-[#14213D] hover:bg-[#14213D] border-[#14213D]'
                             }`}
                           >
                             {item.addedToPlan ? (
                               <>
-                                <CheckCircle2 className="w-3 h-3 text-[#065F46]" />
+                                <CheckCircle2 className="w-3 h-3 text-[#19A875]" />
                                 <span>In Plan</span>
                               </>
                             ) : (
                               <>
-                                <PlusCircle className="w-3 h-3 text-[#64748B]" />
+                                <PlusCircle className="w-3 h-3 text-[#8495AE]" />
                                 <span>Add to Plan</span>
                               </>
                             )}
@@ -425,7 +425,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                           <button
                             type="button"
                             onClick={() => setExpandedResourceId(isExpanded ? null : item.id)}
-                            className="p-1.5 rounded-md text-[#64748B] hover:text-[#1E293B] bg-[#FAF8F5] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
+                            className="p-1.5 rounded-md text-[#8495AE] hover:text-[#14213D] bg-[#FFFFFF] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
                             title="Expand Details"
                           >
                             {isExpanded ? (
@@ -441,40 +441,40 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                     {/* Expandable Details Drawer */}
                     {isExpanded && (
                       <tr className="bg-[#FDFBF7]">
-                        <td colSpan={5} className="py-3 px-4 border-t border-[#E8E2D8]">
+                        <td colSpan={5} className="py-3 px-4 border-t border-[#E2EAF4]">
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                            <div className="bg-[#FFFFFF] p-2.5 rounded-md border border-[#E8E2D8]">
-                              <div className="text-[10px] font-mono uppercase text-[#64748B] font-bold">
+                            <div className="bg-[#FFFFFF] p-2.5 rounded-md border border-[#E2EAF4]">
+                              <div className="text-[10px] font-mono uppercase text-[#8495AE] font-bold">
                                 Why Relevant to Venture
                               </div>
-                              <p className="text-[#334155] mt-1 leading-relaxed">
+                              <p className="text-[#14213D] mt-1 leading-relaxed">
                                 {item.whyRelevant}
                               </p>
                             </div>
 
-                            <div className="bg-[#FFFFFF] p-2.5 rounded-md border border-[#E8E2D8]">
-                              <div className="text-[10px] font-mono uppercase text-[#64748B] font-bold">
+                            <div className="bg-[#FFFFFF] p-2.5 rounded-md border border-[#E2EAF4]">
+                              <div className="text-[10px] font-mono uppercase text-[#8495AE] font-bold">
                                 Source Verification & Address
                               </div>
-                              <p className="text-[#334155] mt-1 leading-relaxed">
+                              <p className="text-[#14213D] mt-1 leading-relaxed">
                                 <span className="font-semibold">Evidence:</span> {item.sourceEvidence}
                               </p>
                               {item.address && (
-                                <p className="text-[#64748B] mt-1 text-[11px]">
-                                  <span className="font-semibold text-[#334155]">Address:</span> {item.address}
+                                <p className="text-[#8495AE] mt-1 text-[11px]">
+                                  <span className="font-semibold text-[#14213D]">Address:</span> {item.address}
                                 </p>
                               )}
                             </div>
 
-                            <div className="bg-[#FFFFFF] p-2.5 rounded-md border border-[#E8E2D8]">
-                              <div className="text-[10px] font-mono uppercase text-[#64748B] font-bold">
+                            <div className="bg-[#FFFFFF] p-2.5 rounded-md border border-[#E2EAF4]">
+                              <div className="text-[10px] font-mono uppercase text-[#8495AE] font-bold">
                                 Fallback Alternative & Budget
                               </div>
-                              <p className="text-[#334155] mt-1 leading-relaxed">
+                              <p className="text-[#14213D] mt-1 leading-relaxed">
                                 <span className="font-semibold">Alternative:</span> {item.fallbackAlternative || 'Regional trade council directory'}
                               </p>
-                              <p className="text-[#065F46] mt-1 font-mono text-[11px]">
-                                <span className="font-semibold text-[#334155]">Est. Budget:</span> {item.estimatedBudgetRange || 'Order quantity dependent'}
+                              <p className="text-[#19A875] mt-1 font-mono text-[11px]">
+                                <span className="font-semibold text-[#14213D]">Est. Budget:</span> {item.estimatedBudgetRange || 'Order quantity dependent'}
                               </p>
                             </div>
                           </div>
@@ -497,15 +497,15 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
             return (
                <div
                  key={item.id}
-                 className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-4 flex flex-col justify-between hover:border-[#1E40BF]/40 transition-colors shadow-sm hover:shadow-md"
+                 className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 flex flex-col justify-between hover:border-[#1E40BF]/40 transition-colors shadow-sm hover:shadow-md"
                >
                 <div>
-                  <div className="flex items-start justify-between gap-2 pb-2 border-b border-[#E8E2D8]">
+                  <div className="flex items-start justify-between gap-2 pb-2 border-b border-[#E2EAF4]">
                     <div>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#F1F5F9] text-[#475569] border border-[#E2E8F0]">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#F1F5F9] text-[#60738F] border border-[#E2E8F0]">
                         {item.categoryLabel}
                       </span>
-                      <h3 className="text-sm font-bold text-[#1E293B] mt-1.5">
+                      <h3 className="text-sm font-bold text-[#14213D] mt-1.5">
                         {item.name}
                       </h3>
                     </div>
@@ -519,20 +519,20 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                     </div>
                   </div>
 
-                  <p className="text-xs text-[#334155] mt-2 font-medium">
+                  <p className="text-xs text-[#14213D] mt-2 font-medium">
                     {item.purpose}
                   </p>
 
-                  <div className="text-[11px] text-[#64748B] mt-1 bg-[#FFFFFF] p-2 rounded border border-[#E8E2D8]">
-                    <span className="font-semibold text-[#334155]">Spec:</span> {item.specification}
+                  <div className="text-[11px] text-[#8495AE] mt-1 bg-[#FFFFFF] p-2 rounded border border-[#E2EAF4]">
+                    <span className="font-semibold text-[#14213D]">Spec:</span> {item.specification}
                   </div>
 
                   <div className="mt-3 flex items-center justify-between text-xs">
-                    <span className="flex items-center gap-1 text-[#1E293B] font-medium">
-                      <MapPin className="w-3.5 h-3.5 text-[#1E40AF]" />
+                    <span className="flex items-center gap-1 text-[#14213D] font-medium">
+                      <MapPin className="w-3.5 h-3.5 text-[#2684F7]" />
                       {item.location}
                     </span>
-                    <span className="text-[10px] font-mono text-[#64748B]">
+                    <span className="text-[10px] font-mono text-[#8495AE]">
                       Lead: ~{item.leadTimeWeeks}w
                     </span>
                   </div>
@@ -540,15 +540,15 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                   <div className="mt-2 flex items-center gap-2">
                     <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded border ${
                       isVerified
-                        ? 'bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]'
+                        ? 'bg-[#ECFDF5] text-[#19A875] border-[#A7F3D0]'
                         : isTrade
-                        ? 'bg-[#EFF6FF] text-[#1E40AF] border-[#BFDBFE]'
-                        : 'bg-[#FFFBEB] text-[#92400E] border-[#FDE68A]'
+                        ? 'bg-[#EFF6FF] text-[#2684F7] border-[#BFDBFE]'
+                        : 'bg-[#FFFBEB] text-[#F29A42] border-[#FDE68A]'
                     }`}>
                       {item.verificationStatus.replace(/_/g, ' ')}
                     </span>
                     {item.isLocalToVenture && (
-                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#DCFCE7] text-[#15803D] border border-[#BBF7D0]">
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#DCFCE7] text-[#19A875] border border-[#BBF7D0]">
                         LOCAL
                       </span>
                     )}
@@ -556,12 +556,12 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                 </div>
 
                 {/* Card Actions Footer */}
-                <div className="mt-4 pt-3 border-t border-[#E8E2D8] flex items-center justify-between gap-1">
+                <div className="mt-4 pt-3 border-t border-[#E2EAF4] flex items-center justify-between gap-1">
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
                       onClick={() => setAuditTargetResource(item)}
-                      className="p-1.5 rounded-md text-[#1E40AF] bg-[#EFF6FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] transition-colors"
+                      className="p-1.5 rounded-md text-[#2684F7] bg-[#EFF6FF] hover:bg-[#DBEAFE] border border-[#BFDBFE] transition-colors"
                       title="Contextual Intelligence Audit"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
@@ -571,7 +571,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                         href={item.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-md text-[#475569] bg-[#FFFFFF] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
+                        className="p-1.5 rounded-md text-[#60738F] bg-[#FFFFFF] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
                         title="Open Official Website"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -580,7 +580,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                     <button
                       type="button"
                       onClick={() => handleOpenMap(item)}
-                      className="p-1.5 rounded-md text-[#475569] bg-[#FFFFFF] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
+                      className="p-1.5 rounded-md text-[#60738F] bg-[#FFFFFF] hover:bg-[#F1F5F9] border border-[#E2E8F0] transition-colors"
                       title="Open Google Maps"
                     >
                       <MapPin className="w-3.5 h-3.5" />
@@ -589,7 +589,7 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                       <button
                         type="button"
                         onClick={() => handleCall(item)}
-                        className="p-1.5 rounded-md text-[#065F46] bg-[#ECFDF5] hover:bg-[#D1FAE5] border border-[#A7F3D0] transition-colors"
+                        className="p-1.5 rounded-md text-[#19A875] bg-[#ECFDF5] hover:bg-[#D1FAE5] border border-[#A7F3D0] transition-colors"
                         title="Call Provider"
                       >
                         <Phone className="w-3.5 h-3.5" />
@@ -603,8 +603,8 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                       onClick={() => onToggleSave(item.id)}
                       className={`p-1.5 rounded-md border transition-colors ${
                         item.isSaved
-                          ? 'bg-[#FEF3C7] text-[#D97706] border-[#FDE68A]'
-                          : 'bg-[#FFFFFF] text-[#64748B] hover:text-[#1E293B] border-[#E2E8F0]'
+                          ? 'bg-[#FEF3C7] text-[#F29A42] border-[#FDE68A]'
+                          : 'bg-[#FFFFFF] text-[#8495AE] hover:text-[#14213D] border-[#E2E8F0]'
                       }`}
                       title={item.isSaved ? 'Remove from Saved' : 'Save Resource'}
                     >
@@ -620,18 +620,18 @@ export const ResourceProcurementMap: React.FC<ResourceProcurementMapProps> = ({
                       onClick={() => onAddToPlan(item.id)}
                       className={`px-2 py-1 rounded-md text-[11px] font-medium border transition-colors flex items-center gap-1 ${
                         item.addedToPlan
-                          ? 'bg-[#ECFDF5] text-[#065F46] border-[#A7F3D0]'
-                          : 'bg-[#FFFFFF] text-[#334155] hover:bg-[#F8FAFC] border-[#CBD5E1]'
+                          ? 'bg-[#ECFDF5] text-[#19A875] border-[#A7F3D0]'
+                          : 'bg-[#FFFFFF] text-[#14213D] hover:bg-[#14213D] border-[#14213D]'
                       }`}
                     >
                       {item.addedToPlan ? (
                         <>
-                          <CheckCircle2 className="w-3 h-3 text-[#065F46]" />
+                          <CheckCircle2 className="w-3 h-3 text-[#19A875]" />
                           <span>In Plan</span>
                         </>
                       ) : (
                         <>
-                          <PlusCircle className="w-3 h-3 text-[#64748B]" />
+                          <PlusCircle className="w-3 h-3 text-[#8495AE]" />
                           <span>Plan</span>
                         </>
                       )}

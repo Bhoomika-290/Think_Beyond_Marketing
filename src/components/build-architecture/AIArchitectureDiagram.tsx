@@ -45,10 +45,10 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
       stepNumber: 1,
       name: 'USER INPUT',
       shortDesc: 'Raw prompts & constraints',
-      icon: <User className="w-4 h-4 text-blue-400" />,
-      accentColor: 'text-blue-400',
+      icon: <User className="w-4 h-4 text-[#2684F7]" />,
+      accentColor: 'text-[#2684F7]',
       borderColor: 'border-blue-500/40',
-      bgLight: 'bg-blue-500/10',
+      bgLight: 'bg-[#E8F2FF]',
       detail:
         'Captures founder raw intent, domain hypotheses, customer profile selections, and venture parameters without conversational hallucination.',
       dataArtifact: 'RawFounderPromptPayload',
@@ -99,8 +99,8 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
       shortDesc: 'Deterministic reasoning engine',
       icon: <Cpu className="w-4 h-4 text-amber-400" />,
       accentColor: 'text-amber-400',
-      borderColor: 'border-amber-500/40',
-      bgLight: 'bg-amber-500/10',
+      borderColor: 'border-[#F29A42]/30',
+      bgLight: 'bg-[#FFF3E7]',
       detail:
         'Executes multi-step reasoning, trade-off evaluation, and scoring matrices with strict mathematical bounds and schema validation.',
       dataArtifact: 'InferenceEngine & TradeoffMatrix',
@@ -123,10 +123,10 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
       stepNumber: 7,
       name: 'FINAL OUTPUT',
       shortDesc: 'Validated JSON schema output',
-      icon: <FileCheck2 className="w-4 h-4 text-emerald-400" />,
-      accentColor: 'text-emerald-400',
+      icon: <FileCheck2 className="w-4 h-4 text-[#19A875]" />,
+      accentColor: 'text-[#19A875]',
       borderColor: 'border-emerald-500/40',
-      bgLight: 'bg-emerald-500/10',
+      bgLight: 'bg-[#E8F8F1]',
       detail:
         'Produces structured, typed deliverables (specifications, architecture models, risk matrices) conforming strictly to TypeScript contracts.',
       dataArtifact: 'ValidatedSchemaPayload',
@@ -149,42 +149,42 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
   const currentLoopStage = reasoningLoop.find((s) => s.stepNumber === selectedLoopStage) || reasoningLoop[2];
 
   return (
-    <div id="section-ai-arch" className="rounded-2xl bg-[#0D141F] border border-[#263244] p-6 shadow-xl space-y-6">
+    <div id="section-ai-arch" className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-xl space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2635] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2EAF4] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-base sm:text-lg font-bold text-[#F3F4F6]">
+            <h2 className="text-base sm:text-lg font-bold text-[#14213D]">
               Section 11 — AI Architecture &amp; Multi-Agent Reasoning Loop
             </h2>
             <span
               className={`px-2 py-0.5 rounded text-[11px] font-mono border ${
                 isAIPrimary
                   ? 'bg-purple-500/10 text-purple-400 border-purple-500/30'
-                  : 'bg-blue-500/10 text-blue-400 border-blue-500/30'
+                  : 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30'
               }`}
             >
               {isAIPrimary ? 'CORE AI PIPELINE' : 'LIGHT OPERATIONAL AUTOMATION'}
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">{roleSummary}</p>
+          <p className="text-xs text-[#8495AE] mt-1">{roleSummary}</p>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-[#738095] bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244]">
+          <span className="text-xs font-mono text-[#60738F] bg-[#FFFFFF] px-3 py-1.5 rounded-lg border border-[#E2EAF4]">
             {costSensitivityNotice}
           </span>
         </div>
       </div>
 
       {/* Grounding Explanation Banner */}
-      <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] flex items-start gap-3">
-        <Bot className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isAIPrimary ? 'text-purple-400' : 'text-blue-400'}`} />
+      <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex items-start gap-3">
+        <Bot className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isAIPrimary ? 'text-purple-400' : 'text-[#2684F7]'}`} />
         <div className="text-xs">
-          <span className="font-mono font-bold text-[#F3F4F6] block mb-1">
+          <span className="font-mono font-bold text-[#14213D] block mb-1">
             Grounded AI Justification &amp; Multi-Agent Mandate:
           </span>
-          <p className="text-[#AAB4C3] leading-relaxed">{justification}</p>
+          <p className="text-[#8495AE] leading-relaxed">{justification}</p>
         </div>
       </div>
 
@@ -193,11 +193,11 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-purple-400" />
-            <span className="text-xs font-mono text-[#F3F4F6] font-bold uppercase tracking-wider">
+            <span className="text-xs font-mono text-[#14213D] font-bold uppercase tracking-wider">
               COGNITIVE REASONING PIPELINE (SECTION 29 SPECIFICATION)
             </span>
           </div>
-          <span className="text-[11px] font-mono text-[#738095]">
+          <span className="text-[11px] font-mono text-[#60738F]">
             Click any step to inspect cognitive contracts
           </span>
         </div>
@@ -215,28 +215,28 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
                 className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
                   isSelected
                     ? `${stage.bgLight} ${stage.borderColor} ring-1 ring-blue-500 shadow-lg`
-                    : 'bg-[#111823] border-[#263244] hover:border-[#34445A]'
+                    : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono text-[#738095]">
+                    <span className="text-[10px] font-mono text-[#60738F]">
                       0{stage.stepNumber}
                     </span>
-                    <div className="p-1 rounded bg-[#0D141F] border border-[#1C2635]">
+                    <div className="p-1 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                       {stage.icon}
                     </div>
                   </div>
                   <h4 className={`text-[11px] font-mono font-bold leading-tight ${stage.accentColor}`}>
                     {stage.name}
                   </h4>
-                  <p className="text-[10px] text-[#AAB4C3] mt-1 line-clamp-2 leading-snug">
+                  <p className="text-[10px] text-[#8495AE] mt-1 line-clamp-2 leading-snug">
                     {stage.shortDesc}
                   </p>
                 </div>
 
                 {isSelected && (
-                  <div className="mt-2 pt-1 border-t border-white/10 flex items-center gap-1 text-[9px] font-mono text-[#F3F4F6]">
+                  <div className="mt-2 pt-1 border-t border-white/10 flex items-center gap-1 text-[9px] font-mono text-[#14213D]">
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
                     ACTIVE
                   </div>
@@ -247,24 +247,24 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
         </div>
 
         {/* Active Stage Deep Inspector */}
-        <div className="p-4 rounded-xl bg-[#111823] border border-blue-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-blue-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono text-[#738095]">
+              <span className="text-[10px] font-mono text-[#60738F]">
                 STEP 0{currentLoopStage.stepNumber} DEEP SPECIFICATION:
               </span>
               <span className={`text-xs font-mono font-bold ${currentLoopStage.accentColor}`}>
                 {currentLoopStage.name}
               </span>
             </div>
-            <p className="text-xs text-[#AAB4C3] leading-relaxed max-w-2xl">
+            <p className="text-xs text-[#8495AE] leading-relaxed max-w-2xl">
               {currentLoopStage.detail}
             </p>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-[#0D141F] border border-[#263244] text-[10px] font-mono text-right flex-shrink-0">
-            <span className="text-[#738095] block">GROUNDED DATA CONTRACT:</span>
-            <span className="text-emerald-400 font-bold block mt-0.5">
+          <div className="p-2.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-[10px] font-mono text-right flex-shrink-0">
+            <span className="text-[#60738F] block">GROUNDED DATA CONTRACT:</span>
+            <span className="text-[#19A875] font-bold block mt-0.5">
               {currentLoopStage.dataArtifact}
             </span>
           </div>
@@ -275,12 +275,12 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
       <div className="space-y-3 pt-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Layers className="w-4 h-4 text-blue-400" />
-            <span className="text-xs font-mono text-[#F3F4F6] font-bold uppercase tracking-wider">
+            <Layers className="w-4 h-4 text-[#2684F7]" />
+            <span className="text-xs font-mono text-[#14213D] font-bold uppercase tracking-wider">
               VENTURE-SPECIFIC EXECUTION INSTANCES ({pipeline.length} COMPONENTS)
             </span>
           </div>
-          <span className="text-[11px] font-mono text-[#738095]">
+          <span className="text-[11px] font-mono text-[#60738F]">
             Grounded in active venture problem &amp; architecture
           </span>
         </div>
@@ -296,31 +296,31 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
                 className={`p-4 rounded-xl border flex flex-col justify-between cursor-pointer transition-all ${
                   isSelected
                     ? 'bg-[#151E2B] border-blue-500 shadow-md ring-1 ring-blue-500'
-                    : 'bg-[#111823] border-[#263244] hover:border-[#34445A]'
+                    : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-[#738095] mb-2">
+                  <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-[#60738F] mb-2">
                     <span>STEP 0{step.stepNumber}</span>
-                    <span className="px-1.5 py-0.5 rounded text-blue-300 bg-blue-500/10 border border-blue-500/20 truncate">
+                    <span className="px-1.5 py-0.5 rounded text-blue-300 bg-[#E8F2FF] border border-blue-500/20 truncate">
                       {step.role}
                     </span>
                   </div>
 
-                  <h3 className="text-xs font-bold text-[#F3F4F6] mb-1">{step.component}</h3>
-                  <p className="text-[11px] text-[#AAB4C3] leading-relaxed mb-3">{step.purpose}</p>
+                  <h3 className="text-xs font-bold text-[#14213D] mb-1">{step.component}</h3>
+                  <p className="text-[11px] text-[#8495AE] leading-relaxed mb-3">{step.purpose}</p>
 
-                  <div className="p-2.5 rounded bg-[#0D141F] border border-[#1C2635] space-y-1 text-[10px] font-mono mb-3">
-                    <div className="text-[#738095] truncate">
-                      <span className="text-[#F3F4F6]">In:</span> {step.inputs.join(', ')}
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] space-y-1 text-[10px] font-mono mb-3">
+                    <div className="text-[#60738F] truncate">
+                      <span className="text-[#14213D]">In:</span> {step.inputs.join(', ')}
                     </div>
-                    <div className="text-[#738095] truncate">
-                      <span className="text-emerald-400">Out:</span> {step.outputs.join(', ')}
+                    <div className="text-[#60738F] truncate">
+                      <span className="text-[#19A875]">Out:</span> {step.outputs.join(', ')}
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-[#1C2635] text-[10px] font-mono text-[#738095]">
+                <div className="pt-2 border-t border-[#E2EAF4] text-[10px] font-mono text-[#60738F]">
                   <span className="text-amber-400/90 truncate block">
                     Fallback: {step.fallback}
                   </span>

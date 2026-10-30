@@ -102,7 +102,7 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
   const ideaLabAction = (
     <Link
       to="/idea-lab"
-      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
     >
       Add Stage 01 input in Idea Lab →
     </Link>
@@ -112,10 +112,10 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
     <div className="space-y-5 pt-2">
       {/* Section Header */}
       <div>
-        <div className="text-xs font-mono uppercase text-[#6B7D90] tracking-wider font-semibold">
+        <div className="text-xs font-mono uppercase text-[#60738F] tracking-wider font-semibold">
           Section 07 // Strategic Decision Synthesis & Stage 03 Handoff
         </div>
-        <p className="text-xs text-[#4A5E73] mt-0.5">
+        <p className="text-xs text-[#60738F] mt-0.5">
           Executive summary of structural viability and the structured research dossier required for Stage 03 — Market Intelligence.
         </p>
       </div>
@@ -125,19 +125,19 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
           Blockers/uncertainties are clickable and highlight related handoff vectors. */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
         {/* 1. Promising */}
-        <div className="p-4 rounded-xl bg-[#FDFCF8] border border-[#4A7C59]/30 flex flex-col justify-between space-y-3">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#19A875]/30 flex flex-col justify-between space-y-3">
           <div>
-            <div className="flex items-center gap-2 mb-2 text-[#4A7C59]">
+            <div className="flex items-center gap-2 mb-2 text-[#19A875]">
               <TrendingUp className="w-4 h-4" />
               <span className="text-xs font-mono uppercase font-bold tracking-wider">
                 Promising Vectors
               </span>
             </div>
             {report.promisingAspects.length > 0 ? (
-              <ul className="space-y-2 text-xs text-[#4A5E73]">
+              <ul className="space-y-2 text-xs text-[#60738F]">
                 {report.promisingAspects.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#4A7C59] font-bold shrink-0 mt-0.5">•</span>
+                    <span className="text-[#19A875] font-bold shrink-0 mt-0.5">•</span>
                     <span className="leading-snug">{item}</span>
                   </li>
                 ))}
@@ -150,15 +150,15 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
               />
             )}
           </div>
-          <div className="text-[10px] font-mono text-[#4A7C59]/80 pt-2 border-t border-[#4A7C59]/20">
+          <div className="text-[10px] font-mono text-[#19A875]/80 pt-2 border-t border-[#19A875]/20">
             Structurally Sound Foundations
           </div>
         </div>
 
         {/* 2. Uncertain — clickable, drives handoff highlight */}
-        <div className="p-4 rounded-xl bg-[#FDFCF8] border border-[#2B3D4F]/30 flex flex-col justify-between space-y-3">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#14213D]/30 flex flex-col justify-between space-y-3">
           <div>
-            <div className="flex items-center gap-2 mb-2 text-[#2B3D4F]">
+            <div className="flex items-center gap-2 mb-2 text-[#14213D]">
               <AlertTriangle className="w-4 h-4" />
               <span className="text-xs font-mono uppercase font-bold tracking-wider">
                 Critical Uncertainties
@@ -166,10 +166,10 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
             </div>
             {report.criticalUncertainties.length > 0 ? (
               <>
-                <p className="text-[10px] font-mono text-[#6B7D90] mb-2">
+                <p className="text-[10px] font-mono text-[#60738F] mb-2">
                   Click an item to trace related handoff vectors below.
                 </p>
-                <ul className="space-y-2 text-xs text-[#4A5E73]">
+                <ul className="space-y-2 text-xs text-[#60738F]">
                   {report.criticalUncertainties.map((item, idx) => {
                     const key = `uncertainty:${idx}`;
                     const isSelected = selectedDecisionKey === key;
@@ -182,12 +182,12 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
                           title={item}
                           className={`w-full flex items-start gap-2 p-2 rounded-lg border text-left transition-colors ${
                             isSelected
-                              ? 'bg-[#2B3D4F] text-[#F5F1EB] border-[#2B3D4F]'
-                              : 'border-transparent hover:bg-[#ECE6DA] hover:border-[#DDD5C5]'
+                              ? 'bg-[#14213D] text-[#EEF4FB] border-[#14213D]'
+                              : 'border-transparent hover:bg-[#EEF4FB] hover:border-[#E2EAF4]'
                           }`}
                         >
-                          <span className={`font-bold shrink-0 mt-0.5 ${isSelected ? 'text-[#F5F1EB]' : 'text-[#2B3D4F]'}`}>•</span>
-                          <span className={`leading-snug ${isSelected ? 'text-[#F5F1EB]' : ''}`}>{item}</span>
+                          <span className={`font-bold shrink-0 mt-0.5 ${isSelected ? 'text-[#EEF4FB]' : 'text-[#14213D]'}`}>•</span>
+                          <span className={`leading-snug ${isSelected ? 'text-[#EEF4FB]' : ''}`}>{item}</span>
                         </button>
                       </li>
                     );
@@ -202,15 +202,15 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
               />
             )}
           </div>
-          <div className="text-[10px] font-mono text-[#2B3D4F]/80 pt-2 border-t border-[#2B3D4F]/20">
+          <div className="text-[10px] font-mono text-[#14213D]/80 pt-2 border-t border-[#14213D]/20">
             Empirical Validation Required
           </div>
         </div>
 
         {/* 3. Blockers — clickable, drives handoff highlight */}
-        <div className="p-4 rounded-xl bg-[#FDFCF8] border border-[#9E4A4A]/30 flex flex-col justify-between space-y-3">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E46D68]/30 flex flex-col justify-between space-y-3">
           <div>
-            <div className="flex items-center gap-2 mb-2 text-[#9E4A4A]">
+            <div className="flex items-center gap-2 mb-2 text-[#E46D68]">
               <ShieldX className="w-4 h-4" />
               <span className="text-xs font-mono uppercase font-bold tracking-wider">
                 Potential Fatal Blockers
@@ -218,10 +218,10 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
             </div>
             {report.potentialBlockers.length > 0 ? (
               <>
-                <p className="text-[10px] font-mono text-[#6B7D90] mb-2">
+                <p className="text-[10px] font-mono text-[#60738F] mb-2">
                   Click an item to trace related handoff vectors below.
                 </p>
-                <ul className="space-y-2 text-xs text-[#4A5E73]">
+                <ul className="space-y-2 text-xs text-[#60738F]">
                   {report.potentialBlockers.map((item, idx) => {
                     const key = `blocker:${idx}`;
                     const isSelected = selectedDecisionKey === key;
@@ -234,12 +234,12 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
                           title={item}
                           className={`w-full flex items-start gap-2 p-2 rounded-lg border text-left transition-colors ${
                             isSelected
-                              ? 'bg-[#8A6D2B] text-[#FDFCF8] border-[#8A6D2B]'
-                              : 'border-transparent hover:bg-[#ECE6DA] hover:border-[#DDD5C5]'
+                              ? 'bg-[#F29A42] text-[#FFFFFF] border-[#F29A42]'
+                              : 'border-transparent hover:bg-[#EEF4FB] hover:border-[#E2EAF4]'
                           }`}
                         >
-                          <span className={`font-bold shrink-0 mt-0.5 ${isSelected ? 'text-[#FDFCF8]' : 'text-[#9E4A4A]'}`}>•</span>
-                          <span className={`leading-snug ${isSelected ? 'text-[#FDFCF8]' : ''}`}>{item}</span>
+                          <span className={`font-bold shrink-0 mt-0.5 ${isSelected ? 'text-[#FFFFFF]' : 'text-[#E46D68]'}`}>•</span>
+                          <span className={`leading-snug ${isSelected ? 'text-[#FFFFFF]' : ''}`}>{item}</span>
                         </button>
                       </li>
                     );
@@ -254,22 +254,22 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
               />
             )}
           </div>
-          <div className="text-[10px] font-mono text-[#9E4A4A]/80 pt-2 border-t border-[#9E4A4A]/20">
+          <div className="text-[10px] font-mono text-[#E46D68]/80 pt-2 border-t border-[#E46D68]/20">
             Falsification Kill Thresholds
           </div>
         </div>
       </div>
 
       {/* Visual NEXT INTELLIGENCE REQUIRED Panel */}
-      <div className="p-5 rounded-xl bg-[#FDFCF8] border border-[#DDD5C5] border-t-2 border-t-[#2B3D4F] space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#DDD5C5]">
+      <div className="p-5 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] border-t-2 border-t-[#14213D] space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#E2EAF4]">
           <div className="flex items-center gap-2">
-            <Database className="w-4 h-4 text-[#2B3D4F]" />
-            <h3 className="text-sm font-bold text-[#2B3D4F] uppercase tracking-wider font-mono">
+            <Database className="w-4 h-4 text-[#14213D]" />
+            <h3 className="text-sm font-bold text-[#14213D] uppercase tracking-wider font-mono">
               Next Intelligence Required // Stage 03 Handoff Dossier
             </h3>
           </div>
-          <span className="text-[11px] font-mono text-[#6B7D90]">
+          <span className="text-[11px] font-mono text-[#60738F]">
             Target: Stage 03 Market Intelligence
           </span>
         </div>
@@ -280,25 +280,25 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           {/* 1. Competitors */}
           <div
-            className={`p-3 rounded-lg bg-[#F5F1EB] border space-y-1.5 transition-colors ${
+            className={`p-3 rounded-lg bg-[#EEF4FB] border space-y-1.5 transition-colors ${
               vectorMatchesSelection(handoff.competitorResearchNeeds)
-                ? 'border-[#2B3D4F] ring-1 ring-[#2B3D4F]/30'
-                : 'border-[#DDD5C5]'
+                ? 'border-[#14213D] ring-1 ring-[#14213D]/30'
+                : 'border-[#E2EAF4]'
             }`}
           >
-            <div className="text-[10px] font-mono uppercase text-[#2B3D4F] font-semibold flex items-center gap-1">
+            <div className="text-[10px] font-mono uppercase text-[#14213D] font-semibold flex items-center gap-1">
               <Search className="w-3 h-3" />
               <span>Competitor Vectors</span>
             </div>
             {handoff.competitorResearchNeeds.length > 0 ? (
               <>
-                <ul className="space-y-1 text-[11px] text-[#4A5E73]">
+                <ul className="space-y-1 text-[11px] text-[#60738F]">
                   {visibleItems('competitors', handoff.competitorResearchNeeds).map((item, i) => (
                     <li
                       key={i}
                       className={`leading-relaxed rounded px-1.5 py-0.5 ${
                         expandedHandoff['competitors'] ? '' : 'line-clamp-2'
-                      } ${itemMatchesSelection(item) ? 'bg-[#2B3D4F]/10 text-[#2B3D4F] font-medium' : ''}`}
+                      } ${itemMatchesSelection(item) ? 'bg-[#14213D]/10 text-[#14213D] font-medium' : ''}`}
                     >
                       • {item}
                     </li>
@@ -308,7 +308,7 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
                   <button
                     type="button"
                     onClick={() => toggleHandoff('competitors')}
-                    className="text-[10px] font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+                    className="text-[10px] font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
                   >
                     {expandedHandoff['competitors']
                       ? 'Show less'
@@ -327,25 +327,25 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
 
           {/* 2. Pricing */}
           <div
-            className={`p-3 rounded-lg bg-[#F5F1EB] border space-y-1.5 transition-colors ${
+            className={`p-3 rounded-lg bg-[#EEF4FB] border space-y-1.5 transition-colors ${
               vectorMatchesSelection(handoff.pricingBenchmarksToStudy)
-                ? 'border-[#2B3D4F] ring-1 ring-[#2B3D4F]/30'
-                : 'border-[#DDD5C5]'
+                ? 'border-[#14213D] ring-1 ring-[#14213D]/30'
+                : 'border-[#E2EAF4]'
             }`}
           >
-            <div className="text-[10px] font-mono uppercase text-[#5A7A96] font-semibold flex items-center gap-1">
+            <div className="text-[10px] font-mono uppercase text-[#2684F7] font-semibold flex items-center gap-1">
               <Tag className="w-3 h-3" />
               <span>Pricing Benchmarks</span>
             </div>
             {handoff.pricingBenchmarksToStudy.length > 0 ? (
               <>
-                <ul className="space-y-1 text-[11px] text-[#4A5E73]">
+                <ul className="space-y-1 text-[11px] text-[#60738F]">
                   {visibleItems('pricing', handoff.pricingBenchmarksToStudy).map((item, i) => (
                     <li
                       key={i}
                       className={`leading-relaxed rounded px-1.5 py-0.5 ${
                         expandedHandoff['pricing'] ? '' : 'line-clamp-2'
-                      } ${itemMatchesSelection(item) ? 'bg-[#2B3D4F]/10 text-[#2B3D4F] font-medium' : ''}`}
+                      } ${itemMatchesSelection(item) ? 'bg-[#14213D]/10 text-[#14213D] font-medium' : ''}`}
                     >
                       • {item}
                     </li>
@@ -355,7 +355,7 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
                   <button
                     type="button"
                     onClick={() => toggleHandoff('pricing')}
-                    className="text-[10px] font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+                    className="text-[10px] font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
                   >
                     {expandedHandoff['pricing']
                       ? 'Show less'
@@ -374,25 +374,25 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
 
           {/* 3. Geographic / Regulatory */}
           <div
-            className={`p-3 rounded-lg bg-[#F5F1EB] border space-y-1.5 transition-colors ${
+            className={`p-3 rounded-lg bg-[#EEF4FB] border space-y-1.5 transition-colors ${
               vectorMatchesSelection(handoff.geographicRegulatoryQueries)
-                ? 'border-[#2B3D4F] ring-1 ring-[#2B3D4F]/30'
-                : 'border-[#DDD5C5]'
+                ? 'border-[#14213D] ring-1 ring-[#14213D]/30'
+                : 'border-[#E2EAF4]'
             }`}
           >
-            <div className="text-[10px] font-mono uppercase text-[#5B6B7F] font-semibold flex items-center gap-1">
+            <div className="text-[10px] font-mono uppercase text-[#60738F] font-semibold flex items-center gap-1">
               <MapPin className="w-3 h-3" />
               <span>Regional Constraints</span>
             </div>
             {handoff.geographicRegulatoryQueries.length > 0 ? (
               <>
-                <ul className="space-y-1 text-[11px] text-[#4A5E73]">
+                <ul className="space-y-1 text-[11px] text-[#60738F]">
                   {visibleItems('regional', handoff.geographicRegulatoryQueries).map((item, i) => (
                     <li
                       key={i}
                       className={`leading-relaxed rounded px-1.5 py-0.5 ${
                         expandedHandoff['regional'] ? '' : 'line-clamp-2'
-                      } ${itemMatchesSelection(item) ? 'bg-[#2B3D4F]/10 text-[#2B3D4F] font-medium' : ''}`}
+                      } ${itemMatchesSelection(item) ? 'bg-[#14213D]/10 text-[#14213D] font-medium' : ''}`}
                     >
                       • {item}
                     </li>
@@ -402,7 +402,7 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
                   <button
                     type="button"
                     onClick={() => toggleHandoff('regional')}
-                    className="text-[10px] font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+                    className="text-[10px] font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
                   >
                     {expandedHandoff['regional']
                       ? 'Show less'
@@ -421,25 +421,25 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
 
           {/* 4. Audience Discovery */}
           <div
-            className={`p-3 rounded-lg bg-[#F5F1EB] border space-y-1.5 transition-colors ${
+            className={`p-3 rounded-lg bg-[#EEF4FB] border space-y-1.5 transition-colors ${
               vectorMatchesSelection(handoff.audienceValidationNeeds)
-                ? 'border-[#2B3D4F] ring-1 ring-[#2B3D4F]/30'
-                : 'border-[#DDD5C5]'
+                ? 'border-[#14213D] ring-1 ring-[#14213D]/30'
+                : 'border-[#E2EAF4]'
             }`}
           >
-            <div className="text-[10px] font-mono uppercase text-[#4A7C59] font-semibold flex items-center gap-1">
+            <div className="text-[10px] font-mono uppercase text-[#19A875] font-semibold flex items-center gap-1">
               <HelpCircle className="w-3 h-3" />
               <span>Audience Hypotheses</span>
             </div>
             {handoff.audienceValidationNeeds.length > 0 ? (
               <>
-                <ul className="space-y-1 text-[11px] text-[#4A5E73]">
+                <ul className="space-y-1 text-[11px] text-[#60738F]">
                   {visibleItems('audience', handoff.audienceValidationNeeds).map((item, i) => (
                     <li
                       key={i}
                       className={`leading-relaxed rounded px-1.5 py-0.5 ${
                         expandedHandoff['audience'] ? '' : 'line-clamp-2'
-                      } ${itemMatchesSelection(item) ? 'bg-[#2B3D4F]/10 text-[#2B3D4F] font-medium' : ''}`}
+                      } ${itemMatchesSelection(item) ? 'bg-[#14213D]/10 text-[#14213D] font-medium' : ''}`}
                     >
                       • {item}
                     </li>
@@ -449,7 +449,7 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
                   <button
                     type="button"
                     onClick={() => toggleHandoff('audience')}
-                    className="text-[10px] font-mono font-semibold text-[#2B3D4F] underline underline-offset-2 hover:text-[#8A6D2B]"
+                    className="text-[10px] font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
                   >
                     {expandedHandoff['audience']
                       ? 'Show less'
@@ -467,15 +467,15 @@ export const DecisionAndHandoff: React.FC<DecisionAndHandoffProps> = ({ report }
           </div>
         </div>
         {selectedDecisionKey && (
-          <p className="text-[10px] font-mono text-[#6B7D90]">
+          <p className="text-[10px] font-mono text-[#60738F]">
             Highlighting handoff vectors sharing keywords with the selected decision item — click it again to clear.
           </p>
         )}
 
         {/* Final Prominent Transition CTA */}
-        <div className="pt-3 border-t border-[#DDD5C5] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="text-xs text-[#6B7D90] flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-[#4A7C59] shrink-0" />
+        <div className="pt-3 border-t border-[#E2EAF4] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="text-xs text-[#60738F] flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-[#19A875] shrink-0" />
             <span>
               Stage 02 verification complete. Unlocks Stage 03 with persistent upstream feasibility payload.
             </span>

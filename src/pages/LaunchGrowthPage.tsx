@@ -48,16 +48,16 @@ export const LaunchGrowthPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5 animate-fadeIn">
       {/* 1. Stage 08 Header with Prominent Stage 09 Dossier Trigger */}
-      <div className="p-4 rounded-2xl bg-[#0D121B] border border-[#263244] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+      <div className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#10B981]/15 text-[#34D399] border border-[#10B981]/30">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30">
               STAGE 08 // LAUNCH &amp; GROWTH
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#1E293B] text-[#4D8DFF] border border-[#263244]">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EEF4FB] text-[#2684F7] border border-[#E2EAF4]">
               {report.ventureCategory}
             </span>
-            <span className="text-xs font-mono text-[#738095]">
+            <span className="text-xs font-mono text-[#60738F]">
               • {report.operatingLocation}
             </span>
           </div>
@@ -65,7 +65,7 @@ export const LaunchGrowthPage: React.FC = () => {
           <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
             Launch &amp; Growth Command Center
           </h1>
-          <p className="text-xs text-[#AAB4C3] max-w-2xl leading-relaxed">
+          <p className="text-xs text-[#8495AE] max-w-2xl leading-relaxed">
             Dynamic launch readiness diagnostics, interactive project synthesis, and visual brand telemetry matrix for {ventureName}.
           </p>
         </div>
@@ -75,7 +75,7 @@ export const LaunchGrowthPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsDossierOpen(true)}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#4D8DFF] hover:bg-[#3B82F6] text-[#080B10] font-mono text-xs font-bold transition-all shadow-lg shadow-[#4D8DFF]/20"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#2684F7] hover:bg-[#2684F7] text-[#FFFFFF] font-mono text-xs font-bold transition-all shadow-lg shadow-[#2684F7]/20"
           >
             <FileText className="w-4 h-4" />
             <span>GENERATE BRAND INTELLIGENCE REPORT →</span>
@@ -109,10 +109,10 @@ export const LaunchGrowthPage: React.FC = () => {
       />
 
       {/* 5. Bottom Stage Navigation & Stage 09 Access */}
-      <div className="p-4 rounded-xl bg-[#0D121B] border border-[#263244] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+      <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
         <Link
           to="/simulation"
-          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#AAB4C3] hover:text-[#F3F4F6] transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#8495AE] hover:text-[#14213D] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Stage 07 // Experience Simulation</span>
@@ -121,7 +121,7 @@ export const LaunchGrowthPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsDossierOpen(true)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#10B981] hover:bg-[#059669] text-[#080B10] font-mono text-xs font-bold transition-all shadow-md"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#19A875] hover:bg-[#19A875] text-[#FFFFFF] font-mono text-xs font-bold transition-all shadow-md"
         >
           <Sparkles className="w-4 h-4" />
           <span>GENERATE BRAND INTELLIGENCE REPORT (STAGE 09) →</span>

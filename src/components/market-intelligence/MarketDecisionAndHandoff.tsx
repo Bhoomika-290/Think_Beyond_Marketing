@@ -28,20 +28,20 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
   };
 
   return (
-    <div className="bg-[#FDFCF8] border border-[#DDD5C5] rounded-xl p-6 space-y-6">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-6 space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DDD5C5]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
-            <BookmarkCheck className="w-5 h-5 text-[#4A7C59]" />
-            <h2 className="text-lg font-bold text-[#2B3D4F]">
+            <BookmarkCheck className="w-5 h-5 text-[#19A875]" />
+            <h2 className="text-lg font-bold text-[#14213D]">
               Stage 03 → Stage 04 Intelligence Handoff
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#4A7C59]/10 text-[#4A7C59] border border-[#4A7C59]/30">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30">
               Brief Ready
             </span>
           </div>
-          <p className="text-xs text-[#4A5E73] mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs text-[#60738F] mt-1 max-w-2xl leading-relaxed">
             Synthesized Market Intelligence Brief formatted for immediate consumption by Stage 04 (Brand Roadmap). Persisted directly to project state.
           </p>
         </div>
@@ -49,7 +49,7 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
         <button
           type="button"
           onClick={handleProceed}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2B3D4F] text-white text-xs font-bold hover:bg-[#3E5770] transition-all shadow-md shrink-0 self-start sm:self-auto"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#14213D] text-white text-xs font-bold hover:bg-[#1769D2] transition-all shadow-md shrink-0 self-start sm:self-auto"
         >
           {hasSaved ? (
             <>
@@ -68,14 +68,14 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
       {/* Brief Dossier Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
         {/* Validated Target Segments */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-          <span className="text-[10px] font-mono text-[#2B3D4F] uppercase tracking-wider block font-bold">
+        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+          <span className="text-[10px] font-mono text-[#14213D] uppercase tracking-wider block font-bold">
             1. Priority Audience Beachheads
           </span>
-          <ul className="space-y-1 text-xs text-[#2B3D4F]">
+          <ul className="space-y-1 text-xs text-[#14213D]">
             {brief.validatedSegments.map((seg, idx) => (
               <li key={idx} className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2B3D4F]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#14213D]" />
                 <span>{seg}</span>
               </li>
             ))}
@@ -83,14 +83,14 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
         </div>
 
         {/* Strategic Whitespace Wedge */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-          <span className="text-[10px] font-mono text-[#4A7C59] uppercase tracking-wider block font-bold">
+        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+          <span className="text-[10px] font-mono text-[#19A875] uppercase tracking-wider block font-bold">
             2. Strategic Whitespace Wedge
           </span>
-          <ul className="space-y-1 text-xs text-[#2B3D4F]">
+          <ul className="space-y-1 text-xs text-[#14213D]">
             {brief.strategicWhitespaceOpportunities.map((opp, idx) => (
               <li key={idx} className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#4A7C59]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#19A875]" />
                 <span>{opp}</span>
               </li>
             ))}
@@ -98,11 +98,11 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
         </div>
 
         {/* Brand Differentiation Mandates */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-          <span className="text-[10px] font-mono text-[#5B6B7F] uppercase tracking-wider block font-bold">
+        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+          <span className="text-[10px] font-mono text-[#60738F] uppercase tracking-wider block font-bold">
             3. Brand Positioning Directives
           </span>
-          <ul className="space-y-1 text-xs text-[#2B3D4F]">
+          <ul className="space-y-1 text-xs text-[#14213D]">
             {brief.strategicBrandImplications.map((imp, idx) => (
               <li key={idx} className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#5B6B7F]" />
@@ -113,24 +113,24 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
         </div>
 
         {/* Competitor Vulnerabilities */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-          <span className="text-[10px] font-mono text-[#8A6D2B] uppercase tracking-wider block font-bold">
+        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+          <span className="text-[10px] font-mono text-[#F29A42] uppercase tracking-wider block font-bold">
             4. Competitor Landscape Summary
           </span>
-          <p className="text-xs text-[#4A5E73] leading-relaxed">
+          <p className="text-xs text-[#60738F] leading-relaxed">
             {brief.competitorLandscapeSummary}
           </p>
         </div>
 
         {/* Primary Market Headwinds */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-          <span className="text-[10px] font-mono text-[#9E4A4A] uppercase tracking-wider block font-bold">
+        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+          <span className="text-[10px] font-mono text-[#E46D68] uppercase tracking-wider block font-bold">
             5. Primary Market Headwinds
           </span>
-          <ul className="space-y-1 text-xs text-[#4A5E73]">
+          <ul className="space-y-1 text-xs text-[#60738F]">
             {brief.coreMarketRisks.slice(0, 3).map((risk, idx) => (
               <li key={idx} className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#9E4A4A]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E46D68]" />
                 <span className="truncate">{risk}</span>
               </li>
             ))}
@@ -138,15 +138,15 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
         </div>
 
         {/* Evidence Provenance Quality */}
-        <div className="p-4 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-          <span className="text-[10px] font-mono text-[#6B7D90] uppercase tracking-wider block font-bold">
+        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+          <span className="text-[10px] font-mono text-[#60738F] uppercase tracking-wider block font-bold">
             6. Evidence Quality Rating
           </span>
-          <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-[#4A5E73]">
-            <div>Verified: <span className="text-[#4A7C59] font-bold">{brief.evidenceQualitySummary.verified}</span></div>
-            <div>Inferred: <span className="text-[#2B3D4F] font-bold">{brief.evidenceQualitySummary.inference}</span></div>
-            <div>Assumptions: <span className="text-[#8A6D2B] font-bold">{brief.evidenceQualitySummary.assumptions}</span></div>
-            <div>Needs Val: <span className="text-[#7A8CA0] font-bold">{brief.evidenceQualitySummary.needsVal}</span></div>
+          <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-[#60738F]">
+            <div>Verified: <span className="text-[#19A875] font-bold">{brief.evidenceQualitySummary.verified}</span></div>
+            <div>Inferred: <span className="text-[#14213D] font-bold">{brief.evidenceQualitySummary.inference}</span></div>
+            <div>Assumptions: <span className="text-[#F29A42] font-bold">{brief.evidenceQualitySummary.assumptions}</span></div>
+            <div>Needs Val: <span className="text-[#60738F] font-bold">{brief.evidenceQualitySummary.needsVal}</span></div>
           </div>
         </div>
       </div>

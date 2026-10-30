@@ -57,25 +57,25 @@ export const ExecutionPage: React.FC = () => {
       />
 
       {/* Pathway Switcher Strip */}
-      <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-mono uppercase tracking-wider text-[#64748B] font-semibold">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-[#8495AE] font-semibold">
             Execution Pathway:
           </span>
-          <span className="text-xs text-[#1E293B] font-bold">
+          <span className="text-xs text-[#14213D] font-bold">
             {activePathway === 'physical' ? 'Physical / Hardware Product' : 'Software / SaaS / Digital Product'}
           </span>
         </div>
 
         {/* Pathway Tabs */}
-        <div className="flex items-center gap-1.5 bg-[#FAF8F5] p-1 rounded-lg border border-[#E5DFD5]">
+        <div className="flex items-center gap-1.5 bg-[#FFFFFF] p-1 rounded-lg border border-[#E2EAF4]">
           <button
             type="button"
             onClick={() => setActivePathway('physical')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
               activePathway === 'physical'
                 ? 'bg-[#1E40AF] text-white shadow-2xs'
-                : 'text-[#64748B] hover:text-[#1E293B]'
+                : 'text-[#8495AE] hover:text-[#14213D]'
             }`}
           >
             <Package className="w-3.5 h-3.5" />
@@ -88,7 +88,7 @@ export const ExecutionPage: React.FC = () => {
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
               activePathway === 'software'
                 ? 'bg-[#1E40AF] text-white shadow-2xs'
-                : 'text-[#64748B] hover:text-[#1E293B]'
+                : 'text-[#8495AE] hover:text-[#14213D]'
             }`}
           >
             <Cpu className="w-3.5 h-3.5" />
@@ -167,10 +167,10 @@ export const ExecutionPage: React.FC = () => {
       />
 
       {/* Bottom Stage Navigation Handoff */}
-      <div className="p-5 rounded-xl bg-[#FFFFFF] border border-[#E5DFD5] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+      <div className="p-5 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
         <Link
           to="/build"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#64748B] hover:text-[#1E293B] transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#8495AE] hover:text-[#14213D] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Stage 05 // Build & Architecture</span>
@@ -178,17 +178,17 @@ export const ExecutionPage: React.FC = () => {
 
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <div className="text-xs font-semibold text-[#1E293B]">
+            <div className="text-xs font-semibold text-[#14213D]">
               Stage 06 Execution Intelligence Complete
             </div>
-            <div className="text-[11px] text-[#64748B]">
+            <div className="text-[11px] text-[#8495AE]">
               Ready for Stage 07 Financial & Market Simulation
             </div>
           </div>
 
           <Link
             to="/simulation"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1E40AF] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-colors shadow-xs"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1E40AF] hover:bg-[#1769D2] text-white text-xs font-semibold transition-colors shadow-xs"
           >
             <span>Proceed to Stage 07 // Simulation</span>
             <ArrowRight className="w-4 h-4" />

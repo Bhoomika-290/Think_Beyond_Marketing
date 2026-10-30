@@ -189,10 +189,10 @@ export const SimulationPage: React.FC = () => {
       />
 
       {/* 5. Bottom Stage Navigation Handoff */}
-      <div className="p-5 rounded-xl bg-[#111823] border border-[#263244] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+      <div className="p-5 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
         <Link
           to="/execution"
-          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#AAB4C3] hover:text-[#F3F4F6] transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#8495AE] hover:text-[#14213D] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Stage 06 // Execution Intelligence</span>
@@ -200,17 +200,17 @@ export const SimulationPage: React.FC = () => {
 
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <div className="text-xs font-bold text-[#F3F4F6]">
+            <div className="text-xs font-bold text-[#14213D]">
               Stage 07 Experience Simulation Complete
             </div>
-            <div className="text-[11px] font-mono text-[#738095]">
+            <div className="text-[11px] font-mono text-[#60738F]">
               Ready for Stage 08 Launch & Growth
             </div>
           </div>
 
           <Link
             to="/launch-growth"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#4D8DFF] hover:bg-[#3B7BE8] text-[#080B10] text-xs font-bold font-mono transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2684F7] hover:bg-[#3B7BE8] text-[#FFFFFF] text-xs font-bold font-mono transition-colors shadow-sm"
           >
             <span>Stage 08 // Launch & Growth</span>
             <ArrowRight className="w-4 h-4" />

@@ -33,35 +33,35 @@ const SEVERITY_CONFIG: Record<
 > = {
   critical: {
     label: 'Critical',
-    bg: 'bg-[#9E4A4A]/10',
-    text: 'text-[#9E4A4A]',
-    border: 'border-[#9E4A4A]/30',
-    dot: 'bg-[#9E4A4A]',
-    icon: <AlertOctagon className="w-3.5 h-3.5 text-[#9E4A4A]" />,
+    bg: 'bg-[#FFF0EF]',
+    text: 'text-[#E46D68]',
+    border: 'border-[#E46D68]/30',
+    dot: 'bg-[#E46D68]',
+    icon: <AlertOctagon className="w-3.5 h-3.5 text-[#E46D68]" />,
   },
   high: {
     label: 'High',
-    bg: 'bg-[#8A6D2B]/10',
-    text: 'text-[#8A6D2B]',
-    border: 'border-[#8A6D2B]/30',
-    dot: 'bg-[#8A6D2B]',
-    icon: <AlertTriangle className="w-3.5 h-3.5 text-[#8A6D2B]" />,
+    bg: 'bg-[#FFF3E7]',
+    text: 'text-[#F29A42]',
+    border: 'border-[#F29A42]/30',
+    dot: 'bg-[#F29A42]',
+    icon: <AlertTriangle className="w-3.5 h-3.5 text-[#F29A42]" />,
   },
   medium: {
     label: 'Medium',
-    bg: 'bg-[#2B3D4F]/10',
-    text: 'text-[#2B3D4F]',
-    border: 'border-[#2B3D4F]/30',
-    dot: 'bg-[#2B3D4F]',
-    icon: <Info className="w-3.5 h-3.5 text-[#2B3D4F]" />,
+    bg: 'bg-[#14213D]/10',
+    text: 'text-[#14213D]',
+    border: 'border-[#14213D]/30',
+    dot: 'bg-[#14213D]',
+    icon: <Info className="w-3.5 h-3.5 text-[#14213D]" />,
   },
   low: {
     label: 'Low',
     bg: 'bg-slate-500/10',
-    text: 'text-[#4A5E73]',
-    border: 'border-[#7A8CA0]/40',
-    dot: 'bg-[#4A5E73]',
-    icon: <CheckCircle className="w-3.5 h-3.5 text-[#4A5E73]" />,
+    text: 'text-[#60738F]',
+    border: 'border-[#8495AE]/40',
+    dot: 'bg-[#60738F]',
+    icon: <CheckCircle className="w-3.5 h-3.5 text-[#60738F]" />,
   },
 };
 
@@ -88,23 +88,23 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
       {/* Header & Severity Filter Pills */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div className="text-xs font-mono uppercase text-[#6B7D90] tracking-wider font-semibold">
+          <div className="text-xs font-mono uppercase text-[#60738F] tracking-wider font-semibold">
             Section 03 // Risk Intelligence & Severity Clusters
           </div>
-          <p className="text-xs text-[#4A5E73] mt-0.5">
+          <p className="text-xs text-[#60738F] mt-0.5">
             Prioritized failure modes. Click any card to inspect empirical falsification test and recommended mitigation.
           </p>
         </div>
 
         {/* Severity Cluster Filter */}
-        <div className="flex items-center gap-1.5 bg-[#FDFCF8] p-1 rounded-md border border-[#DDD5C5] text-xs font-mono self-start">
+        <div className="flex items-center gap-1.5 bg-[#FFFFFF] p-1 rounded-md border border-[#E2EAF4] text-xs font-mono self-start">
           <button
             type="button"
             onClick={() => setActiveSeverityFilter('all')}
             className={`px-2 py-0.5 rounded transition-colors ${
               activeSeverityFilter === 'all'
-                ? 'bg-[#ECE6DA] text-[#2B3D4F] font-semibold border border-[#C4B8A0]'
-                : 'text-[#6B7D90] hover:text-[#4A5E73]'
+                ? 'bg-[#EEF4FB] text-[#14213D] font-semibold border border-[#E2EAF4]'
+                : 'text-[#60738F] hover:text-[#60738F]'
             }`}
           >
             All ({risks.length})
@@ -114,8 +114,8 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
             onClick={() => setActiveSeverityFilter('critical')}
             className={`px-2 py-0.5 rounded transition-colors ${
               activeSeverityFilter === 'critical'
-                ? 'bg-[#9E4A4A]/20 text-[#9E4A4A] font-semibold border border-[#9E4A4A]/40'
-                : 'text-[#6B7D90] hover:text-[#9E4A4A]'
+                ? 'bg-[#FFF0EF] text-[#E46D68] font-semibold border border-[#E46D68]/30'
+                : 'text-[#60738F] hover:text-[#E46D68]'
             }`}
           >
             Critical ({criticalCount})
@@ -125,8 +125,8 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
             onClick={() => setActiveSeverityFilter('high')}
             className={`px-2 py-0.5 rounded transition-colors ${
               activeSeverityFilter === 'high'
-                ? 'bg-[#8A6D2B]/20 text-[#8A6D2B] font-semibold border border-[#8A6D2B]/40'
-                : 'text-[#6B7D90] hover:text-[#8A6D2B]'
+                ? 'bg-[#FFF3E7] text-[#F29A42] font-semibold border border-[#F29A42]/30'
+                : 'text-[#60738F] hover:text-[#F29A42]'
             }`}
           >
             High ({highCount})
@@ -136,8 +136,8 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
             onClick={() => setActiveSeverityFilter('medium')}
             className={`px-2 py-0.5 rounded transition-colors ${
               activeSeverityFilter === 'medium'
-                ? 'bg-[#2B3D4F]/20 text-[#2B3D4F] font-semibold border border-[#2B3D4F]/40'
-                : 'text-[#6B7D90] hover:text-[#2B3D4F]'
+                ? 'bg-[#14213D]/20 text-[#14213D] font-semibold border border-[#14213D]/40'
+                : 'text-[#60738F] hover:text-[#14213D]'
             }`}
           >
             Medium ({mediumCount})
@@ -157,14 +157,14 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
               onClick={() => toggleRiskExpand(risk.id)}
               className={`p-3.5 rounded-lg border transition-all duration-150 cursor-pointer flex flex-col justify-between select-none ${
                 isExpanded
-                  ? 'bg-[#ECE6DA] border-[#2B3D4F] ring-1 ring-[#2B3D4F]/30 shadow-md'
-                  : 'bg-[#FDFCF8] hover:bg-[#ECE6DA] border-[#DDD5C5] hover:border-[#C4B8A0]'
+                  ? 'bg-[#EEF4FB] border-[#14213D] ring-1 ring-[#14213D]/30 shadow-md'
+                  : 'bg-[#FFFFFF] hover:bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#E2EAF4]'
               }`}
             >
               <div>
                 {/* Header: Category + Severity Badge */}
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#6B7D90] truncate">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] truncate">
                     {risk.category}
                   </span>
 
@@ -177,19 +177,19 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
                 </div>
 
                 {/* Risk Title */}
-                <h3 className="text-xs font-bold text-[#2B3D4F] leading-snug mb-1.5">
+                <h3 className="text-xs font-bold text-[#14213D] leading-snug mb-1.5">
                   {risk.title}
                 </h3>
 
                 {/* One-line Consequence */}
-                <p className="text-[11px] text-[#4A5E73] line-clamp-2 leading-relaxed">
+                <p className="text-[11px] text-[#60738F] line-clamp-2 leading-relaxed">
                   {risk.whyItMatters}
                 </p>
               </div>
 
               {/* Click to expand cue */}
-              <div className="mt-3 pt-2 border-t border-[#DDD5C5]/80 flex items-center justify-between text-[10px] font-mono text-[#6B7D90]">
-                <span className="text-[#2B3D4F]">
+              <div className="mt-3 pt-2 border-t border-[#E2EAF4]/80 flex items-center justify-between text-[10px] font-mono text-[#60738F]">
+                <span className="text-[#14213D]">
                   {isExpanded ? 'Hide Details' : 'Inspect Test & Mitigation'}
                 </span>
                 {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -198,24 +198,24 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
               {/* Expanded Details Drawer */}
               {isExpanded && (
                 <div
-                  className="mt-3 pt-3 border-t border-[#DDD5C5] space-y-2.5 text-xs text-left animate-fade-in"
+                  className="mt-3 pt-3 border-t border-[#E2EAF4] space-y-2.5 text-xs text-left animate-fade-in"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="p-2.5 rounded bg-[#F5F1EB] border border-[#DDD5C5]">
-                    <span className="text-[10px] font-mono uppercase text-[#5A7A96] font-semibold block mb-1">
+                  <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                    <span className="text-[10px] font-mono uppercase text-[#2684F7] font-semibold block mb-1">
                       Falsification / Validation Test:
                     </span>
-                    <p className="text-[#2B3D4F] text-[11px] leading-relaxed">
+                    <p className="text-[#14213D] text-[11px] leading-relaxed">
                       {risk.validationTest}
                     </p>
                   </div>
 
-                  <div className="p-2.5 rounded bg-[#F5F1EB] border border-[#DDD5C5]">
-                    <span className="text-[10px] font-mono uppercase text-[#4A7C59] font-semibold block mb-1 flex items-center gap-1">
+                  <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                    <span className="text-[10px] font-mono uppercase text-[#19A875] font-semibold block mb-1 flex items-center gap-1">
                       <Lightbulb className="w-3 h-3" />
                       Recommended Mitigation:
                     </span>
-                    <p className="text-[#4A5E73] text-[11px] leading-relaxed">
+                    <p className="text-[#60738F] text-[11px] leading-relaxed">
                       {risk.mitigation}
                     </p>
                   </div>
@@ -236,7 +236,7 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
                           });
                           setQueuedTaskIds((prev) => (prev.includes(risk.id) ? prev : [...prev, risk.id]));
                         }}
-                        className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold bg-[#2B3D4F] text-[#F5F1EB] hover:bg-[#3E5770] disabled:opacity-50 disabled:cursor-default transition-colors"
+                        className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono font-semibold bg-[#14213D] text-[#EEF4FB] hover:bg-[#1769D2] disabled:opacity-50 disabled:cursor-default transition-colors"
                       >
                         <FlaskConical className="w-3.5 h-3.5" />
                         {alreadyQueued
@@ -260,7 +260,7 @@ export const RiskMatrix: React.FC<RiskMatrixProps> = ({ risks, tasks = [], onAdd
         />
       )}
       {risks.length > 0 && filteredRisks.length === 0 && (
-        <p className="text-xs text-[#6B7D90] italic text-center py-6">
+        <p className="text-xs text-[#60738F] italic text-center py-6">
           No risks match the active severity filter — widen the filter to inspect the full set.
         </p>
       )}

@@ -4,78 +4,78 @@
 
 @layer base {
   :root {
-    /* === Think Beyond Marketing — warm-white + deep-blue foundation === */
-    --warm-white: #F5F1EB;
-    --deep-blue: #2B3D4F;
+    /* === Think Beyond Marketing — refined light blue editorial SaaS foundation === */
+    --warm-white: #F5F8FC;
+    --deep-blue: #14213D;
 
-    --bg-primary: #F5F1EB;
-    --bg-secondary: #ECE6DA;
-    --bg-sidebar: #2B3D4F;
-    --bg-header: #2B3D4F;
-    --bg-surface: #FDFCF8;
+    --bg-primary: #F5F8FC;
+    --bg-secondary: #EEF4FB;
+    --bg-sidebar: #FFFFFF;
+    --bg-header: #FFFFFF;
+    --bg-surface: #FFFFFF;
     --bg-surface-elevated: #FFFFFF;
-    --bg-surface-hover: #EAE3D3;
-    --border: #DDD5C5;
-    --border-strong: #C4B8A0;
-    --border-bright: #C4B8A0;
-    --border-subtle: #E8E1D3;
-    --text-primary: #2B3D4F;
-    --text-secondary: #4A5E73;
-    --text-muted: #7A8CA0;
-    --text-inverse: #F5F1EB;
-    --accent: #2B3D4F;
-    --accent-bright: #3E5770;
-    --accent-slate: #5A7A96;
-    --accent-cyan: #5A7A96;
-    --accent-muted: rgba(43, 61, 79, 0.08);
-    --accent-border: rgba(43, 61, 79, 0.25);
-    --success: #4A7C59;
-    --success-bg: rgba(74, 124, 89, 0.10);
-    --success-border: rgba(74, 124, 89, 0.30);
-    --warning: #8A6D2B;
-    --warning-bg: rgba(138, 109, 43, 0.10);
-    --warning-border: rgba(138, 109, 43, 0.30);
-    --danger: #9E4A4A;
-    --danger-bg: rgba(158, 74, 74, 0.10);
-    --danger-border: rgba(158, 74, 74, 0.30);
-    --ai: #6C5E8F;
-    --ai-bg: rgba(108, 94, 143, 0.10);
-    --ai-border: rgba(108, 94, 143, 0.32);
-    --teal: #3E7A73;
-    --teal-bg: rgba(62, 122, 115, 0.10);
-    --teal-border: rgba(62, 122, 115, 0.32);
-    --opportunity: #3E7A73;
-    --opportunity-bg: rgba(62, 122, 115, 0.10);
-    --opportunity-border: rgba(62, 122, 115, 0.32);
-    --clay: #B8755D;
-    --clay-bg: rgba(184, 117, 93, 0.12);
-    --clay-border: rgba(184, 117, 93, 0.35);
-    --dusty: #7189A3;
-    --dusty-bg: rgba(113, 137, 163, 0.12);
-    --dusty-border: rgba(113, 137, 163, 0.35);
-    --moss: #5F8A6B;
-    --moss-bg: rgba(95, 138, 107, 0.12);
-    --moss-border: rgba(95, 138, 107, 0.35);
-    --plum: #806F83;
-    --plum-bg: rgba(128, 111, 131, 0.12);
-    --plum-border: rgba(128, 111, 131, 0.35);
-    --sage: #8FA596;
-    --sage-bg: rgba(143, 165, 150, 0.14);
-    --sage-border: rgba(143, 165, 150, 0.38);
-    --honey: #C49A55;
-    --honey-bg: rgba(196, 154, 85, 0.12);
-    --honey-border: rgba(196, 154, 85, 0.35);
-    --shadow-color: rgba(43, 61, 79, 0.10);
-    --card-border-ring: rgba(43, 61, 79, 0.06);
-    --grid-line: rgba(43, 61, 79, 0.05);
+    --bg-surface-hover: #EEF4FB;
+    --border: #E2EAF4;
+    --border-strong: #C8D7E8;
+    --border-bright: #C8D7E8;
+    --border-subtle: #EEF4FB;
+    --text-primary: #14213D;
+    --text-secondary: #60738F;
+    --text-muted: #8495AE;
+    --text-inverse: #FFFFFF;
+    --accent: #2684F7;
+    --accent-bright: #1769D2;
+    --accent-slate: #60738F;
+    --accent-cyan: #2684F7;
+    --accent-muted: #E8F2FF;
+    --accent-border: rgba(38, 132, 247, 0.25);
+    --success: #19A875;
+    --success-bg: #E8F8F1;
+    --success-border: rgba(25, 168, 117, 0.30);
+    --warning: #F29A42;
+    --warning-bg: #FFF3E7;
+    --warning-border: rgba(242, 154, 66, 0.30);
+    --danger: #E46D68;
+    --danger-bg: #FFF0EF;
+    --danger-border: rgba(228, 109, 104, 0.30);
+    --ai: #9272DB;
+    --ai-bg: #F2EDFF;
+    --ai-border: rgba(146, 114, 219, 0.30);
+    --teal: #19A875;
+    --teal-bg: #E8F8F1;
+    --teal-border: rgba(25, 168, 117, 0.30);
+    --opportunity: #2684F7;
+    --opportunity-bg: #E8F2FF;
+    --opportunity-border: rgba(38, 132, 247, 0.30);
+    --clay: #E46D68;
+    --clay-bg: #FFF0EF;
+    --clay-border: rgba(228, 109, 104, 0.35);
+    --dusty: #60738F;
+    --dusty-bg: #EEF4FB;
+    --dusty-border: rgba(96, 115, 143, 0.35);
+    --moss: #19A875;
+    --moss-bg: #E8F8F1;
+    --moss-border: rgba(25, 168, 117, 0.35);
+    --plum: #9272DB;
+    --plum-bg: #F2EDFF;
+    --plum-border: rgba(146, 114, 219, 0.35);
+    --sage: #19A875;
+    --sage-bg: #E8F8F1;
+    --sage-border: rgba(25, 168, 117, 0.35);
+    --honey: #F29A42;
+    --honey-bg: #FFF3E7;
+    --honey-border: rgba(242, 154, 66, 0.35);
+    --shadow-color: rgba(20, 33, 61, 0.06);
+    --card-border-ring: rgba(38, 132, 247, 0.06);
+    --grid-line: rgba(38, 132, 247, 0.05);
 
     /* Restrained chart palette */
-    --chart-1: #2B3D4F;
-    --chart-2: #3E5770;
-    --chart-3: #5A7A96;
-    --chart-4: #7A8CA0;
-    --chart-5: #A8B5C2;
-    --chart-6: #DDD5C5;
+    --chart-1: #2684F7;
+    --chart-2: #9272DB;
+    --chart-3: #19A875;
+    --chart-4: #F29A42;
+    --chart-5: #60738F;
+    --chart-6: #E2EAF4;
   }
 
   html,
@@ -92,7 +92,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Restrained scrollbars — warm-white track, deep-blue/slate thumb */
+  /* Refined scrollbars — soft light blue-gray track and thumb */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -101,30 +101,29 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #C4B8A0;
+    background: #C8D7E8;
     border-radius: 4px;
-    border: 2px solid #F5F1EB;
+    border: 2px solid #F5F8FC;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #2B3D4F;
+    background: #8495AE;
   }
 
-  /* Dark structural areas (sidebar / drawer) get matching subtle scrollbars */
   .shell-dark ::-webkit-scrollbar-thumb {
-    background: rgba(245, 241, 235, 0.25);
-    border: 2px solid #2B3D4F;
+    background: #C8D7E8;
+    border: 2px solid #FFFFFF;
   }
   .shell-dark ::-webkit-scrollbar-thumb:hover {
-    background: rgba(245, 241, 235, 0.45);
+    background: #8495AE;
   }
 
   /* Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: #C4B8A0 transparent;
+    scrollbar-color: #C8D7E8 transparent;
   }
   .shell-dark * {
-    scrollbar-color: rgba(245, 241, 235, 0.3) transparent;
+    scrollbar-color: #C8D7E8 transparent;
   }
 
   /* Restrained focus state */
@@ -135,11 +134,11 @@
 
   /* Range / slider controls */
   input[type='range'] {
-    accent-color: var(--deep-blue);
+    accent-color: var(--accent);
   }
 }
 
-/* Subtle editorial grid pattern on warm-white */
+/* Subtle editorial grid pattern on soft background */
 .bg-grid-pattern {
   background-size: 32px 32px;
   background-image:
@@ -147,11 +146,11 @@
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
 }
 
-/* Calm editorial card */
+/* Clean light SaaS card */
 .intel-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border);
-  box-shadow: 0 1px 2px rgba(43, 61, 79, 0.06), 0 4px 16px -4px rgba(43, 61, 79, 0.10);
+  box-shadow: 0 1px 3px rgba(20, 33, 61, 0.04), 0 4px 16px -4px rgba(20, 33, 61, 0.06);
 }
 
 .intel-card-interactive {

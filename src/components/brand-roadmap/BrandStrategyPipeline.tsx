@@ -62,7 +62,7 @@ export const BrandStrategyPipeline: React.FC<BrandStrategyPipelineProps> = ({
       label: 'CUSTOMER',
       insight: customerSnippet,
       icon: <Target className="w-3.5 h-3.5 text-amber-400" />,
-      color: 'border-amber-500/30 text-amber-400 bg-amber-500/5',
+      color: 'border-[#F29A42]/30 text-amber-400 bg-amber-500/5',
       badge: 'STAGE 01',
       targetSection: 'dna',
     },
@@ -71,8 +71,8 @@ export const BrandStrategyPipeline: React.FC<BrandStrategyPipelineProps> = ({
       num: '03',
       label: 'MARKET',
       insight: marketSnippet,
-      icon: <Compass className="w-3.5 h-3.5 text-blue-400" />,
-      color: 'border-blue-500/30 text-blue-400 bg-blue-500/5',
+      icon: <Compass className="w-3.5 h-3.5 text-[#2684F7]" />,
+      color: 'border-[#2684F7]/30 text-[#2684F7] bg-blue-500/5',
       badge: 'STAGE 03',
       targetSection: 'positioning',
     },
@@ -91,8 +91,8 @@ export const BrandStrategyPipeline: React.FC<BrandStrategyPipelineProps> = ({
       num: '05',
       label: 'DIFFERENTIATOR',
       insight: diffSnippet,
-      icon: <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />,
-      color: 'border-emerald-500/30 text-emerald-400 bg-emerald-500/5',
+      icon: <ShieldCheck className="w-3.5 h-3.5 text-[#19A875]" />,
+      color: 'border-[#19A875]/30 text-[#19A875] bg-emerald-500/5',
       badge: 'PROVENANCE',
       targetSection: 'diff',
     },
@@ -119,20 +119,20 @@ export const BrandStrategyPipeline: React.FC<BrandStrategyPipelineProps> = ({
   ];
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#263244] p-5 shadow-xl relative overflow-hidden">
+    <section className="rounded-2xl bg-[#0B1017] border border-[#E2EAF4] p-5 shadow-xl relative overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#1C2636]">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
+            <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-[#19A875]">
               STRATEGY TRANSFORMATION PIPELINE
             </h2>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-0.5">
+          <p className="text-xs text-[#8495AE] mt-0.5">
             Causal intelligence flow converting upstream discovery vectors into an unmistakable brand identity.
           </p>
         </div>
-        <span className="text-[11px] font-mono text-[#64748B]">
+        <span className="text-[11px] font-mono text-[#8495AE]">
           7 Sequential Decision Nodes • Click to Inspect
         </span>
       </div>
@@ -150,7 +150,7 @@ export const BrandStrategyPipeline: React.FC<BrandStrategyPipelineProps> = ({
                   <div className="flex items-center justify-between gap-1 mb-1.5">
                     <div className="flex items-center gap-1.5">
                       {step.icon}
-                      <span className="text-[10px] font-mono font-bold tracking-wider text-[#F3F4F6]">
+                      <span className="text-[10px] font-mono font-bold tracking-wider text-[#14213D]">
                         {step.label}
                       </span>
                     </div>
@@ -158,19 +158,19 @@ export const BrandStrategyPipeline: React.FC<BrandStrategyPipelineProps> = ({
                       {step.num}
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#CBD5E1] line-clamp-2 leading-snug">
+                  <p className="text-[11px] text-[#14213D] line-clamp-2 leading-snug">
                     {step.insight}
                   </p>
                 </div>
 
                 <div className="mt-2 pt-1.5 border-t border-white/10 flex items-center justify-between text-[9px] font-mono opacity-70">
                   <span>{step.badge}</span>
-                  <span className="text-blue-400">→</span>
+                  <span className="text-[#2684F7]">→</span>
                 </div>
               </div>
 
               {idx < pipelineSteps.length - 1 && (
-                <div className="flex items-center justify-center text-[#334155] flex-shrink-0 self-center">
+                <div className="flex items-center justify-center text-[#14213D] flex-shrink-0 self-center">
                   <ArrowRight className="w-3.5 h-3.5 text-[#3E4C5F]" />
                 </div>
               )}

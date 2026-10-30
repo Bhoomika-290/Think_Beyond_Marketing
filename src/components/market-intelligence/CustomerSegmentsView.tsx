@@ -12,24 +12,24 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
   const getFitBadge = (fit: CustomerSegment['potentialFit']) => {
     switch (fit) {
       case 'High':
-        return 'bg-[#4A7C59]/10 text-[#4A7C59] border-[#4A7C59]/30';
+        return 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/30';
       case 'Medium':
-        return 'bg-[#2B3D4F]/10 text-[#2B3D4F] border-[#2B3D4F]/30';
+        return 'bg-[#14213D]/10 text-[#14213D] border-[#14213D]/30';
       case 'Niche':
       default:
-        return 'bg-[#6C5E8F]/10 text-[#6C5E8F] border-[#6C5E8F]/30';
+        return 'bg-[#F2EDFF] text-[#9272DB] border-[#9272DB]/30';
     }
   };
 
   const getPainBadge = (pain: CustomerSegment['painIntensity']) => {
     switch (pain) {
       case 'High':
-        return 'bg-[#9E4A4A]/10 text-[#9E4A4A] border-[#9E4A4A]/30';
+        return 'bg-[#FFF0EF] text-[#E46D68] border-[#E46D68]/30';
       case 'Medium':
-        return 'bg-[#8A6D2B]/10 text-[#8A6D2B] border-[#8A6D2B]/30';
+        return 'bg-[#FFF3E7] text-[#F29A42] border-[#F29A42]/30';
       case 'Moderate':
       default:
-        return 'bg-[#ECE6DA] text-[#4A5E73] border-[#DDD5C5]';
+        return 'bg-[#EEF4FB] text-[#60738F] border-[#E2EAF4]';
     }
   };
 
@@ -38,15 +38,15 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-[#2B3D4F]" />
-            <h2 className="text-base font-semibold text-[#2B3D4F]">
+            <Users className="w-4 h-4 text-[#14213D]" />
+            <h2 className="text-base font-semibold text-[#14213D]">
               Customer Segmentation & Audience Signals
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#2B3D4F]/10 text-[#2B3D4F] border border-[#2B3D4F]/20">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#14213D]/10 text-[#14213D] border border-[#14213D]/20">
               Dynamic Clusters
             </span>
           </div>
-          <p className="text-xs text-[#4A5E73] mt-1">
+          <p className="text-xs text-[#60738F] mt-1">
             Audience relevance scores derived from problem intensity, purchasing friction, and value-proposition fit.
           </p>
         </div>
@@ -60,18 +60,18 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
             <div
               key={seg.id}
               onClick={() => setActiveSegment(isSelected ? null : seg)}
-              className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col justify-between hover:border-[#2B3D4F]/60 ${
+              className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col justify-between hover:border-[#14213D]/60 ${
                 isSelected
-                  ? 'bg-[#ECE6DA] border-[#2B3D4F] shadow-lg ring-1 ring-[#2B3D4F]/30'
-                  : 'bg-[#FDFCF8] border-[#DDD5C5]'
+                  ? 'bg-[#EEF4FB] border-[#14213D] shadow-lg ring-1 ring-[#14213D]/30'
+                  : 'bg-[#FFFFFF] border-[#E2EAF4]'
               }`}
             >
               <div className="space-y-3">
                 {/* Header: Segment Name & Fit */}
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h3 className="text-sm font-bold text-[#2B3D4F]">{seg.name}</h3>
-                    <span className="text-[10px] font-mono text-[#6B7D90]">
+                    <h3 className="text-sm font-bold text-[#14213D]">{seg.name}</h3>
+                    <span className="text-[10px] font-mono text-[#60738F]">
                       {seg.provenance}
                     </span>
                   </div>
@@ -87,17 +87,17 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
                 {/* Relevance Score Bar */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[#6B7D90]">Relative Relevance</span>
-                    <span className="font-bold text-[#2B3D4F]">{seg.relativeRelevance} / 100</span>
+                    <span className="text-[#60738F]">Relative Relevance</span>
+                    <span className="font-bold text-[#14213D]">{seg.relativeRelevance} / 100</span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-[#F5F1EB] border border-[#DDD5C5] overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-[#EEF4FB] border border-[#E2EAF4] overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all duration-700 ${
                         seg.relativeRelevance >= 80
-                          ? 'bg-[#4A7C59]'
+                          ? 'bg-[#19A875]'
                           : seg.relativeRelevance >= 65
-                          ? 'bg-[#2B3D4F]'
-                          : 'bg-[#8A6D2B]'
+                          ? 'bg-[#14213D]'
+                          : 'bg-[#F29A42]'
                       }`}
                       style={{ width: `${seg.relativeRelevance}%` }}
                     />
@@ -107,7 +107,7 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
                 {/* Pain Intensity & Core Need */}
                 <div className="space-y-2 pt-1 text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-[#6B7D90]">Pain Intensity:</span>
+                    <span className="text-[11px] font-mono text-[#60738F]">Pain Intensity:</span>
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded border ${getPainBadge(
                         seg.painIntensity
@@ -117,26 +117,26 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
                     </span>
                   </div>
 
-                  <div className="p-2.5 rounded bg-[#F5F1EB] border border-[#DDD5C5]">
-                    <span className="text-[10px] font-mono text-[#6B7D90] block mb-0.5">
+                  <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                    <span className="text-[10px] font-mono text-[#60738F] block mb-0.5">
                       CORE UNRESOLVED NEED
                     </span>
-                    <p className="text-xs text-[#2B3D4F] leading-snug">{seg.coreNeed}</p>
+                    <p className="text-xs text-[#14213D] leading-snug">{seg.coreNeed}</p>
                   </div>
 
-                  <div className="p-2.5 rounded bg-[#F5F1EB] border border-[#DDD5C5]">
-                    <span className="text-[10px] font-mono text-[#2B3D4F] block mb-0.5">
+                  <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                    <span className="text-[10px] font-mono text-[#14213D] block mb-0.5">
                       PRIMARY BUYING TRIGGER
                     </span>
-                    <p className="text-xs text-[#4A5E73] leading-snug">{seg.buyingTrigger}</p>
+                    <p className="text-xs text-[#60738F] leading-snug">{seg.buyingTrigger}</p>
                   </div>
                 </div>
               </div>
 
               {/* Card Footer */}
-              <div className="mt-3 pt-2.5 border-t border-[#DDD5C5] flex items-center justify-between text-[11px] font-mono text-[#6B7D90]">
+              <div className="mt-3 pt-2.5 border-t border-[#E2EAF4] flex items-center justify-between text-[11px] font-mono text-[#60738F]">
                 <span>Click for interview prompts</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#2B3D4F]" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#14213D]" />
               </div>
             </div>
           );
@@ -145,58 +145,58 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
 
       {/* Expanded Segment Intelligence Drawer/Modal */}
       {activeSegment && (
-        <div className="p-4 rounded-xl bg-[#FDFCF8] border border-[#2B3D4F]/40 space-y-3 animate-fade-in shadow-sm">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#14213D]/40 space-y-3 animate-fade-in shadow-sm">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-[#2B3D4F]">{activeSegment.name}</h3>
-                <span className="text-xs font-mono text-[#4A7C59] bg-[#4A7C59]/10 px-2 py-0.5 rounded border border-[#4A7C59]/20">
+                <h3 className="text-base font-bold text-[#14213D]">{activeSegment.name}</h3>
+                <span className="text-xs font-mono text-[#19A875] bg-[#E8F8F1] px-2 py-0.5 rounded border border-[#19A875]/20">
                   Target Priority #{activeSegment.relativeRelevance >= 80 ? '1 (Beachhead)' : activeSegment.relativeRelevance >= 65 ? '2 (Secondary)' : '3 (Expansion)'}
                 </span>
               </div>
-              <p className="text-xs text-[#4A5E73] mt-1">
+              <p className="text-xs text-[#60738F] mt-1">
                 Deep profile for customer discovery interviews, positioning tone, and acquisition messaging.
               </p>
             </div>
             <button
               type="button"
               onClick={() => setActiveSegment(null)}
-              className="text-[#6B7D90] hover:text-[#2B3D4F] p-1 rounded hover:bg-[#ECE6DA]"
+              className="text-[#60738F] hover:text-[#14213D] p-1 rounded hover:bg-[#EEF4FB]"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-[#DDD5C5]/60 text-xs">
-            <div className="p-3 rounded bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-              <span className="text-[10px] font-mono text-[#8A6D2B] uppercase tracking-wide block">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-[#E2EAF4] text-xs">
+            <div className="p-3 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+              <span className="text-[10px] font-mono text-[#F29A42] uppercase tracking-wide block">
                 Adoption Barriers to Dismantle
               </span>
-              <ul className="space-y-1.5 text-xs text-[#4A5E73]">
+              <ul className="space-y-1.5 text-xs text-[#60738F]">
                 {activeSegment.adoptionBarriers.map((barrier, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <ShieldAlert className="w-3.5 h-3.5 text-[#8A6D2B] shrink-0 mt-0.5" />
+                    <ShieldAlert className="w-3.5 h-3.5 text-[#F29A42] shrink-0 mt-0.5" />
                     <span>{barrier}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="p-3 rounded bg-[#F5F1EB] border border-[#DDD5C5] space-y-2">
-              <span className="text-[10px] font-mono text-[#2B3D4F] uppercase tracking-wide block">
+            <div className="p-3 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
+              <span className="text-[10px] font-mono text-[#14213D] uppercase tracking-wide block">
                 Validation Interview Prompts
               </span>
-              <ul className="space-y-1.5 text-xs text-[#4A5E73]">
+              <ul className="space-y-1.5 text-xs text-[#60738F]">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#2B3D4F] font-bold">Q1:</span>
+                  <span className="text-[#14213D] font-bold">Q1:</span>
                   <span>"How are you currently handling {activeSegment.coreNeed.toLowerCase()}?"</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#2B3D4F] font-bold">Q2:</span>
+                  <span className="text-[#14213D] font-bold">Q2:</span>
                   <span>"What made you actively look for an alternative rather than sticking to your current setup?"</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#2B3D4F] font-bold">Q3:</span>
+                  <span className="text-[#14213D] font-bold">Q3:</span>
                   <span>"If this solution saved you 5 hours or guaranteed peak freshness, what would you consider a fair price?"</span>
                 </li>
               </ul>

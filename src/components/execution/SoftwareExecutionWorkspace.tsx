@@ -56,7 +56,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
       tech: 'Design System & Spec',
       role: 'UI/UX Specs',
       icon: Layers,
-      color: 'text-[#1E40AF]',
+      color: 'text-[#2684F7]',
       bg: 'bg-[#EFF6FF]',
       border: 'border-[#BFDBFE]',
       sub: 'Strict TypeScript interfaces & wireframes',
@@ -67,7 +67,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
       tech: 'Next.js 15 / React 19',
       role: 'Frontend & App API',
       icon: Code2,
-      color: 'text-[#065F46]',
+      color: 'text-[#19A875]',
       bg: 'bg-[#ECFDF5]',
       border: 'border-[#A7F3D0]',
       sub: 'Server components & typed actions',
@@ -78,7 +78,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
       tech: 'Supabase PostgreSQL',
       role: 'ACID Relational DB',
       icon: Database,
-      color: 'text-[#7C3AED]',
+      color: 'text-[#9272DB]',
       bg: 'bg-[#F5F3FF]',
       border: 'border-[#DDD6FE]',
       sub: 'Row-Level Security & automated backup',
@@ -89,7 +89,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
       tech: 'Vercel / Cloudflare Edge',
       role: 'Global Edge Delivery',
       icon: Cloud,
-      color: 'text-[#D97706]',
+      color: 'text-[#F29A42]',
       bg: 'bg-[#FFFBEB]',
       border: 'border-[#FDE68A]',
       sub: 'Sub-50ms TTFB & Git CI/CD',
@@ -100,7 +100,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
       tech: 'PostHog & Sentry',
       role: 'Telemetry & Health',
       icon: BarChart3,
-      color: 'text-[#0284C7]',
+      color: 'text-[#2684F7]',
       bg: 'bg-[#F0F9FF]',
       border: 'border-[#BAE6FD]',
       sub: 'Real-time alerting & GDPR analytics',
@@ -111,7 +111,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
       tech: 'Stripe Billing / Portal',
       role: 'Self-Serve Subscriptions',
       icon: CreditCard,
-      color: 'text-[#059669]',
+      color: 'text-[#19A875]',
       bg: 'bg-[#ECFDF5]',
       border: 'border-[#A7F3D0]',
       sub: 'PCI-DSS checkout & tiered seats',
@@ -119,38 +119,38 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
   ];
 
   return (
-    <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-5 shadow-xs space-y-6">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-5 shadow-xs space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#1E40AF]"></span>
-            <h2 className="text-base font-bold text-[#1E293B] tracking-tight">
+            <h2 className="text-base font-bold text-[#14213D] tracking-tight">
               Software Infrastructure & Engineering Stack
             </h2>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EFF6FF] text-[#1E40AF] border border-[#BFDBFE]">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EFF6FF] text-[#2684F7] border border-[#BFDBFE]">
               Production Architecture
             </span>
           </div>
-          <p className="text-xs text-[#64748B] mt-0.5">
+          <p className="text-xs text-[#8495AE] mt-0.5">
             Verified production-grade developer resources, cloud hosting, and official API documentation tailored to your product build.
           </p>
         </div>
 
         {/* Local engineering note */}
-        <div className="flex items-center gap-2 text-[11px] font-mono text-[#065F46] bg-[#ECFDF5] px-3 py-1.5 rounded-lg border border-[#A7F3D0]">
+        <div className="flex items-center gap-2 text-[11px] font-mono text-[#19A875] bg-[#ECFDF5] px-3 py-1.5 rounded-lg border border-[#A7F3D0]">
           <Globe className="w-3.5 h-3.5" />
           <span>Local Base: {location.operatingLocation}</span>
         </div>
       </div>
 
       {/* Visual Software Architecture Flow Diagram */}
-      <div className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl p-4 space-y-3">
+      <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 space-y-3">
         <div className="flex items-center justify-between">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748B] font-bold">
+          <div className="text-[10px] font-mono uppercase tracking-wider text-[#8495AE] font-bold">
             Live Software Architecture Pipeline (Plan → Develop → Host → Deploy → Maintain → Acquire)
           </div>
-          <span className="text-[10px] font-mono text-[#1E40AF] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
+          <span className="text-[10px] font-mono text-[#2684F7] bg-[#EFF6FF] px-2 py-0.5 rounded border border-[#BFDBFE]">
             Zero-Serverless Overhead
           </span>
         </div>
@@ -164,8 +164,8 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
                 className={`bg-[#FFFFFF] border ${layer.border} rounded-lg p-3 flex flex-col justify-between shadow-2xs relative group`}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-1 pb-1.5 border-b border-[#E8E2D8]">
-                    <span className="text-[9px] font-mono font-bold text-[#1E40AF]">
+                  <div className="flex items-center justify-between gap-1 pb-1.5 border-b border-[#E2EAF4]">
+                    <span className="text-[9px] font-mono font-bold text-[#2684F7]">
                       PHASE {layer.step}
                     </span>
                     <div className={`w-5 h-5 rounded ${layer.bg} ${layer.color} flex items-center justify-center`}>
@@ -173,22 +173,22 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
                     </div>
                   </div>
 
-                  <div className="text-[10px] font-mono uppercase font-bold text-[#64748B] mt-2">
+                  <div className="text-[10px] font-mono uppercase font-bold text-[#8495AE] mt-2">
                     {layer.phase}
                   </div>
-                  <div className="text-xs font-bold text-[#1E293B] mt-0.5 leading-tight">
+                  <div className="text-xs font-bold text-[#14213D] mt-0.5 leading-tight">
                     {layer.tech}
                   </div>
                 </div>
 
-                <div className="mt-2.5 pt-1.5 border-t border-[#E8E2D8]">
-                  <div className="text-[10px] text-[#475569] leading-snug line-clamp-2 font-mono">
+                <div className="mt-2.5 pt-1.5 border-t border-[#E2EAF4]">
+                  <div className="text-[10px] text-[#60738F] leading-snug line-clamp-2 font-mono">
                     {layer.sub}
                   </div>
                 </div>
 
                 {idx < architectureLayers.length - 1 && (
-                  <div className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-4 h-4 rounded-full bg-[#FFFFFF] border border-[#CBD5E1] items-center justify-center text-[#64748B] shadow-2xs">
+                  <div className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-4 h-4 rounded-full bg-[#FFFFFF] border border-[#14213D] items-center justify-center text-[#8495AE] shadow-2xs">
                     <ArrowRight className="w-2.5 h-2.5" />
                   </div>
                 )}
@@ -200,7 +200,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
 
       {/* Category Filter Pills */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
-        <span className="text-[11px] font-mono uppercase text-[#64748B] font-semibold shrink-0">Filter Layer:</span>
+        <span className="text-[11px] font-mono uppercase text-[#8495AE] font-semibold shrink-0">Filter Layer:</span>
         {categories.map(cat => (
           <button
             key={cat}
@@ -209,7 +209,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
             className={`px-3 py-1 rounded-md text-xs font-mono capitalize transition-colors ${
               selectedCategory === cat
                 ? 'bg-[#1E40AF] text-white shadow-2xs'
-                : 'bg-[#FAF8F5] text-[#64748B] hover:text-[#1E293B] border border-[#E5DFD5]'
+                : 'bg-[#FFFFFF] text-[#8495AE] hover:text-[#14213D] border border-[#E2EAF4]'
             }`}
           >
             {cat === 'all' ? 'All Infrastructure' : cat.replace('_', ' ')}
@@ -223,21 +223,21 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
           return (
             <div
               key={item.id}
-              className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl p-4 flex flex-col justify-between transition-all hover:border-[#1E40AF]/40 hover:shadow-xs shadow-2xs"
+              className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 flex flex-col justify-between transition-all hover:border-[#2684F7]/30 hover:shadow-xs shadow-2xs"
             >
               <div className="space-y-3">
                 {/* Header */}
-                <div className="flex items-start justify-between gap-2 pb-2 border-b border-[#E8E2D8]">
+                <div className="flex items-start justify-between gap-2 pb-2 border-b border-[#E2EAF4]">
                   <div>
-                    <span className="text-[10px] font-mono uppercase font-bold text-[#1E40AF] block">
+                    <span className="text-[10px] font-mono uppercase font-bold text-[#2684F7] block">
                       {item.categoryLabel}
                     </span>
-                    <h3 className="text-sm font-bold text-[#1E293B] mt-0.5 leading-snug">
+                    <h3 className="text-sm font-bold text-[#14213D] mt-0.5 leading-snug">
                       {item.name}
                     </h3>
                   </div>
 
-                  <span className="inline-flex items-center gap-1 text-[9px] font-mono text-[#15803D] bg-[#DCFCE7] px-1.5 py-0.5 rounded border border-[#BBF7D0] shrink-0">
+                  <span className="inline-flex items-center gap-1 text-[9px] font-mono text-[#19A875] bg-[#DCFCE7] px-1.5 py-0.5 rounded border border-[#BBF7D0] shrink-0">
                     <CheckCircle2 className="w-2.5 h-2.5" />
                     VERIFIED
                   </span>
@@ -245,50 +245,50 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
 
                 {/* Purpose & Specs */}
                 <div>
-                  <div className="text-[9px] font-mono uppercase tracking-wider text-[#64748B]">
+                  <div className="text-[9px] font-mono uppercase tracking-wider text-[#8495AE]">
                     Production Role & Spec
                   </div>
-                  <p className="text-xs text-[#334155] font-medium mt-0.5 leading-snug">
+                  <p className="text-xs text-[#14213D] font-medium mt-0.5 leading-snug">
                     {item.purpose}
                   </p>
-                  <p className="text-[11px] text-[#64748B] mt-1 font-mono leading-relaxed">
+                  <p className="text-[11px] text-[#8495AE] mt-1 font-mono leading-relaxed">
                     {item.specification}
                   </p>
                 </div>
 
                 {/* Latency & Pricing Pill */}
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E8E2D8]">
-                  <div className="bg-[#FFFFFF] p-2 rounded-lg border border-[#E5DFD5]">
-                    <div className="text-[9px] font-mono uppercase text-[#64748B]">Benchmark SLA</div>
-                    <div className="text-[11px] font-mono text-[#065F46] font-semibold mt-0.5 flex items-center gap-1">
-                      <Zap className="w-3 h-3 text-[#10B981]" />
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E2EAF4]">
+                  <div className="bg-[#FFFFFF] p-2 rounded-lg border border-[#E2EAF4]">
+                    <div className="text-[9px] font-mono uppercase text-[#8495AE]">Benchmark SLA</div>
+                    <div className="text-[11px] font-mono text-[#19A875] font-semibold mt-0.5 flex items-center gap-1">
+                      <Zap className="w-3 h-3 text-[#19A875]" />
                       <span>{item.proximityDistance || '<30ms Latency'}</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#FFFFFF] p-2 rounded-lg border border-[#E5DFD5]">
-                    <div className="text-[9px] font-mono uppercase text-[#64748B]">Pricing Model</div>
-                    <div className="text-[11px] font-mono text-[#1E293B] font-semibold mt-0.5 truncate" title={item.estimatedBudgetRange}>
+                  <div className="bg-[#FFFFFF] p-2 rounded-lg border border-[#E2EAF4]">
+                    <div className="text-[9px] font-mono uppercase text-[#8495AE]">Pricing Model</div>
+                    <div className="text-[11px] font-mono text-[#14213D] font-semibold mt-0.5 truncate" title={item.estimatedBudgetRange}>
                       {item.estimatedBudgetRange || 'Free Tier Available'}
                     </div>
                   </div>
                 </div>
 
                 {/* Verification Source */}
-                <div className="text-[10px] font-mono text-[#64748B] bg-[#FFFFFF] p-2 rounded border border-[#E5DFD5]">
-                  <span className="font-semibold text-[#1E293B]">Registry:</span> {item.sourceEvidence}
+                <div className="text-[10px] font-mono text-[#8495AE] bg-[#FFFFFF] p-2 rounded border border-[#E2EAF4]">
+                  <span className="font-semibold text-[#14213D]">Registry:</span> {item.sourceEvidence}
                 </div>
               </div>
 
               {/* Action Links */}
-              <div className="mt-4 pt-3 border-t border-[#E8E2D8] flex items-center justify-between gap-2">
+              <div className="mt-4 pt-3 border-t border-[#E2EAF4] flex items-center justify-between gap-2">
                 {/* Official Docs Link */}
                 {item.officialDocsUrl ? (
                   <a
                     href={item.officialDocsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1E40AF] hover:bg-[#1D4ED8] text-white text-[11px] font-semibold transition-colors shadow-2xs"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1E40AF] hover:bg-[#1769D2] text-white text-[11px] font-semibold transition-colors shadow-2xs"
                   >
                     <BookOpen className="w-3 h-3" />
                     <span>Official Docs</span>
@@ -299,13 +299,13 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
                     href={item.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1E40AF] hover:bg-[#1D4ED8] text-white text-[11px] font-semibold transition-colors shadow-2xs"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#1E40AF] hover:bg-[#1769D2] text-white text-[11px] font-semibold transition-colors shadow-2xs"
                   >
                     <span>Website</span>
                     <ExternalLink className="w-2.5 h-2.5" />
                   </a>
                 ) : (
-                  <span className="text-[10px] font-mono text-[#94A3B8]">Docs on Portal</span>
+                  <span className="text-[10px] font-mono text-[#8495AE]">Docs on Portal</span>
                 )}
 
                 {/* Specialist Audit Query */}
@@ -313,7 +313,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
                   <button
                     type="button"
                     onClick={() => setAuditTargetResource(item)}
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#1E40AF] hover:underline"
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#2684F7] hover:underline"
                   >
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Audit Fit</span>
@@ -326,20 +326,20 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
       </div>
 
       {/* Software Comparison & Pricing Table */}
-      <div className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl p-4 space-y-3">
+      <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 space-y-3">
         <div className="flex items-center justify-between">
-          <div className="text-[10px] font-mono uppercase tracking-wider text-[#64748B] font-bold">
+          <div className="text-[10px] font-mono uppercase tracking-wider text-[#8495AE] font-bold">
             Software Stack Comparison & Operational Tiering
           </div>
-          <span className="text-[10px] font-mono text-[#64748B]">
+          <span className="text-[10px] font-mono text-[#8495AE]">
             All entries verified against current cloud provider documentation
           </span>
         </div>
 
-        <div className="overflow-x-auto border border-[#E5DFD5] rounded-lg bg-[#FFFFFF]">
+        <div className="overflow-x-auto border border-[#E2EAF4] rounded-lg bg-[#FFFFFF]">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-[#FAF8F5] border-b border-[#E5DFD5] text-[10px] font-mono uppercase text-[#64748B]">
+              <tr className="bg-[#FFFFFF] border-b border-[#E2EAF4] text-[10px] font-mono uppercase text-[#8495AE]">
                 <th className="py-2.5 px-3">Infrastructure Layer</th>
                 <th className="py-2.5 px-3">Primary Provider</th>
                 <th className="py-2.5 px-3">SLA / Edge Latency</th>
@@ -349,17 +349,17 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
             </thead>
             <tbody className="divide-y divide-[#E8E2D8]">
               {items.map(item => (
-                <tr key={item.id} className="hover:bg-[#FAF8F5] transition-colors">
-                  <td className="py-2.5 px-3 font-mono text-[11px] text-[#1E40AF] whitespace-nowrap">
+                <tr key={item.id} className="hover:bg-[#FFFFFF] transition-colors">
+                  <td className="py-2.5 px-3 font-mono text-[11px] text-[#2684F7] whitespace-nowrap">
                     {item.categoryLabel}
                   </td>
-                  <td className="py-2.5 px-3 font-semibold text-[#1E293B]">
+                  <td className="py-2.5 px-3 font-semibold text-[#14213D]">
                     {item.name}
                   </td>
-                  <td className="py-2.5 px-3 font-mono text-[11px] text-[#065F46] whitespace-nowrap">
+                  <td className="py-2.5 px-3 font-mono text-[11px] text-[#19A875] whitespace-nowrap">
                     {item.proximityDistance || 'Global Edge Network'}
                   </td>
-                  <td className="py-2.5 px-3 font-mono text-[11px] text-[#475569]">
+                  <td className="py-2.5 px-3 font-mono text-[11px] text-[#60738F]">
                     {item.estimatedBudgetRange || 'Free tier available'}
                   </td>
                   <td className="py-2.5 px-3 whitespace-nowrap">
@@ -368,7 +368,7 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
                         href={item.officialDocsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[11px] text-[#1E40AF] font-semibold hover:underline"
+                        className="inline-flex items-center gap-1 text-[11px] text-[#2684F7] font-semibold hover:underline"
                       >
                         <span>Documentation</span>
                         <ExternalLink className="w-3 h-3" />
@@ -378,13 +378,13 @@ export const SoftwareExecutionWorkspace: React.FC<SoftwareExecutionWorkspaceProp
                         href={item.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[11px] text-[#1E40AF] font-semibold hover:underline"
+                        className="inline-flex items-center gap-1 text-[11px] text-[#2684F7] font-semibold hover:underline"
                       >
                         <span>Provider Portal</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : (
-                      <span className="text-[10px] font-mono text-[#94A3B8]">Direct repository</span>
+                      <span className="text-[10px] font-mono text-[#8495AE]">Direct repository</span>
                     )}
                   </td>
                 </tr>

@@ -32,16 +32,16 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
   const getEvidenceColor = (state: string) => {
     switch (state) {
       case 'VERIFIED':
-        return 'text-[#4A7C59] bg-[#4A7C59]/10 border-[#4A7C59]/30';
+        return 'text-[#19A875] bg-[#E8F8F1] border-[#19A875]/30';
       case 'USER INPUT':
-        return 'text-[#5A7A96] bg-[#5A7A96]/10 border-[#5A7A96]/30';
+        return 'text-[#2684F7] bg-[#2684F7]/10 border-[#2684F7]/30';
       case 'AI INFERENCE':
-        return 'text-[#6C5E8F] bg-[#6C5E8F]/10 border-[#6C5E8F]/30';
+        return 'text-[#9272DB] bg-[#F2EDFF] border-[#9272DB]/30';
       case 'ASSUMPTION':
-        return 'text-[#8A6D2B] bg-[#8A6D2B]/10 border-[#8A6D2B]/30';
+        return 'text-[#F29A42] bg-[#FFF3E7] border-[#F29A42]/30';
       case 'NEEDS VALIDATION':
       default:
-        return 'text-[#9E4A4A] bg-[#9E4A4A]/10 border-[#9E4A4A]/30';
+        return 'text-[#E46D68] bg-[#FFF0EF] border-[#E46D68]/30';
     }
   };
 
@@ -117,30 +117,30 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
   );
 
   return (
-    <section className="rounded-2xl bg-[#090D14] border border-[#1E293B] p-6 lg:p-8 shadow-2xl space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1E293B] pb-4">
+    <section className="rounded-2xl bg-[#090D14] border border-[#EEF4FB] p-6 lg:p-8 shadow-2xl space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EEF4FB] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#38BDF8]">
+            <span className="w-2 h-2 rounded-full bg-[#2684F7] animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#2684F7]">
               BRAND DNA SYSTEM &bull; CORE STRATEGIC ANATOMY
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#F1F5F9] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#14213D] tracking-tight">
             Brand DNA Relational Matrix
           </h2>
-          <p className="text-xs sm:text-sm text-[#94A3B8]">
+          <p className="text-xs sm:text-sm text-[#8495AE]">
             Connected visual architecture mapping how purpose, values, personality, and promise form the gravitational center of your venture.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#94A3B8] bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244]">
-            <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+          <div className="flex items-center gap-2 text-xs font-mono text-[#8495AE] bg-[#FFFFFF] px-3 py-1.5 rounded-lg border border-[#E2EAF4]">
+            <span className="w-2 h-2 rounded-full bg-[#19A875]" />
             <span>Grounded in Stages 01&ndash;03</span>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[#38BDF8] bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244]">
-            <span className="w-2 h-2 rounded-full bg-[#38BDF8] animate-pulse" />
+          <div className="flex items-center gap-2 text-xs font-mono text-[#2684F7] bg-[#FFFFFF] px-3 py-1.5 rounded-lg border border-[#E2EAF4]">
+            <span className="w-2 h-2 rounded-full bg-[#2684F7] animate-pulse" />
             <span>Click any node to inspect relationships</span>
           </div>
         </div>
@@ -151,7 +151,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
         <div className="lg:col-span-8 flex flex-col gap-3">
           <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#0B101B] border border-[#1F293D] relative min-h-[480px] shadow-inner overflow-hidden">
             {/* Architectural blueprint dot grid background */}
-            <div className="absolute inset-0 bg-[radial-gradient(#1E293B_1px,transparent_1px)] [background-size:20px_20px] opacity-70 pointer-events-none rounded-2xl" />
+            <div className="absolute inset-0 bg-[radial-gradient(#EEF4FB_1px,transparent_1px)] [background-size:20px_20px] opacity-70 pointer-events-none rounded-2xl" />
 
             {/* SVG Connector Lines with active illumination */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -161,7 +161,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                 y1="22%"
                 x2="50%"
                 y2="50%"
-                stroke={selectedNodeId === purposeNode?.id ? '#38BDF8' : '#233044'}
+                stroke={selectedNodeId === purposeNode?.id ? '#2684F7' : '#233044'}
                 strokeWidth={selectedNodeId === purposeNode?.id ? '3' : '2'}
                 strokeDasharray={selectedNodeId === purposeNode?.id ? 'none' : '4 4'}
                 className="transition-colors duration-300"
@@ -211,18 +211,18 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   onMouseLeave={() => setHoveredNodeId(null)}
                   className={`px-5 py-3.5 rounded-2xl border transition-all flex items-center gap-3 shadow-md bg-[#0B1A2F]/95 ${getNodeOpacity(purposeNode.id)} ${
                     selectedNodeId === purposeNode.id
-                      ? 'border-[#38BDF8] ring-2 ring-[#38BDF8]/60 shadow-lg shadow-[#0284C7]/20 scale-105'
-                      : 'border-[#1E3A8A] hover:border-[#38BDF8]/60'
+                      ? 'border-[#2684F7] ring-2 ring-[#2684F7]/60 shadow-lg shadow-[#0284C7]/20 scale-105'
+                      : 'border-[#1E3A8A] hover:border-[#2684F7]/60'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-[#1E3A8A]/50 text-[#38BDF8] border border-[#38BDF8]/30">
+                  <div className="p-2 rounded-xl bg-[#1E3A8A]/50 text-[#2684F7] border border-[#2684F7]/30">
                     <Compass className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <span className="text-[10px] font-mono uppercase text-[#60A5FA] block font-bold tracking-wider">
+                    <span className="text-[10px] font-mono uppercase text-[#2684F7] block font-bold tracking-wider">
                       PURPOSE (NORTH STAR)
                     </span>
-                    <span className="text-xs font-bold text-[#F1F5F9] max-w-[220px] truncate block">
+                    <span className="text-xs font-bold text-[#14213D] max-w-[220px] truncate block">
                       {purposeNode.value}
                     </span>
                   </div>
@@ -246,10 +246,10 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-[#065F46]/50 text-[#34D399] border border-[#10B981]/30">
+                    <div className="p-1.5 rounded-lg bg-[#065F46]/50 text-[#19A875] border border-[#19A875]/30">
                       <Heart className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-[10px] font-mono uppercase text-[#34D399] font-bold tracking-wider">
+                    <span className="text-[10px] font-mono uppercase text-[#19A875] font-bold tracking-wider">
                       CORE VALUES
                     </span>
                   </div>
@@ -260,13 +260,13 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
               )}
 
               {/* CENTER NODE: BRAND NUCLEUS (High-Contrast Intelligence Anchor) */}
-              <div className="flex-shrink-0 w-32 h-32 rounded-full bg-gradient-to-tr from-[#38BDF8] via-[#8B5CF6] to-[#10B981] p-1 shadow-2xl flex items-center justify-center text-center animate-pulse">
-                <div className="w-full h-full rounded-full bg-[#080D16] flex flex-col items-center justify-center p-2.5 border border-[#38BDF8]/40 shadow-inner">
-                  <Sparkles className="w-5 h-5 text-[#38BDF8] mb-1" />
-                  <span className="text-[9px] font-mono uppercase tracking-widest text-[#94A3B8]">
+              <div className="flex-shrink-0 w-32 h-32 rounded-full bg-gradient-to-tr from-[#2684F7] via-[#8B5CF6] to-[#10B981] p-1 shadow-2xl flex items-center justify-center text-center animate-pulse">
+                <div className="w-full h-full rounded-full bg-[#080D16] flex flex-col items-center justify-center p-2.5 border border-[#2684F7]/30 shadow-inner">
+                  <Sparkles className="w-5 h-5 text-[#2684F7] mb-1" />
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-[#8495AE]">
                     BRAND NUCLEUS
                   </span>
-                  <span className="text-xs font-black text-[#F1F5F9] tracking-wider">
+                  <span className="text-xs font-black text-[#14213D] tracking-wider">
                     CORE DNA
                   </span>
                 </div>
@@ -286,7 +286,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-[#6D28D9]/50 text-[#C084FC] border border-[#8B5CF6]/30">
+                    <div className="p-1.5 rounded-lg bg-[#6D28D9]/50 text-[#C084FC] border border-[#9272DB]/30">
                       <Eye className="w-3.5 h-3.5" />
                     </div>
                     <span className="text-[10px] font-mono uppercase text-[#C084FC] font-bold tracking-wider">
@@ -314,11 +314,11 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                       : 'border-[#92400E] hover:border-[#F59E0B]/60'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-[#92400E]/50 text-[#FBBF24] border border-[#F59E0B]/30">
+                  <div className="p-2 rounded-xl bg-[#92400E]/50 text-[#F29A42] border border-[#F29A42]/30">
                     <Award className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <span className="text-[10px] font-mono uppercase text-[#FBBF24] block font-bold tracking-wider">
+                    <span className="text-[10px] font-mono uppercase text-[#F29A42] block font-bold tracking-wider">
                       BRAND PROMISE
                     </span>
                     <span className="text-xs font-bold text-[#FEF3C7] max-w-[220px] truncate block">
@@ -330,8 +330,8 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
             )}
 
             {/* Discovery Supporting Vector Pills */}
-            <div className="w-full mt-6 pt-4 border-t border-[#1E293B] flex flex-wrap items-center justify-center gap-2 text-[10px] font-mono">
-              <span className="text-[#64748B]">SUPPORTING VECTORS:</span>
+            <div className="w-full mt-6 pt-4 border-t border-[#EEF4FB] flex flex-wrap items-center justify-center gap-2 text-[10px] font-mono">
+              <span className="text-[#8495AE]">SUPPORTING VECTORS:</span>
               {otherNodes.map((n) => (
                 <button
                   key={n.id}
@@ -341,8 +341,8 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   onMouseLeave={() => setHoveredNodeId(null)}
                   className={`px-2.5 py-1 rounded-lg border transition-all ${getNodeOpacity(n.id)} ${
                     selectedNodeId === n.id
-                      ? 'bg-[#38BDF8] border-[#38BDF8] text-[#0B1320] font-bold shadow-xs'
-                      : 'bg-[#111823] border-[#263244] text-[#94A3B8] hover:text-[#F1F5F9] hover:border-[#38BDF8]/40'
+                      ? 'bg-[#2684F7] border-[#2684F7] text-[#0B1320] font-bold shadow-xs'
+                      : 'bg-[#FFFFFF] border-[#E2EAF4] text-[#8495AE] hover:text-[#14213D] hover:border-[#2684F7]/30'
                   }`}
                 >
                   {n.label}
@@ -352,25 +352,25 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
           </div>
 
           {/* Flow visual connector indicator */}
-          <div className="bg-[#111823] p-3 rounded-xl border border-[#263244] overflow-x-auto scrollbar-thin text-xs font-mono text-[#94A3B8]">
+          <div className="bg-[#FFFFFF] p-3 rounded-xl border border-[#E2EAF4] overflow-x-auto scrollbar-thin text-xs font-mono text-[#8495AE]">
             <div className="flex items-center min-w-max gap-2">
-              <span className="text-[#10B981] font-bold">DNA CHAIN:</span>
-              <span className="text-[#38BDF8]">CUSTOMER</span>
-              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#19A875] font-bold">DNA CHAIN:</span>
+              <span className="text-[#2684F7]">CUSTOMER</span>
+              <span className="text-[#8495AE]">&rarr;</span>
               <span>PROBLEM</span>
-              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#8495AE]">&rarr;</span>
               <span>NEED</span>
-              <span className="text-[#64748B]">&rarr;</span>
-              <span className="text-[#60A5FA]">PURPOSE</span>
-              <span className="text-[#64748B]">&rarr;</span>
-              <span className="text-[#FBBF24]">PROMISE</span>
-              <span className="text-[#64748B]">&rarr;</span>
-              <span className="text-[#34D399]">VALUE</span>
-              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#8495AE]">&rarr;</span>
+              <span className="text-[#2684F7]">PURPOSE</span>
+              <span className="text-[#8495AE]">&rarr;</span>
+              <span className="text-[#F29A42]">PROMISE</span>
+              <span className="text-[#8495AE]">&rarr;</span>
+              <span className="text-[#19A875]">VALUE</span>
+              <span className="text-[#8495AE]">&rarr;</span>
               <span>GAP</span>
-              <span className="text-[#64748B]">&rarr;</span>
-              <span className="text-[#F1F5F9] font-bold">DIFFERENTIATOR</span>
-              <span className="text-[#64748B]">&rarr;</span>
+              <span className="text-[#8495AE]">&rarr;</span>
+              <span className="text-[#14213D] font-bold">DIFFERENTIATOR</span>
+              <span className="text-[#8495AE]">&rarr;</span>
               <span className="text-[#C084FC]">PERCEPTION</span>
             </div>
           </div>
@@ -378,15 +378,15 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
 
         {/* Selected Node Inspector Drawer (Right 4 cols) */}
         {selectedNode && (
-          <div className="lg:col-span-4 bg-[#111823] border border-[#263244] rounded-xl p-5 flex flex-col gap-4 shadow-xl">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1E293B]">
+          <div className="lg:col-span-4 bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-5 flex flex-col gap-4 shadow-xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#EEF4FB]">
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-[#1E293B] text-[#38BDF8] border border-[#334155]">
+                <div className="p-2 rounded-lg bg-[#EEF4FB] text-[#2684F7] border border-[#E2EAF4]">
                   {getNodeIcon(selectedNode.id)}
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#64748B]">Inspecting DNA Node</span>
-                  <h4 className="text-sm font-bold text-[#F1F5F9] uppercase tracking-wide">
+                  <span className="text-[10px] font-mono uppercase text-[#8495AE]">Inspecting DNA Node</span>
+                  <h4 className="text-sm font-bold text-[#14213D] uppercase tracking-wide">
                     {selectedNode.label}
                   </h4>
                 </div>
@@ -398,58 +398,58 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
 
             <div className="space-y-3 text-xs">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#6B7D90] block mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] block mb-1">
                   Active Value
                 </span>
-                <div className="p-3 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#2B3D4F] font-medium leading-relaxed">
+                <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] text-[#14213D] font-medium leading-relaxed">
                   {selectedNode.value}
                 </div>
               </div>
 
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] block mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#14213D] block mb-1">
                   What It Means
                 </span>
-                <div className="p-3 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#4A5E73] leading-relaxed">
+                <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] text-[#60738F] leading-relaxed">
                   {selectedNode.whatItMeans}
                 </div>
               </div>
 
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#4A7C59] block mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#19A875] block mb-1">
                   How It Affects the Brand
                 </span>
-                <div className="p-3 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#4A7C59]/90 leading-relaxed">
+                <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] text-[#19A875]/90 leading-relaxed">
                   {selectedNode.howItAffectsBrand}
                 </div>
               </div>
 
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#6B7D90] block mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] block mb-1">
                   Strategic Reasoning
                 </span>
-                <div className="p-3 rounded-lg bg-[#ECE6DA] border border-[#DDD5C5] text-[#4A5E73] leading-relaxed">
+                <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] text-[#60738F] leading-relaxed">
                   {selectedNode.reasoning}
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#E8E1D3]">
-                <div className="p-2.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
-                  <span className="text-[9px] font-mono uppercase text-[#6B7D90] block">Originating Stage</span>
-                  <span className="text-xs font-mono font-bold text-[#2B3D4F] mt-0.5 block">
+                <div className="p-2.5 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4]">
+                  <span className="text-[9px] font-mono uppercase text-[#60738F] block">Originating Stage</span>
+                  <span className="text-xs font-mono font-bold text-[#14213D] mt-0.5 block">
                     {selectedNode.originatingStage}
                   </span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
-                  <span className="text-[9px] font-mono uppercase text-[#6B7D90] block">Information Source</span>
-                  <span className="text-xs font-mono text-[#4A5E73] mt-0.5 block truncate" title={selectedNode.source}>
+                <div className="p-2.5 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4]">
+                  <span className="text-[9px] font-mono uppercase text-[#60738F] block">Information Source</span>
+                  <span className="text-xs font-mono text-[#60738F] mt-0.5 block truncate" title={selectedNode.source}>
                     {selectedNode.source}
                   </span>
                 </div>
               </div>
 
               <div className="pt-2 border-t border-[#E8E1D3]">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#6B7D90] block mb-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] block mb-1.5">
                   Connected to &bull; shares {selectedNode.originatingStage}
                 </span>
                 {connectedNodes.length > 0 ? (
@@ -459,14 +459,14 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                         key={n.id}
                         type="button"
                         onClick={() => setSelectedNodeId(n.id)}
-                        className="px-2.5 py-1 rounded-lg border text-[10px] font-mono bg-white border-[#DDD5C5] text-[#4A5E73] hover:text-[#2B3D4F] hover:border-[#2B3D4F]/40 transition-all"
+                        className="px-2.5 py-1 rounded-lg border text-[10px] font-mono bg-white border-[#E2EAF4] text-[#60738F] hover:text-[#14213D] hover:border-[#14213D]/40 transition-all"
                       >
                         {n.label}
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-[11px] font-mono text-[#6B7D90]">
+                  <p className="text-[11px] font-mono text-[#60738F]">
                     No other nodes share this originating stage.
                   </p>
                 )}
@@ -637,8 +637,8 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
           DNA_RELATIONSHIP_ROWS[1];
 
         return (
-          <div className="rounded-xl bg-[#FAF8F5] border border-[#DDD5C5] p-5 space-y-5">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#DDD5C5]">
+          <div className="rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#E2EAF4]">
               <div>
                 <span className="text-xs font-mono uppercase text-[#7D6536] tracking-wider font-bold">
                   Brand DNA Relationship Matrix
@@ -647,7 +647,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   Interactive relationship system mapping core brand DNA across Functional, Emotional, and Cultural dimensions.
                 </p>
               </div>
-              <span className="text-[10px] font-mono text-[#5E6857] px-2.5 py-1 rounded bg-[#EFECE4] border border-[#DDD5C5] self-start sm:self-auto">
+              <span className="text-[10px] font-mono text-[#5E6857] px-2.5 py-1 rounded bg-[#EFECE4] border border-[#E2EAF4] self-start sm:self-auto">
                 Hover attribute to trace · Click to pin reasoning
               </span>
             </div>
@@ -656,7 +656,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
               {/* Left 7 cols: Interactive Diagram */}
               <div className="lg:col-span-7 space-y-3">
                 {/* Column Headers */}
-                <div className="grid grid-cols-12 gap-2 text-[11px] font-mono font-bold text-[#5E6857] px-3 pb-1 border-b border-[#DDD5C5]/60">
+                <div className="grid grid-cols-12 gap-2 text-[11px] font-mono font-bold text-[#5E6857] px-3 pb-1 border-b border-[#E2EAF4]">
                   <div className="col-span-3 text-left">DNA ATTRIBUTE</div>
                   <div className="col-span-3 text-center">FUNCTIONAL</div>
                   <div className="col-span-3 text-center">EMOTIONAL</div>
@@ -679,7 +679,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                         className={`p-3 rounded-lg border transition-all duration-200 cursor-pointer select-none ${
                           isActive
                             ? 'bg-[#EFECE4] border-[#7D6536] shadow-sm ring-1 ring-[#7D6536]/30'
-                            : 'bg-[#F5F2EB]/80 border-[#DDD5C5] hover:border-[#BDB5A2]'
+                            : 'bg-[#F5F2EB]/80 border-[#E2EAF4] hover:border-[#BDB5A2]'
                         }`}
                       >
                         <div className="grid grid-cols-12 gap-2 items-center">
@@ -707,10 +707,10 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                                   className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
                                     isActive
                                       ? 'bg-[#2C3527] border-[#2C3527] ring-2 ring-[#2C3527]/20'
-                                      : 'bg-[#FAF8F5] border-[#55634B]'
+                                      : 'bg-[#FFFFFF] border-[#55634B]'
                                   }`}
                                 >
-                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FAF8F5]' : 'bg-[#55634B]'}`} />
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FFFFFF]' : 'bg-[#55634B]'}`} />
                                 </div>
                                 <span className="text-[9px] font-mono text-[#5E6857] mt-1 whitespace-nowrap">
                                   {row.functional.tag}
@@ -727,7 +727,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                             {row.functional.active && row.emotional.active && (
                               <div
                                 className={`absolute left-0 right-1/2 top-[8px] h-0.5 transition-colors ${
-                                  isActive ? 'bg-[#7D6536]' : 'bg-[#DDD5C5]'
+                                  isActive ? 'bg-[#7D6536]' : 'bg-[#E2EAF4]'
                                 }`}
                               />
                             )}
@@ -738,10 +738,10 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                                   className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
                                     isActive
                                       ? 'bg-[#7D6536] border-[#7D6536] ring-2 ring-[#7D6536]/20'
-                                      : 'bg-[#FAF8F5] border-[#7D6536]'
+                                      : 'bg-[#FFFFFF] border-[#7D6536]'
                                   }`}
                                 >
-                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FAF8F5]' : 'bg-[#7D6536]'}`} />
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FFFFFF]' : 'bg-[#7D6536]'}`} />
                                 </div>
                                 <span className="text-[9px] font-mono text-[#5E6857] mt-1 whitespace-nowrap">
                                   {row.emotional.tag}
@@ -758,7 +758,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                             {row.emotional.active && row.cultural.active && (
                               <div
                                 className={`absolute left-0 right-1/2 top-[8px] h-0.5 transition-colors ${
-                                  isActive ? 'bg-[#55634B]' : 'bg-[#DDD5C5]'
+                                  isActive ? 'bg-[#55634B]' : 'bg-[#E2EAF4]'
                                 }`}
                               />
                             )}
@@ -769,10 +769,10 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                                   className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
                                     isActive
                                       ? 'bg-[#55634B] border-[#55634B] ring-2 ring-[#55634B]/20'
-                                      : 'bg-[#FAF8F5] border-[#55634B]'
+                                      : 'bg-[#FFFFFF] border-[#55634B]'
                                   }`}
                                 >
-                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FAF8F5]' : 'bg-[#55634B]'}`} />
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#FFFFFF]' : 'bg-[#55634B]'}`} />
                                 </div>
                                 <span className="text-[9px] font-mono text-[#5E6857] mt-1 whitespace-nowrap">
                                   {row.cultural.tag}
@@ -790,18 +790,18 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
               </div>
 
               {/* Right 5 cols: Strategic Output HUD */}
-              <div className="lg:col-span-5 p-4 rounded-xl bg-[#EFECE4] border border-[#DDD5C5] space-y-3">
-                <div className="flex items-center justify-between border-b border-[#DDD5C5] pb-2">
+              <div className="lg:col-span-5 p-4 rounded-xl bg-[#EFECE4] border border-[#E2EAF4] space-y-3">
+                <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-2">
                   <span className="text-[11px] font-mono uppercase tracking-wider text-[#7D6536] font-bold">
                     Strategic Resonance // {activeRow.attribute}
                   </span>
-                  <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#FAF8F5] border border-[#DDD5C5] text-[#2C3527]">
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-[#2C3527]">
                     Pinned Vector
                   </span>
                 </div>
 
                 <div className="space-y-2 text-xs">
-                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#55634B] block font-bold mb-0.5">
                       Brand Promise
                     </span>
@@ -810,7 +810,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                     </p>
                   </div>
 
-                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block font-bold mb-0.5">
                       Audience Expectation
                     </span>
@@ -820,7 +820,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
-                    <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                    <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                       <span className="text-[9px] font-mono uppercase tracking-wider text-[#5E6857] block font-bold mb-0.5">
                         Positioning
                       </span>
@@ -829,7 +829,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                       </p>
                     </div>
 
-                    <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                    <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                       <span className="text-[9px] font-mono uppercase tracking-wider text-[#7D6536] block font-bold mb-0.5">
                         Tone of Voice
                       </span>
@@ -840,7 +840,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   </div>
 
                   {/* Underlying Reasoning */}
-                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#7D6536]/30">
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#7D6536]/30">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#7D6536] block font-bold mb-0.5">
                       Underlying Strategic Reasoning
                     </span>

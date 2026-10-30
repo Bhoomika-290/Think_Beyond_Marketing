@@ -86,26 +86,26 @@ export const VentureSignalBoard: React.FC = () => {
   ];
 
   return (
-    <div className="bg-[#FDFCF8] border border-[#DDD5C5] rounded-xl overflow-hidden shadow-intel-card">
-      <div className="px-4 py-2.5 bg-[#ECE6DA] border-b border-[#DDD5C5] flex items-center justify-between">
-        <span className="text-[11px] font-mono uppercase tracking-wider text-[#2B3D4F] font-semibold">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl overflow-hidden shadow-intel-card">
+      <div className="px-4 py-2.5 bg-[#EEF4FB] border-b border-[#E2EAF4] flex items-center justify-between">
+        <span className="text-[11px] font-mono uppercase tracking-wider text-[#14213D] font-semibold">
           Intelligence Snapshot
         </span>
-        <span className="text-[10px] font-mono text-[#6B7D90]">Live · session state</span>
+        <span className="text-[10px] font-mono text-[#60738F]">Live · session state</span>
       </div>
 
       <div className="p-4 space-y-2">
         {rows.map((row) => (
           <div key={row.label} className="flex items-center justify-between gap-3 text-xs">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-[#6B7D90] flex items-center gap-1.5 shrink-0">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-[#60738F] flex items-center gap-1.5 shrink-0">
               <span
                 className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: row.known ? row.accent : '#DDD5C5' }}
+                style={{ backgroundColor: row.known ? row.accent : '#E2EAF4' }}
               />
               {row.label}
             </span>
             <span
-              className={`font-medium text-right truncate ${row.known ? 'text-[#2B3D4F]' : 'text-[#6B7D90] italic'}`}
+              className={`font-medium text-right truncate ${row.known ? 'text-[#14213D]' : 'text-[#60738F] italic'}`}
               title={`${row.value} — ${row.status}`}
             >
               {row.value}
@@ -113,10 +113,10 @@ export const VentureSignalBoard: React.FC = () => {
             <span
               className={`text-[8px] font-mono px-1.5 py-0.5 rounded border shrink-0 ${
                 row.status === 'CONFIRMED'
-                  ? 'text-[#4A7C59] bg-[#4A7C59]/10 border-[#4A7C59]/30'
+                  ? 'text-[#19A875] bg-[#E8F8F1] border-[#19A875]/30'
                   : row.status === 'COUNCIL PROPOSAL'
-                    ? 'text-[#76658F] bg-[#76658F]/10 border-[#76658F]/30'
-                    : 'text-[#8A6D2B] bg-[#8A6D2B]/10 border-[#8A6D2B]/30'
+                    ? 'text-[#9272DB] bg-[#F2EDFF] border-[#9272DB]/30'
+                    : 'text-[#F29A42] bg-[#FFF3E7] border-[#F29A42]/30'
               }`}
               title={
                 row.status === 'CONFIRMED'
@@ -140,23 +140,23 @@ export const VentureSignalBoard: React.FC = () => {
                 <span
                   className={`w-2.5 h-2.5 rounded-full border ${
                     node.state === 'identified'
-                      ? 'bg-[#4A7C59] border-[#4A7C59]'
+                      ? 'bg-[#19A875] border-[#19A875]'
                       : node.state === 'partial'
-                        ? 'bg-[#F5F1EB] border-[#C4B8A0]'
-                        : 'bg-transparent border-[#DDD5C5] border-dashed'
+                        ? 'bg-[#EEF4FB] border-[#E2EAF4]'
+                        : 'bg-transparent border-[#E2EAF4] border-dashed'
                   }`}
                 />
-                <span className="text-[8px] font-mono text-[#6B7D90] whitespace-nowrap">
+                <span className="text-[8px] font-mono text-[#60738F] whitespace-nowrap">
                   {node.label}
                 </span>
               </div>
               {idx < journey.length - 1 && (
-                <span className="text-[#C4B8A0] text-[10px] shrink-0 -mt-4">→</span>
+                <span className="text-[#8495AE] text-[10px] shrink-0 -mt-4">→</span>
               )}
             </React.Fragment>
           ))}
         </div>
-        <p className="text-[10px] text-[#6B7D90] mt-1">
+        <p className="text-[10px] text-[#60738F] mt-1">
           MARKET and POSITIONING unlock in later stages — nothing fabricated here.
         </p>
       </div>

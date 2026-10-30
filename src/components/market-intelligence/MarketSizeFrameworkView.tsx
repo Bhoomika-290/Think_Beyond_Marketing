@@ -146,9 +146,9 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
   const currentLayer = layersConfig[activeLayer];
 
   return (
-    <div className="bg-[#FAF8F5] border border-[#DDD5C5] rounded-xl p-5 space-y-5">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-5 space-y-5">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#DDD5C5]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
             <Layers className="w-4 h-4 text-[#7A6438]" />
@@ -159,7 +159,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
               className={`text-xs font-mono px-2 py-0.5 rounded border ${
                 hasSavedCustom
                   ? 'bg-[#3E6F4A]/10 text-[#3E6F4A] border-[#3E6F4A]/30'
-                  : 'bg-[#EFECE4] text-[#5E6857] border-[#DDD5C5]'
+                  : 'bg-[#EFECE4] text-[#5E6857] border-[#E2EAF4]'
               }`}
             >
               {hasSavedCustom ? 'USER_PROVIDED' : 'CALCULATED_FRAMEWORK'}
@@ -173,7 +173,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
         <button
           type="button"
           onClick={handleStartEdit}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#EFECE4] text-xs font-mono text-[#2C3527] border border-[#DDD5C5] hover:bg-[#E8E4DA] hover:border-[#55634B]/40 transition-colors self-start sm:self-auto"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#EFECE4] text-xs font-mono text-[#2C3527] border border-[#E2EAF4] hover:bg-[#E8E4DA] hover:border-[#55634B]/40 transition-colors self-start sm:self-auto"
         >
           <Edit3 className="w-3.5 h-3.5 text-[#55634B]" />
           {isEditing ? 'Cancel Edit' : hasSavedCustom ? 'Update Sizing' : 'Edit Sizing Bounds'}
@@ -201,7 +201,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 placeholder="e.g. ₹4,200 Cr ($510M)"
                 value={draftTam}
                 onChange={(e) => setDraftTam(e.target.value)}
-                className="w-full bg-[#FAF8F5] border border-[#DDD5C5] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
+                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
               />
             </div>
             <div>
@@ -213,7 +213,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 placeholder="e.g. ₹480 Cr ($58M)"
                 value={draftSam}
                 onChange={(e) => setDraftSam(e.target.value)}
-                className="w-full bg-[#FAF8F5] border border-[#DDD5C5] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
+                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
               />
             </div>
             <div>
@@ -225,7 +225,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 placeholder="e.g. ₹14.5 Cr ($1.75M)"
                 value={draftSom}
                 onChange={(e) => setDraftSom(e.target.value)}
-                className="w-full bg-[#FAF8F5] border border-[#DDD5C5] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
+                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
               />
             </div>
           </div>
@@ -233,7 +233,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
           <div className="flex justify-end gap-2 pt-1">
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded bg-[#2C3527] text-[#FAF8F5] text-xs font-medium hover:bg-[#3C4736] transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded bg-[#2C3527] text-[#14213D] text-xs font-medium hover:bg-[#3C4736] transition-colors"
             >
               <Save className="w-3.5 h-3.5" />
               Save Bounds
@@ -255,7 +255,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 : 'bg-[#F5F2EB] border-[#D8D0C0] hover:border-[#BDB5A2]'
             }`}
           >
-            <div className="flex items-center justify-between pb-2 border-b border-[#DDD5C5]/80 text-xs font-mono">
+            <div className="flex items-center justify-between pb-2 border-b border-[#E2EAF4]/80 text-xs font-mono">
               <span className="font-bold text-[#7D6536] flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-sm bg-[#7D6536]" />
                 TAM · TOTAL ADDRESSABLE
@@ -289,7 +289,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 <span className="font-bold text-[#2C3527]">{effectiveSam}</span>
               </div>
 
-              <p className="text-[11px] text-[#4A5E73] my-1.5 leading-relaxed">
+              <p className="text-[11px] text-[#60738F] my-1.5 leading-relaxed">
                 {isWinterApparel
                   ? 'Operating Corridor: heritage thermal outerwear seekers visiting key hubs (Jaipur, Udaipur, Jodhpur).'
                   : `Operating Corridor: accessible segment of ${targetAudience} reachable via direct channels in ${locationStr}.`}
@@ -303,12 +303,12 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 }}
                 className={`p-3 rounded-md border transition-all duration-200 cursor-pointer mt-2 ${
                   activeLayer === 'SOM'
-                    ? 'bg-[#2C3527] border-[#2C3527] text-[#FAF8F5] shadow-md'
-                    : 'bg-[#3A4537] border-[#2C3527] text-[#FAF8F5] hover:bg-[#2C3527]'
+                    ? 'bg-[#2C3527] border-[#2C3527] text-[#14213D] shadow-md'
+                    : 'bg-[#3A4537] border-[#2C3527] text-[#14213D] hover:bg-[#2C3527]'
                 }`}
               >
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="font-bold text-[#FAF8F5] flex items-center gap-1.5">
+                  <span className="font-bold text-[#14213D] flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-sm bg-[#A3B899]" />
                     SOM · BEACHHEAD TARGET (Y1–2)
                   </span>
@@ -325,13 +325,13 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
         </div>
 
         {/* Right: Layer Inspector Detail Panel */}
-        <div className="lg:col-span-5 flex flex-col justify-between p-4 rounded-xl bg-[#EFECE4] border border-[#DDD5C5] space-y-3">
+        <div className="lg:col-span-5 flex flex-col justify-between p-4 rounded-xl bg-[#EFECE4] border border-[#E2EAF4] space-y-3">
           <div>
-            <div className="flex items-center justify-between border-b border-[#DDD5C5] pb-2">
+            <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-2">
               <span className="text-[11px] font-mono uppercase tracking-wider text-[#55634B] font-bold">
                 Tier Inspector // {currentLayer.code}
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FAF8F5] border border-[#DDD5C5] text-[#2C3527]">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-[#2C3527]">
                 {currentLayer.shareOfTAM}
               </span>
             </div>
@@ -345,14 +345,14 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
             </div>
 
             <div className="mt-3 space-y-2 text-xs">
-              <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+              <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block mb-0.5 font-bold">
                   1. Scope Definition
                 </span>
                 <p className="text-[#3A4537] text-[11px] leading-relaxed">{currentLayer.definition}</p>
               </div>
 
-              <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+              <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#55634B] block mb-0.5 font-bold">
                   2. Underlying Assumptions
                 </span>
@@ -361,14 +361,14 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
             </div>
           </div>
 
-          <div className="pt-2 border-t border-[#DDD5C5] grid grid-cols-2 gap-2 text-[10px] font-mono">
-            <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+          <div className="pt-2 border-t border-[#E2EAF4] grid grid-cols-2 gap-2 text-[10px] font-mono">
+            <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
               <span className="text-[#5E6857] block">Confidence Level</span>
               <span className="font-bold text-[#2C3527] flex items-center gap-1 mt-0.5">
                 <CheckCircle2 className="w-3 h-3 text-[#3E6F4A]" /> {currentLayer.confidence}
               </span>
             </div>
-            <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+            <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
               <span className="text-[#5E6857] block">Validation Status</span>
               <span className="font-bold text-[#2C3527] block mt-0.5">{currentLayer.status}</span>
             </div>
@@ -377,14 +377,14 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
       </div>
 
       {/* Validation Inputs Checklist */}
-      <div className="p-3.5 rounded-lg bg-[#FAF8F5] border border-[#7D6536]/30 space-y-2">
+      <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#7D6536]/30 space-y-2">
         <div className="flex items-center gap-2 text-xs font-mono text-[#7D6536] font-semibold">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>Inputs Required to Ground Defensible Mathematical Market Sizing:</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs text-[#5E6857]">
           {marketSize.validationInputsRequired.map((inputReq, idx) => (
-            <div key={idx} className="flex items-start gap-1.5 p-2 rounded bg-[#EFECE4] border border-[#DDD5C5]">
+            <div key={idx} className="flex items-start gap-1.5 p-2 rounded bg-[#EFECE4] border border-[#E2EAF4]">
               <span className="text-[#2C3527] font-mono font-bold">{idx + 1}.</span>
               <span className="text-[11px] leading-tight text-[#3A4537]">{inputReq}</span>
             </div>

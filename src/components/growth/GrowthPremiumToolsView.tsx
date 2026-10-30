@@ -159,32 +159,32 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
   const activeCarousel = carousels[0];
 
   return (
-    <div className="bg-[#0D121B] border border-[#263244] rounded-2xl p-5 shadow-xl space-y-5">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-2xl p-5 shadow-xl space-y-5">
       {/* 1. Workspace Navigation */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#1A2536]">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#E2EAF4]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 flex items-center justify-center text-[#8B5CF6]">
+          <div className="w-9 h-9 rounded-xl bg-[#F2EDFF] border border-[#9272DB]/30 flex items-center justify-center text-[#9272DB]">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-wider text-[#738095] font-bold">
+            <div className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] font-bold">
               Brand Activation &amp; Growth Studio
             </div>
-            <h3 className="text-base font-bold text-[#F3F4F6]">
+            <h3 className="text-base font-bold text-[#14213D]">
               Creative &amp; Growth Engine
             </h3>
           </div>
         </div>
 
         {/* 5 Premium Module Switchers */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-[#111823] rounded-xl border border-[#263244]">
+        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-[#FFFFFF] rounded-xl border border-[#E2EAF4]">
           <button
             type="button"
             onClick={() => setActiveTab('generate')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               activeTab === 'generate'
-                ? 'bg-[#8B5CF6] text-white shadow-md'
-                : 'text-[#AAB4C3] hover:text-white hover:bg-[#1A2536]'
+                ? 'bg-[#9272DB] text-white shadow-md'
+                : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
@@ -196,8 +196,8 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
             onClick={() => setActiveTab('meta')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               activeTab === 'meta'
-                ? 'bg-[#4D8DFF] text-[#080B10] shadow-md'
-                : 'text-[#AAB4C3] hover:text-white hover:bg-[#1A2536]'
+                ? 'bg-[#2684F7] text-[#FFFFFF] shadow-md'
+                : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
             }`}
           >
             <Share2 className="w-3.5 h-3.5" />
@@ -209,8 +209,8 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
             onClick={() => setActiveTab('seo')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               activeTab === 'seo'
-                ? 'bg-[#38BDF8] text-[#080B10] shadow-md'
-                : 'text-[#AAB4C3] hover:text-white hover:bg-[#1A2536]'
+                ? 'bg-[#2684F7] text-[#FFFFFF] shadow-md'
+                : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
             }`}
           >
             <Search className="w-3.5 h-3.5" />
@@ -222,8 +222,8 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
             onClick={() => setActiveTab('crm')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               activeTab === 'crm'
-                ? 'bg-[#F59E0B] text-[#080B10] shadow-md'
-                : 'text-[#AAB4C3] hover:text-white hover:bg-[#1A2536]'
+                ? 'bg-[#F29A42] text-[#FFFFFF] shadow-md'
+                : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
             }`}
           >
             <Mail className="w-3.5 h-3.5" />
@@ -235,8 +235,8 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
             onClick={() => setActiveTab('maintain')}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-colors ${
               activeTab === 'maintain'
-                ? 'bg-[#10B981] text-[#080B10] shadow-md'
-                : 'text-[#AAB4C3] hover:text-white hover:bg-[#1A2536]'
+                ? 'bg-[#19A875] text-[#FFFFFF] shadow-md'
+                : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
             }`}
           >
             <Wrench className="w-3.5 h-3.5" />
@@ -251,14 +251,14 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
       {activeTab === 'generate' && (
         <div className="space-y-4 animate-fadeIn">
           {/* Format Switcher */}
-          <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#111823] rounded-xl border border-[#263244]">
+          <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#FFFFFF] rounded-xl border border-[#E2EAF4]">
             <div className="flex items-center gap-1.5 text-xs font-mono">
-              <span className="text-[#738095] uppercase font-bold">Creative Format:</span>
+              <span className="text-[#60738F] uppercase font-bold">Creative Format:</span>
               <button
                 type="button"
                 onClick={() => setGenerateFormat('reel')}
                 className={`px-2.5 py-1 rounded text-xs font-bold transition-colors flex items-center gap-1 ${
-                  generateFormat === 'reel' ? 'bg-[#8B5CF6] text-white' : 'text-[#AAB4C3] hover:text-white'
+                  generateFormat === 'reel' ? 'bg-[#9272DB] text-white' : 'text-[#8495AE] hover:text-white'
                 }`}
               >
                 <Film className="w-3 h-3" /> Short Video / Reel
@@ -267,7 +267,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 type="button"
                 onClick={() => setGenerateFormat('carousel')}
                 className={`px-2.5 py-1 rounded text-xs font-bold transition-colors flex items-center gap-1 ${
-                  generateFormat === 'carousel' ? 'bg-[#8B5CF6] text-white' : 'text-[#AAB4C3] hover:text-white'
+                  generateFormat === 'carousel' ? 'bg-[#9272DB] text-white' : 'text-[#8495AE] hover:text-white'
                 }`}
               >
                 <Layers className="w-3 h-3" /> Visual Carousel
@@ -276,7 +276,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 type="button"
                 onClick={() => setGenerateFormat('banner')}
                 className={`px-2.5 py-1 rounded text-xs font-bold transition-colors flex items-center gap-1 ${
-                  generateFormat === 'banner' ? 'bg-[#8B5CF6] text-white' : 'text-[#AAB4C3] hover:text-white'
+                  generateFormat === 'banner' ? 'bg-[#9272DB] text-white' : 'text-[#8495AE] hover:text-white'
                 }`}
               >
                 <Layout className="w-3 h-3" /> Banner / Ad
@@ -285,14 +285,14 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 type="button"
                 onClick={() => setGenerateFormat('campaign')}
                 className={`px-2.5 py-1 rounded text-xs font-bold transition-colors flex items-center gap-1 ${
-                  generateFormat === 'campaign' ? 'bg-[#8B5CF6] text-white' : 'text-[#AAB4C3] hover:text-white'
+                  generateFormat === 'campaign' ? 'bg-[#9272DB] text-white' : 'text-[#8495AE] hover:text-white'
                 }`}
               >
                 <Target className="w-3 h-3" /> Campaign Concept
               </button>
             </div>
 
-            <span className="text-[10px] font-mono text-[#8B5CF6] font-bold">
+            <span className="text-[10px] font-mono text-[#9272DB] font-bold">
               Dynamic to {ventureName}
             </span>
           </div>
@@ -309,8 +309,8 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                       onClick={() => setActiveReelIdx(rIdx)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-colors ${
                         activeReelIdx === rIdx
-                          ? 'bg-[#8B5CF6] text-white shadow-md'
-                          : 'bg-[#111823] text-[#AAB4C3] hover:text-white border border-[#263244]'
+                          ? 'bg-[#9272DB] text-white shadow-md'
+                          : 'bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4]'
                       }`}
                     >
                       Reel Concept 0{rIdx + 1}: {r.title}
@@ -333,11 +333,11 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
 
           {/* Render Format 2: VISUAL CAROUSEL SLIDES */}
           {generateFormat === 'carousel' && (
-            <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#1A2536]">
+            <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#E2EAF4]">
                 <div>
                   <div className="text-xs font-bold text-white font-mono">{activeCarousel.title}</div>
-                  <div className="text-[10px] font-mono text-[#738095]">
+                  <div className="text-[10px] font-mono text-[#60738F]">
                     Theme: {activeCarousel.theme} • Target: {activeCarousel.targetPersona}
                   </div>
                 </div>
@@ -345,9 +345,9 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 <button
                   type="button"
                   onClick={() => handleCopy('carousel_copy', `CAROUSEL: ${activeCarousel.title}\n\n${activeCarousel.slides.map((s) => `[Slide ${s.slideNumber}] ${s.headline}\n${s.bodyCopy}`).join('\n\n')}`)}
-                  className="px-2.5 py-1 rounded bg-[#1A2536] text-[10px] font-mono text-[#AAB4C3] hover:text-white flex items-center gap-1"
+                  className="px-2.5 py-1 rounded bg-[#FFFFFF] text-[10px] font-mono text-[#8495AE] hover:text-white flex items-center gap-1"
                 >
-                  {copiedId === 'carousel_copy' ? <Check className="w-3 h-3 text-[#10B981]" /> : <Copy className="w-3 h-3" />}
+                  {copiedId === 'carousel_copy' ? <Check className="w-3 h-3 text-[#19A875]" /> : <Copy className="w-3 h-3" />}
                   <span>Copy Slide Deck</span>
                 </button>
               </div>
@@ -360,29 +360,29 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                     onClick={() => setActiveCarouselSlide(idx)}
                     className={`p-4 rounded-xl border flex flex-col justify-between space-y-3 cursor-pointer transition-all ${
                       activeCarouselSlide === idx
-                        ? 'bg-gradient-to-b from-[#151E2B] to-[#0D121B] border-[#8B5CF6] ring-1 ring-[#8B5CF6]/40 shadow-lg'
-                        : 'bg-[#0D121B] border-[#263244] hover:border-[#384860]'
+                        ? 'bg-gradient-to-b from-[#151E2B] to-[#FFFFFF] border-[#8B5CF6] ring-1 ring-[#8B5CF6]/40 shadow-lg'
+                        : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#384860]'
                     }`}
                   >
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between text-[9px] font-mono text-[#738095]">
-                        <span className="px-2 py-0.5 rounded bg-[#111823] text-white font-bold border border-[#263244]">
+                      <div className="flex items-center justify-between text-[9px] font-mono text-[#60738F]">
+                        <span className="px-2 py-0.5 rounded bg-[#FFFFFF] text-white font-bold border border-[#E2EAF4]">
                           {slide.badgeOrNumber}
                         </span>
-                        <span className="text-[#8B5CF6] font-bold uppercase">{ventureName}</span>
+                        <span className="text-[#9272DB] font-bold uppercase">{ventureName}</span>
                       </div>
                       <div className="text-xs font-bold text-white leading-snug">{slide.headline}</div>
-                      <p className="text-[11px] text-[#AAB4C3] leading-relaxed">{slide.bodyCopy}</p>
+                      <p className="text-[11px] text-[#8495AE] leading-relaxed">{slide.bodyCopy}</p>
                     </div>
 
                     {slide.ctaButton ? (
-                      <div className="pt-2 border-t border-[#1A2536]">
-                        <span className="px-3 py-1.5 rounded bg-[#8B5CF6] text-white text-[10px] font-mono font-bold block text-center shadow-md">
+                      <div className="pt-2 border-t border-[#E2EAF4]">
+                        <span className="px-3 py-1.5 rounded bg-[#9272DB] text-white text-[10px] font-mono font-bold block text-center shadow-md">
                           {slide.ctaButton} →
                         </span>
                       </div>
                     ) : (
-                      <div className="text-[9px] font-mono text-[#738095] italic pt-1">
+                      <div className="text-[9px] font-mono text-[#60738F] italic pt-1">
                         Swipe for next →
                       </div>
                     )}
@@ -396,21 +396,21 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
           {generateFormat === 'banner' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {initialBanners.map((ban) => (
-                <div key={ban.id} className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-3">
+                <div key={ban.id} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-white">{ban.formatName} ({ban.dimensions})</span>
-                    <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#8B5CF6]/20 text-[#A78BFA] font-bold">
+                    <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#F2EDFF] text-[#9272DB] font-bold">
                       {ban.badgeText}
                     </span>
                   </div>
 
                   {/* Rendered Banner Composition Card */}
-                  <div className="p-5 rounded-xl bg-gradient-to-br from-[#0B1017] via-[#111823] to-[#151E2B] border border-[#263244] space-y-3 text-left shadow-lg">
+                  <div className="p-5 rounded-xl bg-gradient-to-br from-[#0B1017] via-[#FFFFFF] to-[#151E2B] border border-[#E2EAF4] space-y-3 text-left shadow-lg">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-mono font-bold text-white tracking-widest uppercase">
                         {ventureName}
                       </span>
-                      <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#10B981]/15 text-[#34D399] border border-[#10B981]/30">
+                      <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30">
                         {ban.badgeText}
                       </span>
                     </div>
@@ -419,21 +419,21 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                       {ban.headline}
                     </div>
 
-                    <p className="text-xs text-[#AAB4C3] leading-relaxed">
+                    <p className="text-xs text-[#8495AE] leading-relaxed">
                       {ban.subheadline}
                     </p>
 
                     <div className="pt-2">
                       <button
                         type="button"
-                        className="px-4 py-2 rounded-lg bg-[#4D8DFF] text-[#080B10] font-mono text-xs font-bold shadow-md"
+                        className="px-4 py-2 rounded-lg bg-[#2684F7] text-[#FFFFFF] font-mono text-xs font-bold shadow-md"
                       >
                         {ban.ctaText} →
                       </button>
                     </div>
                   </div>
 
-                  <div className="text-[10px] font-mono text-[#738095]">
+                  <div className="text-[10px] font-mono text-[#60738F]">
                     Composition: {ban.visualComposition}
                   </div>
                 </div>
@@ -445,21 +445,21 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
           {generateFormat === 'campaign' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {initialCampaigns.map((camp) => (
-                <div key={camp.id} className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-2.5">
+                <div key={camp.id} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-2.5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-white">{camp.campaignTitle}</span>
-                    <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#4D8DFF]/20 text-[#60A5FA]">
+                    <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#2684F7]/20 text-[#2684F7]">
                       {camp.funnelStage}
                     </span>
                   </div>
 
-                  <div className="text-[11px] text-[#38BDF8] font-mono">Objective: {camp.objective}</div>
-                  <p className="text-[11px] text-[#AAB4C3] leading-relaxed">{camp.coreAngle}</p>
+                  <div className="text-[11px] text-[#2684F7] font-mono">Objective: {camp.objective}</div>
+                  <p className="text-[11px] text-[#8495AE] leading-relaxed">{camp.coreAngle}</p>
 
-                  <div className="p-2.5 rounded-lg bg-[#0D121B] border border-[#263244] text-[10px] font-mono text-[#738095] space-y-1">
+                  <div className="p-2.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-[10px] font-mono text-[#60738F] space-y-1">
                     <div><span className="text-white font-bold">Target: </span>{camp.targetAudience}</div>
                     <div><span className="text-white font-bold">Channel: </span>{camp.primaryChannel}</div>
-                    <div><span className="text-[#10B981] font-bold">Wedge: </span>{camp.keyDifferentiator}</div>
+                    <div><span className="text-[#19A875] font-bold">Wedge: </span>{camp.keyDifferentiator}</div>
                   </div>
                 </div>
               ))}
@@ -474,23 +474,23 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
       {activeTab === 'meta' && (
         <div className="space-y-4 animate-fadeIn">
           {/* Top Config Ribbon */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 bg-[#111823] rounded-xl border border-[#263244]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 bg-[#FFFFFF] rounded-xl border border-[#E2EAF4]">
             <div className="space-y-1">
-              <div className="text-[10px] font-mono uppercase text-[#738095] font-bold">Campaign Strategy</div>
+              <div className="text-[10px] font-mono uppercase text-[#60738F] font-bold">Campaign Strategy</div>
               <div className="text-xs font-bold text-white font-mono">{metaWorkspace.campaignName}</div>
-              <div className="text-[11px] text-[#38BDF8]">Objective: {metaWorkspace.objective}</div>
+              <div className="text-[11px] text-[#2684F7]">Objective: {metaWorkspace.objective}</div>
             </div>
 
             <div className="space-y-1">
-              <div className="text-[10px] font-mono uppercase text-[#738095] font-bold">Target Audience</div>
+              <div className="text-[10px] font-mono uppercase text-[#60738F] font-bold">Target Audience</div>
               <div className="text-xs font-semibold text-white">{metaWorkspace.targetAudienceName}</div>
-              <div className="text-[10px] font-mono text-[#738095] truncate">{metaWorkspace.demographicSummary}</div>
+              <div className="text-[10px] font-mono text-[#60738F] truncate">{metaWorkspace.demographicSummary}</div>
             </div>
 
             <div className="space-y-1">
-              <div className="text-[10px] font-mono uppercase text-[#738095] font-bold">Interest Stacks</div>
-              <div className="text-xs text-[#AAB4C3] truncate">{metaWorkspace.suggestedInterests.join(', ')}</div>
-              <div className="text-[10px] font-mono text-[#10B981]">Derived from venture niche</div>
+              <div className="text-[10px] font-mono uppercase text-[#60738F] font-bold">Interest Stacks</div>
+              <div className="text-xs text-[#8495AE] truncate">{metaWorkspace.suggestedInterests.join(', ')}</div>
+              <div className="text-[10px] font-mono text-[#19A875]">Derived from venture niche</div>
             </div>
           </div>
 
@@ -500,7 +500,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
             <div className="lg:col-span-5 space-y-3">
               <div className="text-xs font-mono font-bold text-white flex items-center justify-between">
                 <span>Ad Creative Variants ({metaWorkspace.variants.length})</span>
-                <span className="text-[10px] text-[#738095]">Select variant to preview</span>
+                <span className="text-[10px] text-[#60738F]">Select variant to preview</span>
               </div>
 
               <div className="space-y-2">
@@ -510,17 +510,17 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                     onClick={() => setActiveMetaVariantIdx(idx)}
                     className={`p-3 rounded-xl border cursor-pointer transition-all ${
                       activeMetaVariantIdx === idx
-                        ? 'bg-[#151E2B] border-[#4D8DFF] ring-1 ring-[#4D8DFF]/40 shadow-md'
-                        : 'bg-[#111823] border-[#263244] hover:border-[#384860]'
+                        ? 'bg-[#151E2B] border-[#2684F7] ring-1 ring-[#2684F7]/40 shadow-md'
+                        : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#384860]'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1.5 flex-wrap gap-1">
                       <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold ${
                         v.creativeAngleType === 'problem_led'
-                          ? 'bg-[#EF4444]/20 text-[#F87171] border border-[#EF4444]/30'
+                          ? 'bg-[#FFF0EF] text-[#F87171] border border-[#E46D68]/30'
                           : v.creativeAngleType === 'product_led'
-                          ? 'bg-[#3B82F6]/20 text-[#60A5FA] border border-[#3B82F6]/30'
-                          : 'bg-[#10B981]/20 text-[#34D399] border border-[#10B981]/30'
+                          ? 'bg-[#2684F7]/20 text-[#2684F7] border border-[#3B82F6]/30'
+                          : 'bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30'
                       }`}>
                         {v.creativeAngleType === 'problem_led'
                           ? '01 // PROBLEM-LED ANGLE'
@@ -530,14 +530,14 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                           ? '03 // OUTCOME-LED ANGLE'
                           : `VARIANT 0${idx + 1}`}
                       </span>
-                      <span className="text-[10px] font-mono text-[#738095]">{v.hookAngle}</span>
+                      <span className="text-[10px] font-mono text-[#60738F]">{v.hookAngle}</span>
                     </div>
 
                     <div className="text-xs font-bold text-white leading-snug">{v.headline}</div>
-                    <p className="text-[11px] text-[#AAB4C3] leading-relaxed line-clamp-2 pt-1">{v.primaryText}</p>
+                    <p className="text-[11px] text-[#8495AE] leading-relaxed line-clamp-2 pt-1">{v.primaryText}</p>
                     {v.reasonForAngle && (
-                      <div className="mt-1.5 text-[10px] font-mono text-[#38BDF8]/90 bg-[#0F172A] px-2 py-0.5 rounded border border-[#1E293B]">
-                        💡 <span className="text-[#94A3B8]">Angle Rationale:</span> {v.reasonForAngle}
+                      <div className="mt-1.5 text-[10px] font-mono text-[#2684F7]/90 bg-[#0F172A] px-2 py-0.5 rounded border border-[#EEF4FB]">
+                        💡 <span className="text-[#8495AE]">Angle Rationale:</span> {v.reasonForAngle}
                       </div>
                     )}
                   </div>
@@ -553,7 +553,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                     setEditedPrimaryText(activeAdVariant.primaryText);
                     setIsEditingAd(true);
                   }}
-                  className="px-3 py-1.5 rounded-lg bg-[#1A2536] hover:bg-[#263244] text-xs font-mono text-white flex items-center gap-1.5 border border-[#263244] transition-colors"
+                  className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#E2EAF4] text-xs font-mono text-white flex items-center gap-1.5 border border-[#E2EAF4] transition-colors"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
                   <span>Edit Variant Copy</span>
@@ -562,47 +562,47 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 <button
                   type="button"
                   onClick={() => handleCopy('meta_full', `HEADLINE: ${activeAdVariant.headline}\nPRIMARY TEXT: ${activeAdVariant.primaryText}\nDESCRIPTION: ${activeAdVariant.descriptionText}\nCTA: ${activeAdVariant.ctaButton}`)}
-                  className="px-3 py-1.5 rounded-lg bg-[#1A2536] hover:bg-[#263244] text-xs font-mono text-white flex items-center gap-1.5 border border-[#263244] transition-colors"
+                  className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#E2EAF4] text-xs font-mono text-white flex items-center gap-1.5 border border-[#E2EAF4] transition-colors"
                 >
-                  {copiedId === 'meta_full' ? <Check className="w-3.5 h-3.5 text-[#10B981]" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedId === 'meta_full' ? <Check className="w-3.5 h-3.5 text-[#19A875]" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>Copy Ad Spec</span>
                 </button>
               </div>
 
               {/* Inline Edit Form */}
               {isEditingAd && (
-                <div className="p-3.5 rounded-xl bg-[#111823] border border-[#4D8DFF] space-y-2.5 animate-fadeIn">
+                <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#2684F7] space-y-2.5 animate-fadeIn">
                   <div className="text-xs font-bold text-white font-mono">Edit Ad Copy</div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-mono text-[#738095]">Headline</label>
+                    <label className="text-[10px] font-mono text-[#60738F]">Headline</label>
                     <input
                       type="text"
                       value={editedHeadline}
                       onChange={(e) => setEditedHeadline(e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded bg-[#0D121B] border border-[#263244] text-xs text-white"
+                      className="w-full px-2.5 py-1.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-mono text-[#738095]">Primary Text</label>
+                    <label className="text-[10px] font-mono text-[#60738F]">Primary Text</label>
                     <textarea
                       rows={3}
                       value={editedPrimaryText}
                       onChange={(e) => setEditedPrimaryText(e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded bg-[#0D121B] border border-[#263244] text-xs text-white"
+                      className="w-full px-2.5 py-1.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white"
                     />
                   </div>
                   <div className="flex items-center gap-2 pt-1">
                     <button
                       type="button"
                       onClick={handleSaveAdEdit}
-                      className="px-3 py-1 rounded bg-[#4D8DFF] text-[#080B10] text-xs font-bold font-mono"
+                      className="px-3 py-1 rounded bg-[#2684F7] text-[#FFFFFF] text-xs font-bold font-mono"
                     >
                       Save Changes
                     </button>
                     <button
                       type="button"
                       onClick={() => setIsEditingAd(false)}
-                      className="px-3 py-1 rounded bg-[#1A2536] text-xs font-mono text-[#AAB4C3]"
+                      className="px-3 py-1 rounded bg-[#FFFFFF] text-xs font-mono text-[#8495AE]"
                     >
                       Cancel
                     </button>
@@ -613,53 +613,53 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
 
             {/* Right: Authentic Social Ad Preview */}
             <div className="lg:col-span-7 flex flex-col items-center">
-              <div className="w-full max-w-md bg-[#000000] border border-[#263244] rounded-2xl overflow-hidden shadow-2xl space-y-3 p-3">
+              <div className="w-full max-w-md bg-[#000000] border border-[#E2EAF4] rounded-2xl overflow-hidden shadow-2xl space-y-3 p-3">
                 {/* Ad Header */}
                 <div className="flex items-center justify-between px-1">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-[#4D8DFF] flex items-center justify-center font-mono text-xs font-bold text-[#080B10]">
+                    <div className="w-8 h-8 rounded-full bg-[#2684F7] flex items-center justify-center font-mono text-xs font-bold text-[#FFFFFF]">
                       {ventureName.slice(0, 2).toUpperCase()}
                     </div>
                     <div>
                       <div className="text-xs font-bold text-white">{ventureName}</div>
-                      <div className="text-[10px] text-[#738095]">Sponsored • Paid Partnership</div>
+                      <div className="text-[10px] text-[#60738F]">Sponsored • Paid Partnership</div>
                     </div>
                   </div>
-                  <div className="text-[#738095] text-xs">•••</div>
+                  <div className="text-[#60738F] text-xs">•••</div>
                 </div>
 
                 {/* Primary Text */}
-                <div className="text-xs text-[#F3F4F6] px-1 leading-relaxed">
+                <div className="text-xs text-[#14213D] px-1 leading-relaxed">
                   {activeAdVariant.primaryText}
                 </div>
 
                 {/* Media Creative Preview */}
-                <div className="relative w-full aspect-video rounded-xl bg-gradient-to-br from-[#111823] via-[#1A2536] to-[#0D121B] border border-[#263244] flex flex-col items-center justify-center p-4 text-center overflow-hidden">
-                  <div className="w-12 h-12 rounded-full bg-[#4D8DFF]/20 border border-[#4D8DFF]/40 flex items-center justify-center text-[#4D8DFF] mb-2">
+                <div className="relative w-full aspect-video rounded-xl bg-gradient-to-br from-[#FFFFFF] via-[#1A2536] to-[#FFFFFF] border border-[#E2EAF4] flex flex-col items-center justify-center p-4 text-center overflow-hidden">
+                  <div className="w-12 h-12 rounded-full bg-[#2684F7]/20 border border-[#2684F7]/30 flex items-center justify-center text-[#2684F7] mb-2">
                     <Sparkles className="w-6 h-6" />
                   </div>
                   <div className="text-xs font-bold text-white font-mono uppercase tracking-wider">{ventureName}</div>
-                  <div className="text-[10px] text-[#AAB4C3] max-w-xs mt-1">{activeAdVariant.visualAssetDescription}</div>
+                  <div className="text-[10px] text-[#8495AE] max-w-xs mt-1">{activeAdVariant.visualAssetDescription}</div>
                 </div>
 
                 {/* Ad Bottom Bar */}
-                <div className="p-3 bg-[#111823] rounded-xl flex items-center justify-between gap-3 border border-[#263244]">
+                <div className="p-3 bg-[#FFFFFF] rounded-xl flex items-center justify-between gap-3 border border-[#E2EAF4]">
                   <div className="space-y-0.5">
-                    <div className="text-[10px] font-mono text-[#738095] uppercase">VENTURE.IO/LAUNCH</div>
+                    <div className="text-[10px] font-mono text-[#60738F] uppercase">VENTURE.IO/LAUNCH</div>
                     <div className="text-xs font-bold text-white truncate max-w-[220px]">{activeAdVariant.headline}</div>
-                    <div className="text-[10px] text-[#AAB4C3] truncate">{activeAdVariant.descriptionText}</div>
+                    <div className="text-[10px] text-[#8495AE] truncate">{activeAdVariant.descriptionText}</div>
                   </div>
 
                   <button
                     type="button"
-                    className="px-3.5 py-1.5 rounded-lg bg-[#4D8DFF] text-[#080B10] font-mono text-xs font-bold shadow-md shrink-0"
+                    className="px-3.5 py-1.5 rounded-lg bg-[#2684F7] text-[#FFFFFF] font-mono text-xs font-bold shadow-md shrink-0"
                   >
                     {activeAdVariant.ctaButton}
                   </button>
                 </div>
               </div>
 
-              <div className="text-[10px] font-mono text-[#738095] pt-2 text-center">
+              <div className="text-[10px] font-mono text-[#60738F] pt-2 text-center">
                 * Creative generated from project intelligence • Connect Meta CAPI for live spend telemetry.
               </div>
             </div>
@@ -673,14 +673,14 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
       {activeTab === 'seo' && (
         <div className="space-y-4 animate-fadeIn">
           {/* Top Search Intent Themes */}
-          <div className="p-4 bg-[#111823] rounded-xl border border-[#263244] space-y-2">
+          <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E2EAF4] space-y-2">
             <div className="text-xs font-mono font-bold text-white flex items-center justify-between">
               <span>Dynamic Search Themes for {ventureName}</span>
-              <span className="text-[10px] text-[#38BDF8]">Derived from venture ICP &amp; problem</span>
+              <span className="text-[10px] text-[#2684F7]">Derived from venture ICP &amp; problem</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {seo.searchThemes.map((thm, idx) => (
-                <span key={idx} className="px-2.5 py-1 rounded-lg bg-[#0D121B] border border-[#263244] text-xs font-mono text-[#AAB4C3]">
+                <span key={idx} className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-xs font-mono text-[#8495AE]">
                   🔍 &ldquo;{thm}&rdquo;
                 </span>
               ))}
@@ -690,16 +690,16 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
           {/* Keyword Clusters with Live Google SERP Card Preview */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {seo.keywordClusters.map((cluster) => (
-              <div key={cluster.id} className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-3">
+              <div key={cluster.id} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white font-mono">{cluster.clusterTheme}</span>
-                  <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#0284C7]/20 text-[#38BDF8]">
+                  <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#0284C7]/20 text-[#2684F7]">
                     {cluster.searchIntent}
                   </span>
                 </div>
 
                 {/* Google SERP Search Snippet Preview */}
-                <div className="p-3.5 rounded-xl bg-[#0B1017] border border-[#263244] space-y-1 text-left font-sans">
+                <div className="p-3.5 rounded-xl bg-[#0B1017] border border-[#E2EAF4] space-y-1 text-left font-sans">
                   <div className="text-[11px] text-[#9AA0A6] flex items-center gap-1 font-mono">
                     <span>https://{ventureName.toLowerCase().replace(/[^a-z0-9]+/g, '')}.com</span>
                     <span>›</span>
@@ -714,20 +714,20 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 </div>
 
                 <div className="space-y-1 text-xs">
-                  <div className="text-[10px] font-mono text-[#738095]">
+                  <div className="text-[10px] font-mono text-[#60738F]">
                     Primary Search Query: <span className="text-white font-bold">&ldquo;{cluster.primaryKeyword}&rdquo;</span>
                   </div>
-                  <p className="text-[11px] text-[#AAB4C3] leading-relaxed">{cluster.contentAngle}</p>
+                  <p className="text-[11px] text-[#8495AE] leading-relaxed">{cluster.contentAngle}</p>
                 </div>
 
-                <div className="pt-2 border-t border-[#1A2536] flex items-center justify-between text-[10px] font-mono">
-                  <span className="text-[#10B981] font-bold">{cluster.contentPriority}</span>
+                <div className="pt-2 border-t border-[#E2EAF4] flex items-center justify-between text-[10px] font-mono">
+                  <span className="text-[#19A875] font-bold">{cluster.contentPriority}</span>
                   <button
                     type="button"
                     onClick={() => handleCopy(cluster.id, `TARGET SLUG: ${cluster.targetSlug}\nTITLE: ${cluster.suggestedPageTitle}\nMETA DESC: ${cluster.metaDescription}\nKEYWORD: ${cluster.primaryKeyword}\nCONTENT ANGLE: ${cluster.contentAngle}`)}
-                    className="hover:text-white flex items-center gap-1 text-[#738095]"
+                    className="hover:text-white flex items-center gap-1 text-[#60738F]"
                   >
-                    {copiedId === cluster.id ? <Check className="w-3 h-3 text-[#10B981]" /> : <Copy className="w-3 h-3 text-xs" />}
+                    {copiedId === cluster.id ? <Check className="w-3 h-3 text-[#19A875]" /> : <Copy className="w-3 h-3 text-xs" />}
                     <span>Copy SEO Blueprint</span>
                   </button>
                 </div>
@@ -736,16 +736,16 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
           </div>
 
           {/* Technical SEO Checklist */}
-          <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-2">
+          <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-2">
             <div className="text-xs font-mono font-bold text-white">Technical Search Foundations</div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {seo.technicalAudit.map((tech) => (
-                <div key={tech.id} className="p-2.5 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1">
+                <div key={tech.id} className="p-2.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-1">
                   <div className="flex items-center justify-between text-[10px] font-mono">
                     <span className="text-white font-bold">{tech.checkpoint}</span>
-                    <span className="text-[#10B981] font-bold">{tech.status.toUpperCase()}</span>
+                    <span className="text-[#19A875] font-bold">{tech.status.toUpperCase()}</span>
                   </div>
-                  <div className="text-[11px] text-[#AAB4C3] leading-snug">{tech.recommendation}</div>
+                  <div className="text-[11px] text-[#8495AE] leading-snug">{tech.recommendation}</div>
                 </div>
               ))}
             </div>
@@ -760,8 +760,8 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
         <div className="space-y-4 animate-fadeIn">
           {!isCrmConnected && crmLeads.length === 0 ? (
             /* Premium Locked / Connect CRM State */
-            <div className="p-8 sm:p-10 rounded-2xl bg-gradient-to-b from-[#111823] to-[#0D121B] border border-[#263244] text-center space-y-4 shadow-xl">
-              <div className="w-14 h-14 mx-auto rounded-2xl bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B]">
+            <div className="p-8 sm:p-10 rounded-2xl bg-gradient-to-b from-[#FFFFFF] to-[#FFFFFF] border border-[#E2EAF4] text-center space-y-4 shadow-xl">
+              <div className="w-14 h-14 mx-auto rounded-2xl bg-[#FFF3E7] border border-[#F29A42]/30 flex items-center justify-center text-[#F29A42]">
                 <Lock className="w-7 h-7" />
               </div>
 
@@ -769,7 +769,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 <h4 className="text-base font-bold text-white">
                   CRM &amp; Customer Telemetry Connection Required
                 </h4>
-                <p className="text-xs text-[#AAB4C3] leading-relaxed">
+                <p className="text-xs text-[#8495AE] leading-relaxed">
                   Connect your customer database (HubSpot, Attio, Salesforce, Stripe) or manually record active pipeline leads to unlock customer lifecycle tracking.
                 </p>
               </div>
@@ -778,7 +778,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsCrmConnected(true)}
-                  className="px-5 py-2.5 rounded-xl bg-[#F59E0B] hover:bg-[#D97706] text-[#080B10] text-xs font-mono font-bold flex items-center gap-2 transition-all shadow-lg shadow-[#F59E0B]/20"
+                  className="px-5 py-2.5 rounded-xl bg-[#F29A42] hover:bg-[#D97706] text-[#FFFFFF] text-xs font-mono font-bold flex items-center gap-2 transition-all shadow-lg shadow-[#F59E0B]/20"
                 >
                   <PlugZap className="w-4 h-4" />
                   <span>Connect CRM Integration</span>
@@ -790,7 +790,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                     setIsCrmConnected(true);
                     setIsAddLeadOpen(true);
                   }}
-                  className="px-4 py-2.5 rounded-xl bg-[#1A2536] hover:bg-[#263244] text-white text-xs font-mono flex items-center gap-1.5 border border-[#263244] transition-colors"
+                  className="px-4 py-2.5 rounded-xl bg-[#FFFFFF] hover:bg-[#E2EAF4] text-white text-xs font-mono flex items-center gap-1.5 border border-[#E2EAF4] transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                   <span>+ Add Active Lead</span>
@@ -800,10 +800,10 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
           ) : (
             /* Active CRM Pipeline Interface */
             <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-[#111823] rounded-xl border border-[#263244]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-[#FFFFFF] rounded-xl border border-[#E2EAF4]">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono font-bold text-white">Lead &amp; Customer Pipeline</span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#F59E0B]/20 text-[#FBBF24]">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#FFF3E7] text-[#F29A42]">
                     {crmLeads.length} Records
                   </span>
                 </div>
@@ -812,7 +812,7 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsAddLeadOpen(true)}
-                    className="px-3 py-1.5 rounded-lg bg-[#F59E0B] text-[#080B10] text-xs font-mono font-bold flex items-center gap-1 shadow-sm"
+                    className="px-3 py-1.5 rounded-lg bg-[#F29A42] text-[#FFFFFF] text-xs font-mono font-bold flex items-center gap-1 shadow-sm"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>+ Add Lead</span>
@@ -822,13 +822,13 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
 
               {/* Add Lead Form */}
               {isAddLeadOpen && (
-                <form onSubmit={handleAddLead} className="p-4 rounded-xl bg-[#111823] border border-[#F59E0B] space-y-3 animate-fadeIn">
+                <form onSubmit={handleAddLead} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#F59E0B] space-y-3 animate-fadeIn">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono font-bold text-white">Add New Real Lead</span>
                     <button
                       type="button"
                       onClick={() => setIsAddLeadOpen(false)}
-                      className="text-xs font-mono text-[#738095] hover:text-white"
+                      className="text-xs font-mono text-[#60738F] hover:text-white"
                     >
                       Close [×]
                     </button>
@@ -841,21 +841,21 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                       required
                       value={newLeadName}
                       onChange={(e) => setNewLeadName(e.target.value)}
-                      className="px-3 py-1.5 rounded bg-[#0D121B] border border-[#263244] text-xs text-white"
+                      className="px-3 py-1.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white"
                     />
                     <input
                       type="text"
                       placeholder="Role or Company"
                       value={newLeadRole}
                       onChange={(e) => setNewLeadRole(e.target.value)}
-                      className="px-3 py-1.5 rounded bg-[#0D121B] border border-[#263244] text-xs text-white"
+                      className="px-3 py-1.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white"
                     />
                     <input
                       type="email"
                       placeholder="Email Address"
                       value={newLeadEmail}
                       onChange={(e) => setNewLeadEmail(e.target.value)}
-                      className="px-3 py-1.5 rounded bg-[#0D121B] border border-[#263244] text-xs text-white"
+                      className="px-3 py-1.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white"
                     />
                   </div>
 
@@ -864,12 +864,12 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                     placeholder="Initial Lead Notes or Interest..."
                     value={newLeadNotes}
                     onChange={(e) => setNewLeadNotes(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded bg-[#0D121B] border border-[#263244] text-xs text-white"
+                    className="w-full px-3 py-1.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white"
                   />
 
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded bg-[#F59E0B] text-[#080B10] text-xs font-bold font-mono"
+                    className="px-4 py-2 rounded bg-[#F29A42] text-[#FFFFFF] text-xs font-bold font-mono"
                   >
                     Save Lead To Pipeline
                   </button>
@@ -877,32 +877,32 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
               )}
 
               {crmLeads.length === 0 ? (
-                <div className="p-6 text-center rounded-xl bg-[#111823] border border-[#263244] text-xs text-[#738095]">
+                <div className="p-6 text-center rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-[#60738F]">
                   CRM connection active. No incoming customer records yet. Add a lead above to start tracking.
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {crmLeads.map((lead) => (
-                    <div key={lead.id} className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-2.5 flex flex-col justify-between">
+                    <div key={lead.id} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-2.5 flex flex-col justify-between">
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
                           <div className="text-xs font-bold text-white">{lead.name}</div>
-                          <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#F59E0B]/20 text-[#FBBF24]">
+                          <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#FFF3E7] text-[#F29A42]">
                             {lead.stage.replace('_', ' ').toUpperCase()}
                           </span>
                         </div>
 
-                        <div className="text-[11px] text-[#38BDF8] font-mono">{lead.companyOrRole} • {lead.email}</div>
-                        <p className="text-[11px] text-[#AAB4C3] leading-relaxed pt-1">{lead.notes}</p>
+                        <div className="text-[11px] text-[#2684F7] font-mono">{lead.companyOrRole} • {lead.email}</div>
+                        <p className="text-[11px] text-[#8495AE] leading-relaxed pt-1">{lead.notes}</p>
                       </div>
 
-                      <div className="pt-2 border-t border-[#1A2536] flex items-center justify-between gap-2 text-[10px] font-mono">
-                        <span className="text-[#738095]">Last: {lead.lastActivity}</span>
+                      <div className="pt-2 border-t border-[#E2EAF4] flex items-center justify-between gap-2 text-[10px] font-mono">
+                        <span className="text-[#60738F]">Last: {lead.lastActivity}</span>
                         
                         <select
                           value={lead.stage}
                           onChange={(e) => handleMoveLeadStage(lead.id, e.target.value as LeadLifecycleStage)}
-                          className="px-2 py-1 rounded bg-[#0D121B] border border-[#263244] text-[10px] font-mono text-white"
+                          className="px-2 py-1 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-[10px] font-mono text-white"
                         >
                           <option value="new_lead">New Lead</option>
                           <option value="engaged">Engaged</option>
@@ -925,21 +925,21 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
       {/* ===================================================================== */}
       {activeTab === 'maintain' && (
         <div className="space-y-4 animate-fadeIn">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-[#111823] rounded-xl border border-[#263244]">
-            <div className="text-xs text-[#AAB4C3]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-[#FFFFFF] rounded-xl border border-[#E2EAF4]">
+            <div className="text-xs text-[#8495AE]">
               <span className="text-white font-bold">Brand Consistency &amp; Project Health Monitor:</span> Scans all 7 upstream stages for missing data, logic gaps, or brand drift.
             </div>
-            <span className="text-[10px] font-mono text-[#10B981] font-bold">
+            <span className="text-[10px] font-mono text-[#19A875] font-bold">
               {maintainIssues.length} Checkpoint(s)
             </span>
           </div>
 
           <div className="space-y-3">
             {maintainIssues.map((iss) => (
-              <div key={iss.id} className="p-4 rounded-xl bg-[#111823] border border-[#263244] space-y-2.5">
+              <div key={iss.id} className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-2.5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#1E293B] text-[#AAB4C3]">
+                    <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#EEF4FB] text-[#8495AE]">
                       {iss.category}
                     </span>
                     <span className="text-xs font-bold text-white">{iss.touchpoint}</span>
@@ -951,11 +951,11 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                     className="transition-colors"
                   >
                     {iss.status === 'resolved' ? (
-                      <span className="text-[10px] font-mono text-[#10B981] font-bold flex items-center gap-1 hover:underline">
+                      <span className="text-[10px] font-mono text-[#19A875] font-bold flex items-center gap-1 hover:underline">
                         <CheckCircle2 className="w-3 h-3" /> VERIFIED ALIGNED
                       </span>
                     ) : (
-                      <span className="text-[10px] font-mono text-[#F59E0B] font-bold flex items-center gap-1 hover:underline">
+                      <span className="text-[10px] font-mono text-[#F29A42] font-bold flex items-center gap-1 hover:underline">
                         <AlertCircle className="w-3 h-3" /> ATTENTION REQUIRED
                       </span>
                     )}
@@ -963,26 +963,26 @@ export const GrowthPremiumToolsView: React.FC<GrowthPremiumToolsViewProps> = ({
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs pt-1">
-                  <div className="p-2.5 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1">
-                    <div className="text-[9px] font-mono text-[#738095] uppercase font-bold">What is Missing / Drifted</div>
-                    <div className="text-[#F3F4F6]">{iss.whatChangedOrWrong}</div>
+                  <div className="p-2.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-1">
+                    <div className="text-[9px] font-mono text-[#60738F] uppercase font-bold">What is Missing / Drifted</div>
+                    <div className="text-[#14213D]">{iss.whatChangedOrWrong}</div>
                   </div>
 
-                  <div className="p-2.5 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1">
-                    <div className="text-[9px] font-mono text-[#738095] uppercase font-bold">Why It Matters</div>
-                    <div className="text-[#AAB4C3]">{iss.whyItMatters}</div>
+                  <div className="p-2.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-1">
+                    <div className="text-[9px] font-mono text-[#60738F] uppercase font-bold">Why It Matters</div>
+                    <div className="text-[#8495AE]">{iss.whyItMatters}</div>
                   </div>
 
-                  <div className="p-2.5 rounded-lg bg-[#0D121B] border border-[#263244] space-y-1 flex flex-col justify-between">
+                  <div className="p-2.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-1 flex flex-col justify-between">
                     <div>
-                      <div className="text-[9px] font-mono text-[#738095] uppercase font-bold">Action To Take</div>
-                      <div className="text-[#38BDF8]">{iss.actionToTake}</div>
+                      <div className="text-[9px] font-mono text-[#60738F] uppercase font-bold">Action To Take</div>
+                      <div className="text-[#2684F7]">{iss.actionToTake}</div>
                     </div>
 
                     {iss.actionPath && (
                       <Link
                         to={iss.actionPath}
-                        className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#10B981] hover:underline pt-1"
+                        className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#19A875] hover:underline pt-1"
                       >
                         <span>Fix in Stage →</span>
                       </Link>

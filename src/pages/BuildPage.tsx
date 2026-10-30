@@ -148,12 +148,12 @@ export const BuildPage: React.FC = () => {
 
       {/* Discovery Warning / Sample Loader if project is empty */}
       {!hasDiscovery && (
-        <div className="rounded-2xl bg-amber-500/10 border border-amber-500/30 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="rounded-2xl bg-[#FFF3E7] border border-[#F29A42]/30 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-sm font-bold text-amber-300">
+            <h3 className="text-sm font-bold text-[#F29A42]">
               Limited Upstream Venture Discovery
             </h3>
-            <p className="text-xs text-amber-200/80 mt-1 max-w-xl">
+            <p className="text-xs text-[#60738F] mt-1 max-w-xl">
               Stage 05 transforms upstream discovery into a concrete Brand Identity System (05A) and Engineering Architecture (05B). Load a sample venture to inspect the full system.
             </p>
           </div>
@@ -161,21 +161,21 @@ export const BuildPage: React.FC = () => {
             <button
               type="button"
               onClick={() => loadSampleVenture('skincare_d2c')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-amber-300 border border-amber-500/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               🌿 Skincare D2C
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('restaurant_ai')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-amber-300 border border-amber-500/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               ⚡ Restaurant AI
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('tutoring_marketplace')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-amber-300 border border-amber-500/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               🎓 Tutoring Mkt
             </button>
@@ -189,19 +189,19 @@ export const BuildPage: React.FC = () => {
       {activeBuildArea === 'brand' && (
         <div id="brand-system" className="space-y-8 animate-fadeIn scroll-mt-28">
           {/* Section banner */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-[#0E1520] border border-blue-500/30">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-[#FFFFFF] border border-[#2684F7]/30">
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
               <div>
-                <span className="text-xs font-mono font-bold text-blue-400 uppercase">
+                <span className="text-xs font-mono font-bold text-[#2684F7] uppercase">
                   BUILD AREA 05A: BRAND SYSTEM
                 </span>
-                <h2 className="text-sm font-bold text-[#F3F4F6]">
+                <h2 className="text-sm font-bold text-[#14213D]">
                   Active Visual Identity Creation &amp; System Generation
                 </h2>
               </div>
             </div>
-            <span className="text-xs font-mono text-[#738095] hidden sm:inline-block">
+            <span className="text-xs font-mono text-[#60738F] hidden sm:inline-block">
               Dynamic Vector Mark • WCAG AA Palette • Typographic Hierarchy
             </span>
           </div>
@@ -304,42 +304,42 @@ export const BuildPage: React.FC = () => {
       {activeBuildArea === 'product' && (
         <div id="product-build" className="space-y-8 animate-fadeIn scroll-mt-28">
           {/* Section banner */}
-          <div className="flex items-center justify-between p-4 rounded-xl bg-[#0E1520] border border-blue-500/30">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-[#FFFFFF] border border-[#2684F7]/30">
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse" />
               <div>
                 <span className="text-xs font-mono font-bold text-cyan-400 uppercase">
                   BUILD AREA 05B: PRODUCT BUILD
                 </span>
-                <h2 className="text-sm font-bold text-[#F3F4F6]">
+                <h2 className="text-sm font-bold text-[#14213D]">
                   Engineering Specification, System Architecture &amp; Execution Readiness
                 </h2>
               </div>
             </div>
-            <span className="text-xs font-mono text-[#738095] hidden sm:inline-block">
+            <span className="text-xs font-mono text-[#60738F] hidden sm:inline-block">
               Software / Hardware / Hybrid Modular Spec
             </span>
           </div>
 
           {/* Compact Readiness Summary Bar (Replaces duplicated 9-card section) */}
-          <div className="rounded-xl bg-[#080B10] border border-[#263244] p-3 text-xs">
+          <div className="rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] p-3 text-xs">
             <button
               type="button"
               onClick={() => setShowReadinessOverview((prev) => !prev)}
               className="w-full flex items-center justify-between text-left group transition-colors"
             >
               <div className="flex items-center gap-2">
-                <Activity className="w-3.5 h-3.5 text-blue-400" />
-                <span className="font-mono text-xs text-[#CBD5E1]">
+                <Activity className="w-3.5 h-3.5 text-[#2684F7]" />
+                <span className="font-mono text-xs text-[#14213D]">
                   Readiness Score: <strong className="text-white font-mono">{buildReport.readinessOverview.overallScore}%</strong> • Status: <strong className="text-cyan-400 font-mono">{buildReport.readinessOverview.buildStatus}</strong>
                 </span>
               </div>
-              <span className="text-xs font-mono text-blue-400 group-hover:text-blue-300 flex items-center gap-1">
+              <span className="text-xs font-mono text-[#2684F7] group-hover:text-blue-300 flex items-center gap-1">
                 {showReadinessOverview ? 'Hide Readiness Breakdown ▲' : 'Inspect 9 Readiness Metrics ▼'}
               </span>
             </button>
             {showReadinessOverview && (
-              <div className="mt-3 pt-3 border-t border-[#1C2635] animate-fadeIn">
+              <div className="mt-3 pt-3 border-t border-[#E2EAF4] animate-fadeIn">
                 <BuildReadinessOverview overview={buildReport.readinessOverview} />
               </div>
             )}
@@ -383,15 +383,15 @@ export const BuildPage: React.FC = () => {
           )}
 
           {/* SECONDARY SECTION 04: Build Roadmap & Tasks (Collapsed by default) */}
-          <div id="section-roadmap" className="rounded-2xl bg-[#0D141F] border border-[#263244] p-5 shadow-lg space-y-4 scroll-mt-28">
-            <div className="flex items-center justify-between border-b border-[#1C2635] pb-3">
+          <div id="section-roadmap" className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 shadow-lg space-y-4 scroll-mt-28">
+            <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-3">
               <div className="flex items-center gap-2.5">
-                <ListTodo className="w-4 h-4 text-blue-400" />
+                <ListTodo className="w-4 h-4 text-[#2684F7]" />
                 <div>
-                  <h3 className="text-sm font-bold text-[#F3F4F6]">
+                  <h3 className="text-sm font-bold text-[#14213D]">
                     Build Roadmap &amp; Implementation Tasks
                   </h3>
-                  <span className="text-[11px] font-mono text-[#738095]">
+                  <span className="text-[11px] font-mono text-[#60738F]">
                     {buildReport.roadmap.totalTasksCount} tasks across {buildReport.roadmap.phases.length} phases • Critical Path Mapped
                   </span>
                 </div>
@@ -399,7 +399,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowRoadmapSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-xs font-mono text-blue-400 hover:text-blue-300 border border-[#263244] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-[#2684F7] hover:text-blue-300 border border-[#E2EAF4] transition-colors"
               >
                 {showRoadmapSection || activeSection === 'roadmap' ? 'Collapse Details ▲' : '+ Expand Roadmap Details ▼'}
               </button>
@@ -417,15 +417,15 @@ export const BuildPage: React.FC = () => {
           </div>
 
           {/* SECONDARY SECTION 05: Risk Matrix & Decision Governance (Collapsed by default) */}
-          <div className="rounded-2xl bg-[#0D141F] border border-[#263244] p-5 shadow-lg space-y-4">
-            <div className="flex items-center justify-between border-b border-[#1C2635] pb-3">
+          <div className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 shadow-lg space-y-4">
+            <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-3">
               <div className="flex items-center gap-2.5">
                 <ShieldAlert className="w-4 h-4 text-amber-400" />
                 <div>
-                  <h3 className="text-sm font-bold text-[#F3F4F6]">
+                  <h3 className="text-sm font-bold text-[#14213D]">
                     Build Risk Governance &amp; Decision Board
                   </h3>
-                  <span className="text-[11px] font-mono text-[#738095]">
+                  <span className="text-[11px] font-mono text-[#60738F]">
                     {buildReport.riskMatrix.risks.length} evaluated risks • {buildReport.decisionBoard.decisions.length} architectural decisions
                   </span>
                 </div>
@@ -433,7 +433,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowRiskSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-xs font-mono text-amber-400 hover:text-amber-300 border border-[#263244] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-amber-400 hover:text-[#F29A42] border border-[#E2EAF4] transition-colors"
               >
                 {showRiskSection ? 'Collapse Governance ▲' : '+ Expand Risk & Decisions ▼'}
               </button>
@@ -452,15 +452,15 @@ export const BuildPage: React.FC = () => {
           </div>
 
           {/* SECONDARY SECTION 06: Brand to Product Consistency (Collapsed by default) */}
-          <div className="rounded-2xl bg-[#0D141F] border border-[#263244] p-5 shadow-lg space-y-4">
-            <div className="flex items-center justify-between border-b border-[#1C2635] pb-3">
+          <div className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 shadow-lg space-y-4">
+            <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-3">
               <div className="flex items-center gap-2.5">
                 <Layers className="w-4 h-4 text-purple-400" />
                 <div>
-                  <h3 className="text-sm font-bold text-[#F3F4F6]">
+                  <h3 className="text-sm font-bold text-[#14213D]">
                     Brand &rarr; Product Token Translation
                   </h3>
-                  <span className="text-[11px] font-mono text-[#738095]">
+                  <span className="text-[11px] font-mono text-[#60738F]">
                     {buildReport.brandConsistency.tokens.length} token rules ensuring visual identity and voice consistency
                   </span>
                 </div>
@@ -468,7 +468,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowConsistencySection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-xs font-mono text-purple-400 hover:text-purple-300 border border-[#263244] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-purple-400 hover:text-purple-300 border border-[#E2EAF4] transition-colors"
               >
                 {showConsistencySection ? 'Collapse Tokens ▲' : '+ Expand Token Translation ▼'}
               </button>
@@ -481,15 +481,15 @@ export const BuildPage: React.FC = () => {
           </div>
 
           {/* SECONDARY SECTION 07: Specialist Advisory & Council Synthesis (Collapsed by default) */}
-          <div id="section-council" className="rounded-2xl bg-[#0D141F] border border-[#263244] p-5 shadow-lg space-y-4 scroll-mt-28">
-            <div className="flex items-center justify-between border-b border-[#1C2635] pb-3">
+          <div id="section-council" className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 shadow-lg space-y-4 scroll-mt-28">
+            <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-3">
               <div className="flex items-center gap-2.5">
                 <MessageSquare className="w-4 h-4 text-cyan-400" />
                 <div>
-                  <h3 className="text-sm font-bold text-[#F3F4F6]">
+                  <h3 className="text-sm font-bold text-[#14213D]">
                     Specialist Advisory &amp; AI Council Synthesis
                   </h3>
-                  <span className="text-[11px] font-mono text-[#738095]">
+                  <span className="text-[11px] font-mono text-[#60738F]">
                     Multi-agent architectural perspectives and build specialist chatbot
                   </span>
                 </div>
@@ -497,7 +497,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowCouncilSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-xs font-mono text-cyan-400 hover:text-cyan-300 border border-[#263244] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-cyan-400 hover:text-cyan-300 border border-[#E2EAF4] transition-colors"
               >
                 {showCouncilSection || activeSection === 'council' ? 'Collapse Advisory ▲' : '+ Expand Council & Specialist ▼'}
               </button>
@@ -515,15 +515,15 @@ export const BuildPage: React.FC = () => {
           </div>
 
           {/* SECONDARY SECTION 08: Stage 06 Execution Handoff (Collapsed by default) */}
-          <div id="section-handoff" className="rounded-2xl bg-[#0D141F] border border-[#263244] p-5 shadow-lg space-y-4 scroll-mt-28">
-            <div className="flex items-center justify-between border-b border-[#1C2635] pb-3">
+          <div id="section-handoff" className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 shadow-lg space-y-4 scroll-mt-28">
+            <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-3">
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-[#19A875]" />
                 <div>
-                  <h3 className="text-sm font-bold text-[#F3F4F6]">
+                  <h3 className="text-sm font-bold text-[#14213D]">
                     Stage 06 Execution Readiness Handoff
                   </h3>
-                  <span className="text-[11px] font-mono text-[#738095]">
+                  <span className="text-[11px] font-mono text-[#60738F]">
                     {buildReport.handoff.readinessScore}% operational criteria met • {buildReport.handoff.isReady ? 'Ready for Stage 06' : 'Prerequisites Pending'}
                   </span>
                 </div>
@@ -531,7 +531,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowHandoffSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#111823] hover:bg-[#151E2B] text-xs font-mono text-emerald-400 hover:text-emerald-300 border border-[#263244] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-[#19A875] hover:text-emerald-300 border border-[#E2EAF4] transition-colors"
               >
                 {showHandoffSection || activeSection === 'handoff' ? 'Collapse Handoff ▲' : '+ Expand Handoff Dossier ▼'}
               </button>

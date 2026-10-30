@@ -50,20 +50,20 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
   };
 
   return (
-    <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-5 shadow-xs space-y-5">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-5 shadow-xs space-y-5">
       {/* Header & Progress */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#1E40AF]"></span>
-            <h2 className="text-base font-bold text-[#1E293B] tracking-tight">
+            <h2 className="text-base font-bold text-[#14213D] tracking-tight">
               60-Day Tactical Execution Roadmap
             </h2>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EFF6FF] text-[#1E40AF] border border-[#BFDBFE]">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#EFF6FF] text-[#2684F7] border border-[#BFDBFE]">
               {completedCount} / {totalCount} Completed
             </span>
           </div>
-          <p className="text-xs text-[#64748B] mt-1">
+          <p className="text-xs text-[#8495AE] mt-1">
             Grounded operational milestones required to bring this venture from drawing board to first customer delivery.
           </p>
         </div>
@@ -73,7 +73,7 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
           <button
             type="button"
             onClick={() => setIsAdding(!isAdding)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#1E40AF] hover:bg-[#1D4ED8] text-white transition-colors shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#1E40AF] hover:bg-[#1769D2] text-white transition-colors shadow-xs"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Action Item</span>
@@ -82,12 +82,12 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-lg p-3">
+      <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-lg p-3">
         <div className="flex items-center justify-between text-xs mb-1.5">
-          <span className="font-mono text-[11px] text-[#475569] font-medium">
+          <span className="font-mono text-[11px] text-[#60738F] font-medium">
             Execution Readiness Progress
           </span>
-          <span className="font-mono font-bold text-[#1E40AF]">{progressPct}%</span>
+          <span className="font-mono font-bold text-[#2684F7]">{progressPct}%</span>
         </div>
         <div className="w-full h-2 rounded-full bg-[#E5DFD5] overflow-hidden">
           <div
@@ -101,12 +101,12 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
       {isAdding && (
         <form
           onSubmit={handleCreateTask}
-          className="p-4 rounded-xl bg-[#FAF8F5] border border-[#BFDBFE] space-y-3 animate-fade-in text-xs"
+          className="p-4 rounded-xl bg-[#FFFFFF] border border-[#BFDBFE] space-y-3 animate-fade-in text-xs"
         >
-          <div className="font-bold text-[#1E293B]">Add Custom Founder Action</div>
+          <div className="font-bold text-[#14213D]">Add Custom Founder Action</div>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-[10px] font-mono uppercase text-[#64748B] mb-1">
+              <label className="block text-[10px] font-mono uppercase text-[#8495AE] mb-1">
                 Action Title
               </label>
               <input
@@ -114,17 +114,17 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
                 placeholder="e.g. Schedule factory visit in Sitapura Industrial Area"
-                className="w-full px-3 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#E5DFD5] text-[#1E293B] focus:outline-hidden focus:border-[#1E40AF]"
+                className="w-full px-3 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D] focus:outline-hidden focus:border-[#1E40AF]"
               />
             </div>
             <div>
-              <label className="block text-[10px] font-mono uppercase text-[#64748B] mb-1">
+              <label className="block text-[10px] font-mono uppercase text-[#8495AE] mb-1">
                 Category
               </label>
               <select
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#E5DFD5] text-[#1E293B] focus:outline-hidden focus:border-[#1E40AF]"
+                className="w-full px-2.5 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D] focus:outline-hidden focus:border-[#1E40AF]"
               >
                 <option value="Procurement">Procurement</option>
                 <option value="Manufacturing">Manufacturing</option>
@@ -136,7 +136,7 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-[10px] font-mono uppercase text-[#64748B] mb-1">
+              <label className="block text-[10px] font-mono uppercase text-[#8495AE] mb-1">
                 Target Due Date
               </label>
               <input
@@ -144,7 +144,7 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
                 value={newDueDate}
                 onChange={(e) => setNewDueDate(e.target.value)}
                 placeholder="e.g. Day 10"
-                className="w-full px-3 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#E5DFD5] text-[#1E293B] focus:outline-hidden focus:border-[#1E40AF]"
+                className="w-full px-3 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D] focus:outline-hidden focus:border-[#1E40AF]"
               />
             </div>
           </div>
@@ -154,14 +154,14 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
             <button
               type="button"
               onClick={() => setIsAdding(false)}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium text-[#64748B] hover:text-[#1E293B] hover:bg-[#EAE4D9] transition-colors"
+              className="px-3 py-1.5 rounded-lg text-xs font-medium text-[#8495AE] hover:text-[#14213D] hover:bg-[#EAE4D9] transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!newTitle.trim()}
-              className="px-3 py-1.5 rounded-lg bg-[#1E40AF] text-white text-xs font-medium hover:bg-[#1D4ED8] disabled:opacity-40 transition-colors shadow-xs"
+              className="px-3 py-1.5 rounded-lg bg-[#1E40AF] text-white text-xs font-medium hover:bg-[#1769D2] disabled:opacity-40 transition-colors shadow-xs"
             >
               Save Milestone
             </button>
@@ -183,12 +183,12 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
           };
 
           return (
-            <div key={phaseNum} className="border border-[#E5DFD5] rounded-xl overflow-hidden bg-[#FAF8F5]">
-              <div className="px-4 py-2.5 bg-[#F4EFE6] border-b border-[#E8E2D8] flex items-center justify-between">
-                <span className="text-xs font-bold font-mono text-[#334155] uppercase tracking-wide">
+            <div key={phaseNum} className="border border-[#E2EAF4] rounded-xl overflow-hidden bg-[#FFFFFF]">
+              <div className="px-4 py-2.5 bg-[#EEF4FB] border-b border-[#E2EAF4] flex items-center justify-between">
+                <span className="text-xs font-bold font-mono text-[#14213D] uppercase tracking-wide">
                   {phaseLabels[phaseNum] || `Phase ${phaseNum}`}
                 </span>
-                <span className="text-[10px] font-mono text-[#64748B]">
+                <span className="text-[10px] font-mono text-[#8495AE]">
                   {phaseTasks.filter((t) => t.isCompleted).length} / {phaseTasks.length} done
                 </span>
               </div>
@@ -198,17 +198,17 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
                   <div
                     key={task.id}
                     onClick={() => onToggleTask(task.id)}
-                    className="p-3 flex items-start gap-3 hover:bg-[#FAF8F5] cursor-pointer transition-colors group"
+                    className="p-3 flex items-start gap-3 hover:bg-[#FFFFFF] cursor-pointer transition-colors group"
                   >
                     <button
                       type="button"
-                      className="mt-0.5 text-[#1E40AF] shrink-0"
+                      className="mt-0.5 text-[#2684F7] shrink-0"
                       aria-label={task.isCompleted ? 'Mark task as incomplete' : 'Mark task as complete'}
                     >
                       {task.isCompleted ? (
-                        <CheckSquare className="w-4 h-4 text-[#065F46]" />
+                        <CheckSquare className="w-4 h-4 text-[#19A875]" />
                       ) : (
-                        <Square className="w-4 h-4 text-[#94A3B8] group-hover:text-[#1E40AF]" />
+                        <Square className="w-4 h-4 text-[#8495AE] group-hover:text-[#2684F7]" />
                       )}
                     </button>
 
@@ -217,14 +217,14 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
                         <span
                           className={`text-xs font-semibold ${
                             task.isCompleted
-                              ? 'line-through text-[#94A3B8]'
-                              : 'text-[#1E293B]'
+                              ? 'line-through text-[#8495AE]'
+                              : 'text-[#14213D]'
                           }`}
                         >
                           {task.title}
                         </span>
                         {task.isCustom && (
-                          <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#EFF6FF] text-[#1E40AF] border border-[#BFDBFE]">
+                          <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#EFF6FF] text-[#2684F7] border border-[#BFDBFE]">
                             CUSTOM
                           </span>
                         )}
@@ -232,19 +232,19 @@ export const ExecutionChecklist: React.FC<ExecutionChecklistProps> = ({
 
                       <p
                         className={`text-[11px] mt-0.5 leading-snug ${
-                          task.isCompleted ? 'line-through text-[#94A3B8]' : 'text-[#64748B]'
+                          task.isCompleted ? 'line-through text-[#8495AE]' : 'text-[#8495AE]'
                         }`}
                       >
                         {task.description}
                       </p>
 
-                      <div className="mt-1.5 flex items-center gap-2 text-[10px] font-mono text-[#64748B]">
+                      <div className="mt-1.5 flex items-center gap-2 text-[10px] font-mono text-[#8495AE]">
                         <span className="flex items-center gap-1">
-                          <Tag className="w-3 h-3 text-[#94A3B8]" />
+                          <Tag className="w-3 h-3 text-[#8495AE]" />
                           {task.assignedCategory}
                         </span>
                         <span>•</span>
-                        <span className="flex items-center gap-1 text-[#1E40AF] font-medium">
+                        <span className="flex items-center gap-1 text-[#2684F7] font-medium">
                           <Clock className="w-3 h-3" />
                           {task.dueDateLabel}
                         </span>

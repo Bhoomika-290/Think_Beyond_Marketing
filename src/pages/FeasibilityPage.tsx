@@ -35,14 +35,14 @@ export const FeasibilityPage: React.FC = () => {
 
       {/* Advisory Notice if user came before filling Idea Lab */}
       {!hasMinimumDiscovery && (
-        <div className="p-4 rounded-lg bg-[#FDFCF8] border border-[#8A6D2B]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="p-4 rounded-lg bg-[#FFFFFF] border border-[#F29A42]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-[#8A6D2B] shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-[#F29A42] shrink-0 mt-0.5" />
             <div>
-              <div className="text-xs font-semibold text-[#2B3D4F]">
+              <div className="text-xs font-semibold text-[#14213D]">
                 Preliminary Discovery Notice
               </div>
-              <p className="text-xs text-[#4A5E73] mt-0.5 leading-relaxed">
+              <p className="text-xs text-[#60738F] mt-0.5 leading-relaxed">
                 Stage 01 Idea Lab has minimal input. The engine is running on initial defaults. To see full personalized analysis, complete Stage 01 or load a pre-configured seed case.
               </p>
             </div>
@@ -52,27 +52,27 @@ export const FeasibilityPage: React.FC = () => {
             <button
               type="button"
               onClick={() => loadSampleVenture('skincare_d2c')}
-              className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#EEF4FB] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
             >
               🌿 Skincare D2C
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('restaurant_ai')}
-              className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#EEF4FB] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
             >
               ⚡ Restaurant AI
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('tutoring_marketplace')}
-              className="text-xs font-mono px-3 py-1.5 rounded bg-[#ECE6DA] text-[#4A5E73] hover:text-[#2B3D4F] border border-[#DDD5C5] transition-colors"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#EEF4FB] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
             >
               🎓 Tutoring Mkt
             </button>
             <Link
               to="/idea-lab"
-              className="text-xs font-mono px-3 py-1.5 rounded bg-[#2B3D4F] text-white hover:bg-[#3E5770] transition-colors inline-flex items-center gap-1"
+              className="text-xs font-mono px-3 py-1.5 rounded bg-[#14213D] text-white hover:bg-[#1769D2] transition-colors inline-flex items-center gap-1"
             >
               Complete Idea Lab <ArrowRight className="w-3 h-3" />
             </Link>

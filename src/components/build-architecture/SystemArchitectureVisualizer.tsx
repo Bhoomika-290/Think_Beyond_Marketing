@@ -18,7 +18,7 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
   const getTierIcon = (name: string) => {
     const lower = name.toLowerCase();
     if (lower.includes('presentation') || lower.includes('client') || lower.includes('frontend')) {
-      return <Globe className="w-4 h-4 text-blue-400" />;
+      return <Globe className="w-4 h-4 text-[#2684F7]" />;
     }
     if (lower.includes('api') || lower.includes('gateway') || lower.includes('ingestion')) {
       return <Zap className="w-4 h-4 text-amber-400" />;
@@ -27,7 +27,7 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
       return <Cpu className="w-4 h-4 text-purple-400" />;
     }
     if (lower.includes('data') || lower.includes('storage') || lower.includes('persistence')) {
-      return <Database className="w-4 h-4 text-emerald-400" />;
+      return <Database className="w-4 h-4 text-[#19A875]" />;
     }
     return <Server className="w-4 h-4 text-cyan-400" />;
   };
@@ -37,42 +37,42 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
       case 'High':
         return 'bg-rose-500/10 text-rose-400 border-rose-500/30';
       case 'Medium':
-        return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+        return 'bg-[#FFF3E7] text-amber-400 border-[#F29A42]/30';
       case 'Low':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+        return 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/30';
     }
   };
 
   return (
-    <div id="section-architecture" className="rounded-2xl bg-[#0D141F] border border-[#263244] p-6 shadow-xl space-y-6">
+    <div id="section-architecture" className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-xl space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2635] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2EAF4] pb-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <h2 className="text-base sm:text-lg font-bold text-[#F3F4F6]">
+            <h2 className="text-base sm:text-lg font-bold text-[#14213D]">
               Section 05 — System Architecture Visualizer (Multi-Tier Topology)
             </h2>
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/30">
+            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               {pattern}
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">{description}</p>
+          <p className="text-xs text-[#8495AE] mt-1">{description}</p>
         </div>
 
-        <span className="text-xs font-mono text-[#738095] bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244]">
+        <span className="text-xs font-mono text-[#60738F] bg-[#FFFFFF] px-3 py-1.5 rounded-lg border border-[#E2EAF4]">
           {layers.length} Tiers • {layers.reduce((acc, l) => acc + l.components.length, 0)} Verified Components
         </span>
       </div>
 
       {/* Rationale Pill */}
-      <div className="p-4 rounded-xl bg-[#111823] border border-[#263244] flex items-start gap-3">
-        <Server className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+      <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex items-start gap-3">
+        <Server className="w-4 h-4 text-[#2684F7] mt-0.5 flex-shrink-0" />
         <div className="text-xs">
-          <span className="font-mono font-bold text-[#F3F4F6] block mb-1">
+          <span className="font-mono font-bold text-[#14213D] block mb-1">
             Primary Architectural Rationale:
           </span>
-          <p className="text-[#AAB4C3] leading-relaxed">{primaryRationale}</p>
+          <p className="text-[#8495AE] leading-relaxed">{primaryRationale}</p>
         </div>
       </div>
 
@@ -81,13 +81,13 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
         {/* Left: Connected Tier Flow (8 cols) */}
         <div className="lg:col-span-8 space-y-3">
           {/* User Entry Node */}
-          <div className="p-3.5 rounded-xl bg-[#111823] border border-blue-500/30 flex items-center justify-between shadow-sm">
+          <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#2684F7]/30 flex items-center justify-between shadow-sm">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center">
-                <Globe className="w-4 h-4 text-blue-400" />
+              <div className="w-8 h-8 rounded-lg bg-[#E8F2FF] border border-[#2684F7]/30 flex items-center justify-center">
+                <Globe className="w-4 h-4 text-[#2684F7]" />
               </div>
               <div>
-                <span className="text-[10px] font-mono uppercase text-[#738095] block">
+                <span className="text-[10px] font-mono uppercase text-[#60738F] block">
                   ORIGIN GATEWAY
                 </span>
                 <span className="text-xs font-bold text-white">
@@ -95,7 +95,7 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
                 </span>
               </div>
             </div>
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+            <span className="text-[10px] font-mono text-[#19A875] bg-[#E8F8F1] px-2 py-0.5 rounded border border-emerald-500/20">
               HTTPS / TLS 1.3
             </span>
           </div>
@@ -113,26 +113,26 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
                 <div
                   className={`p-4 rounded-2xl border transition-all ${
                     isTierActive
-                      ? 'bg-[#111823] border-blue-500 shadow-md ring-1 ring-blue-500/30'
-                      : 'bg-[#0D141F] border-[#263244] hover:border-slate-600'
+                      ? 'bg-[#FFFFFF] border-blue-500 shadow-md ring-1 ring-blue-500/30'
+                      : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-600'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-3 border-b border-[#1C2635] pb-2">
+                  <div className="flex items-center justify-between mb-3 border-b border-[#E2EAF4] pb-2">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 rounded-lg bg-[#080B10] border border-[#263244]">
+                      <div className="p-1.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4]">
                         {getTierIcon(layer.name)}
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono uppercase text-[#738095] block">
+                        <span className="text-[10px] font-mono uppercase text-[#60738F] block">
                           TIER 0{layer.tierNumber} • {layer.role}
                         </span>
-                        <h3 className="text-xs font-bold text-[#F3F4F6] uppercase">
+                        <h3 className="text-xs font-bold text-[#14213D] uppercase">
                           {layer.name}
                         </h3>
                       </div>
                     </div>
 
-                    <span className="text-[10px] font-mono text-[#738095]">
+                    <span className="text-[10px] font-mono text-[#60738F]">
                       {layer.components.length} Components
                     </span>
                   </div>
@@ -151,8 +151,8 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
                           }}
                           className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
                             isCompSelected
-                              ? 'bg-blue-600/20 border-[#4D8DFF] shadow-sm text-white'
-                              : 'bg-[#080B10] border-[#1C2635] hover:border-slate-500 text-[#CBD5E1]'
+                              ? 'bg-[#2684F7]/20 border-[#2684F7] shadow-sm text-white'
+                              : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-500 text-[#14213D]'
                           }`}
                         >
                           <div>
@@ -167,9 +167,9 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
                             </span>
                           </div>
 
-                          <div className="mt-2 pt-1.5 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-[#64748B]">
+                          <div className="mt-2 pt-1.5 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-[#8495AE]">
                             <span className="truncate">{comp.role}</span>
-                            <ChevronRight className="w-3 h-3 text-blue-400 flex-shrink-0" />
+                            <ChevronRight className="w-3 h-3 text-[#2684F7] flex-shrink-0" />
                           </div>
                         </div>
                       );
@@ -189,13 +189,13 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
 
         {/* Right: Component Detail Inspection Drawer (4 cols) */}
         {selectedComponent && (
-          <div className="lg:col-span-4 rounded-2xl bg-[#111823] border border-[#263244] p-5 space-y-4 shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#1C2635] pb-3">
+          <div className="lg:col-span-4 rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-3">
               <div>
-                <span className="text-[10px] font-mono uppercase text-[#738095] block">
+                <span className="text-[10px] font-mono uppercase text-[#60738F] block">
                   ARCHITECTURE SPECIFICATION
                 </span>
-                <h3 className="text-sm font-bold text-[#F3F4F6]">
+                <h3 className="text-sm font-bold text-[#14213D]">
                   {selectedComponent.name}
                 </h3>
               </div>
@@ -205,31 +205,31 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
             </div>
 
             {/* Tech Stack Selection */}
-            <div className="p-3 rounded-xl bg-[#080B10] border border-[#1C2635] space-y-1">
-              <span className="text-[10px] font-mono uppercase text-blue-400 block font-semibold">
+            <div className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-1">
+              <span className="text-[10px] font-mono uppercase text-[#2684F7] block font-semibold">
                 Technology / Framework:
               </span>
               <span className="text-xs font-bold font-mono text-white block">
                 {selectedComponent.tech}
               </span>
-              <span className="text-[10px] font-mono text-[#738095] block">
+              <span className="text-[10px] font-mono text-[#60738F] block">
                 Role: {selectedComponent.role}
               </span>
             </div>
 
             {/* Justification */}
             <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase text-[#738095] block font-semibold">
+              <span className="text-[10px] font-mono uppercase text-[#60738F] block font-semibold">
                 Technical Justification &amp; Grounding
               </span>
-              <p className="text-xs text-[#CBD5E1] bg-[#080B10] p-3 rounded-xl border border-[#1C2635] leading-relaxed">
+              <p className="text-xs text-[#14213D] bg-[#FFFFFF] p-3 rounded-xl border border-[#E2EAF4] leading-relaxed">
                 {selectedComponent.justification}
               </p>
             </div>
 
             {/* Alternatives Considered */}
             {selectedComponent.alternatives && selectedComponent.alternatives.length > 0 && (
-              <div className="p-3 rounded-xl bg-[#080B10] border border-[#1C2635] space-y-1.5">
+              <div className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-1.5">
                 <div className="flex items-center gap-1.5 text-[10px] font-mono text-amber-400 font-bold uppercase">
                   <Sparkles className="w-3 h-3" />
                   <span>Alternatives Considered:</span>
@@ -238,7 +238,7 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
                   {selectedComponent.alternatives.map((alt, idx) => (
                     <span
                       key={idx}
-                      className="px-2 py-0.5 rounded bg-[#111823] text-[10px] font-mono text-[#AAB4C3] border border-[#263244]"
+                      className="px-2 py-0.5 rounded bg-[#FFFFFF] text-[10px] font-mono text-[#8495AE] border border-[#E2EAF4]"
                     >
                       {alt}
                     </span>
@@ -247,9 +247,9 @@ export const SystemArchitectureVisualizer: React.FC<SystemArchitectureVisualizer
               </div>
             )}
 
-            <div className="pt-2 border-t border-[#1C2635] flex items-center justify-between text-[10px] font-mono text-[#738095]">
+            <div className="pt-2 border-t border-[#E2EAF4] flex items-center justify-between text-[10px] font-mono text-[#60738F]">
               <span>Provenance: {selectedComponent.provenance}</span>
-              <span className="text-emerald-400">Validated</span>
+              <span className="text-[#19A875]">Validated</span>
             </div>
           </div>
         )}

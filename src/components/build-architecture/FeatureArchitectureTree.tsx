@@ -23,23 +23,23 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
   };
 
   return (
-    <div className="rounded-2xl bg-[#0D141F] border border-[#263244] p-6 shadow-xl space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2635] pb-4">
+    <div className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-xl space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2EAF4] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-base sm:text-lg font-bold text-[#F3F4F6]">
+            <h2 className="text-base sm:text-lg font-bold text-[#14213D]">
               Section 04 — Product Feature Architecture Tree
             </h2>
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/30">
+            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               {totalFeatureCount} NODES
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">
+          <p className="text-xs text-[#8495AE] mt-1">
             Hierarchical decomposition of technical modules, endpoints, and schema dependencies.
           </p>
         </div>
 
-        <span className="text-xs font-mono text-[#738095]">
+        <span className="text-xs font-mono text-[#60738F]">
           Click feature node to inspect full engineering specification
         </span>
       </div>
@@ -53,7 +53,7 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
             return (
               <div
                 key={category.id}
-                className="rounded-xl bg-[#111823] border border-[#263244] overflow-hidden"
+                className="rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] overflow-hidden"
               >
                 {/* Category Header */}
                 <button
@@ -63,19 +63,19 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                 >
                   <div className="flex items-center gap-2.5">
                     {isExpanded ? (
-                      <ChevronDown className="w-4 h-4 text-[#738095]" />
+                      <ChevronDown className="w-4 h-4 text-[#60738F]" />
                     ) : (
-                      <ChevronRight className="w-4 h-4 text-[#738095]" />
+                      <ChevronRight className="w-4 h-4 text-[#60738F]" />
                     )}
                     <div>
-                      <h3 className="text-xs font-bold text-[#F3F4F6] uppercase tracking-wide">
+                      <h3 className="text-xs font-bold text-[#14213D] uppercase tracking-wide">
                         {category.name}
                       </h3>
-                      <p className="text-[11px] text-[#AAB4C3] mt-0.5">{category.description}</p>
+                      <p className="text-[11px] text-[#8495AE] mt-0.5">{category.description}</p>
                     </div>
                   </div>
 
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono text-[#738095] bg-[#0D141F] border border-[#263244]">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono text-[#60738F] bg-[#FFFFFF] border border-[#E2EAF4]">
                     {category.features.length} features
                   </span>
                 </button>
@@ -92,17 +92,17 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                           onClick={() => setSelectedFeature(feature)}
                           className={`p-3 rounded-lg flex items-center justify-between gap-3 cursor-pointer transition-colors ${
                             isSelected
-                              ? 'bg-blue-600/10 border border-blue-500/50'
+                              ? 'bg-[#2684F7]/10 border border-blue-500/50'
                               : 'hover:bg-[#151E2B] border border-transparent'
                           }`}
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <GitBranch className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
+                            <GitBranch className="w-3.5 h-3.5 text-[#2684F7] flex-shrink-0" />
                             <div className="truncate">
-                              <span className="text-xs font-semibold text-[#F3F4F6] block truncate">
+                              <span className="text-xs font-semibold text-[#14213D] block truncate">
                                 {feature.name}
                               </span>
-                              <span className="text-[10px] text-[#738095] block truncate">
+                              <span className="text-[10px] text-[#60738F] block truncate">
                                 {feature.purpose}
                               </span>
                             </div>
@@ -110,11 +110,11 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
 
                           <div className="flex items-center gap-2 flex-shrink-0">
                             {feature.mvpStatus && (
-                              <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                              <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30">
                                 MVP
                               </span>
                             )}
-                            <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#1A2332] text-[#AAB4C3] border border-[#263244]">
+                            <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#1A2332] text-[#8495AE] border border-[#E2EAF4]">
                               {feature.technicalComplexity}
                             </span>
                           </div>
@@ -129,17 +129,17 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
         </div>
 
         {/* Selected Feature Specification Drawer (1 Col) */}
-        <div className="rounded-xl bg-[#111823] border border-[#263244] p-5 h-fit sticky top-4">
-          <div className="flex items-center justify-between border-b border-[#1C2635] pb-3 mb-4">
-            <span className="text-xs font-mono font-bold text-[#F3F4F6]">
+        <div className="rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 h-fit sticky top-4">
+          <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-3 mb-4">
+            <span className="text-xs font-mono font-bold text-[#14213D]">
               FEATURE SPECIFICATION
             </span>
             {selectedFeature && (
               <span
                 className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
                   selectedFeature.mvpStatus
-                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
-                    : 'bg-[#1A2332] text-[#AAB4C3]'
+                    ? 'bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30'
+                    : 'bg-[#1A2332] text-[#8495AE]'
                 }`}
               >
                 {selectedFeature.priority.replace('_', ' ')}
@@ -150,25 +150,25 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
           {selectedFeature ? (
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-bold text-[#F3F4F6]">{selectedFeature.name}</h3>
-                <p className="text-xs text-[#AAB4C3] mt-1 leading-relaxed">
+                <h3 className="text-sm font-bold text-[#14213D]">{selectedFeature.name}</h3>
+                <p className="text-xs text-[#8495AE] mt-1 leading-relaxed">
                   {selectedFeature.purpose}
                 </p>
               </div>
 
-              <div className="space-y-2.5 pt-3 border-t border-[#1C2635] text-xs">
+              <div className="space-y-2.5 pt-3 border-t border-[#E2EAF4] text-xs">
                 <div>
-                  <span className="text-[10px] font-mono text-[#738095] block">TARGET PERSONA</span>
-                  <span className="text-[#F3F4F6] font-medium">{selectedFeature.targetUser}</span>
+                  <span className="text-[10px] font-mono text-[#60738F] block">TARGET PERSONA</span>
+                  <span className="text-[#14213D] font-medium">{selectedFeature.targetUser}</span>
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-mono text-[#738095] block">PREREQUISITE DEPENDENCIES</span>
+                  <span className="text-[10px] font-mono text-[#60738F] block">PREREQUISITE DEPENDENCIES</span>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {selectedFeature.dependencies.map((dep, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#0D141F] text-[#AAB4C3] border border-[#263244]"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#FFFFFF] text-[#8495AE] border border-[#E2EAF4]"
                       >
                         {dep}
                       </span>
@@ -177,15 +177,15 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                 </div>
 
                 <div>
-                  <div className="flex items-center gap-1 text-[10px] font-mono text-[#738095] mb-1">
-                    <Database className="w-3 h-3 text-blue-400" />
+                  <div className="flex items-center gap-1 text-[10px] font-mono text-[#60738F] mb-1">
+                    <Database className="w-3 h-3 text-[#2684F7]" />
                     <span>DATA SCHEMAS REQUIRED</span>
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {selectedFeature.dataRequired.map((data, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-300 border border-blue-500/20"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#E8F2FF] text-blue-300 border border-blue-500/20"
                       >
                         {data}
                       </span>
@@ -194,7 +194,7 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                 </div>
 
                 <div>
-                  <div className="flex items-center gap-1 text-[10px] font-mono text-[#738095] mb-1">
+                  <div className="flex items-center gap-1 text-[10px] font-mono text-[#60738F] mb-1">
                     <Globe className="w-3 h-3 text-purple-400" />
                     <span>API ENDPOINTS</span>
                   </div>
@@ -202,7 +202,7 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                     {selectedFeature.apiRequired.map((api, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#0D141F] text-purple-300 border border-purple-500/20"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#FFFFFF] text-purple-300 border border-purple-500/20"
                       >
                         {api}
                       </span>
@@ -212,7 +212,7 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
               </div>
             </div>
           ) : (
-            <div className="text-center py-12 text-[#738095]">
+            <div className="text-center py-12 text-[#60738F]">
               <Layers className="w-8 h-8 mx-auto mb-2 opacity-40" />
               <p className="text-xs font-mono">Select a feature on the left to inspect technical details</p>
             </div>

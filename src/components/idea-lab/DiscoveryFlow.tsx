@@ -94,8 +94,8 @@ export const DiscoveryFlow: React.FC = () => {
     <Card
       title={
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#2B3D4F]" />
-          <span className="font-semibold text-sm text-[#2B3D4F]">Founder Discovery Dimensions</span>
+          <Sparkles className="w-4 h-4 text-[#14213D]" />
+          <span className="font-semibold text-sm text-[#14213D]">Founder Discovery Dimensions</span>
         </div>
       }
       subtitle="Answer simple questions about what you know. Our AI Business Council will derive differentiation, positioning, and strategy for you."
@@ -106,7 +106,7 @@ export const DiscoveryFlow: React.FC = () => {
       }
     >
       {/* 5 Discovery Dimension Pills */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-5 border-b border-[#DDD5C5] no-scrollbar">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-3 mb-5 border-b border-[#E2EAF4] no-scrollbar">
         {steps.map((step, idx) => {
           const StepIcon = step.icon;
           const isCurrent = activeStep === idx;
@@ -129,13 +129,13 @@ export const DiscoveryFlow: React.FC = () => {
               onClick={() => setActiveStep(idx)}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono transition-all shrink-0 select-none ${
                 isCurrent
-                  ? 'bg-[rgba(43,61,79,0.15)] text-[#2B3D4F] border border-[#2B3D4F] font-semibold'
-                  : 'bg-[#F5F1EB] hover:bg-[#ECE6DA] text-[#4A5E73] border border-[#DDD5C5]'
+                  ? 'bg-[rgba(43,61,79,0.15)] text-[#14213D] border border-[#14213D] font-semibold'
+                  : 'bg-[#EEF4FB] hover:bg-[#EEF4FB] text-[#60738F] border border-[#E2EAF4]'
               }`}
             >
               <StepIcon className="w-3.5 h-3.5" />
               <span>{step.tabLabel}</span>
-              {isFilled && <CheckCircle2 className="w-3 h-3 text-[#4A7C59]" />}
+              {isFilled && <CheckCircle2 className="w-3 h-3 text-[#19A875]" />}
             </button>
           );
         })}
@@ -145,14 +145,14 @@ export const DiscoveryFlow: React.FC = () => {
       <div className="min-h-[200px] space-y-4 animate-fade-in">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-bold text-[#8A6D2B] px-1.5 py-0.5 rounded bg-[#8A6D2B]/10 border border-[#8A6D2B]/30">
+            <span className="text-xs font-mono font-bold text-[#F29A42] px-1.5 py-0.5 rounded bg-[#FFF3E7] border border-[#F29A42]/30">
               {currentStep.num}
             </span>
-            <h4 className="text-sm font-semibold text-[#2B3D4F]">
+            <h4 className="text-sm font-semibold text-[#14213D]">
               {currentStep.question}
             </h4>
           </div>
-          <p className="text-xs text-[#6B7D90]">
+          <p className="text-xs text-[#60738F]">
             {currentStep.subtitle}
           </p>
         </div>
@@ -182,14 +182,14 @@ export const DiscoveryFlow: React.FC = () => {
           rows={3}
         />
 
-        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-[#ECE6DA]/50 border border-[#DDD5C5]/60 text-[11px] text-[#5B6B7F]">
-          <Info className="w-3.5 h-3.5 text-[#2B3D4F] shrink-0 mt-0.5" />
+        <div className="flex items-start gap-2 p-2.5 rounded-lg bg-[#EEF4FB]/50 border border-[#E2EAF4] text-[11px] text-[#60738F]">
+          <Info className="w-3.5 h-3.5 text-[#14213D] shrink-0 mt-0.5" />
           <span>{currentStep.helpText}</span>
         </div>
       </div>
 
       {/* Step Navigation Controls */}
-      <div className="mt-6 pt-4 border-t border-[#DDD5C5] flex items-center justify-between">
+      <div className="mt-6 pt-4 border-t border-[#E2EAF4] flex items-center justify-between">
         <Button
           type="button"
           variant="outline"
@@ -201,7 +201,7 @@ export const DiscoveryFlow: React.FC = () => {
           Previous
         </Button>
 
-        <div className="text-xs font-mono text-[#6B7D90] hidden sm:block">
+        <div className="text-xs font-mono text-[#60738F] hidden sm:block">
           Dimension {activeStep + 1} of {steps.length}
         </div>
 

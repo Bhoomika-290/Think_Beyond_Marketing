@@ -49,12 +49,12 @@ export const BusinessModelSnapshot: React.FC = () => {
   ];
 
   return (
-    <div className="bg-[#FDFCF8] border border-[#DDD5C5] rounded-xl overflow-hidden shadow-intel-card">
-      <div className="px-5 py-3.5 border-b border-[#DDD5C5]">
-        <h3 className="text-sm font-semibold text-[#2B3D4F] tracking-tight">
+    <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl overflow-hidden shadow-intel-card">
+      <div className="px-5 py-3.5 border-b border-[#E2EAF4]">
+        <h3 className="text-sm font-semibold text-[#14213D] tracking-tight">
           Business Model Snapshot
         </h3>
-        <p className="text-xs text-[#6B7D90] mt-0.5">
+        <p className="text-xs text-[#60738F] mt-0.5">
           How value flows from customer to revenue — grounded only in what you have provided.
         </p>
       </div>
@@ -64,15 +64,15 @@ export const BusinessModelSnapshot: React.FC = () => {
             <React.Fragment key={node.label}>
               <div
                 className={`flex-1 p-3 rounded-lg border text-center flex flex-col justify-center ${
-                  node.known ? 'bg-[#F5F1EB] border-[#2B3D4F]/25' : 'bg-[#F5F1EB]/60 border-dashed border-[#DDD5C5]'
+                  node.known ? 'bg-[#EEF4FB] border-[#14213D]/25' : 'bg-[#EEF4FB]/60 border-dashed border-[#E2EAF4]'
                 }`}
               >
-                <span className="text-[9px] font-mono uppercase tracking-wider text-[#6B7D90]">
+                <span className="text-[9px] font-mono uppercase tracking-wider text-[#60738F]">
                   {node.label}
                 </span>
                 <span
                   className={`text-xs font-semibold mt-1 leading-snug line-clamp-3 ${
-                    node.known ? 'text-[#2B3D4F]' : 'text-[#6B7D90] italic font-normal'
+                    node.known ? 'text-[#14213D]' : 'text-[#60738F] italic font-normal'
                   }`}
                   title={node.value}
                 >
@@ -80,7 +80,7 @@ export const BusinessModelSnapshot: React.FC = () => {
                 </span>
               </div>
               {idx < nodes.length - 1 && (
-                <span className="self-center text-[#C4B8A0] text-sm shrink-0 rotate-90 sm:rotate-0" aria-hidden="true">
+                <span className="self-center text-[#8495AE] text-sm shrink-0 rotate-90 sm:rotate-0" aria-hidden="true">
                   →
                 </span>
               )}

@@ -71,12 +71,12 @@ export const BrandRoadmapPage: React.FC = () => {
 
       {/* Discovery Warning / Sample Loader if project is empty */}
       {!hasDiscovery && (
-        <div className="rounded-2xl bg-[#8A6D2B]/10 border border-[#8A6D2B]/30 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="rounded-2xl bg-[#FFF3E7] border border-[#F29A42]/30 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-sm font-bold text-[#8A6D2B]">
+            <h3 className="text-sm font-bold text-[#F29A42]">
               Limited Upstream Venture Discovery
             </h3>
-            <p className="text-xs text-amber-200/80 mt-1 max-w-xl">
+            <p className="text-xs text-[#60738F] mt-1 max-w-xl">
               Stage 04 synthesizes your strategic Brand Roadmap from upstream discovery in Idea Lab and Market Intelligence. Load a sample venture to inspect the full strategic progression.
             </p>
           </div>
@@ -84,21 +84,21 @@ export const BrandRoadmapPage: React.FC = () => {
             <button
               type="button"
               onClick={() => loadSampleVenture('skincare_d2c')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               🌿 Skincare D2C
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('restaurant_ai')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               ⚡ Restaurant AI
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('tutoring_marketplace')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#FDFCF8] hover:bg-[#ECE6DA] text-[#8A6D2B] border border-[#8A6D2B]/40 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               🎓 Tutoring Mkt
             </button>
@@ -107,7 +107,7 @@ export const BrandRoadmapPage: React.FC = () => {
       )}
 
       {/* Section View Filter Tabs */}
-      <div className="flex items-center gap-1.5 p-1.5 bg-[#FDFCF8] rounded-xl border border-[#DDD5C5] overflow-x-auto scrollbar-thin text-xs font-mono">
+      <div className="flex items-center gap-1.5 p-1.5 bg-[#FFFFFF] rounded-xl border border-[#E2EAF4] overflow-x-auto scrollbar-thin text-xs font-mono">
         {[
           { id: 'all', label: 'All Roadmap Views' },
           { id: 'roadmap', label: '01 Brand Transformation Roadmap' },
@@ -131,8 +131,8 @@ export const BrandRoadmapPage: React.FC = () => {
             }}
             className={`px-3.5 py-1.5 rounded-lg transition-all whitespace-nowrap ${
               activeTab === tabItem.id
-                ? 'bg-[#2B3D4F] text-white font-bold shadow-sm'
-                : 'text-[#4A5E73] hover:text-[#2B3D4F] hover:bg-[#ECE6DA]'
+                ? 'bg-[#14213D] text-white font-bold shadow-sm'
+                : 'text-[#60738F] hover:text-[#14213D] hover:bg-[#EEF4FB]'
             }`}
           >
             {tabItem.label}

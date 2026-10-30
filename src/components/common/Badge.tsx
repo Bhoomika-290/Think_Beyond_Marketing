@@ -21,16 +21,16 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   const variantClasses = {
-    default: 'bg-theme-background-secondary text-theme-secondary border border-theme-border',
-    active: 'bg-[rgba(43,61,79,0.08)] text-theme-deep-blue border border-[rgba(43,61,79,0.25)] font-semibold',
-    success: 'bg-theme-success-bg text-theme-success border border-theme-success-border',
-    warning: 'bg-theme-warning-bg text-theme-warning border border-theme-warning-border',
-    danger: 'bg-theme-danger-bg text-theme-danger border border-theme-danger-border',
-    locked: 'bg-theme-background-secondary text-theme-muted border border-theme-border',
-    info: 'bg-[rgba(43,61,79,0.08)] text-theme-deep-blue border border-[rgba(43,61,79,0.25)]',
-    outline: 'bg-transparent text-theme-secondary border border-theme-border-strong',
-    ai: 'bg-theme-ai-bg text-theme-ai border border-theme-ai-border',
-    teal: 'bg-theme-teal-bg text-theme-teal border border-theme-teal-border',
+    default: 'bg-[#EEF4FB] text-[#60738F] border border-[#E2EAF4]',
+    active: 'bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30 font-semibold',
+    success: 'bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30',
+    warning: 'bg-[#FFF3E7] text-[#F29A42] border border-[#F29A42]/30',
+    danger: 'bg-[#FFF0EF] text-[#E46D68] border border-[#E46D68]/30',
+    locked: 'bg-[#EEF4FB] text-[#8495AE] border border-[#E2EAF4]',
+    info: 'bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30',
+    outline: 'bg-transparent text-[#60738F] border border-[#E2EAF4]',
+    ai: 'bg-[#F2EDFF] text-[#9272DB] border border-[#9272DB]/30',
+    teal: 'bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30',
   };
 
   return (

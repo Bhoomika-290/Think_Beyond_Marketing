@@ -25,9 +25,9 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
   const getPriorityBadge = (p: FeatureBehaviorFlowItem['priority']) => {
     switch (p) {
       case 'must':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+        return 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/30';
       case 'should':
-        return 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+        return 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30';
       case 'could':
         return 'bg-purple-500/10 text-purple-400 border-purple-500/30';
       default:
@@ -36,26 +36,26 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
   };
 
   return (
-    <div id="section-feature-behavior" className="rounded-2xl bg-[#0D141F] border border-[#263244] p-6 shadow-xl space-y-6">
+    <div id="section-feature-behavior" className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-xl space-y-6">
       {/* Header and Filter Pills */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2635] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2EAF4] pb-4">
         <div>
           <div className="flex items-center gap-2">
             <Workflow className="w-4 h-4 text-cyan-400" />
-            <h2 className="text-base sm:text-lg font-bold text-[#F3F4F6]">
+            <h2 className="text-base sm:text-lg font-bold text-[#14213D]">
               Feature &rarr; User Problem &rarr; System Behaviour Architecture
             </h2>
             <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
               5-STEP CAUSAL BEHAVIOUR
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">
+          <p className="text-xs text-[#8495AE] mt-1">
             Every critical feature connects an acute user problem to tangible user action, deterministic system execution, and verified expected outcome.
           </p>
         </div>
 
         {/* Priority Filter */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#080B10] border border-[#263244]">
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4]">
           {(['all', 'must', 'should'] as const).map((p) => (
             <button
               key={p}
@@ -63,8 +63,8 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
               onClick={() => setPriorityFilter(p)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
                 priorityFilter === p
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-[#AAB4C3] hover:text-[#F3F4F6]'
+                  ? 'bg-[#2684F7] text-white shadow-sm'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
             >
               {p.toUpperCase()}
@@ -85,7 +85,7 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
               className={`px-4 py-2 rounded-xl text-xs font-mono font-bold whitespace-nowrap border transition-all ${
                 isSelected
                   ? 'bg-[#151E2B] border-cyan-500 text-cyan-300 shadow-md ring-1 ring-cyan-500/40'
-                  : 'bg-[#111823] border-[#263244] text-[#AAB4C3] hover:text-[#F3F4F6] hover:border-[#34445A]'
+                  : 'bg-[#FFFFFF] border-[#E2EAF4] text-[#8495AE] hover:text-[#14213D] hover:border-[#34445A]'
               }`}
             >
               {flow.featureName}
@@ -102,16 +102,16 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
         return (
           <div key={flow.id} className="space-y-6 animate-fadeIn">
             {/* Feature Header Meta */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-[#080B10] border border-[#1C2635]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4]">
               <div className="flex items-center gap-3">
                 <span className={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase border ${getPriorityBadge(flow.priority)}`}>
                   {flow.priority.toUpperCase()} HAVE
                 </span>
                 <div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#F3F4F6]">
+                  <h3 className="text-sm sm:text-base font-bold text-[#14213D]">
                     {flow.featureName}
                   </h3>
-                  <span className="text-[11px] font-mono text-[#738095]">
+                  <span className="text-[11px] font-mono text-[#60738F]">
                     Category: {flow.productCategory}
                   </span>
                 </div>
@@ -124,7 +124,7 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
             {/* 5-Step Visual Chain Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 relative items-stretch">
               {/* Step 1: User Problem */}
-              <div className="p-4 rounded-xl bg-[#111823] border border-rose-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-rose-500/50 transition-colors">
+              <div className="p-4 rounded-xl bg-[#FFFFFF] border border-rose-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-rose-500/50 transition-colors">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold text-rose-400 uppercase tracking-wider">
@@ -132,10 +132,10 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
                     </span>
                     <AlertCircle className="w-4 h-4 text-rose-400" />
                   </div>
-                  <h4 className="text-xs font-bold text-[#F3F4F6] uppercase">
+                  <h4 className="text-xs font-bold text-[#14213D] uppercase">
                     USER PROBLEM
                   </h4>
-                  <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                  <p className="text-xs text-[#14213D] leading-relaxed">
                     {flow.userProblem}
                   </p>
                 </div>
@@ -145,7 +145,7 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
               </div>
 
               {/* Step 2: Feature Spec */}
-              <div className="p-4 rounded-xl bg-[#111823] border border-cyan-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-cyan-500/50 transition-colors">
+              <div className="p-4 rounded-xl bg-[#FFFFFF] border border-cyan-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-cyan-500/50 transition-colors">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-wider">
@@ -153,10 +153,10 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
                     </span>
                     <Layers className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <h4 className="text-xs font-bold text-[#F3F4F6] uppercase">
+                  <h4 className="text-xs font-bold text-[#14213D] uppercase">
                     FEATURE SPEC
                   </h4>
-                  <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                  <p className="text-xs text-[#14213D] leading-relaxed">
                     {flow.featureName}
                   </p>
                 </div>
@@ -166,7 +166,7 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
               </div>
 
               {/* Step 3: User Action */}
-              <div className="p-4 rounded-xl bg-[#111823] border border-amber-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-amber-500/50 transition-colors">
+              <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#F29A42]/30 flex flex-col justify-between space-y-3 shadow-md hover:border-amber-500/50 transition-colors">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider">
@@ -174,10 +174,10 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
                     </span>
                     <MousePointer className="w-4 h-4 text-amber-400" />
                   </div>
-                  <h4 className="text-xs font-bold text-[#F3F4F6] uppercase">
+                  <h4 className="text-xs font-bold text-[#14213D] uppercase">
                     USER ACTION
                   </h4>
-                  <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                  <p className="text-xs text-[#14213D] leading-relaxed">
                     {flow.userAction}
                   </p>
                 </div>
@@ -187,7 +187,7 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
               </div>
 
               {/* Step 4: System Behaviour */}
-              <div className="p-4 rounded-xl bg-[#111823] border border-purple-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-purple-500/50 transition-colors">
+              <div className="p-4 rounded-xl bg-[#FFFFFF] border border-purple-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-purple-500/50 transition-colors">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold text-purple-400 uppercase tracking-wider">
@@ -195,10 +195,10 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
                     </span>
                     <Cpu className="w-4 h-4 text-purple-400" />
                   </div>
-                  <h4 className="text-xs font-bold text-[#F3F4F6] uppercase">
+                  <h4 className="text-xs font-bold text-[#14213D] uppercase">
                     SYSTEM BEHAVIOUR
                   </h4>
-                  <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                  <p className="text-xs text-[#14213D] leading-relaxed">
                     {flow.systemBehaviour}
                   </p>
                 </div>
@@ -208,22 +208,22 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
               </div>
 
               {/* Step 5: Expected Result */}
-              <div className="p-4 rounded-xl bg-[#111823] border border-emerald-500/30 flex flex-col justify-between space-y-3 shadow-md hover:border-emerald-500/50 transition-colors">
+              <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#19A875]/30 flex flex-col justify-between space-y-3 shadow-md hover:border-emerald-500/50 transition-colors">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                    <span className="text-[10px] font-mono font-bold text-[#19A875] uppercase tracking-wider">
                       STEP 05
                     </span>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-[#19A875]" />
                   </div>
-                  <h4 className="text-xs font-bold text-[#F3F4F6] uppercase">
+                  <h4 className="text-xs font-bold text-[#14213D] uppercase">
                     EXPECTED RESULT
                   </h4>
-                  <p className="text-xs text-[#CBD5E1] leading-relaxed">
+                  <p className="text-xs text-[#14213D] leading-relaxed">
                     {flow.expectedResult}
                   </p>
                 </div>
-                <div className="text-[10px] font-mono text-emerald-400/80 pt-2 border-t border-emerald-500/20">
+                <div className="text-[10px] font-mono text-[#19A875]/80 pt-2 border-t border-emerald-500/20">
                   Verified Outcome &amp; Value
                 </div>
               </div>

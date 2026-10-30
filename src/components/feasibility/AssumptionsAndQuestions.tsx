@@ -22,10 +22,10 @@ interface AssumptionsAndQuestionsProps {
 }
 
 const EVIDENCE_DOT: Record<string, string> = {
-  verified: 'bg-[#4A7C59]',
-  'ai-inference': 'bg-[#2B3D4F]',
-  assumption: 'bg-[#8A6D2B]',
-  'needs-validation': 'bg-[#5A7A96]',
+  verified: 'bg-[#19A875]',
+  'ai-inference': 'bg-[#14213D]',
+  assumption: 'bg-[#F29A42]',
+  'needs-validation': 'bg-[#2684F7]',
 };
 
 const IMPACT_WEIGHT: Record<string, number> = {
@@ -544,7 +544,7 @@ const AssumptionTopologyGraph: React.FC<AssumptionTopologyGraphProps> = ({
       <svg
         ref={svgRef}
         viewBox="0 0 580 440"
-        className="w-full h-auto block rounded-lg border border-[#DDD5C5]"
+        className="w-full h-auto block rounded-lg border border-[#E2EAF4]"
         role="group"
         aria-label="Assumption dependency topology"
       >
@@ -796,7 +796,7 @@ const AssumptionTopologyGraph: React.FC<AssumptionTopologyGraphProps> = ({
                   fontSize={10}
                   fontWeight={700}
                   fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-                  fill={isActive ? '#FAF8F5' : '#1F241C'}
+                  fill={isActive ? '#FFFFFF' : '#1F241C'}
                 >
                   {n.label}
                 </text>
@@ -922,7 +922,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                 className={`p-3.5 rounded-lg border transition-all duration-150 cursor-pointer flex flex-col justify-between select-none ${
                   isExpanded
                     ? 'bg-[#EFECE4] border-[#55634B] ring-1 ring-[#55634B]/30 shadow-md'
-                    : 'bg-[#FAF8F5] hover:bg-[#EFECE4] border-[#DDD5C5] hover:border-[#BDB5A2]'
+                    : 'bg-[#FFFFFF] hover:bg-[#EFECE4] border-[#E2EAF4] hover:border-[#BDB5A2]'
                 }`}
               >
                 <div>
@@ -932,14 +932,14 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       {assump.dimension} Dimension
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded border font-semibold bg-[#8A6D2B]/15 text-[#8A6D2B] border-[#8A6D2B]/30">
+                      <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded border font-semibold bg-[#FFF3E7] text-[#F29A42] border-[#F29A42]/30">
                         Unproven
                       </span>
                       <span
                         className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded border font-semibold ${
                           assump.impact === 'critical'
-                            ? 'bg-[#9E4A4A]/15 text-[#9E4A4A] border-[#9E4A4A]/30'
-                            : 'bg-[#8A6D2B]/15 text-[#8A6D2B] border-[#8A6D2B]/30'
+                            ? 'bg-[#FFF0EF] text-[#E46D68] border-[#E46D68]/30'
+                            : 'bg-[#FFF3E7] text-[#F29A42] border-[#F29A42]/30'
                         }`}
                       >
                         {assump.impact} impact
@@ -953,7 +953,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                   </h3>
 
                   {/* Chain Preview Bar */}
-                  <div className="p-2 rounded bg-[#F2EFE8] border border-[#DDD5C5] flex items-center justify-between text-[10px] font-mono text-[#5E6857]">
+                  <div className="p-2 rounded bg-[#F2EFE8] border border-[#E2EAF4] flex items-center justify-between text-[10px] font-mono text-[#5E6857]">
                     <span className="text-[#7A7568]">Evidence → Test → Decision</span>
                     <span className="text-[#2C3527] truncate max-w-[240px]">
                       {linkedDim ? `${linkedDim.evidence.length} signals · ${linkedDim.confidence} confidence` : 'No linked evidence yet'}
@@ -962,7 +962,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                 </div>
 
                 {/* Click cue */}
-                <div className="mt-3 pt-2 border-t border-[#DDD5C5]/80 flex items-center justify-between text-[10px] font-mono text-[#5E6857]">
+                <div className="mt-3 pt-2 border-t border-[#E2EAF4]/80 flex items-center justify-between text-[10px] font-mono text-[#5E6857]">
                   <span className="text-[#2C3527]">
                     {isExpanded ? 'Hide Validation Chain' : 'View Full Validation Chain'}
                   </span>
@@ -972,25 +972,25 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                 {/* Expanded Validation Pipeline */}
                 {isExpanded && (
                   <div
-                    className="mt-3 pt-3 border-t border-[#DDD5C5] space-y-2 text-left animate-fade-in text-xs"
+                    className="mt-3 pt-3 border-t border-[#E2EAF4] space-y-2 text-left animate-fade-in text-xs"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#DDD5C5] space-y-1">
-                      <span className="text-[10px] font-mono uppercase text-[#8A6D2B] font-semibold block">
+                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
+                      <span className="text-[10px] font-mono uppercase text-[#F29A42] font-semibold block">
                         1. Assumption
                       </span>
-                      <p className="text-[#4A5E73] text-[11px]">{assump.statement}</p>
+                      <p className="text-[#60738F] text-[11px]">{assump.statement}</p>
                     </div>
 
                     <div className="flex justify-center text-[#5E6857]">
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#DDD5C5] space-y-1">
+                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
                       <span className="text-[10px] font-mono uppercase text-[#2C3527] font-semibold block">
                         2. Why it matters
                       </span>
-                      <p className="text-[#4A5E73] text-[11px]">
+                      <p className="text-[#60738F] text-[11px]">
                         {linkedDim
                           ? linkedDim.headline
                           : 'Linked dimension assessment is not available yet.'}
@@ -1001,14 +1001,14 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#DDD5C5] space-y-1.5">
+                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1.5">
                       <span className="text-[10px] font-mono uppercase text-[#3E6F4A] font-semibold block">
                         3. Current evidence · Confidence: {linkedDim ? linkedDim.confidence.toUpperCase() : 'UNKNOWN'}
                       </span>
                       {linkedDim && linkedDim.evidence.length > 0 ? (
                         <ul className="space-y-1">
                           {linkedDim.evidence.map((ev) => (
-                            <li key={ev.id} className="flex items-start gap-1.5 text-[11px] text-[#4A5E73]">
+                            <li key={ev.id} className="flex items-start gap-1.5 text-[11px] text-[#60738F]">
                               <span className={`w-1.5 h-1.5 rounded-full mt-1 shrink-0 ${EVIDENCE_DOT[ev.type] ?? 'bg-[#5E6857]'}`} />
                               <span>
                                 <span className="font-semibold text-[#2C3527]">{ev.label}:</span> {ev.content}
@@ -1025,7 +1025,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#DDD5C5] space-y-1">
+                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
                       <span className="text-[10px] font-mono uppercase text-[#4A5B6C] font-semibold block">
                         4. Validation test
                       </span>
@@ -1038,11 +1038,11 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#DDD5C5] space-y-1">
+                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
                       <span className="text-[10px] font-mono uppercase text-[#9C4738] font-semibold block">
                         5. Decision rule
                       </span>
-                      <p className="text-[11px] text-[#4A5E73]">
+                      <p className="text-[11px] text-[#60738F]">
                         Promote to SUPPORTED only on direct evidence; reject on contradictory evidence.
                         Until then this assumption stays UNPROVEN — define its kill criteria before testing.
                       </p>
@@ -1055,7 +1055,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
         </div>
 
         {/* Assumption Dependency Graph with Stage 02 warm stone palette */}
-        <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#DDD5C5] space-y-3">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-mono uppercase tracking-wider text-[#2C3527] font-bold">
               Assumption → Dependency → Evidence → Risk Topology
@@ -1082,7 +1082,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
 
           {activeGraphEdge && !activeGraphNode && (
             <div className="pt-1">
-              <div className="text-xs text-[#2C3527] p-2.5 rounded-lg bg-[#F2EFE8] border border-[#DDD5C5]">
+              <div className="text-xs text-[#2C3527] p-2.5 rounded-lg bg-[#F2EFE8] border border-[#E2EAF4]">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block mb-1">
                   Why connected
                 </span>
@@ -1095,9 +1095,9 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
           {activeGraphNode && (
             <div className="pt-1 space-y-2.5">
               <div className="p-3 rounded-lg bg-[#EFECE4] border border-[#CFC7B7] space-y-2">
-                <div className="flex items-center justify-between border-b border-[#DDD5C5] pb-2">
+                <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#2C3527] text-[#FAF8F5]">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#2C3527] text-[#14213D]">
                       {activeGraphNode.semanticType}
                     </span>
                     <span className="text-sm font-bold text-[#2C3527]">{activeGraphNode.label}</span>
@@ -1113,25 +1113,25 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
 
                 {/* 4-Question Analytical Inspection */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
-                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#55634B] font-bold block mb-1">
                       1. Why this exists
                     </span>
                     <p className="text-[#3A4537] text-[11px] leading-relaxed">{activeGraphNode.whyExists}</p>
                   </div>
-                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#4A5B6C] font-bold block mb-1">
                       2. What assumption creates it
                     </span>
                     <p className="text-[#3A4537] text-[11px] leading-relaxed">{activeGraphNode.createdByAssumption}</p>
                   </div>
-                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#3E6F4A] font-bold block mb-1">
                       3. What evidence supports it
                     </span>
                     <p className="text-[#3A4537] text-[11px] leading-relaxed">{activeGraphNode.evidenceSupport}</p>
                   </div>
-                  <div className="p-2.5 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#9C4738] font-bold block mb-1">
                       4. What still needs validation
                     </span>
@@ -1141,7 +1141,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
 
                 {/* Incoming & Outgoing Dependencies */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono pt-1">
-                  <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="uppercase tracking-wider text-[#5E6857] block mb-0.5">Depends on</span>
                     {dependsOnLabels.length > 0 ? (
                       <span className="text-[#2C3527] font-semibold">{dependsOnLabels.join(', ')}</span>
@@ -1149,7 +1149,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <span className="text-[#7A7568] italic">Root hypothesis (no upstream nodes)</span>
                     )}
                   </div>
-                  <div className="p-2 rounded bg-[#FAF8F5] border border-[#DDD5C5]">
+                  <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="uppercase tracking-wider text-[#5E6857] block mb-0.5">Feeds into</span>
                     {feedsIntoLabels.length > 0 ? (
                       <span className="text-[#2C3527] font-semibold">{feedsIntoLabels.join(', ')}</span>
@@ -1161,15 +1161,15 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
               </div>
 
               {graphLinkedAssumptions.length > 0 && (
-                <div className="p-3 rounded-lg bg-[#FAF8F5] border border-[#DDD5C5] space-y-1.5">
+                <div className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-1.5">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block">
                     Linked Live Hypotheses ({graphLinkedAssumptions.length})
                   </span>
                   <ul className="space-y-1.5">
                     {graphLinkedAssumptions.map((a) => {
                       return (
-                        <li key={a.id} className="text-xs text-[#3A4537] p-2 rounded bg-[#F2EFE8] border border-[#DDD5C5] flex items-start gap-2">
-                          <span className={`font-bold shrink-0 ${a.impact === 'critical' ? 'text-[#8A6D2B]' : 'text-[#2C3527]'}`}>•</span>
+                        <li key={a.id} className="text-xs text-[#3A4537] p-2 rounded bg-[#F2EFE8] border border-[#E2EAF4] flex items-start gap-2">
+                          <span className={`font-bold shrink-0 ${a.impact === 'critical' ? 'text-[#F29A42]' : 'text-[#2C3527]'}`}>•</span>
                           <span className="min-w-0">
                             <span className="font-semibold text-[#2C3527]" title={a.statement}>"{a.statement}"</span>
                             <span className="block text-[10px] font-mono text-[#5E6857] mt-0.5">
@@ -1191,14 +1191,14 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
       <div className="space-y-3 pt-2">
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-xs font-mono uppercase text-[#6B7D90] tracking-wider font-semibold">
+            <div className="text-xs font-mono uppercase text-[#60738F] tracking-wider font-semibold">
               Section 05 // Strategic Open Questions
             </div>
-            <p className="text-xs text-[#4A5E73] mt-0.5">
+            <p className="text-xs text-[#60738F] mt-0.5">
               Decisive unknowns that must be answered before capital commitment. Click to reveal strategic rationale.
             </p>
           </div>
-          <span className="text-[11px] font-mono text-[#6B7D90]">
+          <span className="text-[11px] font-mono text-[#60738F]">
             {openQuestions.length} Decision Drivers
           </span>
         </div>
@@ -1215,24 +1215,24 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                 onClick={() => toggleQuestion(q.id)}
                 className={`p-3.5 rounded-lg border transition-all duration-150 cursor-pointer flex flex-col justify-between select-none ${
                   isExpanded
-                    ? 'bg-[#ECE6DA] border-[#2B3D4F] ring-1 ring-[#2B3D4F]/30 shadow-md'
-                    : 'bg-[#FDFCF8] hover:bg-[#ECE6DA] border-[#DDD5C5] hover:border-[#C4B8A0]'
+                    ? 'bg-[#EEF4FB] border-[#14213D] ring-1 ring-[#14213D]/30 shadow-md'
+                    : 'bg-[#FFFFFF] hover:bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#E2EAF4]'
                 }`}
               >
                 <div>
                   {/* Top Bar: Dimension + Urgency Tag */}
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-mono uppercase text-[#6B7D90] tracking-wider">
+                    <span className="text-[10px] font-mono uppercase text-[#60738F] tracking-wider">
                       {q.dimension}
                     </span>
 
                     <span
                       className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded border font-semibold flex items-center gap-1 ${
                         q.urgency === 'immediate'
-                          ? 'bg-[#9E4A4A]/15 text-[#9E4A4A] border-[#9E4A4A]/30'
+                          ? 'bg-[#FFF0EF] text-[#E46D68] border-[#E46D68]/30'
                           : q.urgency === 'pre-launch'
-                          ? 'bg-[#8A6D2B]/15 text-[#8A6D2B] border-[#8A6D2B]/30'
-                          : 'bg-[#2B3D4F]/15 text-[#2B3D4F] border-[#2B3D4F]/30'
+                          ? 'bg-[#FFF3E7] text-[#F29A42] border-[#F29A42]/30'
+                          : 'bg-[#14213D]/15 text-[#14213D] border-[#14213D]/30'
                       }`}
                     >
                       <Clock className="w-2.5 h-2.5" />
@@ -1241,17 +1241,17 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                   </div>
 
                   {/* Question Title */}
-                  <h3 className="text-xs font-bold text-[#2B3D4F] leading-snug mb-1">
+                  <h3 className="text-xs font-bold text-[#14213D] leading-snug mb-1">
                     {q.question}
                   </h3>
-                  <p className="text-[10px] font-mono text-[#6B7D90]">
-                    Unlocks: <span className="text-[#2B3D4F] font-semibold">{q.dimension}</span>
+                  <p className="text-[10px] font-mono text-[#60738F]">
+                    Unlocks: <span className="text-[#14213D] font-semibold">{q.dimension}</span>
                   </p>
                 </div>
 
                 {/* Click cue */}
-                <div className="mt-3 pt-2 border-t border-[#DDD5C5]/80 flex items-center justify-between text-[10px] font-mono text-[#6B7D90]">
-                  <span className="text-[#2B3D4F]">
+                <div className="mt-3 pt-2 border-t border-[#E2EAF4]/80 flex items-center justify-between text-[10px] font-mono text-[#60738F]">
+                  <span className="text-[#14213D]">
                     {isExpanded ? 'Hide Strategic Rationale' : 'Inspect Strategic Context'}
                   </span>
                   {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -1260,22 +1260,22 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                 {/* Expanded Context */}
                 {isExpanded && (
                   <div
-                    className="mt-3 pt-3 border-t border-[#DDD5C5] space-y-2.5 text-left animate-fade-in text-xs"
+                    className="mt-3 pt-3 border-t border-[#E2EAF4] space-y-2.5 text-left animate-fade-in text-xs"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="p-3 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
-                      <span className="text-[10px] font-mono uppercase text-[#6B7D90] block mb-1">
+                    <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4]">
+                      <span className="text-[10px] font-mono uppercase text-[#60738F] block mb-1">
                         Why this determines viability:
                       </span>
-                      <p className="text-[#4A5E73] text-[11px] leading-relaxed">
+                      <p className="text-[#60738F] text-[11px] leading-relaxed">
                         {q.context}
                       </p>
                     </div>
-                    <div className="p-3 rounded-lg bg-[#F5F1EB] border border-[#DDD5C5]">
-                      <span className="text-[10px] font-mono uppercase text-[#2B3D4F] font-semibold block mb-1">
+                    <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4]">
+                      <span className="text-[10px] font-mono uppercase text-[#14213D] font-semibold block mb-1">
                         Suggested validation method:
                       </span>
-                      <p className="text-[#4A5E73] text-[11px] leading-relaxed">
+                      <p className="text-[#60738F] text-[11px] leading-relaxed">
                         {linkedAssumption
                           ? linkedAssumption.validationMethod
                           : 'Founder interview plus targeted evidence capture for this dimension.'}

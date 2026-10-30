@@ -50,10 +50,10 @@ function parseBotMessage(text: string): ParsedBotSection[] {
         content: trimmed.replace(/^Captured:\s*/, ''),
         label: 'VERIFIED — Founder Input',
         icon: <ShieldCheck className="w-3 h-3" />,
-        borderColor: 'border-[#10B981]',
-        bgColor: 'bg-[#ECFDF5]',
-        textColor: 'text-[#1F2937]',
-        headerColor: 'text-[#059669]',
+        borderColor: 'border-[#19A875]',
+        bgColor: 'bg-[#E8F8F1]',
+        textColor: 'text-[#14213D]',
+        headerColor: 'text-[#19A875]',
       };
     }
     if (trimmed.startsWith('Confidence:')) {
@@ -62,10 +62,10 @@ function parseBotMessage(text: string): ParsedBotSection[] {
         content: trimmed.replace(/^Confidence:\s*/, ''),
         label: 'GROUNDING & CONFIDENCE',
         icon: <Brain className="w-3 h-3" />,
-        borderColor: 'border-[#38BDF8]',
-        bgColor: 'bg-[#F0F9FF]',
-        textColor: 'text-[#1F2937]',
-        headerColor: 'text-[#0284C7]',
+        borderColor: 'border-[#2684F7]',
+        bgColor: 'bg-[#E8F2FF]',
+        textColor: 'text-[#14213D]',
+        headerColor: 'text-[#2684F7]',
       };
     }
     if (trimmed.startsWith('What this changes:')) {
@@ -74,10 +74,10 @@ function parseBotMessage(text: string): ParsedBotSection[] {
         content: trimmed.replace(/^What this changes:\s*/, ''),
         label: 'DOWNSTREAM MODEL IMPACT',
         icon: <Sparkles className="w-3 h-3" />,
-        borderColor: 'border-[#A855F7]',
-        bgColor: 'bg-[#FAF5FF]',
-        textColor: 'text-[#1F2937]',
-        headerColor: 'text-[#9333EA]',
+        borderColor: 'border-[#9272DB]',
+        bgColor: 'bg-[#F2EDFF]',
+        textColor: 'text-[#14213D]',
+        headerColor: 'text-[#9272DB]',
       };
     }
     if (trimmed.startsWith('Next question')) {
@@ -86,10 +86,10 @@ function parseBotMessage(text: string): ParsedBotSection[] {
         content: trimmed,
         label: 'DISCOVERY PROBE',
         icon: null,
-        borderColor: 'border-[#F59E0B]',
-        bgColor: 'bg-[#FFFBEB]',
-        textColor: 'text-[#1F2937]',
-        headerColor: 'text-[#D97706]',
+        borderColor: 'border-[#F29A42]',
+        bgColor: 'bg-[#FFF3E7]',
+        textColor: 'text-[#14213D]',
+        headerColor: 'text-[#F29A42]',
       };
     }
     if (trimmed.startsWith('STATUS:')) {
@@ -100,8 +100,8 @@ function parseBotMessage(text: string): ParsedBotSection[] {
         icon: null,
         borderColor: 'border-transparent',
         bgColor: 'bg-transparent',
-        textColor: 'text-[#4B5563]',
-        headerColor: 'text-[#4B5563]',
+        textColor: 'text-[#60738F]',
+        headerColor: 'text-[#60738F]',
       };
     }
     // Check for inference markers
@@ -111,10 +111,10 @@ function parseBotMessage(text: string): ParsedBotSection[] {
         content: trimmed.replace(/^(?:MODEL INFERENCE|AI INFERENCE|INFERRED:)\s*/i, ''),
         label: 'MODEL INFERENCE',
         icon: <Brain className="w-3 h-3" />,
-        borderColor: 'border-[#6C5E8F]',
-        bgColor: 'bg-[#F5F3FF]',
-        textColor: 'text-[#1F2937]',
-        headerColor: 'text-[#7C3AED]',
+        borderColor: 'border-[#9272DB]',
+        bgColor: 'bg-[#F2EDFF]',
+        textColor: 'text-[#14213D]',
+        headerColor: 'text-[#9272DB]',
       };
     }
     // Check for verified markers
@@ -124,10 +124,10 @@ function parseBotMessage(text: string): ParsedBotSection[] {
         content: trimmed.replace(/^(?:VERIFIED|SOURCE-BACKED|EVIDENCE:)\s*/i, ''),
         label: 'VERIFIED — Source-Backed',
         icon: <ShieldCheck className="w-3 h-3" />,
-        borderColor: 'border-[#10B981]',
-        bgColor: 'bg-[#ECFDF5]',
-        textColor: 'text-[#1F2937]',
-        headerColor: 'text-[#059669]',
+        borderColor: 'border-[#19A875]',
+        bgColor: 'bg-[#E8F8F1]',
+        textColor: 'text-[#14213D]',
+        headerColor: 'text-[#19A875]',
       };
     }
     return {
@@ -137,8 +137,8 @@ function parseBotMessage(text: string): ParsedBotSection[] {
       icon: null,
       borderColor: 'border-transparent',
       bgColor: 'bg-transparent',
-      textColor: 'text-[#1F2937]',
-      headerColor: 'text-[#1F2937]',
+      textColor: 'text-[#14213D]',
+      headerColor: 'text-[#14213D]',
     };
   });
 }
@@ -150,13 +150,13 @@ function renderBotMessageContent(text: string) {
       {parsed.map((section, idx) => {
         if (section.type === 'status') {
           return (
-            <div key={idx} className="text-[11px] font-mono text-[#4B5563] border-t border-[#D1D5DB] pt-2 italic">
+            <div key={idx} className="text-[11px] font-mono text-[#60738F] border-t border-[#E2EAF4] pt-2 italic">
               {section.content}
             </div>
           );
         }
         if (section.type === 'text') {
-          return <div key={idx} className="whitespace-pre-wrap text-sm text-[#1F2937]">{section.content}</div>;
+          return <div key={idx} className="whitespace-pre-wrap text-sm text-[#14213D]">{section.content}</div>;
         }
         return (
           <div
@@ -630,32 +630,32 @@ interface SpeechRecognitionLike {
     // visually distinct from other cards in the workspace.
     <div
       ref={chatContainerRef}
-      className="bg-[#1C2026] border border-[#2E3540] rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[560px] transition-colors duration-200"
+      className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-2xl overflow-hidden shadow-intel-card flex flex-col h-[560px] transition-colors duration-200"
     >
       {/* Interviewer Header */}
-      <div className="px-5 py-3.5 bg-[#141A23] border-b border-[#232F40] flex items-center justify-between">
+      <div className="px-5 py-3.5 bg-[#EEF4FB] border-b border-[#E2EAF4] flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#1E293B] border border-[#334155] flex items-center justify-center text-[#38BDF8]">
-            <Bot className="w-4 h-4 text-[#38BDF8]" />
+          <div className="w-8 h-8 rounded-lg bg-[#E8F2FF] border border-[#2684F7]/30 flex items-center justify-center text-[#2684F7]">
+            <Bot className="w-4 h-4 text-[#2684F7]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#F1F5F9] font-semibold">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#14213D] font-semibold">
                 Business Intelligence Interviewer
               </span>
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-[#064E3B]/80 text-[#34D399] border border-[#059669]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#19A875] animate-pulse" />
                 Active Session
               </span>
             </div>
-            <p className="text-[11px] text-[#94A3B8]">
+            <p className="text-[11px] text-[#60738F]">
               Stage 01 • Staged Discovery Mode • Grounded Strategy
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="hidden sm:inline-block text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
+          <span className="hidden sm:inline-block text-[10px] font-mono text-[#8495AE] uppercase tracking-wider">
             Stage 01 of 08
           </span>
           <Badge variant={state.idea.rawInput ? 'success' : 'outline'} size="sm" className="shrink-0 whitespace-nowrap">
@@ -669,7 +669,7 @@ interface SpeechRecognitionLike {
       <div
         ref={viewportRef}
         onScroll={handleViewportScroll}
-        className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 sm:p-5 space-y-4 bg-[#11151C]"
+        className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 sm:p-5 space-y-4 bg-[#F5F8FC]"
       >
         {messages.map((msg) => (
           <div
@@ -681,8 +681,8 @@ interface SpeechRecognitionLike {
             <div
               className={`w-7 h-7 rounded-lg shrink-0 flex items-center justify-center text-xs ${
                 msg.sender === 'user'
-                  ? 'bg-[#243042] border border-[#3A4A62] text-[#93C5FD]'
-                  : 'bg-[#162232] border border-[#23354C] text-[#38BDF8]'
+                  ? 'bg-[#243042] border border-[#3A4A62] text-[#2684F7]'
+                  : 'bg-[#162232] border border-[#23354C] text-[#2684F7]'
               }`}
             >
               {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
@@ -691,32 +691,32 @@ interface SpeechRecognitionLike {
             <div
               className={`rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
                 msg.sender === 'user'
-                  ? 'bg-[#FAF8F5] border border-[#E2D9CC] text-[#1F2937] rounded-tr-none'
-                  : 'bg-[#FAF8F5] border border-[#E2D9CC] text-[#1F2937] rounded-tl-none'
+                  ? 'bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D] rounded-tr-none'
+                  : 'bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D] rounded-tl-none'
               }`}
             >
-              <div className="flex items-center justify-between gap-3 mb-2 border-b border-[#E2D9CC] pb-1">
+              <div className="flex items-center justify-between gap-3 mb-2 border-b border-[#E2EAF4] pb-1">
                 <span
                   className={`text-[10px] font-mono uppercase tracking-wider font-semibold ${
-                    msg.sender === 'user' ? 'text-[#0284C7]' : 'text-[#059669]'
+                    msg.sender === 'user' ? 'text-[#2684F7]' : 'text-[#19A875]'
                   }`}
                 >
                   {msg.sender === 'user' ? 'FOUNDER INPUT' : 'BUSINESS INTELLIGENCE INTERVIEWER'}
                 </span>
-                <span className="text-[10px] font-mono text-[#6B7280]">
+                <span className="text-[10px] font-mono text-[#8495AE]">
                   {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
 
               {msg.isInitial ? (
                 <div className="space-y-2">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#059669] font-bold border-b border-[#E2D9CC] pb-1">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#19A875] font-bold border-b border-[#E2EAF4] pb-1">
                     STAGE 01 • VENTURE DISCOVERY SESSION
                   </div>
-                  <div className="text-sm font-semibold text-[#111827]">
+                  <div className="text-sm font-semibold text-[#14213D]">
                     Hello. Let's turn your idea into a structured, validated venture.
                   </div>
-                  <div className="text-xs text-[#4B5563] leading-relaxed">
+                  <div className="text-xs text-[#60738F] leading-relaxed">
                     Tell me what is in your head: product type, target audience, or geographic region.<br />
                     It doesn't need to be polished — we'll systematically structure the business model.
                   </div>
@@ -724,7 +724,7 @@ interface SpeechRecognitionLike {
               ) : msg.sender === 'ai' ? (
                 renderBotMessageContent(msg.text)
               ) : (
-                <div className="whitespace-pre-wrap text-[#1F2937]">{msg.text}</div>
+                <div className="whitespace-pre-wrap text-[#14213D]">{msg.text}</div>
               )}
             </div>
           </div>
@@ -732,22 +732,22 @@ interface SpeechRecognitionLike {
 
         {isThinking && (
           <div className="msg-in flex gap-3 max-w-2xl mr-auto" aria-live="polite">
-            <div className="w-7 h-7 rounded-lg shrink-0 flex items-center justify-center text-xs bg-[#162232] border border-[#23354C] text-[#38BDF8]">
+            <div className="w-7 h-7 rounded-lg shrink-0 flex items-center justify-center text-xs bg-[#162232] border border-[#23354C] text-[#2684F7]">
               <Bot className="w-3.5 h-3.5" />
             </div>
-            <div className="rounded-2xl rounded-tl-none px-4 py-3 bg-[#FAF8F5] border border-[#E2D9CC] shadow-md flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse [animation-delay:150ms]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse [animation-delay:300ms]" />
-              <span className="text-[11px] font-mono text-[#4B5563] ml-1">Analyzing venture signals & model constraints…</span>
+            <div className="rounded-2xl rounded-tl-none px-4 py-3 bg-[#FFFFFF] border border-[#E2EAF4] shadow-md flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2684F7] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2684F7] animate-pulse [animation-delay:150ms]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2684F7] animate-pulse [animation-delay:300ms]" />
+              <span className="text-[11px] font-mono text-[#60738F] ml-1">Analyzing venture signals & model constraints…</span>
             </div>
           </div>
         )}
 
         {state.idea.rawInput && (
-          <div className="p-3 rounded-lg bg-[#FAF8F5] border border-[#E2D9CC] text-xs text-[#1F2937] flex items-center justify-between">
+          <div className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-[#14213D] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#059669] shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-[#19A875] shrink-0" />
               <span>
                 Active raw idea stored in project state. Downstream stages dynamically adapt to this context.
               </span>
@@ -759,14 +759,14 @@ interface SpeechRecognitionLike {
 
       {/* Suggested Idea Starters */}
       {!state.idea.rawInput && (
-        <div className="px-4 py-2 bg-[#181B21] border-t border-[#282F3A] flex items-center gap-2 overflow-x-auto no-scrollbar">
-          <span className="text-[10px] font-mono text-[#8590A2] shrink-0 uppercase tracking-wider">Try:</span>
+        <div className="px-4 py-2 bg-[#EEF4FB] border-t border-[#E2EAF4] flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <span className="text-[10px] font-mono text-[#60738F] shrink-0 uppercase tracking-wider">Try:</span>
           {sampleIdeas.map((example) => (
             <button
               key={example}
               type="button"
               onClick={() => setInputText(example)}
-              className="text-[11px] text-[#CBD5E1] hover:text-[#F8FAFC] bg-[#222731] hover:bg-[#2D3442] px-2.5 py-1 rounded-lg border border-[#333C4A] shrink-0 transition-colors truncate max-w-xs"
+              className="text-[11px] text-[11px] text-[#14213D] hover:text-[#2684F7] bg-[#FFFFFF] hover:bg-[#E8F2FF] px-2.5 py-1 rounded-lg border border-[#E2EAF4] hover:border-[#2684F7]/40 shrink-0 transition-colors truncate max-w-xs"
             >
               {example}
             </button>
@@ -776,11 +776,11 @@ interface SpeechRecognitionLike {
 
       {/* Voice Notification Banner */}
       {voiceNotice && (
-        <div className="px-4 py-1.5 bg-[#181B21] border-t border-[#282F3A] text-[11px] font-mono text-[#E2E8F0] flex items-center justify-between">
+        <div className="px-4 py-1.5 bg-[#EEF4FB] border-t border-[#E2EAF4] text-[11px] font-mono text-[#14213D] flex items-center justify-between">
           <span>{voiceNotice}</span>
           <button
             onClick={() => setVoiceNotice(null)}
-            className="text-xs text-[#8590A2] hover:text-[#F8FAFC]"
+            className="text-xs text-[#60738F] hover:text-[#14213D]"
           >
             ✕
           </button>
@@ -789,19 +789,19 @@ interface SpeechRecognitionLike {
 
       {/* Selected attachments preview */}
       {attachedFiles.length > 0 && (
-        <div className="px-4 py-2 bg-[#181B21] border-t border-[#282F3A] flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <div className="px-4 py-2 bg-[#FFFFFF] border-t border-[#E2EAF4] flex items-center gap-2 overflow-x-auto no-scrollbar">
           {attachedFiles.map((f) => (
             <span
               key={f.name}
-              className="inline-flex items-center gap-1.5 text-[11px] text-[#E2E8F0] bg-[#222731] border border-[#333C4A] rounded-lg px-2.5 py-1 shrink-0"
+              className="inline-flex items-center gap-1.5 text-[11px] text-[#14213D] bg-[#FFFFFF] border border-[#E2EAF4] rounded-lg px-2.5 py-1 shrink-0"
             >
-              <FileText className="w-3.5 h-3.5 text-[#8590A2]" />
+              <FileText className="w-3.5 h-3.5 text-[#8495AE]" />
               <span className="font-medium truncate max-w-[140px]">{f.name}</span>
-              <span className="text-[#8590A2] font-mono">{formatBytes(f.size)}</span>
+              <span className="text-[#8495AE] font-mono">{formatBytes(f.size)}</span>
               <button
                 type="button"
                 onClick={() => setAttachedFiles((prev) => prev.filter((p) => p.name !== f.name))}
-                className="text-[#8590A2] hover:text-[#EF4444] transition-colors"
+                className="text-[#8495AE] hover:text-[#E46D68] transition-colors"
                 title="Remove file"
               >
                 <X className="w-3 h-3" />
@@ -813,14 +813,14 @@ interface SpeechRecognitionLike {
 
       {/* Quick-reply chips for the latest interviewer question (ephemeral) */}
       {pendingChips.length > 0 && !isThinking && (
-        <div className="px-4 py-2 bg-[#181B21] border-t border-[#282F3A] flex items-center gap-2 overflow-x-auto no-scrollbar">
-          <span className="text-[10px] font-mono text-[#8590A2] shrink-0 uppercase tracking-wider">Pick:</span>
+        <div className="px-4 py-2 bg-[#FFFFFF] border-t border-[#E2EAF4] flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <span className="text-[10px] font-mono text-[#8495AE] shrink-0 uppercase tracking-wider">Pick:</span>
           {pendingChips.map((chip) => (
             <button
               key={chip}
               type="button"
               onClick={() => handleSubmit(undefined, chip)}
-              className="text-[11px] font-medium text-[#E2E8F0] bg-[#222731] hover:bg-[#3B4554] hover:text-[#F8FAFC] px-2.5 py-1 rounded-full border border-[#333C4A] shrink-0 transition-colors"
+              className="text-[11px] font-medium text-[#14213D] bg-[#FFFFFF] hover:bg-[#E8F2FF] hover:text-[#2684F7] px-2.5 py-1 rounded-full border border-[#E2EAF4] hover:border-[#2684F7]/40 shrink-0 transition-colors"
             >
               {chip}
             </button>
@@ -831,7 +831,7 @@ interface SpeechRecognitionLike {
       {/* Input Box Area — integrated footer strip, seamless with graphite shell */}
       <form
         onSubmit={handleSubmit}
-        className="px-4 py-3 bg-[#171A20] border-t border-[#282F3A] flex items-end gap-2"
+        className="px-4 py-3 bg-[#FFFFFF] border-t border-[#E2EAF4] flex items-end gap-2"
       >
         {/* Plus control: attachment / context action menu */}
         <input
@@ -850,21 +850,21 @@ interface SpeechRecognitionLike {
             title="Add context: notes, documents, images, competitor or research references"
             aria-label="Add venture context or attachments"
             aria-expanded={showAttachMenu}
-            className="p-2 rounded-lg transition-colors text-[#8590A2] hover:text-[#F8FAFC] hover:bg-[#232933]"
+            className="p-2 rounded-lg transition-colors text-[#60738F] hover:text-[#14213D] hover:bg-[#EEF4FB]"
           >
             <Plus className="w-4 h-4" />
           </button>
           {showAttachMenu && (
-            <div className="absolute bottom-12 left-0 z-20 w-60 rounded-xl bg-[#20252E] border border-[#333C4A] shadow-2xl p-1.5 space-y-0.5">
+            <div className="absolute bottom-12 left-0 z-20 w-60 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] shadow-xl p-1.5 space-y-0.5">
               {ATTACH_MENU_ITEMS.map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => handleAttachMenuAction(item.id)}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#2A313D] transition-colors"
+                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#EEF4FB] transition-colors"
                 >
-                  <span className="block text-xs font-semibold text-[#E2E8F0]">{item.label}</span>
-                  <span className="block text-[10px] text-[#8590A2] mt-0.5">{item.hint}</span>
+                  <span className="block text-xs font-semibold text-[#14213D]">{item.label}</span>
+                  <span className="block text-[10px] text-[#60738F] mt-0.5">{item.hint}</span>
                 </button>
               ))}
             </div>
@@ -879,7 +879,7 @@ interface SpeechRecognitionLike {
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Tell me what is in your head. It doesn't need to be polished..."
-            className="w-full bg-[#101317] border border-[#2B323E] focus:border-[#4B5565] text-[#F1F5F9] rounded-xl px-3 py-2 text-sm placeholder:text-[#64748B] resize-none outline-none leading-relaxed transition-colors"
+            className="w-full bg-[#F5F8FC] border border-[#E2EAF4] focus:border-[#2684F7] focus:bg-[#FFFFFF] text-[#14213D] rounded-xl px-3 py-2 text-sm placeholder:text-[#8495AE] resize-none outline-none leading-relaxed transition-colors"
           />
         </div>
 
@@ -898,8 +898,8 @@ interface SpeechRecognitionLike {
           aria-label={isListeningLive ? 'Stop voice input' : 'Start voice input'}
           className={`p-2 rounded-lg transition-colors ${
             isListeningPlaceholder || isListeningLive
-              ? 'bg-[#EF4444]/20 text-[#EF4444] animate-pulse'
-              : 'text-[#8590A2] hover:text-[#F8FAFC] hover:bg-[#232933]'
+              ? 'bg-[#FFF0EF] text-[#E46D68] animate-pulse'
+              : 'text-[#60738F] hover:text-[#14213D] hover:bg-[#EEF4FB]'
           }`}
         >
           <Mic className="w-4 h-4" />
@@ -908,7 +908,7 @@ interface SpeechRecognitionLike {
         <button
           type="submit"
           disabled={(!inputText.trim() && attachedFiles.length === 0) || isThinking}
-          className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] disabled:bg-[#1E293B] disabled:text-[#64748B] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-semibold transition-all shadow-sm active:scale-95"
+          className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#2684F7] hover:bg-[#1769D2] disabled:bg-[#EEF4FB] disabled:text-[#8495AE] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-semibold transition-all shadow-sm active:scale-95"
         >
           {isThinking ? 'Processing…' : 'Submit'}
           <Send className="w-3.5 h-3.5" />

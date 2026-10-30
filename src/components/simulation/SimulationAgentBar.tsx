@@ -433,11 +433,11 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
         updated.materialOverride = 'brushed_titanium';
         actionDesc += 'Applied Brushed Aerospace Titanium. ';
       } else if (p.includes('steel') || p.includes('brushed steel')) {
-        updated.primaryColorOverride = '#CBD5E1';
+        updated.primaryColorOverride = '#14213D';
         updated.materialOverride = 'brushed_steel';
         actionDesc += 'Applied Brushed Stainless Steel finish. ';
       } else if (p.includes('ceramic') || p.includes('white casing')) {
-        updated.primaryColorOverride = '#F8FAFC';
+        updated.primaryColorOverride = '#14213D';
         updated.materialOverride = 'ceramic';
         actionDesc += 'Applied High-Gloss White Ceramic. ';
       }
@@ -563,7 +563,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
 
       if (!actionDesc) {
         actionDesc = `Applied design modification: "${inputPrompt}".`;
-        updated.accentColorOverride = '#4D8DFF';
+        updated.accentColorOverride = '#2684F7';
       }
 
       updated.lastPromptApplied = inputPrompt;
@@ -625,12 +625,12 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
   return (
     <div className="space-y-3">
       {/* 1. SINGLE-LINE AGENT MODIFICATION BAR */}
-      <div className="bg-[#111823] border border-[#263244] focus-within:border-[#4D8DFF] rounded-xl p-2 shadow-xl transition-all">
+      <div className="bg-[#FFFFFF] border border-[#E2EAF4] focus-within:border-[#2684F7] rounded-xl p-2 shadow-xl transition-all">
         {/* Context Bar Header */}
-        <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#1E293B] text-[11px] font-mono">
+        <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#EEF4FB] text-[11px] font-mono">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#4D8DFF] animate-pulse" />
-            <span className="text-[#93C5FD] font-bold">
+            <span className="w-2 h-2 rounded-full bg-[#2684F7] animate-pulse" />
+            <span className="text-[#2684F7] font-bold">
               {currentContextTitle}
             </span>
           </div>
@@ -640,7 +640,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
               <button
                 type="button"
                 onClick={handleUndo}
-                className="text-[11px] font-mono text-[#AAB4C3] hover:text-white flex items-center gap-1 transition-colors"
+                className="text-[11px] font-mono text-[#8495AE] hover:text-white flex items-center gap-1 transition-colors"
                 title="Undo last change"
               >
                 <Undo2 className="w-3 h-3" />
@@ -677,7 +677,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
           className="flex items-center gap-2"
         >
           <div className="pl-2 shrink-0">
-            <Sparkles className="w-4 h-4 text-[#4D8DFF]" />
+            <Sparkles className="w-4 h-4 text-[#2684F7]" />
           </div>
 
           <input
@@ -691,8 +691,8 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
                 ? "Ask the simulation agent to change this prototype (e.g. 'Replace chart with conversion funnel', 'Add campaign comparison table', 'Make dashboard minimal')..."
                 : "Ask the simulation agent (e.g. 'Make casing matte black', 'Show internal PCB', 'Put product in workshop')..."
             }
-            className={`flex-1 bg-transparent text-xs text-[#F3F4F6] placeholder-[#738095] px-2 py-1.5 focus:outline-none font-sans ${
-              isListening ? 'placeholder-[#38BDF8] italic' : ''
+            className={`flex-1 bg-transparent text-xs text-[#14213D] placeholder-[#8495AE] px-2 py-1.5 focus:outline-none font-sans ${
+              isListening ? 'placeholder-[#2684F7] italic' : ''
             }`}
           />
 
@@ -703,8 +703,8 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
               onClick={toggleVoiceInput}
               className={`p-2 rounded-lg text-xs font-mono transition-all flex items-center justify-center ${
                 isListening
-                  ? 'bg-[#EF4444] text-white animate-pulse shadow-lg'
-                  : 'bg-[#1A2536] hover:bg-[#263244] text-[#AAB4C3] hover:text-white border border-[#263244]'
+                  ? 'bg-[#E46D68] text-white animate-pulse shadow-lg'
+                  : 'bg-[#FFFFFF] hover:bg-[#E2EAF4] text-[#8495AE] hover:text-white border border-[#E2EAF4]'
               }`}
               title={isListening ? 'Stop listening' : 'Click to speak change (Voice Recognition)'}
             >
@@ -715,7 +715,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
             <button
               type="submit"
               disabled={!prompt.trim() || isProcessing}
-              className="px-3.5 py-2 rounded-lg bg-[#4D8DFF] hover:bg-[#3B7BE8] text-[#080B10] font-bold text-xs font-mono flex items-center gap-1.5 transition-colors disabled:opacity-40 shadow-sm"
+              className="px-3.5 py-2 rounded-lg bg-[#2684F7] hover:bg-[#3B7BE8] text-[#FFFFFF] font-bold text-xs font-mono flex items-center gap-1.5 transition-colors disabled:opacity-40 shadow-sm"
             >
               {isProcessing ? (
                 <span className="animate-spin text-xs">⟳</span>
@@ -732,7 +732,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
         {/* Speech Error Warning if any */}
         {speechError && (
           <div className="mt-2 text-[11px] font-mono text-[#FCA5A5] flex items-center gap-1 px-2">
-            <AlertCircle className="w-3 h-3 text-[#EF4444]" />
+            <AlertCircle className="w-3 h-3 text-[#E46D68]" />
             <span>{speechError}</span>
           </div>
         )}
@@ -740,7 +740,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
 
       {/* 2. Quick Suggestions Bar */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 text-[11px] font-mono">
-        <span className="text-[#738095] shrink-0 text-[10px] uppercase font-bold flex items-center gap-1">
+        <span className="text-[#60738F] shrink-0 text-[10px] uppercase font-bold flex items-center gap-1">
           <span>Suggestions:</span>
         </span>
         {getSuggestions().map((suggestion, idx) => (
@@ -748,10 +748,10 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
             key={idx}
             type="button"
             onClick={() => handleInterpretAndApply(suggestion)}
-            className="shrink-0 px-2.5 py-1 rounded-full bg-[#0D121B] hover:bg-[#1A2536] text-[#AAB4C3] hover:text-[#F3F4F6] border border-[#263244] transition-colors flex items-center gap-1 text-[11px]"
+            className="shrink-0 px-2.5 py-1 rounded-full bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-[#14213D] border border-[#E2EAF4] transition-colors flex items-center gap-1 text-[11px]"
           >
             <span>{suggestion}</span>
-            <ArrowRight className="w-2.5 h-2.5 text-[#738095]" />
+            <ArrowRight className="w-2.5 h-2.5 text-[#60738F]" />
           </button>
         ))}
       </div>
@@ -759,8 +759,8 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
       {/* 3. Real-Time Visual Feedback Confirmation Banner */}
       {hasActiveOverrides && (
         <div className="px-3.5 py-2 rounded-lg bg-[#0F172A] border border-[#3B82F6]/40 flex items-center justify-between gap-3 text-xs font-mono animate-fadeIn">
-          <div className="flex items-center gap-2 text-[#93C5FD]">
-            <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0" />
+          <div className="flex items-center gap-2 text-[#2684F7]">
+            <CheckCircle2 className="w-4 h-4 text-[#19A875] shrink-0" />
             <span>
               <strong>{mode === 'software' ? 'Prototype Modified:' : '3D Scene Updated:'}</strong> {lastMessage || 'Custom simulated parameters active.'}
             </span>
@@ -775,7 +775,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
                 onResetOverrides?.();
               }
             }}
-            className="text-[11px] text-[#AAB4C3] hover:text-white underline flex items-center gap-1 shrink-0"
+            className="text-[11px] text-[#8495AE] hover:text-white underline flex items-center gap-1 shrink-0"
           >
             <RotateCcw className="w-3 h-3" />
             <span>Reset All</span>

@@ -204,7 +204,7 @@ export const LocationContext: React.FC = () => {
       <div className="space-y-6">
         {/* Operating Scope Selection */}
         <div>
-          <label className="block text-xs font-mono uppercase text-[#4A5E73] font-medium mb-2">
+          <label className="block text-xs font-mono uppercase text-[#60738F] font-medium mb-2">
             Operating Scope & Footprint
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
@@ -217,12 +217,12 @@ export const LocationContext: React.FC = () => {
                   onClick={() => handleScopeChange(opt.id)}
                   className={`p-2.5 rounded-lg border text-left transition-all text-xs ${
                     isSelected
-                      ? 'bg-[#2B3D4F] text-[#FDFCF8] border-[#2B3D4F] font-medium shadow-sm'
-                      : 'bg-[#F5F1EB] hover:bg-[#ECE6DA] border-[#DDD5C5] text-[#4A5E73]'
+                      ? 'bg-[#14213D] text-[#FFFFFF] border-[#14213D] font-medium shadow-sm'
+                      : 'bg-[#EEF4FB] hover:bg-[#EEF4FB] border-[#E2EAF4] text-[#60738F]'
                   }`}
                 >
                   <div className="font-semibold">{opt.label}</div>
-                  <div className={`text-[10px] mt-0.5 truncate ${isSelected ? 'text-[#FDFCF8]/70' : 'text-[#6B7D90]'}`}>
+                  <div className={`text-[10px] mt-0.5 truncate ${isSelected ? 'text-[#FFFFFF]/70' : 'text-[#60738F]'}`}>
                     {opt.sub}
                   </div>
                 </button>
@@ -232,26 +232,26 @@ export const LocationContext: React.FC = () => {
         </div>
 
         {/* Dependent Structured Geographic Selectors */}
-        <div className="p-3.5 rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] space-y-3">
+        <div className="p-3.5 rounded-xl bg-[#EEF4FB] border border-[#E2EAF4] space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono font-bold text-[#2B3D4F] flex items-center gap-1.5">
-              <Globe className="w-3.5 h-3.5 text-[#2B3D4F]" />
+            <span className="text-xs font-mono font-bold text-[#14213D] flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-[#14213D]" />
               STRUCTURED LOCATION VECTORS
             </span>
-            <span className="text-[10px] font-mono text-[#6B7D90]">Dependent validation</span>
+            <span className="text-[10px] font-mono text-[#60738F]">Dependent validation</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {/* 1. Country */}
             <div>
-              <label className="block text-[11px] font-mono uppercase text-[#4A5E73] font-medium mb-1">
+              <label className="block text-[11px] font-mono uppercase text-[#60738F] font-medium mb-1">
                 Country
               </label>
               <select
                 aria-label="Country"
                 value={selectedCountry}
                 onChange={(e) => handleCountryChange(e.target.value)}
-                className="w-full text-xs px-3 py-2 rounded-lg border border-[#DDD5C5] bg-[#FDFCF8] text-[#2B3D4F] focus:outline-none focus:ring-1 focus:ring-[#2B3D4F]"
+                className="w-full text-xs px-3 py-2 rounded-lg border border-[#E2EAF4] bg-[#FFFFFF] text-[#14213D] focus:outline-none focus:ring-1 focus:ring-[#14213D]"
               >
                 <option value="">-- Not specified --</option>
                 {GEOGRAPHY_REGISTRY.map((c) => (
@@ -264,7 +264,7 @@ export const LocationContext: React.FC = () => {
 
             {/* 2. State / Region */}
             <div>
-              <label className="block text-[11px] font-mono uppercase text-[#4A5E73] font-medium mb-1">
+              <label className="block text-[11px] font-mono uppercase text-[#60738F] font-medium mb-1">
                 State / Region
               </label>
               <select
@@ -272,7 +272,7 @@ export const LocationContext: React.FC = () => {
                 value={selectedState}
                 disabled={!selectedCountry || availableStates.length === 0}
                 onChange={(e) => handleStateChange(e.target.value)}
-                className="w-full text-xs px-3 py-2 rounded-lg border border-[#DDD5C5] bg-[#FDFCF8] text-[#2B3D4F] focus:outline-none focus:ring-1 focus:ring-[#2B3D4F] disabled:opacity-50 disabled:bg-[#ECE6DA]"
+                className="w-full text-xs px-3 py-2 rounded-lg border border-[#E2EAF4] bg-[#FFFFFF] text-[#14213D] focus:outline-none focus:ring-1 focus:ring-[#14213D] disabled:opacity-50 disabled:bg-[#EEF4FB]"
               >
                 <option value="">{availableStates.length === 0 ? '-- Select Country first --' : '-- All / Nationwide --'}</option>
                 {availableStates.map((s) => (
@@ -285,7 +285,7 @@ export const LocationContext: React.FC = () => {
 
             {/* 3. City */}
             <div>
-              <label className="block text-[11px] font-mono uppercase text-[#4A5E73] font-medium mb-1">
+              <label className="block text-[11px] font-mono uppercase text-[#60738F] font-medium mb-1">
                 City / Metropolitan Area
               </label>
               <select
@@ -293,7 +293,7 @@ export const LocationContext: React.FC = () => {
                 value={selectedCity}
                 disabled={!selectedState || availableCities.length === 0}
                 onChange={(e) => handleCityChange(e.target.value)}
-                className="w-full text-xs px-3 py-2 rounded-lg border border-[#DDD5C5] bg-[#FDFCF8] text-[#2B3D4F] focus:outline-none focus:ring-1 focus:ring-[#2B3D4F] disabled:opacity-50 disabled:bg-[#ECE6DA]"
+                className="w-full text-xs px-3 py-2 rounded-lg border border-[#E2EAF4] bg-[#FFFFFF] text-[#14213D] focus:outline-none focus:ring-1 focus:ring-[#14213D] disabled:opacity-50 disabled:bg-[#EEF4FB]"
               >
                 <option value="">{availableCities.length === 0 ? '-- Select State first --' : '-- All Cities in Region --'}</option>
                 {availableCities.map((ci) => (
@@ -307,7 +307,7 @@ export const LocationContext: React.FC = () => {
 
           {/* Validation Warning Alert */}
           {!validation.isValid && validation.errorMessage && (
-            <div className="p-2.5 rounded-lg bg-[rgba(169,101,85,0.12)] border border-[rgba(169,101,85,0.35)] flex items-start gap-2 text-xs text-[#A96555] animate-fade-in">
+            <div className="p-2.5 rounded-lg bg-[rgba(169,101,85,0.12)] border border-[rgba(169,101,85,0.35)] flex items-start gap-2 text-xs text-[#E46D68] animate-fade-in">
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               <div>
                 <span className="font-semibold">Geographic Inconsistency:</span> {validation.errorMessage}
@@ -317,7 +317,7 @@ export const LocationContext: React.FC = () => {
 
           {/* Active Summary */}
           {isConfirmedGeo && validation.isValid && (
-            <div className="flex items-center gap-2 text-xs text-[#4A7C59] pt-1 font-mono">
+            <div className="flex items-center gap-2 text-xs text-[#19A875] pt-1 font-mono">
               <Building2 className="w-3.5 h-3.5" />
               <span>
                 Confirmed Operational Focus: {[selectedCity, selectedState, selectedCountry].filter(Boolean).join(' → ')}
@@ -328,7 +328,7 @@ export const LocationContext: React.FC = () => {
 
         {/* Operational / Delivery Model */}
         <div>
-          <label className="block text-xs font-mono uppercase text-[#4A5E73] font-medium mb-2">
+          <label className="block text-xs font-mono uppercase text-[#60738F] font-medium mb-2">
             Delivery &amp; Presence Model
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -343,20 +343,20 @@ export const LocationContext: React.FC = () => {
                   aria-pressed={isSelected}
                   className={`p-3 rounded-lg border text-left flex items-center gap-3 transition-all ${
                     isSelected
-                      ? 'text-[#2B3D4F] ring-1'
-                      : 'hover:brightness-[0.985] border-[#DDD5C5] text-[#4A5E73]'
+                      ? 'text-[#14213D] ring-1'
+                      : 'hover:brightness-[0.985] border-[#E2EAF4] text-[#60738F]'
                   }`}
                   style={
                     isSelected
                       ? { backgroundColor: opt.wash, borderColor: opt.accent, ['--tw-ring-color' as string]: opt.accent }
-                      : { backgroundColor: '#F5F1EB' }
+                      : { backgroundColor: '#EEF4FB' }
                   }
                 >
                   <div
                     className="w-7 h-7 rounded flex items-center justify-center shrink-0 transition-colors"
                     style={
                       isSelected
-                        ? { backgroundColor: opt.accent, color: '#FDFCF8' }
+                        ? { backgroundColor: opt.accent, color: '#FFFFFF' }
                         : { backgroundColor: opt.wash, color: opt.accent }
                     }
                   >
@@ -371,7 +371,7 @@ export const LocationContext: React.FC = () => {
 
         {/* Customer Type */}
         <div>
-          <label className="block text-xs font-mono uppercase text-[#4A5E73] font-medium mb-2">
+          <label className="block text-xs font-mono uppercase text-[#60738F] font-medium mb-2">
             Primary Customer Archetype
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -384,7 +384,7 @@ export const LocationContext: React.FC = () => {
                   onClick={() => setCustomerType(opt.id)}
                   aria-pressed={isSelected}
                   className={`p-3 rounded-lg border text-left transition-all ${
-                    isSelected ? 'ring-1' : 'bg-[#F5F1EB] hover:bg-[#ECE6DA] border-[#DDD5C5]'
+                    isSelected ? 'ring-1' : 'bg-[#EEF4FB] hover:bg-[#EEF4FB] border-[#E2EAF4]'
                   }`}
                   style={
                     isSelected
@@ -394,11 +394,11 @@ export const LocationContext: React.FC = () => {
                 >
                   <div
                     className="text-xs font-mono font-bold"
-                    style={{ color: isSelected ? opt.accent : '#2B3D4F' }}
+                    style={{ color: isSelected ? opt.accent : '#14213D' }}
                   >
                     {opt.label}
                   </div>
-                  <div className="text-[10px] text-[#6B7D90] mt-0.5 truncate">
+                  <div className="text-[10px] text-[#60738F] mt-0.5 truncate">
                     {opt.sub}
                   </div>
                 </button>

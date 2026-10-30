@@ -24,20 +24,19 @@ const TYPE_ICONS: Record<ProductType, React.ElementType> = {
   other: Layers,
 };
 
-// Subtle per-category accent identity on a very light category wash.
-// Accent is carried by the wash, icon chip, top rule, and selected state;
-// the card body text stays dark navy. One coherent system, restrained saturation.
+// Restrained pastel category accents inspired by the light SaaS reference.
+// Subtle per-category accent identity on a very light wash; card body text stays deep navy.
 const TYPE_ACCENTS: Record<
   ProductType,
   { solid: string; softBg: string; softBorder: string; wash: string }
 > = {
-  physical: { solid: '#486581', softBg: 'rgba(72, 101, 129, 0.12)', softBorder: 'rgba(72, 101, 129, 0.45)', wash: '#E7EEF4' },
-  saas: { solid: '#76658F', softBg: 'rgba(118, 101, 143, 0.12)', softBorder: 'rgba(118, 101, 143, 0.45)', wash: '#E8E3F0' },
-  marketplace: { solid: '#A87932', softBg: 'rgba(168, 121, 50, 0.12)', softBorder: 'rgba(168, 121, 50, 0.45)', wash: '#F2E9D6' },
-  service: { solid: '#A96555', softBg: 'rgba(169, 101, 85, 0.12)', softBorder: 'rgba(169, 101, 85, 0.45)', wash: '#EEDBD3' },
-  community: { solid: '#4F8064', softBg: 'rgba(79, 128, 100, 0.12)', softBorder: 'rgba(79, 128, 100, 0.45)', wash: '#E5EEE7' },
-  creator: { solid: '#96687F', softBg: 'rgba(150, 104, 127, 0.12)', softBorder: 'rgba(150, 104, 127, 0.45)', wash: '#EFE3E8' },
-  other: { solid: '#62748A', softBg: 'rgba(98, 116, 138, 0.12)', softBorder: 'rgba(98, 116, 138, 0.45)', wash: '#EEE6D5' },
+  physical: { solid: '#2684F7', softBg: '#E8F2FF', softBorder: '#B9D7FB', wash: '#F5F9FE' },
+  saas: { solid: '#9272DB', softBg: '#F2EDFF', softBorder: '#D8C9FA', wash: '#F9F7FE' },
+  marketplace: { solid: '#F29A42', softBg: '#FFF3E7', softBorder: '#FCD6AF', wash: '#FEF9F4' },
+  service: { solid: '#E46D68', softBg: '#FFF0EF', softBorder: '#F9C2C0', wash: '#FEF7F6' },
+  community: { solid: '#19A875', softBg: '#E8F8F1', softBorder: '#A9E8CF', wash: '#F3FAF6' },
+  creator: { solid: '#8B5CF6', softBg: '#F3E8FF', softBorder: '#DDC4FB', wash: '#FAF6FE' },
+  other: { solid: '#60738F', softBg: '#EEF4FB', softBorder: '#C8D7E8', wash: '#F5F8FC' },
 };
 
 export const ProductTypeSelector: React.FC = () => {
@@ -70,13 +69,13 @@ export const ProductTypeSelector: React.FC = () => {
               aria-pressed={isSelected}
               className={`p-3.5 rounded-xl border text-left transition-all duration-150 flex flex-col justify-between group relative overflow-hidden ${
                 isSelected
-                  ? 'shadow-sm ring-1'
-                  : 'hover:brightness-[0.985] border-[#DDD5C5] hover:border-[#C4B8A0]'
+                  ? 'shadow-xs ring-1'
+                  : 'hover:brightness-[0.985] border-[#E2EAF4] hover:border-[#2684F7]/40'
               }`}
               style={
                 isSelected
                   ? { borderColor: accent.softBorder, backgroundColor: accent.softBg, ['--tw-ring-color' as string]: accent.softBorder }
-                  : { backgroundColor: accent.wash, borderColor: '#DDD5C5' }
+                  : { backgroundColor: accent.wash, borderColor: '#E2EAF4' }
               }
             >
               {/* Accent top rule */}
@@ -91,7 +90,7 @@ export const ProductTypeSelector: React.FC = () => {
                     className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors"
                     style={
                       isSelected
-                        ? { backgroundColor: accent.solid, color: '#FDFCF8' }
+                        ? { backgroundColor: accent.solid, color: '#FFFFFF' }
                         : { backgroundColor: accent.softBg, color: accent.solid }
                     }
                   >
@@ -105,7 +104,7 @@ export const ProductTypeSelector: React.FC = () => {
                   )}
                 </div>
 
-                <div className="text-sm font-semibold text-[#2B3D4F] tracking-tight">
+                <div className="text-sm font-semibold text-[#14213D] tracking-tight">
                   {typeOption.label}
                 </div>
                 {isSelected && (
@@ -116,14 +115,14 @@ export const ProductTypeSelector: React.FC = () => {
                     Primary vehicle
                   </span>
                 )}
-                <p className="text-xs text-[#4A5E73] mt-1 leading-relaxed">
+                <p className="text-xs text-[#60738F] mt-1 leading-relaxed">
                   {typeOption.tagline}
                 </p>
               </div>
 
               {/* Downstream workflow preview */}
-              <div className="mt-3 pt-2.5 border-t border-[#DDD5C5]">
-                <div className="text-[10px] font-mono uppercase text-[#6B7D90] mb-1">
+              <div className="mt-3 pt-2.5 border-t border-[#E2EAF4]">
+                <div className="text-[10px] font-mono uppercase text-[#8495AE] mb-1">
                   Downstream Focus
                 </div>
                 <div className="flex flex-wrap gap-1">
@@ -133,15 +132,15 @@ export const ProductTypeSelector: React.FC = () => {
                       className="text-[10px] font-mono px-1.5 py-0.5 rounded border"
                       style={
                         isSelected
-                          ? { backgroundColor: '#FDFCF8', color: accent.solid, borderColor: accent.softBorder }
-                          : { backgroundColor: accent.softBg, color: '#4A5E73', borderColor: '#DDD5C5' }
+                          ? { backgroundColor: '#FFFFFF', color: accent.solid, borderColor: accent.softBorder }
+                          : { backgroundColor: accent.softBg, color: '#60738F', borderColor: '#E2EAF4' }
                       }
                     >
                       {item}
                     </span>
                   ))}
                   {typeOption.downstreamFocus.length > 3 && (
-                    <span className="text-[10px] font-mono text-[#6B7D90] px-1 py-0.5">
+                    <span className="text-[10px] font-mono text-[#8495AE] px-1 py-0.5">
                       +{typeOption.downstreamFocus.length - 3}
                     </span>
                   )}

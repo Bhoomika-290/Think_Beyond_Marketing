@@ -17,7 +17,7 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
   const getStageIcon = (stage: string) => {
     switch (stage.toUpperCase()) {
       case 'DISCOVER':
-        return <Compass className="w-4 h-4 text-blue-400" />;
+        return <Compass className="w-4 h-4 text-[#2684F7]" />;
       case 'CONSIDER':
         return <UserCheck className="w-4 h-4 text-purple-400" />;
       case 'SIGN UP / BUY':
@@ -26,7 +26,7 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
       case 'ONBOARD':
         return <Zap className="w-4 h-4 text-cyan-400" />;
       case 'USE':
-        return <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
+        return <CheckCircle2 className="w-4 h-4 text-[#19A875]" />;
       case 'RETAIN':
       case 'RETURN':
         return <RotateCcw className="w-4 h-4 text-indigo-400" />;
@@ -37,24 +37,24 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
   };
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#263244] p-6 lg:p-8 shadow-xl space-y-6">
+    <section className="rounded-2xl bg-[#0B1017] border border-[#E2EAF4] p-6 lg:p-8 shadow-xl space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2636] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#4D8DFF]">
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#2684F7]">
               LIFECYCLE RETENTION &amp; EXPERIENCE
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#F3F4F6] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#14213D] tracking-tight">
             Customer Experience Journey Map
           </h2>
-          <p className="text-xs sm:text-sm text-[#AAB4C3]">
+          <p className="text-xs sm:text-sm text-[#8495AE]">
             Continuous journey line ensuring the brand promise and differentiator are validated at every customer lifecycle touchpoint.
           </p>
         </div>
 
-        <div className="text-xs font-mono text-[#64748B] bg-[#111823] px-3 py-1.5 rounded-lg border border-[#263244]">
+        <div className="text-xs font-mono text-[#8495AE] bg-[#FFFFFF] px-3 py-1.5 rounded-lg border border-[#E2EAF4]">
           7 Sequential Experience Milestones
         </div>
       </div>
@@ -72,19 +72,19 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
                   onClick={() => setActiveStage(tp.stage)}
                   className={`flex-1 min-w-[110px] p-3 rounded-xl border transition-all text-left group ${
                     isSelected
-                      ? 'bg-blue-600/20 border-blue-500 shadow-md shadow-blue-500/10 ring-1 ring-blue-500'
-                      : 'bg-[#111823] border-[#263244] hover:border-slate-500 text-[#AAB4C3]'
+                      ? 'bg-[#2684F7]/20 border-blue-500 shadow-md shadow-blue-500/10 ring-1 ring-blue-500'
+                      : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-500 text-[#8495AE]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[9px] font-mono text-[#64748B]">
+                    <span className="text-[9px] font-mono text-[#8495AE]">
                       STAGE 0{idx + 1}
                     </span>
-                    <div className="p-1 rounded-md bg-[#080B10]">
+                    <div className="p-1 rounded-md bg-[#FFFFFF]">
                       {getStageIcon(tp.stage)}
                     </div>
                   </div>
-                  <span className={`text-xs font-mono font-bold uppercase block truncate ${isSelected ? 'text-white' : 'text-[#CBD5E1]'}`}>
+                  <span className={`text-xs font-mono font-bold uppercase block truncate ${isSelected ? 'text-white' : 'text-[#14213D]'}`}>
                     {tp.stage}
                   </span>
                   <span className="text-[10px] font-mono text-cyan-400/80 truncate block mt-0.5">
@@ -93,7 +93,7 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
                 </button>
 
                 {idx < touchpoints.length - 1 && (
-                  <ArrowRight className="w-3.5 h-3.5 text-[#334155] flex-shrink-0" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#14213D] flex-shrink-0" />
                 )}
               </React.Fragment>
             );
@@ -103,24 +103,24 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
 
       {/* Inspected Milestone Dossier Card */}
       {selectedPoint && (
-        <div className="rounded-xl bg-[#111823] border border-[#263244] p-5 space-y-4 shadow-xl">
+        <div className="rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 space-y-4 shadow-xl">
           <div className="flex items-center justify-between border-b border-[#1C2636] pb-3">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400">
+              <div className="p-2 rounded-lg bg-[#E8F2FF] text-[#2684F7]">
                 {getStageIcon(selectedPoint.stage)}
               </div>
               <div>
-                <span className="text-[10px] font-mono uppercase text-[#738095] block font-semibold">
+                <span className="text-[10px] font-mono uppercase text-[#60738F] block font-semibold">
                   ACTIVE LIFECYCLE MILESTONE
                 </span>
-                <h3 className="text-sm font-bold text-[#F3F4F6] uppercase">
+                <h3 className="text-sm font-bold text-[#14213D] uppercase">
                   {selectedPoint.stage}
                 </h3>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono text-[#738095] uppercase">Target Emotion:</span>
+              <span className="text-[10px] font-mono text-[#60738F] uppercase">Target Emotion:</span>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-mono bg-purple-500/10 text-purple-300 border border-purple-500/30">
                 {selectedPoint.desiredEmotion}
               </span>
@@ -129,41 +129,41 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
             {/* Customer Expectation */}
-            <div className="p-3.5 rounded-xl bg-[#0D141F] border border-[#1C2636] space-y-1">
+            <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#1C2636] space-y-1">
               <span className="text-[10px] font-mono uppercase text-amber-400 font-bold block">
                 1. CUSTOMER EXPECTATION
               </span>
-              <p className="text-[#CBD5E1] leading-relaxed">
+              <p className="text-[#14213D] leading-relaxed">
                 {selectedPoint.customerExpectation}
               </p>
             </div>
 
             {/* Brand Touchpoint */}
-            <div className="p-3.5 rounded-xl bg-[#0D141F] border border-[#1C2636] space-y-1">
-              <span className="text-[10px] font-mono uppercase text-blue-400 font-bold block">
+            <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#1C2636] space-y-1">
+              <span className="text-[10px] font-mono uppercase text-[#2684F7] font-bold block">
                 2. BRAND TOUCHPOINT
               </span>
-              <p className="text-[#CBD5E1] leading-relaxed">
+              <p className="text-[#14213D] leading-relaxed">
                 {selectedPoint.touchpoint}
               </p>
             </div>
 
             {/* Brand Behavior */}
-            <div className="p-3.5 rounded-xl bg-[#0D141F] border border-[#1C2636] space-y-1">
-              <span className="text-[10px] font-mono uppercase text-emerald-400 font-bold block">
+            <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#1C2636] space-y-1">
+              <span className="text-[10px] font-mono uppercase text-[#19A875] font-bold block">
                 3. BRAND BEHAVIOR &amp; RITUAL
               </span>
-              <p className="text-[#CBD5E1] leading-relaxed">
+              <p className="text-[#14213D] leading-relaxed">
                 {selectedPoint.brandBehavior}
               </p>
             </div>
 
             {/* Growth Opportunity */}
-            <div className="p-3.5 rounded-xl bg-[#0D141F] border border-[#1C2636] space-y-1">
+            <div className="p-3.5 rounded-xl bg-[#FFFFFF] border border-[#1C2636] space-y-1">
               <span className="text-[10px] font-mono uppercase text-cyan-400 font-bold block">
                 4. RETENTION &amp; ADVOCACY MOAT
               </span>
-              <p className="text-[#CBD5E1] leading-relaxed">
+              <p className="text-[#14213D] leading-relaxed">
                 {selectedPoint.opportunity}
               </p>
             </div>
@@ -174,10 +174,10 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
       {/* Full Lifecycle Expandable Detail Grid (ported from light port, re-themed dark) */}
       <div className="pt-5 border-t border-[#1C2636] space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-[#738095] font-bold">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] font-bold">
             FULL LIFECYCLE DETAIL — EXPANDABLE GRID
           </span>
-          <span className="text-[10px] font-mono text-[#64748B]">
+          <span className="text-[10px] font-mono text-[#8495AE]">
             Expand any milestone for behavior + opportunity
           </span>
         </div>
@@ -191,12 +191,12 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
                 className={`p-5 rounded-xl border transition-all ${
                   isExpanded
                     ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500 shadow-md shadow-blue-500/10'
-                    : 'bg-[#111823] border-[#263244] hover:border-slate-500'
+                    : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-500'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold flex items-center gap-1.5">
-                    <span className="p-1 rounded-md bg-[#080B10] inline-flex">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#2684F7] font-bold flex items-center gap-1.5">
+                    <span className="p-1 rounded-md bg-[#FFFFFF] inline-flex">
                       {getStageIcon(tp.stage)}
                     </span>
                     0{idx + 1} • {tp.stage}
@@ -204,7 +204,7 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
                   <button
                     type="button"
                     onClick={() => setExpandedStage(isExpanded ? '' : tp.stage)}
-                    className="text-xs font-mono text-[#64748B] hover:text-[#AAB4C3] transition-colors"
+                    className="text-xs font-mono text-[#8495AE] hover:text-[#8495AE] transition-colors"
                   >
                     {isExpanded ? 'Collapse' : 'Expand'}
                   </button>
@@ -212,25 +212,25 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
 
                 <div className="space-y-2.5 text-xs">
                   <div>
-                    <span className="text-[9px] font-mono uppercase text-[#64748B] block">
+                    <span className="text-[9px] font-mono uppercase text-[#8495AE] block">
                       Customer Expectation
                     </span>
-                    <p className="text-[#F3F4F6] font-medium mt-0.5 leading-snug">
+                    <p className="text-[#14213D] font-medium mt-0.5 leading-snug">
                       {tp.customerExpectation}
                     </p>
                   </div>
 
                   <div>
-                    <span className="text-[9px] font-mono uppercase text-[#64748B] block">
+                    <span className="text-[9px] font-mono uppercase text-[#8495AE] block">
                       Brand Touchpoint
                     </span>
-                    <p className="text-[#CBD5E1] mt-0.5 leading-snug">
+                    <p className="text-[#14213D] mt-0.5 leading-snug">
                       {tp.touchpoint}
                     </p>
                   </div>
 
                   <div>
-                    <span className="text-[9px] font-mono uppercase text-[#738095] block font-semibold">
+                    <span className="text-[9px] font-mono uppercase text-[#60738F] block font-semibold">
                       Desired Emotion
                     </span>
                     <p className="text-purple-300 mt-0.5 italic leading-snug">
@@ -241,10 +241,10 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
                   {isExpanded && (
                     <div className="pt-2 border-t border-[#1C2636] space-y-2.5 text-xs">
                       <div>
-                        <span className="text-[9px] font-mono uppercase text-emerald-400 block font-bold">
+                        <span className="text-[9px] font-mono uppercase text-[#19A875] block font-bold">
                           Brand Behavior
                         </span>
-                        <p className="text-[#CBD5E1] mt-0.5 leading-snug">{tp.brandBehavior}</p>
+                        <p className="text-[#14213D] mt-0.5 leading-snug">{tp.brandBehavior}</p>
                       </div>
 
                       <div>

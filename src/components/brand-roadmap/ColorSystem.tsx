@@ -19,30 +19,30 @@ export const ColorSystem: React.FC<ColorSystemProps> = ({
   };
 
   return (
-    <section className="rounded-2xl bg-[#FDFCF8] border border-[#DDD5C5] p-6 lg:p-8 shadow-xl">
+    <section className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 lg:p-8 shadow-xl">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#2B3D4F] animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#2B3D4F]">
+            <span className="w-2 h-2 rounded-full bg-[#14213D] animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-wider uppercase text-[#14213D]">
               CHROMATIC IDENTITY
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#2B3D4F] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#14213D] tracking-tight">
             Color System & Semantic Swatches
           </h2>
-          <p className="text-xs sm:text-sm text-[#4A5E73]">
+          <p className="text-xs sm:text-sm text-[#60738F]">
             {colorSystem.paletteRationale} Click a color swatch to copy HEX or adjust the tone.
           </p>
         </div>
 
-        <div className="text-xs font-mono text-[#6B7D90] bg-[#F5F1EB] px-3 py-1.5 rounded-lg border border-[#DDD5C5]">
+        <div className="text-xs font-mono text-[#60738F] bg-[#EEF4FB] px-3 py-1.5 rounded-lg border border-[#E2EAF4]">
           Contrast Compliant (WCAG AA)
         </div>
       </div>
 
       {/* Horizontal Continuous Color Strip Preview */}
-      <div className="mb-6 rounded-2xl overflow-hidden h-14 flex shadow-xl border border-[#DDD5C5]">
+      <div className="mb-6 rounded-2xl overflow-hidden h-14 flex shadow-xl border border-[#E2EAF4]">
         {colorSystem.swatches.map((swatch) => (
           <div
             key={swatch.id}
@@ -64,7 +64,7 @@ export const ColorSystem: React.FC<ColorSystemProps> = ({
           return (
             <div
               key={swatch.id}
-              className="rounded-xl bg-[#F5F1EB] border border-[#DDD5C5] p-4 flex flex-col justify-between hover:border-[#5A7A96]/40 transition-all group"
+              className="rounded-xl bg-[#EEF4FB] border border-[#E2EAF4] p-4 flex flex-col justify-between hover:border-[#2684F7]/40 transition-all group"
             >
               <div>
                 {/* Visual Swatch Block with Color Picker */}
@@ -85,39 +85,39 @@ export const ColorSystem: React.FC<ColorSystemProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#2B3D4F] font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#14213D] font-bold">
                     {swatch.role}
                   </span>
                   <button
                     type="button"
                     onClick={() => handleCopy(swatch.hex)}
-                    className="text-[10px] font-mono text-[#6B7D90] hover:text-[#2B3D4F] transition-colors"
+                    className="text-[10px] font-mono text-[#60738F] hover:text-[#14213D] transition-colors"
                   >
                     {copiedHex === swatch.hex ? 'Copied!' : 'Copy'}
                   </button>
                 </div>
 
-                <h3 className="text-xs font-bold text-[#2B3D4F]">
+                <h3 className="text-xs font-bold text-[#14213D]">
                   {swatch.name}
                 </h3>
               </div>
 
-              <div className="mt-3 pt-3 border-t border-[#E8E1D3] space-y-1 text-[10px] font-mono text-[#6B7D90]">
+              <div className="mt-3 pt-3 border-t border-[#E8E1D3] space-y-1 text-[10px] font-mono text-[#60738F]">
                 <div className="flex justify-between">
                   <span>HEX:</span>
-                  <span className="text-[#2B3D4F] font-bold">{swatch.hex}</span>
+                  <span className="text-[#14213D] font-bold">{swatch.hex}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>RGB:</span>
-                  <span className="text-[#4A5E73]">{swatch.rgb}</span>
+                  <span className="text-[#60738F]">{swatch.rgb}</span>
                 </div>
                 {swatch.contrastScore && (
-                  <div className="flex justify-between text-[#4A7C59] font-semibold">
+                  <div className="flex justify-between text-[#19A875] font-semibold">
                     <span>Contrast:</span>
                     <span>{swatch.contrastScore}</span>
                   </div>
                 )}
-                <div className="text-[9px] text-[#6B7D90] italic truncate pt-1" title={swatch.psychology}>
+                <div className="text-[9px] text-[#60738F] italic truncate pt-1" title={swatch.psychology}>
                   {swatch.psychology}
                 </div>
               </div>

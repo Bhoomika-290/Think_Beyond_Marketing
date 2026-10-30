@@ -22,31 +22,31 @@ export const BuildHandoff: React.FC<BuildHandoffProps> = ({
   };
 
   return (
-    <div id="section-handoff" className="rounded-2xl bg-[#0D141F] border border-[#263244] p-6 shadow-xl space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2635] pb-4">
+    <div id="section-handoff" className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-xl space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2EAF4] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-base sm:text-lg font-bold text-[#F3F4F6]">
+            <h2 className="text-base sm:text-lg font-bold text-[#14213D]">
               Section 20 — Stage 06 (Execution Intelligence) Handoff Dossier
             </h2>
             <span
               className={`px-2 py-0.5 rounded text-[11px] font-mono border ${
                 isReady
-                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                  : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                  ? 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/30'
+                  : 'bg-[#FFF3E7] text-amber-400 border-[#F29A42]/30'
               }`}
             >
               {isReady ? 'AUDIT VERIFIED (READY)' : 'PREREQUISITES PENDING'}
             </span>
           </div>
-          <p className="text-xs text-[#AAB4C3] mt-1">{summary}</p>
+          <p className="text-xs text-[#8495AE] mt-1">{summary}</p>
         </div>
 
         <div className="text-right">
-          <span className="text-[10px] font-mono text-[#738095] block">READINESS AUDIT</span>
+          <span className="text-[10px] font-mono text-[#60738F] block">READINESS AUDIT</span>
           <span
             className={`text-xl font-bold font-mono ${
-              readinessScore >= 75 ? 'text-emerald-400' : 'text-amber-400'
+              readinessScore >= 75 ? 'text-[#19A875]' : 'text-amber-400'
             }`}
           >
             {readinessScore}%
@@ -61,22 +61,22 @@ export const BuildHandoff: React.FC<BuildHandoffProps> = ({
             key={item.id}
             className={`p-3.5 rounded-xl border flex items-start gap-2.5 transition-colors ${
               item.passed
-                ? 'bg-[#111823] border-emerald-500/30'
-                : 'bg-[#111823]/60 border-amber-500/30'
+                ? 'bg-[#FFFFFF] border-[#19A875]/30'
+                : 'bg-[#FFFFFF]/60 border-[#F29A42]/30'
             }`}
           >
             {item.passed ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-[#19A875] flex-shrink-0 mt-0.5" />
             ) : (
               <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
             )}
 
             <div className="min-w-0">
-              <span className="text-[10px] font-mono text-[#738095] uppercase block">
+              <span className="text-[10px] font-mono text-[#60738F] uppercase block">
                 {item.category}
               </span>
-              <h4 className="text-xs font-semibold text-[#F3F4F6] truncate">{item.label}</h4>
-              <p className="text-[10px] text-[#AAB4C3] truncate mt-0.5">{item.details}</p>
+              <h4 className="text-xs font-semibold text-[#14213D] truncate">{item.label}</h4>
+              <p className="text-[10px] text-[#8495AE] truncate mt-0.5">{item.details}</p>
             </div>
           </div>
         ))}
@@ -84,8 +84,8 @@ export const BuildHandoff: React.FC<BuildHandoffProps> = ({
 
       {/* Blocking items if not ready */}
       {!isReady && blockingItems.length > 0 && (
-        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold font-mono text-amber-300">
+        <div className="p-4 rounded-xl bg-[#FFF3E7] border border-[#F29A42]/30 space-y-2">
+          <div className="flex items-center gap-2 text-xs font-bold font-mono text-[#F29A42]">
             <Lock className="w-4 h-4" />
             <span>PREREQUISITE BLOCKERS TO RESOLVE BEFORE STAGE 06:</span>
           </div>
@@ -98,10 +98,10 @@ export const BuildHandoff: React.FC<BuildHandoffProps> = ({
       )}
 
       {/* Transition Action Bar */}
-      <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#1C2635]">
-        <div className="text-xs text-[#738095]">
+      <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#E2EAF4]">
+        <div className="text-xs text-[#60738F]">
           <span>Destination: </span>
-          <span className="text-[#F3F4F6] font-mono font-medium">
+          <span className="text-[#14213D] font-mono font-medium">
             Stage 06 — Execution Intelligence (/execution)
           </span>
         </div>
@@ -112,8 +112,8 @@ export const BuildHandoff: React.FC<BuildHandoffProps> = ({
           onClick={handleProceed}
           className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-mono text-xs font-bold transition-all ${
             isReady
-              ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20 cursor-pointer'
-              : 'bg-[#151E2B] text-[#738095] border border-[#263244] cursor-not-allowed'
+              ? 'bg-[#2684F7] hover:bg-[#1769D2] text-white shadow-lg shadow-blue-500/20 cursor-pointer'
+              : 'bg-[#151E2B] text-[#60738F] border border-[#E2EAF4] cursor-not-allowed'
           }`}
         >
           <span>PROCEED TO STAGE 06: EXECUTION</span>

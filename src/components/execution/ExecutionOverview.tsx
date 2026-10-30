@@ -21,66 +21,66 @@ export const ExecutionOverview: React.FC<ExecutionOverviewProps> = ({ report }) 
     <div className="space-y-5">
       {/* 4-Item Compact Metadata Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-4 shadow-xs">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-[#64748B]">
+        <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 shadow-xs">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-[#8495AE]">
             PROJECT
           </div>
-          <div className="text-sm font-semibold text-[#1E293B] mt-1 truncate">
+          <div className="text-sm font-semibold text-[#14213D] mt-1 truncate">
             {ventureSummary.projectName}
           </div>
-          <div className="text-[11px] text-[#64748B] mt-0.5">
+          <div className="text-[11px] text-[#8495AE] mt-0.5">
             Stage 06 Active
           </div>
         </div>
 
-        <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-4 shadow-xs">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-[#64748B]">
+        <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 shadow-xs">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-[#8495AE]">
             VENTURE TYPE
           </div>
-          <div className="text-sm font-semibold text-[#1E293B] mt-1">
+          <div className="text-sm font-semibold text-[#14213D] mt-1">
             {ventureSummary.ventureType}
           </div>
-          <div className="text-[11px] text-[#1E40AF] mt-0.5 font-mono">
+          <div className="text-[11px] text-[#2684F7] mt-0.5 font-mono">
             {modality.toUpperCase()} PATH
           </div>
         </div>
 
-        <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-4 shadow-xs">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-[#64748B]">
+        <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 shadow-xs">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-[#8495AE]">
             LOCATION / CLUSTER
           </div>
-          <div className="text-sm font-semibold text-[#1E293B] mt-1 truncate">
+          <div className="text-sm font-semibold text-[#14213D] mt-1 truncate">
             {ventureSummary.locationLabel}
           </div>
-          <div className="text-[11px] text-[#065F46] mt-0.5 flex items-center gap-1 font-mono">
+          <div className="text-[11px] text-[#19A875] mt-0.5 flex items-center gap-1 font-mono">
             <MapPin className="w-3 h-3" />
             {location.cityRegion ? `${location.cityRegion} Zone` : 'National Grid'}
           </div>
         </div>
 
-        <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-4 shadow-xs">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-[#64748B]">
+        <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 shadow-xs">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-[#8495AE]">
             BUILD PATH
           </div>
-          <div className="text-sm font-semibold text-[#1E293B] mt-1 truncate">
+          <div className="text-sm font-semibold text-[#14213D] mt-1 truncate">
             {ventureSummary.buildPathSummary}
           </div>
-          <div className="text-[11px] text-[#64748B] mt-0.5 font-mono">
+          <div className="text-[11px] text-[#8495AE] mt-0.5 font-mono">
             {pathStages.length} sequential phases
           </div>
         </div>
       </div>
 
       {/* Visual Sequence Flow Diagram */}
-      <div className="bg-[#FFFFFF] border border-[#E5DFD5] rounded-xl p-5 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-4 border-b border-[#E8E2D8]">
+      <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-5 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-4 border-b border-[#E2EAF4]">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#1E40AF]"></span>
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1E293B] font-mono">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#14213D] font-mono">
               Execution Sequence Flow
             </h2>
           </div>
-          <span className="text-[11px] font-mono text-[#64748B]">
+          <span className="text-[11px] font-mono text-[#8495AE]">
             End-to-End Operational Lifecycle
           </span>
         </div>
@@ -91,42 +91,42 @@ export const ExecutionOverview: React.FC<ExecutionOverviewProps> = ({ report }) 
             return (
               <div 
                 key={stage.id} 
-                className="bg-[#FAF8F5] border border-[#E5DFD5] rounded-xl p-3 flex flex-col justify-between relative group hover:border-[#1E40AF]/40 hover:bg-[#FFFFFF] transition-all shadow-2xs"
+                className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-3 flex flex-col justify-between relative group hover:border-[#2684F7]/30 hover:bg-[#FFFFFF] transition-all shadow-2xs"
               >
                 {/* Step Header */}
                 <div>
-                  <div className="flex items-center justify-between gap-1 pb-1.5 border-b border-[#E8E2D8]">
-                    <span className="text-[10px] font-mono font-bold text-[#1E40AF] bg-[#EFF6FF] px-1.5 py-0.5 rounded border border-[#BFDBFE]">
+                  <div className="flex items-center justify-between gap-1 pb-1.5 border-b border-[#E2EAF4]">
+                    <span className="text-[10px] font-mono font-bold text-[#2684F7] bg-[#EFF6FF] px-1.5 py-0.5 rounded border border-[#BFDBFE]">
                       PHASE 0{stage.stageNumber}
                     </span>
-                    <span className="text-[10px] font-mono text-[#64748B] font-semibold flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-[#1E40AF]" />
+                    <span className="text-[10px] font-mono text-[#8495AE] font-semibold flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-[#2684F7]" />
                       {stage.estimatedDays}d
                     </span>
                   </div>
 
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#1E293B] mt-2 font-mono">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#14213D] mt-2 font-mono">
                     {stage.name}
                   </h3>
 
-                  <span className="inline-block text-[10px] text-[#475569] font-medium bg-[#FFFFFF] px-1.5 py-0.5 rounded border border-[#E5DFD5] mt-1.5 truncate max-w-full">
+                  <span className="inline-block text-[10px] text-[#60738F] font-medium bg-[#FFFFFF] px-1.5 py-0.5 rounded border border-[#E2EAF4] mt-1.5 truncate max-w-full">
                     {stage.primaryResourceCategory}
                   </span>
                 </div>
 
                 {/* Step Deliverable Pill */}
-                <div className="mt-2.5 pt-2 border-t border-[#E8E2D8]">
-                  <div className="text-[9px] font-mono uppercase tracking-wider text-[#64748B]">
+                <div className="mt-2.5 pt-2 border-t border-[#E2EAF4]">
+                  <div className="text-[9px] font-mono uppercase tracking-wider text-[#8495AE]">
                     Deliverable
                   </div>
-                  <div className="text-[10px] font-semibold text-[#1E40AF] mt-0.5 line-clamp-2" title={stage.keyDeliverable}>
+                  <div className="text-[10px] font-semibold text-[#2684F7] mt-0.5 line-clamp-2" title={stage.keyDeliverable}>
                     {stage.keyDeliverable}
                   </div>
                 </div>
 
                 {/* Arrow connector for desktop */}
                 {idx < pathStages.length - 1 && (
-                  <div className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-4 h-4 rounded-full bg-[#FFFFFF] border border-[#CBD5E1] items-center justify-center text-[#64748B] shadow-2xs">
+                  <div className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-4 h-4 rounded-full bg-[#FFFFFF] border border-[#14213D] items-center justify-center text-[#8495AE] shadow-2xs">
                     <ArrowRight className="w-2.5 h-2.5" />
                   </div>
                 )}
@@ -139,7 +139,7 @@ export const ExecutionOverview: React.FC<ExecutionOverviewProps> = ({ report }) 
       {/* Strategic Cluster Intelligence, Procurement Caveats & Risk Factors */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="bg-[#F0FDF4] border border-[#BBF7D0] rounded-xl p-4 flex items-start gap-3 shadow-2xs">
-          <div className="w-8 h-8 rounded-lg bg-[#DCFCE7] text-[#15803D] flex items-center justify-center shrink-0 mt-0.5">
+          <div className="w-8 h-8 rounded-lg bg-[#DCFCE7] text-[#19A875] flex items-center justify-center shrink-0 mt-0.5">
             <TrendingUp className="w-4 h-4" />
           </div>
           <div>
@@ -157,7 +157,7 @@ export const ExecutionOverview: React.FC<ExecutionOverviewProps> = ({ report }) 
             <AlertCircle className="w-4 h-4" />
           </div>
           <div>
-            <div className="text-xs font-bold text-[#92400E] uppercase tracking-wider font-mono">
+            <div className="text-xs font-bold text-[#F29A42] uppercase tracking-wider font-mono">
               Operational Procurement Caveat
             </div>
             <p className="text-xs text-[#78350F] mt-1 leading-relaxed">

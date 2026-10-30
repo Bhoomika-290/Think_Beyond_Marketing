@@ -1235,7 +1235,7 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
   return (
     <div className="space-y-6">
       {/* 1. Cinematic 7-Stage Sequence Navigator Ribbon */}
-      <div className="bg-[#111823] border border-[#263244] rounded-xl p-2.5 shadow-md flex flex-wrap md:flex-nowrap items-center justify-between gap-3">
+      <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-2.5 shadow-md flex flex-wrap md:flex-nowrap items-center justify-between gap-3">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 w-full md:w-auto">
           {stages.map((stg, idx) => {
             const isSelected = activeStageIndex === idx;
@@ -1259,8 +1259,8 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
                 }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all shrink-0 ${
                   isSelected
-                    ? 'bg-[#4D8DFF] text-[#080B10] font-bold shadow-md'
-                    : 'text-[#AAB4C3] hover:text-[#F3F4F6] hover:bg-[#1A2536]'
+                    ? 'bg-[#2684F7] text-[#FFFFFF] font-bold shadow-md'
+                    : 'text-[#8495AE] hover:text-[#14213D] hover:bg-[#FFFFFF]'
                 }`}
               >
                 {stageIcons[idx]}
@@ -1277,12 +1277,12 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
             onClick={() => setIsPlayingFilm(!isPlayingFilm)}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-sm ${
               isPlayingFilm 
-                ? 'bg-[#10B981] text-[#080B10] animate-pulse' 
-                : 'bg-[#1A2536] hover:bg-[#263244] text-[#F3F4F6] border border-[#263244]'
+                ? 'bg-[#19A875] text-[#FFFFFF] animate-pulse' 
+                : 'bg-[#FFFFFF] hover:bg-[#E2EAF4] text-[#14213D] border border-[#E2EAF4]'
             }`}
             title={isPlayingFilm ? 'Pause 3D film sequence' : 'Play continuous cinematic 3D product experience film'}
           >
-            {isPlayingFilm ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current text-[#4D8DFF]" />}
+            {isPlayingFilm ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-current text-[#2684F7]" />}
             <span>{isPlayingFilm ? 'Pause Film' : 'Play 3D Film'}</span>
           </button>
         </div>
@@ -1293,8 +1293,8 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
         ref={containerRef}
         className={`relative w-full h-[540px] rounded-2xl border-2 ${
           appearance.theme === 'light' || !appearance.theme
-            ? 'border-slate-300 shadow-xl bg-[#F8FAFC]'
-            : 'border-[#263244] shadow-2xl bg-[#070A0F]'
+            ? 'border-slate-300 shadow-xl bg-[#14213D]'
+            : 'border-[#E2EAF4] shadow-2xl bg-[#070A0F]'
         } overflow-hidden transition-colors`}
       >
         {/* Canvas (Passive pointer drag for 360 rotation; wheel passes naturally through) */}
@@ -1322,7 +1322,7 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
                 left: `${coords.x}px`,
                 top: `${coords.y}px`,
               }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-[#4D8DFF] text-[#080B10] font-bold text-[10px] flex items-center justify-center shadow-lg border-2 border-white hover:scale-125 transition-transform group"
+              className="absolute -translate-x-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-[#2684F7] text-[#FFFFFF] font-bold text-[10px] flex items-center justify-center shadow-lg border-2 border-white hover:scale-125 transition-transform group"
               title={spot.label}
             >
               <span>+</span>
@@ -1333,35 +1333,35 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
 
         {/* Viewport Top HUD: Stage Title & Environment Switcher */}
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none gap-2">
-          <div className="pointer-events-auto flex items-center gap-2 bg-[#080B10]/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#263244]">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-pulse" />
-            <span className="text-xs font-mono font-bold text-[#F3F4F6] uppercase">
+          <div className="pointer-events-auto flex items-center gap-2 bg-[#FFFFFF] backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#E2EAF4]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#19A875] animate-pulse" />
+            <span className="text-xs font-mono font-bold text-[#14213D] uppercase">
               {currentStage.stageName}
             </span>
-            <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-[#1E293B] text-[#4D8DFF]">
+            <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-[#EEF4FB] text-[#2684F7]">
               {productMockup.categoryType.replace('_', ' ').toUpperCase()}
             </span>
           </div>
 
-          <div className="pointer-events-auto flex items-center bg-[#080B10]/85 backdrop-blur-md p-1 rounded-lg border border-[#263244]">
+          <div className="pointer-events-auto flex items-center bg-[#FFFFFF] backdrop-blur-md p-1 rounded-lg border border-[#E2EAF4]">
             <button
               type="button"
               onClick={() => setEnvironmentMode('studio')}
               className={`px-2.5 py-1 rounded text-[11px] font-mono flex items-center gap-1 transition-colors ${
-                environmentMode === 'studio' ? 'bg-[#263244] text-white font-bold' : 'text-[#738095] hover:text-[#AAB4C3]'
+                environmentMode === 'studio' ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
               }`}
             >
-              <Sun className="w-3 h-3 text-[#F59E0B]" />
+              <Sun className="w-3 h-3 text-[#F29A42]" />
               <span className="hidden sm:inline">Studio</span>
             </button>
             <button
               type="button"
               onClick={() => setEnvironmentMode('field')}
               className={`px-2.5 py-1 rounded text-[11px] font-mono flex items-center gap-1 transition-colors ${
-                environmentMode === 'field' ? 'bg-[#263244] text-white font-bold' : 'text-[#738095] hover:text-[#AAB4C3]'
+                environmentMode === 'field' ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
               }`}
             >
-              <CloudRain className="w-3 h-3 text-[#38BDF8]" />
+              <CloudRain className="w-3 h-3 text-[#2684F7]" />
               <span className="hidden sm:inline">Field Use</span>
             </button>
             <button
@@ -1371,10 +1371,10 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
                 setIsExploded(!isExploded);
               }}
               className={`px-2.5 py-1 rounded text-[11px] font-mono flex items-center gap-1 transition-colors ${
-                environmentMode === 'macro' || isExploded ? 'bg-[#263244] text-white font-bold' : 'text-[#738095] hover:text-[#AAB4C3]'
+                environmentMode === 'macro' || isExploded ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
               }`}
             >
-              <Maximize2 className="w-3 h-3 text-[#10B981]" />
+              <Maximize2 className="w-3 h-3 text-[#19A875]" />
               <span className="hidden sm:inline">Exploded Spec</span>
             </button>
           </div>
@@ -1382,12 +1382,12 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
 
         {/* Viewport Bottom Controls HUD */}
         <div className="absolute bottom-4 left-4 right-4 flex flex-col sm:flex-row items-center justify-between gap-3 pointer-events-none">
-          <div className="pointer-events-auto bg-[#080B10]/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#263244] text-xs font-mono text-[#AAB4C3] flex items-center gap-3">
+          <div className="pointer-events-auto bg-[#FFFFFF] backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#E2EAF4] text-xs font-mono text-[#8495AE] flex items-center gap-3">
             <span>Drag on canvas to rotate 360°</span>
             <button
               type="button"
               onClick={handleResetCamera}
-              className="text-[#4D8DFF] hover:underline flex items-center gap-1"
+              className="text-[#2684F7] hover:underline flex items-center gap-1"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset Angle</span>
@@ -1399,19 +1399,19 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
               type="button"
               onClick={() => onSelectStage(Math.max(0, activeStageIndex - 1))}
               disabled={activeStageIndex === 0}
-              className="p-2 rounded-lg bg-[#080B10]/85 backdrop-blur-md border border-[#263244] text-[#AAB4C3] hover:text-white disabled:opacity-40"
+              className="p-2 rounded-lg bg-[#FFFFFF] backdrop-blur-md border border-[#E2EAF4] text-[#8495AE] hover:text-white disabled:opacity-40"
               title="Previous scene"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="bg-[#080B10]/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#263244] text-xs font-mono font-bold text-white">
+            <span className="bg-[#FFFFFF] backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#E2EAF4] text-xs font-mono font-bold text-white">
               Phase {activeStageIndex + 1} of {stages.length}
             </span>
             <button
               type="button"
               onClick={() => onSelectStage(Math.min(stages.length - 1, activeStageIndex + 1))}
               disabled={activeStageIndex === stages.length - 1}
-              className="p-2 rounded-lg bg-[#080B10]/85 backdrop-blur-md border border-[#263244] text-[#AAB4C3] hover:text-white disabled:opacity-40"
+              className="p-2 rounded-lg bg-[#FFFFFF] backdrop-blur-md border border-[#E2EAF4] text-[#8495AE] hover:text-white disabled:opacity-40"
               title="Next scene"
             >
               <ChevronRight className="w-4 h-4" />
@@ -1422,26 +1422,26 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
 
       {/* 3. Hotspot Detail Drawer */}
       {selectedHotspot && (
-        <div className="p-4 rounded-xl bg-[#111823] border border-[#4D8DFF]/60 shadow-lg flex items-start justify-between gap-4 animate-fadeIn">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#2684F7]/60 shadow-lg flex items-start justify-between gap-4 animate-fadeIn">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#4D8DFF]/20 text-[#4D8DFF] flex items-center justify-center shrink-0 mt-0.5">
+            <div className="w-8 h-8 rounded-lg bg-[#2684F7]/20 text-[#2684F7] flex items-center justify-center shrink-0 mt-0.5">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono uppercase bg-[#1E293B] text-[#4D8DFF] px-1.5 py-0.2 rounded font-bold">
+                <span className="text-[10px] font-mono uppercase bg-[#EEF4FB] text-[#2684F7] px-1.5 py-0.2 rounded font-bold">
                   {selectedHotspot.category}
                 </span>
-                <h4 className="text-xs font-bold text-[#F3F4F6]">
+                <h4 className="text-xs font-bold text-[#14213D]">
                   {selectedHotspot.label}
                 </h4>
                 {selectedHotspot.metric && (
-                  <span className="text-[10px] font-mono bg-[#10B981]/20 text-[#34D399] px-1.5 py-0.2 rounded">
+                  <span className="text-[10px] font-mono bg-[#E8F8F1] text-[#19A875] px-1.5 py-0.2 rounded">
                     {selectedHotspot.metric}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-[#AAB4C3] mt-1 leading-relaxed">
+              <p className="text-xs text-[#8495AE] mt-1 leading-relaxed">
                 {selectedHotspot.detail}
               </p>
             </div>
@@ -1450,7 +1450,7 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
           <button
             type="button"
             onClick={() => setSelectedHotspot(null)}
-            className="text-xs font-mono text-[#738095] hover:text-[#F3F4F6] p-1"
+            className="text-xs font-mono text-[#60738F] hover:text-[#14213D] p-1"
           >
             ✕
           </button>
@@ -1459,37 +1459,37 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
 
       {/* 4. Stage Moment Narrative & Verification Context */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-[#111823] border border-[#263244] rounded-xl p-4 space-y-2 shadow-sm">
+        <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 space-y-2 shadow-sm">
           <div className="flex items-center justify-between text-[11px] font-mono">
-            <span className="text-[#4D8DFF] font-bold">{currentStage.stageName}</span>
-            <span className="text-[#738095]">Step {activeStageIndex + 1} / {stages.length}</span>
+            <span className="text-[#2684F7] font-bold">{currentStage.stageName}</span>
+            <span className="text-[#60738F]">Step {activeStageIndex + 1} / {stages.length}</span>
           </div>
-          <h3 className="text-sm font-bold text-[#F3F4F6]">
+          <h3 className="text-sm font-bold text-[#14213D]">
             {currentStage.title}
           </h3>
-          <p className="text-xs text-[#AAB4C3] leading-relaxed">
+          <p className="text-xs text-[#8495AE] leading-relaxed">
             {currentStage.description}
           </p>
-          <div className="pt-2 border-t border-[#263244] flex items-center gap-2 text-[11px] font-mono text-[#FBBF24]">
-            <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
+          <div className="pt-2 border-t border-[#E2EAF4] flex items-center gap-2 text-[11px] font-mono text-[#F29A42]">
+            <Sparkles className="w-3.5 h-3.5 text-[#F29A42]" />
             <span>Delight Trigger: {currentStage.delightMoment}</span>
           </div>
         </div>
 
-        <div className="bg-[#111823] border border-[#263244] rounded-xl p-4 space-y-2 shadow-sm">
+        <div className="bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-4 space-y-2 shadow-sm">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#1E293B] text-[#4D8DFF] flex items-center justify-center">
+            <div className="w-6 h-6 rounded-full bg-[#EEF4FB] text-[#2684F7] flex items-center justify-center">
               <Activity className="w-3.5 h-3.5" />
             </div>
-            <span className="text-xs font-bold text-[#F3F4F6] font-mono">
+            <span className="text-xs font-bold text-[#14213D] font-mono">
               Material & Sensory Profile
             </span>
           </div>
-          <div className="text-xs text-[#AAB4C3] space-y-1">
+          <div className="text-xs text-[#8495AE] space-y-1">
             <div><strong className="text-white">Tactile:</strong> {productMockup.sensoryProfile.tactileFeel}</div>
             <div><strong className="text-white">Acoustic / Scent:</strong> {productMockup.sensoryProfile.acousticOrScentNote}</div>
           </div>
-          <div className="pt-2 border-t border-[#263244] text-[11px] font-mono text-[#93C5FD] italic">
+          <div className="pt-2 border-t border-[#E2EAF4] text-[11px] font-mono text-[#2684F7] italic">
             "{customerPersona.initialReaction}"
           </div>
         </div>

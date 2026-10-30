@@ -46,7 +46,7 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
   const currentPills = activeBuildArea === 'brand' ? brandPills : productPills;
 
   return (
-    <div className="rounded-2xl border border-[#2B3441] shadow-2xl relative overflow-hidden space-y-6">
+    <div className="rounded-2xl border border-[#E2EAF4] shadow-2xl relative overflow-hidden space-y-6">
       {/* Visual Architectural Hero Background */}
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
@@ -59,7 +59,7 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
       {/* Dark Translucent Editorial Overlay */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-b from-[#0B0E14]/85 via-[#0D121A]/90 to-[#0F1420]/95 pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-b from-[#FFFFFF]/85 via-[#0D121A]/90 to-[#0F1420]/95 pointer-events-none"
       />
 
       {/* Blueprint grid watermark overlay */}
@@ -78,17 +78,17 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5 mb-2">
-              <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold tracking-wider bg-[#1E2633] text-[#CBD5E1] border border-[#334155]">
+              <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold tracking-wider bg-[#EEF4FB] text-[#14213D] border border-[#E2EAF4]">
                 [STAGE 05]
               </span>
-              <span className="text-xs text-[#94A3B8] font-mono tracking-widest uppercase">
+              <span className="text-xs text-[#8495AE] font-mono tracking-widest uppercase">
                 ENGINEERING &amp; IDENTITY BLUEPRINT
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#FAF8F5] tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#14213D] tracking-tight leading-tight">
               BUILD &amp; ARCHITECTURE<br />INTELLIGENCE
             </h1>
-            <p className="text-xs sm:text-sm text-[#94A3B8] mt-2 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#8495AE] mt-2 max-w-2xl leading-relaxed">
               {activeBuildArea === 'brand'
                 ? 'Stage 05A — Brand System: Actively generate, customize, and finalize the logo, color palette, typography hierarchy, brand voice, and identity board.'
                 : 'Stage 05B — Product Build: Architect technical specifications, MoSCoW MVP scope, system diagrams, data entity models, APIs, and dependency graphs.'}
@@ -99,7 +99,7 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
             <button
               type="button"
               onClick={onRefresh}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#141A24]/90 hover:bg-[#1E2636] text-[#CBD5E1] hover:text-[#FAF8F5] border border-[#2B3545] text-xs font-mono font-medium transition-all shadow-sm active:translate-y-0.5"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#14213D] hover:text-[#14213D] border border-[#E2EAF4] text-xs font-mono font-medium transition-all shadow-sm active:translate-y-0.5"
               title="Recalculate architecture based on current upstream state"
             >
               <RefreshCw className="w-3.5 h-3.5" />
@@ -109,7 +109,7 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
         </div>
 
         {/* Primary Segmented Navigation: Stage 05A vs Stage 05B */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-1.5 bg-[#080B10]/80 rounded-xl border border-[#263142] backdrop-blur-sm">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-1.5 bg-[#FFFFFF] rounded-xl border border-[#263142] backdrop-blur-sm">
           <button
             type="button"
             onClick={() => {
@@ -118,8 +118,8 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
             }}
             className={`flex-1 flex items-center justify-center gap-2.5 px-5 py-3 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all ${
               activeBuildArea === 'brand'
-                ? 'bg-[#FAF8F5] text-[#0F1420] shadow-md border border-[#FAF8F5]'
-                : 'text-[#94A3B8] hover:text-[#FAF8F5] hover:bg-[#141B26]'
+                ? 'bg-[#FFFFFF] text-[#0F1420] shadow-md border border-[#FFFFFF]'
+                : 'text-[#8495AE] hover:text-[#14213D] hover:bg-[#141B26]'
             }`}
           >
             <Palette className="w-4 h-4" />
@@ -127,8 +127,8 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
             <span
               className={`text-[10px] px-2 py-0.5 rounded font-mono font-normal ${
                 activeBuildArea === 'brand'
-                  ? 'bg-[#0F1420]/10 text-[#0F1420]'
-                  : 'bg-[#1E2633] text-[#94A3B8]'
+                  ? 'bg-[#FFFFFF]/10 text-[#0F1420]'
+                  : 'bg-[#EEF4FB] text-[#8495AE]'
               }`}
             >
               IDENTITY &amp; CREATIVE
@@ -143,8 +143,8 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
             }}
             className={`flex-1 flex items-center justify-center gap-2.5 px-5 py-3 rounded-lg font-mono text-xs sm:text-sm font-bold transition-all ${
               activeBuildArea === 'product'
-                ? 'bg-[#FAF8F5] text-[#0F1420] shadow-md border border-[#FAF8F5]'
-                : 'text-[#94A3B8] hover:text-[#FAF8F5] hover:bg-[#141B26]'
+                ? 'bg-[#FFFFFF] text-[#0F1420] shadow-md border border-[#FFFFFF]'
+                : 'text-[#8495AE] hover:text-[#14213D] hover:bg-[#141B26]'
             }`}
           >
             <Wrench className="w-4 h-4" />
@@ -152,8 +152,8 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
             <span
               className={`text-[10px] px-2 py-0.5 rounded font-mono font-normal ${
                 activeBuildArea === 'product'
-                  ? 'bg-[#0F1420]/10 text-[#0F1420]'
-                  : 'bg-[#1E2633] text-[#94A3B8]'
+                  ? 'bg-[#FFFFFF]/10 text-[#0F1420]'
+                  : 'bg-[#EEF4FB] text-[#8495AE]'
               }`}
             >
               ENGINEERING &amp; SPECS
@@ -163,32 +163,32 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
 
         {/* 4 Status Badges Bar */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="rounded-xl bg-[#0F1420]/80 border border-[#253040] p-3 backdrop-blur-sm">
+          <div className="rounded-xl bg-[#FFFFFF] border border-[#253040] p-3 backdrop-blur-sm">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono text-[#7D8B9F] uppercase">Readiness</span>
-              <Activity className="w-4 h-4 text-[#94A3B8]" />
+              <Activity className="w-4 h-4 text-[#8495AE]" />
             </div>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-lg font-bold font-mono text-[#FAF8F5]">
+              <span className="text-lg font-bold font-mono text-[#14213D]">
                 {readinessOverview.overallScore}%
               </span>
               <span className="text-[11px] text-[#7D8B9F]">Score</span>
             </div>
             <div className="w-full bg-[#1A2332] h-1.5 rounded-full mt-2 overflow-hidden">
               <div
-                className="bg-[#94A3B8] h-full rounded-full transition-all duration-500"
+                className="bg-[#8495AE] h-full rounded-full transition-all duration-500"
                 style={{ width: `${readinessOverview.overallScore}%` }}
               />
             </div>
           </div>
 
-          <div className="rounded-xl bg-[#0F1420]/80 border border-[#253040] p-3 backdrop-blur-sm">
+          <div className="rounded-xl bg-[#FFFFFF] border border-[#253040] p-3 backdrop-blur-sm">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono text-[#7D8B9F] uppercase">Build Status</span>
-              <Cpu className="w-4 h-4 text-[#94A3B8]" />
+              <Cpu className="w-4 h-4 text-[#8495AE]" />
             </div>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-sm font-bold text-[#FAF8F5] truncate">
+              <span className="text-sm font-bold text-[#14213D] truncate">
                 {readinessOverview.buildStatus}
               </span>
             </div>
@@ -197,7 +197,7 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
             </p>
           </div>
 
-          <div className="rounded-xl bg-[#0F1420]/80 border border-[#253040] p-3 backdrop-blur-sm">
+          <div className="rounded-xl bg-[#FFFFFF] border border-[#253040] p-3 backdrop-blur-sm">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono text-[#7D8B9F] uppercase">MVP Perimeter</span>
               <Layers className="w-4 h-4 text-[#55634B]" />
@@ -212,19 +212,19 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
             </p>
           </div>
 
-          <div className="rounded-xl bg-[#0F1420]/80 border border-[#253040] p-3 backdrop-blur-sm">
+          <div className="rounded-xl bg-[#FFFFFF] border border-[#253040] p-3 backdrop-blur-sm">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono text-[#7D8B9F] uppercase">Stage 06 Handoff</span>
               {handoff.isReady ? (
                 <CheckCircle2 className="w-4 h-4 text-[#3E6F4A]" />
               ) : (
-                <AlertTriangle className="w-4 h-4 text-[#8A6D2B]" />
+                <AlertTriangle className="w-4 h-4 text-[#F29A42]" />
               )}
             </div>
             <div className="flex items-baseline gap-2 mt-1">
               <span
                 className={`text-sm font-bold font-mono ${
-                  handoff.isReady ? 'text-[#3E6F4A]' : 'text-[#8A6D2B]'
+                  handoff.isReady ? 'text-[#3E6F4A]' : 'text-[#F29A42]'
                 }`}
               >
                 {handoff.isReady ? 'READY TO EXECUTE' : 'AUDIT IN PROGRESS'}
@@ -250,8 +250,8 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
                 onClick={() => onSelectSection(pill.id)}
                 className={`px-3 py-1.5 rounded-md text-xs font-mono whitespace-nowrap transition-all duration-150 ${
                   isActive
-                    ? 'bg-[#FAF8F5] text-[#0F1420] font-bold shadow-sm translate-y-[-1px]'
-                    : 'bg-[#111722]/80 text-[#94A3B8] hover:text-[#FAF8F5] hover:bg-[#1B2332] border border-[#2B3545]'
+                    ? 'bg-[#FFFFFF] text-[#0F1420] font-bold shadow-sm translate-y-[-1px]'
+                    : 'bg-[#111722]/80 text-[#8495AE] hover:text-[#14213D] hover:bg-[#1B2332] border border-[#E2EAF4]'
                 }`}
               >
                 {pill.label}
