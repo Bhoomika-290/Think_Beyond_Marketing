@@ -164,7 +164,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                         ? 'bg-blue-500/20 text-blue-300 border-blue-500'
                         : feature.priority === 'could'
                         ? 'bg-purple-500/20 text-purple-300 border-purple-500'
-                        : 'bg-[#151E2B] text-[#8495AE] border-[#34445A]'
+                        : 'bg-[#EEF4FB] text-[#60738F] border-[#34445A]'
                     } ${isSelected ? 'scale-125 ring-2 ring-white z-20' : 'hover:scale-115'}`}
                   >
                     {feature.priority === 'must'
@@ -272,7 +272,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
               key={feature.id}
               className={`rounded-xl border p-4 transition-all duration-200 ${
                 isSelected
-                  ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500'
+                  ? 'bg-[#FFFFFF] border-[#2684F7] ring-1 ring-blue-500'
                   : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
               }`}
             >
@@ -324,7 +324,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
                       className={`px-2 py-0.5 rounded text-[9px] font-mono font-semibold uppercase transition-colors ${
                         feature.priority === p
                           ? 'bg-[#2684F7] text-white'
-                          : 'bg-[#151E2B] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4]'
+                          : 'bg-[#EEF4FB] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4]'
                       }`}
                     >
                       {p === 'must' ? 'M' : p === 'should' ? 'S' : p === 'could' ? 'C' : 'N'}
@@ -449,7 +449,7 @@ export const MVPScopeMatrix: React.FC<MVPScopeMatrixProps> = ({
             <button
               type="button"
               onClick={() => setIsAddingFeature(false)}
-              className="px-3 py-1.5 rounded-lg bg-[#151E2B] text-[#8495AE] text-xs font-mono"
+              className="px-3 py-1.5 rounded-lg bg-[#EEF4FB] text-[#60738F] text-xs font-mono"
             >
               Cancel
             </button>

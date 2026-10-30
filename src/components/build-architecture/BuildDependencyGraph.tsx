@@ -64,7 +64,7 @@ export const BuildDependencyGraph: React.FC<BuildDependencyGraphProps> = ({ depe
               key={node.id}
               className={`p-4 rounded-xl border flex flex-col justify-between transition-all ${
                 isCritical
-                  ? 'bg-[#151E2B] border-blue-500/60 shadow-sm'
+                  ? 'bg-[#FFFFFF] border-[#2684F7]/60 shadow-sm'
                   : 'bg-[#FFFFFF] border-[#E2EAF4]'
               }`}
             >

@@ -291,7 +291,7 @@ export const BuildDecisionBoard: React.FC<BuildDecisionBoardProps> = ({
             <button
               type="button"
               onClick={() => setIsAdding(false)}
-              className="px-3 py-1.5 rounded-lg bg-[#151E2B] text-[#8495AE] text-xs font-mono"
+              className="px-3 py-1.5 rounded-lg bg-[#EEF4FB] text-[#60738F] text-xs font-mono"
             >
               Cancel
             </button>

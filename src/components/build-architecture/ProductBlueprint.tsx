@@ -357,7 +357,7 @@ export const ProductBlueprint: React.FC<ProductBlueprintProps> = ({ blueprint })
                       onClick={() => setSelectedNode(node)}
                       className={`flex-1 min-w-[140px] text-left p-4 rounded-xl border transition-all duration-200 relative ${
                         isSelected
-                          ? 'bg-[#151E2B] border-blue-500 shadow-lg shadow-blue-500/10 ring-1 ring-blue-500'
+                          ? 'bg-[#FFFFFF] border-[#2684F7] shadow-lg shadow-blue-500/10 ring-1 ring-blue-500'
                           : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A] hover:bg-[#131C29]'
                       }`}
                     >

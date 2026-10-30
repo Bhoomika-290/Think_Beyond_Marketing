@@ -45,7 +45,7 @@ export const ProductUserFlow: React.FC<ProductUserFlowProps> = ({ userJourney })
                   onClick={() => setSelectedStep(step)}
                   className={`flex-1 min-w-[120px] p-3 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500 shadow-md'
+                      ? 'bg-[#FFFFFF] border-[#2684F7] ring-1 ring-blue-500 shadow-md'
                       : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                   }`}
                 >

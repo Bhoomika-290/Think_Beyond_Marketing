@@ -41,7 +41,7 @@ export const ScreenArchitecture: React.FC<ScreenArchitectureProps> = ({ screenAr
                 onClick={() => setSelectedScreen(screen)}
                 className={`p-4 rounded-xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500 shadow-md'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] ring-1 ring-blue-500 shadow-md'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                 }`}
               >
@@ -54,7 +54,7 @@ export const ScreenArchitecture: React.FC<ScreenArchitectureProps> = ({ screenAr
                       MVP
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded text-[9px] font-mono text-[#60738F] bg-[#1A2332]">
+                    <span className="px-2 py-0.5 rounded text-[9px] font-mono text-[#60738F] bg-[#EEF4FB] border border-[#E2EAF4]">
                       PHASE 2
                     </span>
                   )}

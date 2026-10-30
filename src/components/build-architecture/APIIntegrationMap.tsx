@@ -74,7 +74,7 @@ export const APIIntegrationMap: React.FC<APIIntegrationMapProps> = ({ apiIntegra
                   onClick={() => setSelectedIntegration(item)}
                   className={`p-3.5 rounded-xl border transition-all cursor-pointer shadow-md ${
                     isSelected
-                      ? 'bg-[#151E2B] border-blue-500 ring-2 ring-blue-500/40'
+                      ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-blue-500/40'
                       : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-500'
                   }`}
                 >

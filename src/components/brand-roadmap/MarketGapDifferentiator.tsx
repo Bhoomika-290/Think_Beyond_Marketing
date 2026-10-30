@@ -63,7 +63,7 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
   const activeScores = activeCandidate ? getCandidateScores(activeCandidate) : null;
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#E2EAF4] p-6 lg:p-8 shadow-xl space-y-6">
+    <section className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 lg:p-8 shadow-sm space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2636] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -209,7 +209,7 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
                   <span className="text-[#8495AE]">Differentiation Strength</span>
                   <span className="text-[#19A875] font-bold">{activeScores.diffStrength}%</span>
                 </div>
-                <div className="w-full h-2 bg-[#0B1017] rounded-full overflow-hidden border border-[#E2EAF4]">
+                <div className="w-full h-2 bg-[#EEF4FB] rounded-full overflow-hidden border border-[#E2EAF4]">
                   <div className="h-full bg-emerald-400 rounded-full" style={{ width: `${activeScores.diffStrength}%` }} />
                 </div>
               </div>
@@ -219,7 +219,7 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
                   <span className="text-[#8495AE]">Customer Relevance</span>
                   <span className="text-[#2684F7] font-bold">{activeScores.customerRelevance}%</span>
                 </div>
-                <div className="w-full h-2 bg-[#0B1017] rounded-full overflow-hidden border border-[#E2EAF4]">
+                <div className="w-full h-2 bg-[#EEF4FB] rounded-full overflow-hidden border border-[#E2EAF4]">
                   <div className="h-full bg-blue-400 rounded-full" style={{ width: `${activeScores.customerRelevance}%` }} />
                 </div>
               </div>
@@ -229,7 +229,7 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
                   <span className="text-[#8495AE]">Defensibility</span>
                   <span className="text-purple-400 font-bold">{activeScores.defensibility}%</span>
                 </div>
-                <div className="w-full h-2 bg-[#0B1017] rounded-full overflow-hidden border border-[#E2EAF4]">
+                <div className="w-full h-2 bg-[#EEF4FB] rounded-full overflow-hidden border border-[#E2EAF4]">
                   <div className="h-full bg-purple-400 rounded-full" style={{ width: `${activeScores.defensibility}%` }} />
                 </div>
               </div>
@@ -261,7 +261,7 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
               key={cand.id}
               className={`p-5 rounded-xl border transition-all flex flex-col justify-between ${
                 isSelected
-                  ? 'bg-[#151E2B] border-emerald-500 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500'
+                  ? 'bg-[#FFFFFF] border-[#19A875] ring-2 ring-[#19A875]/25 shadow-md'
                   : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/30'
               }`}
             >
@@ -304,7 +304,7 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
                       value={customDiffText}
                       onChange={(e) => setCustomDiffText(e.target.value)}
                       rows={3}
-                      className="w-full bg-[#0B1017] p-2 rounded-lg border border-[#2684F7] text-xs font-mono text-white focus:outline-none"
+                      className="w-full bg-[#EEF4FB] p-2 rounded-lg border border-[#2684F7] text-xs font-mono text-[#14213D] focus:outline-none"
                     />
                     <div className="flex items-center gap-2">
                       <button
@@ -325,7 +325,7 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
                     </div>
                   </div>
                 ) : (
-                  <div className="p-3 rounded-lg bg-[#0B1017] border border-[#1C2636] text-xs text-[#14213D] leading-relaxed mb-3">
+                  <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] text-xs text-[#14213D] leading-relaxed mb-3">
                     <span className="text-[#2684F7] font-mono font-semibold block text-[10px] mb-0.5">
                       YOUR DIFFERENTIATOR:
                     </span>
@@ -385,19 +385,19 @@ export const MarketGapDifferentiator: React.FC<MarketGapDifferentiatorProps> = (
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="p-3 rounded-lg bg-[#0B1017] border border-[#1C2636]">
+              <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4]">
                 <span className="text-[10px] font-mono uppercase text-[#60738F] block mb-1">Reasoning &amp; Synthesis</span>
                 <p className="text-[#14213D] leading-relaxed">{inspectingCandidate.reasoning}</p>
               </div>
 
-              <div className="p-3 rounded-lg bg-[#0B1017] border border-[#1C2636]">
+              <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4]">
                 <span className="text-[10px] font-mono uppercase text-[#60738F] block mb-1">Competitor Vulnerability</span>
                 <p className="text-[#8495AE] leading-relaxed">
                   Competitors rely on {inspectingCandidate.competitorPattern.toLowerCase()}, leaving buyers who demand {inspectingCandidate.customerNeed.toLowerCase()} stranded.
                 </p>
               </div>
 
-              <div className="p-3 rounded-lg bg-[#0B1017] border border-[#19A875]/30">
+              <div className="p-3 rounded-lg bg-[#E8F8F1] border border-[#19A875]/30">
                 <span className="text-[10px] font-mono uppercase text-[#19A875] block mb-1">Brand Advantage</span>
                 <p className="text-emerald-300 font-medium leading-relaxed">
                   {inspectingCandidate.brandPosition}

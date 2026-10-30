@@ -139,7 +139,7 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
                 onClick={() => setSelectedDimension(isSelected ? null : dim.id)}
                 className={`p-3 rounded-xl border text-left transition-all ${
                   isSelected
-                    ? 'bg-[#151E2B] border-[#2684F7] ring-1 ring-[#2684F7]/40 shadow-md'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-[#2684F7]/25 shadow-md'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#384860]'
                 }`}
               >
@@ -186,7 +186,7 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
                     <button
                       type="button"
                       onClick={() => setSelectedDimension(null)}
-                      className="text-[10px] font-mono text-[#60738F] hover:text-white"
+                      className="text-[10px] font-mono text-[#60738F] hover:text-[#14213D]"
                     >
                       Close [×]
                     </button>
@@ -285,7 +285,7 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
                     <tr key={blk.id} className="border-b border-[#E2EAF4] last:border-0 align-top">
                       <td className="py-1.5 pr-2">
                         <details className="group">
-                          <summary className="text-xs font-bold text-white cursor-pointer list-none hover:text-[#F29A42]">
+                          <summary className="text-xs font-bold text-[#14213D] cursor-pointer list-none hover:text-[#F29A42]">
                             {blk.title}
                           </summary>
                           <p className="text-[11px] text-[#8495AE] leading-snug pt-1">{blk.detail}</p>
@@ -327,7 +327,7 @@ export const LaunchControlCard: React.FC<LaunchControlCardProps> = ({
             <div className="space-y-1">
               {synthesis.strategicOpportunities.map((opp) => (
                 <details key={opp.id} className="px-2.5 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] group">
-                  <summary className="text-xs font-bold text-white cursor-pointer list-none hover:text-[#19A875]">
+                  <summary className="text-xs font-bold text-[#14213D] cursor-pointer list-none hover:text-[#19A875]">
                     {opp.title}
                   </summary>
                   <p className="text-[11px] text-[#8495AE] leading-snug pt-1">{opp.rationale}</p>

@@ -50,7 +50,7 @@ export const DataEntityModel: React.FC<DataEntityModelProps> = ({ dataModel }) =
                 onClick={() => setSelectedEntity(rootEntity)}
                 className={`w-52 p-4 rounded-xl border transition-all cursor-pointer shadow-lg ${
                   selectedEntity?.id === rootEntity.id
-                    ? 'bg-[#151E2B] border-blue-500 ring-2 ring-blue-500/40'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-blue-500/40'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-blue-400/50'
                 }`}
               >
@@ -90,7 +90,7 @@ export const DataEntityModel: React.FC<DataEntityModelProps> = ({ dataModel }) =
                   onClick={() => setSelectedEntity(entity)}
                   className={`p-3.5 rounded-xl border transition-all cursor-pointer shadow-md ${
                     isSelected
-                      ? 'bg-[#151E2B] border-blue-500 ring-2 ring-blue-500/40'
+                      ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-blue-500/40'
                       : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-500'
                   }`}
                 >
@@ -174,7 +174,7 @@ export const DataEntityModel: React.FC<DataEntityModelProps> = ({ dataModel }) =
                   const isFkField = !f.isKey && (f.name.endsWith('Id') || f.name.endsWith('_id'));
 
                   return (
-                    <tr key={i} className="hover:bg-[#151E2B]/50 transition-colors">
+                    <tr key={i} className="hover:bg-[#EEF4FB]/50 transition-colors">
                       <td className="py-2 px-3 font-semibold text-[#14213D] flex items-center gap-1.5">
                         {f.isKey && <Key className="w-3 h-3 text-amber-400 flex-shrink-0" />}
                         {isFkField && <Link2 className="w-3 h-3 text-[#2684F7] flex-shrink-0" />}

@@ -20,32 +20,32 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
     switch (quadrant) {
       case 'prime_opportunity':
         return {
-          bg: 'bg-[#064E3B]/20 border-[#059669]/50 text-[#19A875]',
-          badge: 'bg-[#064E3B] text-[#19A875] border-[#059669]/60',
+          bg: 'bg-[#E8F8F1] border-[#19A875]/40 text-[#19A875]',
+          badge: 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/40',
           title: 'Prime Opportunity (High Demand · Low Incumbency)',
-          accent: '#10B981',
+          accent: '#19A875',
         };
       case 'crowded':
         return {
-          bg: 'bg-[#4C0519]/20 border-[#E11D48]/40 text-[#FDA4AF]',
-          badge: 'bg-[#4C0519] text-[#FDA4AF] border-[#E11D48]/50',
+          bg: 'bg-[#FFF0EF] border-[#E46D68]/40 text-[#E46D68]',
+          badge: 'bg-[#FFF0EF] text-[#E46D68] border-[#E46D68]/40',
           title: 'Crowded Zone (High Demand · High Incumbency)',
-          accent: '#E11D48',
+          accent: '#E46D68',
         };
       case 'niche':
         return {
-          bg: 'bg-[#2E1065]/20 border-[#9272DB]/30 text-[#DDD6FE]',
-          badge: 'bg-[#2E1065] text-[#DDD6FE] border-[#8B5CF6]/50',
+          bg: 'bg-[#F2EDFF] border-[#9272DB]/40 text-[#9272DB]',
+          badge: 'bg-[#F2EDFF] text-[#9272DB] border-[#9272DB]/40',
           title: 'Specialized Niche (Focused Need · Defensible)',
-          accent: '#8B5CF6',
+          accent: '#9272DB',
         };
       case 'low_priority':
       default:
         return {
-          bg: 'bg-[#EEF4FB]/40 border-[#475569]/50 text-[#8495AE]',
-          badge: 'bg-[#EEF4FB] text-[#8495AE] border-[#475569]',
+          bg: 'bg-[#EEF4FB] border-[#E2EAF4] text-[#60738F]',
+          badge: 'bg-[#EEF4FB] text-[#60738F] border-[#E2EAF4]',
           title: 'Low Priority (Low Demand · Slow Growth)',
-          accent: '#64748B',
+          accent: '#60738F',
         };
     }
   };
@@ -65,7 +65,7 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
             <h2 className="text-base font-bold text-[#14213D]">
               Market Whitespace & Opportunity Matrix
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#064E3B]/80 text-[#19A875] border border-[#19A875]/30">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/40">
               Demand vs. Competition
             </span>
           </div>
@@ -81,8 +81,8 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
             onClick={() => setSelectedQuadrant('all')}
             className={`px-3 py-1 rounded-lg transition-colors ${
               selectedQuadrant === 'all'
-                ? 'bg-[#2684F7] text-[#0B1320] font-bold shadow-xs'
-                : 'bg-[#182230] text-[#8495AE] hover:text-[#14213D] border border-[#E2EAF4]'
+                ? 'bg-[#2684F7] text-white font-bold shadow-xs'
+                : 'bg-[#EEF4FB] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4]'
             }`}
           >
             All Quadrants ({opportunityGaps.length})
@@ -97,7 +97,7 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
             className={`px-3 py-1 rounded-lg transition-colors ${
               selectedQuadrant === 'prime_opportunity'
                 ? 'bg-[#19A875] text-white font-bold shadow-xs'
-                : 'bg-[#182230] text-[#19A875] hover:bg-[#064E3B]/40 border border-[#19A875]/30'
+                : 'bg-[#EEF4FB] text-[#19A875] hover:bg-[#E8F8F1] border border-[#19A875]/30'
             }`}
           >
             Prime Whitespace
@@ -112,7 +112,7 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
             className={`px-3 py-1 rounded-lg transition-colors ${
               selectedQuadrant === 'niche'
                 ? 'bg-[#9272DB] text-white font-bold shadow-xs'
-                : 'bg-[#182230] text-[#C084FC] hover:bg-[#2E1065]/40 border border-[#9272DB]/30'
+                : 'bg-[#EEF4FB] text-[#9272DB] hover:bg-[#F2EDFF] border border-[#9272DB]/30'
             }`}
           >
             Specialized Niche
@@ -126,8 +126,8 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
             }}
             className={`px-3 py-1 rounded-lg transition-colors ${
               selectedQuadrant === 'crowded'
-                ? 'bg-[#E11D48] text-white font-bold shadow-xs'
-                : 'bg-[#182230] text-[#FDA4AF] hover:bg-[#4C0519]/40 border border-[#E11D48]/40'
+                ? 'bg-[#E46D68] text-white font-bold shadow-xs'
+                : 'bg-[#EEF4FB] text-[#E46D68] hover:bg-[#FFF0EF] border border-[#E46D68]/30'
             }`}
           >
             Crowded / Avoid
@@ -153,17 +153,17 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
               }}
               className={`p-4 rounded-xl border flex flex-col justify-between min-h-[140px] cursor-pointer transition-all ${
                 selectedQuadrant === 'prime_opportunity'
-                  ? 'bg-[#064E3B]/40 border-[#10B981] shadow-lg ring-2 ring-[#10B981]/50'
-                  : 'bg-[#064E3B]/20 border-[#19A875]/30 hover:border-[#10B981]'
+                  ? 'bg-[#E8F8F1] border-[#19A875] shadow-md ring-2 ring-[#19A875]/40'
+                  : 'bg-[#E8F8F1]/60 border-[#19A875]/30 hover:border-[#19A875]'
               }`}
             >
               <div>
                 <span className="text-[10px] font-mono uppercase font-bold text-[#19A875] block tracking-wider">
                   ▲ PRIME OPPORTUNITY
                 </span>
-                <span className="text-[10px] text-[#A7F3D0] block mt-0.5">High Demand · Low Incumbency</span>
+                <span className="text-[10px] text-[#19A875]/80 block mt-0.5">High Demand · Low Incumbency</span>
               </div>
-              <div className="text-xs font-semibold text-[#ECFDF5] mt-3 line-clamp-2">
+              <div className="text-xs font-semibold text-[#14213D] mt-3 line-clamp-2">
                 {opportunityGaps.find((g) => g.quadrant === 'prime_opportunity')?.title ||
                   'High-Demand Underserved Wedge'}
               </div>
@@ -181,21 +181,21 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
               }}
               className={`p-4 rounded-xl border flex flex-col justify-between min-h-[140px] cursor-pointer transition-all ${
                 selectedQuadrant === 'crowded'
-                  ? 'bg-[#4C0519]/40 border-[#E11D48] shadow-lg ring-2 ring-[#E11D48]/50'
-                  : 'bg-[#4C0519]/20 border-[#E11D48]/40 hover:border-[#E11D48]'
+                  ? 'bg-[#FFF0EF] border-[#E46D68] shadow-md ring-2 ring-[#E46D68]/40'
+                  : 'bg-[#FFF0EF]/60 border-[#E46D68]/30 hover:border-[#E46D68]'
               }`}
             >
               <div>
-                <span className="text-[10px] font-mono uppercase font-bold text-[#FDA4AF] block tracking-wider">
+                <span className="text-[10px] font-mono uppercase font-bold text-[#E46D68] block tracking-wider">
                   ▲ CROWDED / AVOID
                 </span>
-                <span className="text-[10px] text-[#FECDD3] block mt-0.5">High Demand · High Incumbency</span>
+                <span className="text-[10px] text-[#E46D68]/80 block mt-0.5">High Demand · High Incumbency</span>
               </div>
-              <div className="text-xs font-semibold text-[#FFF1F2] mt-3 line-clamp-2">
+              <div className="text-xs font-semibold text-[#14213D] mt-3 line-clamp-2">
                 {opportunityGaps.find((g) => g.quadrant === 'crowded')?.title ||
                   'Mass-Market Price War / High CAC'}
               </div>
-              <div className="text-[10px] font-mono text-[#FDA4AF] mt-2">
+              <div className="text-[10px] font-mono text-[#E46D68] mt-2">
                 High Acquisition Risk
               </div>
             </div>
@@ -209,21 +209,21 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
               }}
               className={`p-4 rounded-xl border flex flex-col justify-between min-h-[140px] cursor-pointer transition-all ${
                 selectedQuadrant === 'niche'
-                  ? 'bg-[#2E1065]/40 border-[#8B5CF6] shadow-lg ring-2 ring-[#8B5CF6]/50'
-                  : 'bg-[#2E1065]/20 border-[#9272DB]/30 hover:border-[#8B5CF6]'
+                  ? 'bg-[#F2EDFF] border-[#9272DB] shadow-md ring-2 ring-[#9272DB]/40'
+                  : 'bg-[#F2EDFF]/60 border-[#9272DB]/30 hover:border-[#9272DB]'
               }`}
             >
               <div>
-                <span className="text-[10px] font-mono uppercase font-bold text-[#DDD6FE] block tracking-wider">
+                <span className="text-[10px] font-mono uppercase font-bold text-[#9272DB] block tracking-wider">
                   ▼ SPECIALIZED NICHE
                 </span>
-                <span className="text-[10px] text-[#E9D5FF] block mt-0.5">Focused Audience · Defensible</span>
+                <span className="text-[10px] text-[#9272DB]/80 block mt-0.5">Focused Audience · Defensible</span>
               </div>
-              <div className="text-xs font-semibold text-[#FAF5FF] mt-3 line-clamp-2">
+              <div className="text-xs font-semibold text-[#14213D] mt-3 line-clamp-2">
                 {opportunityGaps.find((g) => g.quadrant === 'niche')?.title ||
                   'High-Retention Specialty Segment'}
               </div>
-              <div className="text-[10px] font-mono text-[#C084FC] mt-2">
+              <div className="text-[10px] font-mono text-[#9272DB] mt-2">
                 Strong Pricing Power
               </div>
             </div>
@@ -237,8 +237,8 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
               }}
               className={`p-4 rounded-xl border flex flex-col justify-between min-h-[140px] cursor-pointer transition-all ${
                 selectedQuadrant === 'low_priority'
-                  ? 'bg-[#EEF4FB]/60 border-[#64748B] shadow-lg ring-2 ring-[#64748B]/50'
-                  : 'bg-[#EEF4FB]/30 border-[#E2EAF4] hover:border-[#64748B]'
+                  ? 'bg-[#EEF4FB] border-[#8495AE] shadow-md ring-2 ring-[#8495AE]/40'
+                  : 'bg-[#EEF4FB]/60 border-[#E2EAF4] hover:border-[#8495AE]'
               }`}
             >
               <div>
@@ -310,8 +310,8 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
                   onClick={() => setSelectedGap(isSelected ? null : gap)}
                   className={`p-4 sm:p-5 rounded-xl border transition-all cursor-pointer shadow-md ${
                     isSelected
-                      ? 'bg-[#151D29] border-[#2684F7] ring-1 ring-[#2684F7]/40'
-                      : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/30'
+                      ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-[#2684F7]/25 shadow-md'
+                      : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/40 shadow-xs'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -323,7 +323,7 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
                           {gap.quadrant.replace('_', ' ').toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-xs text-[#8495AE] mt-1.5 leading-relaxed">{gap.opportunityAngle}</p>
+                      <p className="text-xs text-[#60738F] mt-1.5 leading-relaxed">{gap.opportunityAngle}</p>
                     </div>
 
                     <div className="text-right shrink-0">
@@ -334,33 +334,33 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
 
                   {/* Evidence-Derived Market Condition Indicators */}
                   <div className="mt-4 pt-3 border-t border-[#E2EAF4] grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-                    <div className="p-2.5 rounded bg-[#0A1017] border border-[#1A2332]">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
                       <span className="text-[9px] text-[#8495AE] block uppercase tracking-wider">Demand Signal</span>
                       <span className="text-xs text-[#19A875] font-semibold mt-0.5 block">{demandLevelText}</span>
-                      <span className="text-[10px] text-[#8495AE] mt-0.5 block">{gap.provenance || 'Founder Signal'}</span>
+                      <span className="text-[10px] text-[#60738F] mt-0.5 block">{gap.provenance || 'Founder Signal'}</span>
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#0A1017] border border-[#1A2332]">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
                       <span className="text-[9px] text-[#8495AE] block uppercase tracking-wider">Incumbent Coverage</span>
                       <span className="text-xs text-[#F29A42] font-semibold mt-0.5 block">{compLevelText}</span>
-                      <span className="text-[10px] text-[#8495AE] mt-0.5 block">
+                      <span className="text-[10px] text-[#60738F] mt-0.5 block">
                         {gap.competitorsAddressing.length > 0
                           ? `${gap.competitorsAddressing.length} player(s) tracked`
                           : 'No direct incumbent'}
                       </span>
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#0A1017] border border-[#1A2332]">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
                       <span className="text-[9px] text-[#8495AE] block uppercase tracking-wider">Strategic Wedge</span>
                       <span className="text-xs text-[#2684F7] font-semibold mt-0.5 block">{whitespaceRating}</span>
-                      <span className="text-[10px] text-[#8495AE] mt-0.5 block">Stage 03 Synthesis</span>
+                      <span className="text-[10px] text-[#60738F] mt-0.5 block">Stage 03 Synthesis</span>
                     </div>
                   </div>
 
                   {/* Expanded Details Panel */}
                   {isSelected && (
                     <div className="mt-4 pt-3 border-t border-[#E2EAF4] grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs animate-fade-in">
-                      <div className="p-3 rounded bg-[#0A1017] border border-[#19A875]/30 space-y-1">
+                      <div className="p-3 rounded bg-[#E8F8F1] border border-[#19A875]/30 space-y-1">
                         <span className="text-[10px] font-mono text-[#19A875] block uppercase font-bold">
                           What Appears Underserved
                         </span>
@@ -369,7 +369,7 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
                         </p>
                       </div>
 
-                      <div className="p-3 rounded bg-[#0A1017] border border-[#2684F7]/30 space-y-1">
+                      <div className="p-3 rounded bg-[#E8F2FF] border border-[#2684F7]/30 space-y-1">
                         <span className="text-[10px] font-mono text-[#2684F7] block uppercase font-bold">
                           Why It Matters
                         </span>
@@ -378,16 +378,16 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
                         </p>
                       </div>
 
-                      <div className="p-3 rounded bg-[#0A1017] border border-[#EEF4FB] space-y-1">
-                        <span className="text-[10px] font-mono text-[#8495AE] block uppercase font-bold">
+                      <div className="p-3 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-1">
+                        <span className="text-[10px] font-mono text-[#60738F] block uppercase font-bold">
                           Supporting Evidence
                         </span>
-                        <p className="text-xs text-[#8495AE] leading-relaxed">
+                        <p className="text-xs text-[#14213D] leading-relaxed">
                           {gap.supportingEvidence || 'Derived from competitor feature matrix and pricing analysis.'}
                         </p>
                       </div>
 
-                      <div className="p-3 rounded bg-[#0A1017] border border-[#EEF4FB] space-y-1">
+                      <div className="p-3 rounded bg-[#FFF3E7] border border-[#F29A42]/30 space-y-1">
                         <span className="text-[10px] font-mono text-[#F29A42] block uppercase font-bold">
                           Incumbents in Zone
                         </span>
@@ -398,8 +398,8 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
                         </p>
                       </div>
 
-                      <div className="p-3 rounded bg-[#0A1017] border border-[#E11D48]/30 space-y-1">
-                        <span className="text-[10px] font-mono text-[#FDA4AF] block uppercase font-bold">
+                      <div className="p-3 rounded bg-[#FFF0EF] border border-[#E46D68]/30 space-y-1">
+                        <span className="text-[10px] font-mono text-[#E46D68] block uppercase font-bold">
                           What Remains Unresolved
                         </span>
                         <p className="text-xs text-[#14213D] leading-relaxed">
@@ -407,8 +407,8 @@ export const OpportunityWhitespaceMap: React.FC<OpportunityWhitespaceMapProps> =
                         </p>
                       </div>
 
-                      <div className="p-3 rounded bg-[#0A1017] border border-[#9272DB]/30 space-y-1">
-                        <span className="text-[10px] font-mono text-[#C084FC] block uppercase font-bold">
+                      <div className="p-3 rounded bg-[#F2EDFF] border border-[#9272DB]/30 space-y-1">
+                        <span className="text-[10px] font-mono text-[#9272DB] block uppercase font-bold">
                           Validation Next Step
                         </span>
                         <p className="text-xs text-[#14213D] leading-relaxed">

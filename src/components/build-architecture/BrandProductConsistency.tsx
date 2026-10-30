@@ -124,7 +124,7 @@ export const BrandProductConsistency: React.FC<BrandProductConsistencyProps> = (
                 onClick={() => setSelectedBridgeStage(stage.step)}
                 className={`p-3 rounded-xl border text-left transition-all relative ${
                   isSelected
-                    ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500 shadow-md'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] ring-1 ring-blue-500 shadow-md'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                 }`}
               >

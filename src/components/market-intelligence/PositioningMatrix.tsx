@@ -229,7 +229,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#14213D] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#2684F7] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             Add Real Competitor
@@ -241,23 +241,23 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
       <div className="flex flex-wrap items-center gap-4 px-1 text-[10px] font-mono text-[#60738F]">
         <span className="font-semibold text-[#14213D]">Legend:</span>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-sm border border-[#FFFFFF]" style={{ backgroundColor: '#9C4738' }} />
+          <div className="w-3 h-3 rounded-sm border border-[#FFFFFF]" style={{ backgroundColor: '#E46D68' }} />
           <span>Direct Competitor (archetype)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-full border border-[#FFFFFF]" style={{ backgroundColor: '#7D6536' }} />
+          <div className="w-3 h-3 rounded-full border border-[#FFFFFF]" style={{ backgroundColor: '#F29A42' }} />
           <span>Indirect Competitor (archetype)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-sm border border-[#FFFFFF]" style={{ backgroundColor: '#4A5B6C' }} />
+          <div className="w-3 h-3 rounded-sm border border-[#FFFFFF]" style={{ backgroundColor: '#9272DB' }} />
           <span>Status-Quo Workaround (archetype)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-full border-2 border-[#2C3527] bg-[#2C3527]" />
+          <div className="w-3 h-3 rounded-full border-2 border-[#2684F7] bg-[#2684F7]" />
           <span>Proposed Venture Target</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-3 rounded-full border-2 border-[#3E6F4A] bg-[#3E6F4A]" />
+          <div className="w-3 h-3 rounded-full border-2 border-[#19A875] bg-[#19A875]" />
           <span>Verified Competitor</span>
         </div>
       </div>
@@ -300,7 +300,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#14213D] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors shrink-0"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#2684F7] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors shrink-0"
           >
             <Plus className="w-3.5 h-3.5" />
             Add Player
@@ -396,26 +396,26 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
           className="absolute inset-0 opacity-10 pointer-events-none"
           style={{
             backgroundImage:
-              'linear-gradient(to right, #C9B8A3 1px, transparent 1px), linear-gradient(to bottom, #C9B8A3 1px, transparent 1px)',
+              'linear-gradient(to right, #E2EAF4 1px, transparent 1px), linear-gradient(to bottom, #E2EAF4 1px, transparent 1px)',
             backgroundSize: '40px 40px',
           }}
         />
 
         {/* Center Crosshairs */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[#C9B8A3]/70 -translate-x-1/2 pointer-events-none" />
-        <div className="absolute top-1/2 left-0 right-0 h-px bg-[#C9B8A3]/70 -translate-y-1/2 pointer-events-none" />
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[#E2EAF4] -translate-x-1/2 pointer-events-none" />
+        <div className="absolute top-1/2 left-0 right-0 h-px bg-[#E2EAF4] -translate-y-1/2 pointer-events-none" />
 
         {/* Quadrant Watermarks / Labels — clay */}
-        <div className="absolute top-4 left-6 text-[10px] font-mono uppercase tracking-wider text-[#B99B7A] pointer-events-none">
+        <div className="absolute top-4 left-6 text-[10px] font-mono uppercase tracking-wider text-[#8495AE] pointer-events-none">
           Q2: High {selectedAxes.yAxis.label.split(' ')[0]} / Low {selectedAxes.xAxis.label.split(' ')[0]}
         </div>
-        <div className="absolute top-4 right-6 text-[10px] font-mono uppercase tracking-wider text-[#B99B7A] pointer-events-none">
+        <div className="absolute top-4 right-6 text-[10px] font-mono uppercase tracking-wider text-[#8495AE] pointer-events-none">
           Q1: PRIME OPPORTUNITY ({selectedAxes.yAxis.maxLabel.split('/')[0]} + {selectedAxes.xAxis.maxLabel.split('/')[0]})
         </div>
-        <div className="absolute bottom-4 left-6 text-[10px] font-mono uppercase tracking-wider text-[#B99B7A] pointer-events-none">
+        <div className="absolute bottom-4 left-6 text-[10px] font-mono uppercase tracking-wider text-[#8495AE] pointer-events-none">
           Q3: Commodity / Status Quo Workaround
         </div>
-        <div className="absolute bottom-4 right-6 text-[10px] font-mono uppercase tracking-wider text-[#B99B7A] pointer-events-none">
+        <div className="absolute bottom-4 right-6 text-[10px] font-mono uppercase tracking-wider text-[#8495AE] pointer-events-none">
           Q4: High {selectedAxes.xAxis.label.split(' ')[0]} / Low {selectedAxes.yAxis.label.split(' ')[0]}
         </div>
 
@@ -441,17 +441,17 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
         >
           <div className="relative flex items-center justify-center">
             {/* Concentric territory radar rings */}
-            <div className="absolute w-12 h-12 rounded-full border border-[#2C3527]/20 pointer-events-none animate-pulse" />
-            <div className="absolute w-8 h-8 rounded-full border border-[#2C3527]/35 pointer-events-none" />
-            <div className="w-4 h-4 rounded-full bg-[#2C3527] border-2 border-[#FFFFFF] shadow-md flex items-center justify-center">
-              <span className="text-[7px] text-[#14213D] font-bold">★</span>
+            <div className="absolute w-12 h-12 rounded-full border border-[#2684F7]/25 pointer-events-none animate-pulse" />
+            <div className="absolute w-8 h-8 rounded-full border border-[#2684F7]/40 pointer-events-none" />
+            <div className="w-4 h-4 rounded-full bg-[#2684F7] border-2 border-[#FFFFFF] shadow-md flex items-center justify-center">
+              <span className="text-[7px] text-white font-bold">★</span>
             </div>
           </div>
-          <div className="mt-1.5 px-2.5 py-1 rounded bg-[#2C3527] text-[#14213D] shadow-md border border-[#2C3527] flex items-center gap-1.5">
+          <div className="mt-1.5 px-2.5 py-1 rounded bg-[#2684F7] text-white shadow-md border border-[#1769D2] flex items-center gap-1.5">
             <span className="text-[10px] font-mono font-bold tracking-tight">
               {ventureName}
             </span>
-            <span className="text-[8px] font-mono uppercase px-1 py-0.2 bg-[#FFFFFF]/20 text-[#14213D] rounded">
+            <span className="text-[8px] font-mono uppercase px-1 py-0.2 bg-[#FFFFFF]/25 text-white rounded">
               Proposed Wedge
             </span>
           </div>
@@ -473,12 +473,12 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
           const isDirect = comp.category === 'direct';
           const isIndirect = comp.category === 'indirect';
           const pinColor = comp.isUserAdded
-            ? '#3E6F4A'
+            ? '#19A875'
             : isDirect
-            ? '#9C4738'
+            ? '#E46D68'
             : isIndirect
-            ? '#7D6536'
-            : '#4A5B6C';
+            ? '#F29A42'
+            : '#9272DB';
 
           return (
             <div
@@ -494,8 +494,8 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
               {/* Coordinate projection crosshair lines when selected */}
               {isSelected && (
                 <div className="absolute -inset-10 pointer-events-none">
-                  <div className="absolute top-1/2 left-0 right-0 h-px border-t border-dashed border-[#2C3527]/50" />
-                  <div className="absolute left-1/2 top-0 bottom-0 w-px border-l border-dashed border-[#2C3527]/50" />
+                  <div className="absolute top-1/2 left-0 right-0 h-px border-t border-dashed border-[#2684F7]/50" />
+                  <div className="absolute left-1/2 top-0 bottom-0 w-px border-l border-dashed border-[#2684F7]/50" />
                 </div>
               )}
 
@@ -510,23 +510,23 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                       : 'rounded-sm'
                   } ${
                     isSelected
-                      ? 'border-[#2C3527] bg-[#2C3527] ring-2 ring-[#2C3527]/30'
+                      ? 'border-[#2684F7] bg-[#2684F7] ring-2 ring-[#2684F7]/30'
                       : 'border-[#FFFFFF]'
                   }`}
-                  style={{ backgroundColor: isSelected ? '#2C3527' : pinColor }}
+                  style={{ backgroundColor: isSelected ? '#2684F7' : pinColor }}
                 />
 
                 {/* Hairline connector */}
-                <div className="w-px h-1.5 bg-[#BDB5A2]" />
+                <div className="w-px h-1.5 bg-[#8495AE]" />
 
                 {/* Cartographic Structured Node Card */}
                 <div
                   className={`flex items-center gap-1.5 px-2 py-0.5 rounded border transition-all shadow-sm ${
                     isSelected
-                      ? 'bg-[#2C3527] text-[#14213D] border-[#2C3527] ring-1 ring-[#2C3527]/30'
+                      ? 'bg-[#14213D] text-white border-[#14213D] ring-1 ring-[#14213D]/30'
                       : comp.isUserAdded
-                      ? 'bg-[#FFFFFF] text-[#2C3527] border-[#3E6F4A]/40 group-hover:border-[#3E6F4A]'
-                      : 'bg-[#FFFFFF]/95 text-[#2C3527] border-[#E2EAF4] group-hover:border-[#7D6536]'
+                      ? 'bg-[#FFFFFF] text-[#14213D] border-[#19A875]/40 group-hover:border-[#19A875]'
+                      : 'bg-[#FFFFFF]/95 text-[#14213D] border-[#E2EAF4] group-hover:border-[#2684F7]'
                   }`}
                 >
                   <span
@@ -539,10 +539,10 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                   <span
                     className={`text-[8.5px] font-mono uppercase px-1 py-0.2 rounded ${
                       isSelected
-                        ? 'bg-[#FFFFFF]/20 text-[#14213D]'
+                        ? 'bg-[#FFFFFF]/20 text-white'
                         : comp.isUserAdded
-                        ? 'bg-[#3E6F4A]/10 text-[#3E6F4A]'
-                        : 'bg-[#EFECE4] text-[#5E6857]'
+                        ? 'bg-[#E8F8F1] text-[#19A875]'
+                        : 'bg-[#EEF4FB] text-[#60738F]'
                     }`}
                   >
                     {comp.isUserAdded ? 'VERIFIED' : comp.category.slice(0, 3)}
@@ -550,7 +550,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                 </div>
 
                 {/* Hover coordinate indicator */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-[8.5px] font-mono text-[#5E6857] bg-[#EFECE4] px-1 py-0.2 rounded mt-0.5 pointer-events-none whitespace-nowrap border border-[#E2EAF4]">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-[8.5px] font-mono text-[#60738F] bg-[#FFFFFF] px-1 py-0.2 rounded mt-0.5 pointer-events-none whitespace-nowrap border border-[#E2EAF4]">
                   X: {comp.coordinates.x > 0 ? `+${comp.coordinates.x}` : comp.coordinates.x} · Y: {comp.coordinates.y > 0 ? `+${comp.coordinates.y}` : comp.coordinates.y}
                 </div>
               </div>
@@ -572,7 +572,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(true)}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#14213D] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#2684F7] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" />
                 Add Real Competitor
@@ -595,7 +595,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                   setShowArchetypes(true);
                   setShowVerified(true);
                 }}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#14213D] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-[#2684F7] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors"
               >
                 Show all competitors
               </button>
@@ -606,7 +606,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
 
       {/* Competitor Drilldown Card (Appears when a competitor is clicked) */}
       {selectedCompetitor && (
-        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#14213D]/40 space-y-3 animate-fade-in shadow-sm">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-3 animate-fade-in shadow-md">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -634,7 +634,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                     href={selectedCompetitor.websiteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-mono text-[#14213D] hover:underline bg-[#14213D]/10 px-2 py-0.5 rounded border border-[#14213D]/20"
+                    className="text-[10px] font-mono text-[#2684F7] hover:underline bg-[#E8F2FF] px-2 py-0.5 rounded border border-[#2684F7]/30"
                   >
                     {selectedCompetitor.websiteUrl} ↗
                   </a>
@@ -889,7 +889,7 @@ export const PositioningMatrix: React.FC<PositioningMatrixProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded bg-[#14213D] text-white font-medium hover:bg-[#1769D2]"
+                  className="px-4 py-1.5 rounded bg-[#2684F7] text-white font-medium hover:bg-[#1769D2]"
                 >
                   Save Competitor
                 </button>

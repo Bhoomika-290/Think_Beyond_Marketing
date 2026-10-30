@@ -33,7 +33,7 @@ export const CompetitorComparisonView: React.FC<CompetitorComparisonViewProps> =
       case 'budget':
         return { label: '$ Budget Mass', color: 'text-[#19A875] bg-[#E8F8F1] border-[#19A875]/30' };
       case 'mid_market':
-        return { label: '$$ Mid-Market', color: 'text-[#14213D] bg-[#14213D]/10 border-[#14213D]/30' };
+        return { label: '$ Mid-Market', color: 'text-[#2684F7] bg-[#E8F2FF] border-[#2684F7]/30' };
       case 'premium':
         return { label: '$$$ Premium Craft', color: 'text-[#9272DB] bg-[#F2EDFF] border-[#9272DB]/30' };
       case 'enterprise':
@@ -48,7 +48,7 @@ export const CompetitorComparisonView: React.FC<CompetitorComparisonViewProps> =
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-[#14213D]" />
+          <Layers className="w-4 h-4 text-[#2684F7]" />
           <h3 className="text-sm font-semibold text-[#14213D]">Competitor Comparative Profiles</h3>
         </div>
         <span className="text-xs font-mono text-[#60738F]">
@@ -78,10 +78,10 @@ export const CompetitorComparisonView: React.FC<CompetitorComparisonViewProps> =
               }}
               className={`p-4 rounded-xl border flex flex-col justify-between transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-[#FFFFFF] border-[#4F8FFF]/60 ring-1 ring-[#4F8FFF]/50 shadow-sm'
+                  ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-[#2684F7]/25 shadow-md'
                   : comp.isUserAdded
                     ? 'bg-[#E8F8F1] border-[#19A875]/30 hover:border-[#19A875]/60'
-                    : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#14213D]/60'
+                    : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/40'
               }`}
             >
               <div className="space-y-2.5">
@@ -103,7 +103,7 @@ export const CompetitorComparisonView: React.FC<CompetitorComparisonViewProps> =
                           </span>
                         ) : (
                           <span
-                            className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#14213D]/10 text-[#14213D] border border-[#14213D]/30 font-semibold"
+                            className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#EEF4FB] text-[#60738F] border border-[#E2EAF4] font-semibold"
                             title="Model-generated archetype — not a verified company"
                           >
                             ARCHETYPE

@@ -1348,7 +1348,7 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
               type="button"
               onClick={() => setEnvironmentMode('studio')}
               className={`px-2.5 py-1 rounded text-[11px] font-mono flex items-center gap-1 transition-colors ${
-                environmentMode === 'studio' ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
+                environmentMode === 'studio' ? 'bg-[#2684F7] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
               }`}
             >
               <Sun className="w-3 h-3 text-[#F29A42]" />
@@ -1358,7 +1358,7 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
               type="button"
               onClick={() => setEnvironmentMode('field')}
               className={`px-2.5 py-1 rounded text-[11px] font-mono flex items-center gap-1 transition-colors ${
-                environmentMode === 'field' ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
+                environmentMode === 'field' ? 'bg-[#2684F7] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
               }`}
             >
               <CloudRain className="w-3 h-3 text-[#2684F7]" />
@@ -1371,7 +1371,7 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
                 setIsExploded(!isExploded);
               }}
               className={`px-2.5 py-1 rounded text-[11px] font-mono flex items-center gap-1 transition-colors ${
-                environmentMode === 'macro' || isExploded ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
+                environmentMode === 'macro' || isExploded ? 'bg-[#2684F7] text-white font-bold' : 'text-[#60738F] hover:text-[#8495AE]'
               }`}
             >
               <Maximize2 className="w-3 h-3 text-[#19A875]" />
@@ -1399,19 +1399,19 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
               type="button"
               onClick={() => onSelectStage(Math.max(0, activeStageIndex - 1))}
               disabled={activeStageIndex === 0}
-              className="p-2 rounded-lg bg-[#FFFFFF] backdrop-blur-md border border-[#E2EAF4] text-[#8495AE] hover:text-white disabled:opacity-40"
+              className="p-2 rounded-lg bg-[#FFFFFF] backdrop-blur-md border border-[#E2EAF4] text-[#8495AE] hover:text-[#14213D] disabled:opacity-40"
               title="Previous scene"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="bg-[#FFFFFF] backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#E2EAF4] text-xs font-mono font-bold text-white">
+            <span className="bg-[#FFFFFF] backdrop-blur-md px-3 py-1.5 rounded-lg border border-[#E2EAF4] text-xs font-mono font-bold text-[#14213D]">
               Phase {activeStageIndex + 1} of {stages.length}
             </span>
             <button
               type="button"
               onClick={() => onSelectStage(Math.min(stages.length - 1, activeStageIndex + 1))}
               disabled={activeStageIndex === stages.length - 1}
-              className="p-2 rounded-lg bg-[#FFFFFF] backdrop-blur-md border border-[#E2EAF4] text-[#8495AE] hover:text-white disabled:opacity-40"
+              className="p-2 rounded-lg bg-[#FFFFFF] backdrop-blur-md border border-[#E2EAF4] text-[#8495AE] hover:text-[#14213D] disabled:opacity-40"
               title="Next scene"
             >
               <ChevronRight className="w-4 h-4" />
@@ -1486,8 +1486,8 @@ export const Physical3DExperienceCanvas: React.FC<Physical3DExperienceCanvasProp
             </span>
           </div>
           <div className="text-xs text-[#8495AE] space-y-1">
-            <div><strong className="text-white">Tactile:</strong> {productMockup.sensoryProfile.tactileFeel}</div>
-            <div><strong className="text-white">Acoustic / Scent:</strong> {productMockup.sensoryProfile.acousticOrScentNote}</div>
+            <div><strong className="text-[#14213D]">Tactile:</strong> {productMockup.sensoryProfile.tactileFeel}</div>
+            <div><strong className="text-[#14213D]">Acoustic / Scent:</strong> {productMockup.sensoryProfile.acousticOrScentNote}</div>
           </div>
           <div className="pt-2 border-t border-[#E2EAF4] text-[11px] font-mono text-[#2684F7] italic">
             "{customerPersona.initialReaction}"

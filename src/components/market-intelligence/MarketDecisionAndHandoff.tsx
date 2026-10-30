@@ -49,7 +49,7 @@ export const MarketDecisionAndHandoff: React.FC<MarketDecisionAndHandoffProps> =
         <button
           type="button"
           onClick={handleProceed}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#14213D] text-white text-xs font-bold hover:bg-[#1769D2] transition-all shadow-md shrink-0 self-start sm:self-auto"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2684F7] text-white text-xs font-bold hover:bg-[#1769D2] transition-all shadow-md shrink-0 self-start sm:self-auto"
         >
           {hasSaved ? (
             <>

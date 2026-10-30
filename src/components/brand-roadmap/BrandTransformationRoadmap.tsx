@@ -108,7 +108,7 @@ export const BrandTransformationRoadmap: React.FC<BrandTransformationRoadmapProp
                   }}
                   className={`flex-1 min-w-[115px] p-3 rounded-xl border text-left transition-all duration-200 relative flex flex-col justify-between ${
                     isSelected
-                      ? 'bg-[#151E2B] border-blue-500 ring-2 ring-blue-500/40 shadow-lg shadow-blue-500/10'
+                      ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-[#2684F7]/25 shadow-md'
                       : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-500 hover:bg-[#131C29]'
                   }`}
                 >

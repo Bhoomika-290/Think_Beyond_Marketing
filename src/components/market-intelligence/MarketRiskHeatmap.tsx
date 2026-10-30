@@ -84,7 +84,7 @@ export const MarketRiskHeatmap: React.FC<MarketRiskHeatmapProps> = ({ risks }) =
                               className={`w-full text-left text-[11px] p-1 rounded font-medium truncate block transition-colors ${
                                 selectedRisk?.id === r.id
                                   ? 'bg-[#14213D] text-white shadow-sm'
-                                  : 'bg-[#EEF4FB]/80 hover:bg-[#E8E1D3] text-[#14213D]'
+                                  : 'bg-[#EEF4FB]/80 hover:bg-[#E8F2FF] text-[#14213D]'
                               }`}
                             >
                               {r.risk}

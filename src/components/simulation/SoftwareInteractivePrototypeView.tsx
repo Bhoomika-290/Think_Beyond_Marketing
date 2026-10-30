@@ -91,11 +91,11 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
       appearance.accent === 'orange' ? '#F59E0B' :
       appearance.accent === 'purple' ? '#8B5CF6' : '#2684F7';
 
-    let frameBg = isLight ? 'bg-[#14213D]' : 'bg-[#0B1017]';
+    let frameBg = isLight ? 'bg-[#F5F8FC]' : 'bg-[#0B1017]';
     let cardBg = isLight ? 'bg-[#FFFFFF] border-[#E2E8F0] text-[#0F172A]' : 'bg-[#FFFFFF] border-[#E2EAF4] text-[#14213D]';
-    let textPrimary = isLight ? 'text-[#0F172A]' : 'text-[#14213D]';
-    let textSecondary = isLight ? 'text-[#8495AE]' : 'text-[#8495AE]';
-    let headerBg = isLight ? 'bg-[#FFFFFF] border-b border-[#E2E8F0]' : 'bg-[#FFFFFF] border-b border-[#E2EAF4]';
+    let textPrimary = 'text-[#14213D]';
+    let textSecondary = 'text-[#60738F]';
+    let headerBg = 'bg-[#FFFFFF] border-b border-[#E2EAF4]';
 
     if (archetype === 'developer_tool') {
       frameBg = 'bg-[#0A0D14] font-mono';
@@ -176,7 +176,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
           <button
             type="button"
             onClick={handleResetSimulation}
-            className="px-2.5 py-1 rounded text-[11px] font-mono text-[#8495AE] hover:text-white hover:bg-[#FFFFFF] border border-[#E2EAF4] transition-colors flex items-center gap-1"
+            className="px-2.5 py-1 rounded text-[11px] font-mono text-[#8495AE] hover:text-[#14213D] hover:bg-[#EEF4FB] border border-[#E2EAF4] transition-colors flex items-center gap-1"
           >
             <RotateCw className="w-3 h-3 text-[#60738F]" />
             <span>Reset Prototype</span>
@@ -242,7 +242,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                 type="button"
                 onClick={() => setActiveTab('workspace')}
                 className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
-                  activeTab === 'workspace' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
+                  activeTab === 'workspace' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-[#14213D] hover:bg-[#EEF4FB]'
                 }`}
               >
                 1. Core Workspace
@@ -251,7 +251,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                 type="button"
                 onClick={() => setActiveTab('connectors')}
                 className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
-                  activeTab === 'connectors' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
+                  activeTab === 'connectors' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-[#14213D] hover:bg-[#EEF4FB]'
                 }`}
               >
                 2. Data Sources ({dataSources.filter(s => s.isConnected).length})
@@ -260,7 +260,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                 type="button"
                 onClick={() => setActiveTab('automation')}
                 className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
-                  activeTab === 'automation' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
+                  activeTab === 'automation' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-[#14213D] hover:bg-[#EEF4FB]'
                 }`}
               >
                 3. Automations
@@ -269,7 +269,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                 type="button"
                 onClick={() => setActiveTab('telemetry')}
                 className={`px-3 py-1 rounded-md text-xs font-mono transition-colors ${
-                  activeTab === 'telemetry' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-white hover:bg-[#FFFFFF]'
+                  activeTab === 'telemetry' ? 'bg-[#2684F7] text-[#FFFFFF] font-bold' : 'text-[#8495AE] hover:text-[#14213D] hover:bg-[#EEF4FB]'
                 }`}
               >
                 4. Telemetry
@@ -343,21 +343,21 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                     <button
                       type="button"
                       onClick={() => handleApplySoftwareOverrides({ ...softwareOverrides, chartTypeOverride: 'attribution' })}
-                      className={`px-2 py-0.5 rounded ${(!softwareOverrides.chartTypeOverride || softwareOverrides.chartTypeOverride === 'attribution') ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-white'}`}
+                      className={`px-2 py-0.5 rounded ${(!softwareOverrides.chartTypeOverride || softwareOverrides.chartTypeOverride === 'attribution') ? 'bg-[#2684F7] text-[#14213D] font-bold' : 'text-[#60738F] hover:text-white'}`}
                     >
                       {archetype === 'ecommerce' ? 'Channels' : 'Attribution'}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplySoftwareOverrides({ ...softwareOverrides, chartTypeOverride: 'funnel' })}
-                      className={`px-2 py-0.5 rounded ${softwareOverrides.chartTypeOverride === 'funnel' ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-white'}`}
+                      className={`px-2 py-0.5 rounded ${softwareOverrides.chartTypeOverride === 'funnel' ? 'bg-[#2684F7] text-[#14213D] font-bold' : 'text-[#60738F] hover:text-white'}`}
                     >
                       Funnel
                     </button>
                     <button
                       type="button"
                       onClick={() => handleApplySoftwareOverrides({ ...softwareOverrides, chartTypeOverride: 'timeseries' })}
-                      className={`px-2 py-0.5 rounded ${softwareOverrides.chartTypeOverride === 'timeseries' ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F] hover:text-white'}`}
+                      className={`px-2 py-0.5 rounded ${softwareOverrides.chartTypeOverride === 'timeseries' ? 'bg-[#2684F7] text-[#14213D] font-bold' : 'text-[#60738F] hover:text-white'}`}
                     >
                       {archetype === 'ecommerce' ? 'Dispatch' : 'Trend'}
                     </button>
@@ -385,7 +385,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                         <div className="flex items-center justify-between text-xs font-mono">
                           <span className="text-[#14213D] font-semibold">{step.stage}</span>
                           <div className="flex items-center gap-3">
-                            <span className="text-white font-bold">{step.count} ({step.pct}%)</span>
+                            <span className="text-[#14213D] font-bold">{step.count} ({step.pct}%)</span>
                             <span className="text-[10px] text-[#F87171]">{step.drop}</span>
                           </div>
                         </div>
@@ -440,7 +440,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                     ).map((chan, cIdx) => (
                       <div key={cIdx} className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-1">
                         <div className="text-[10px] font-mono text-[#60738F] truncate">{chan.channel}</div>
-                        <div className="text-base font-bold text-white flex items-center justify-between">
+                        <div className="text-base font-bold text-[#14213D] flex items-center justify-between">
                           <span>{chan.share}</span>
                           <span className="text-xs font-mono text-[#19A875]">{chan.roas}</span>
                         </div>
@@ -485,8 +485,8 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                             { name: 'Biryani Rice & Whole Spices', colA: '35.0 kg', colB: '28.0 kg', colC: '-20.0%', colD: '₹950', status: 'Calibrated' },
                             { name: 'Chopped Herbs & Garnishes', colA: '4.5 kg', colB: '2.2 kg', colC: '-51.1%', colD: '₹340', status: 'Low Spoilage' },
                           ].map((row, rIdx) => (
-                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
-                              <td className="p-3 font-bold text-white">{row.name}</td>
+                            <tr key={rIdx} className="hover:bg-[#EEF4FB] transition-colors">
+                              <td className="p-3 font-bold text-[#14213D]">{row.name}</td>
                               <td className="p-3 text-[#8495AE]">{row.colA}</td>
                               <td className="p-3 text-[#2684F7]">{row.colB}</td>
                               <td className="p-3 text-[#19A875] font-bold">{row.colC}</td>
@@ -519,8 +519,8 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                             { name: 'Intro to Python & Algorithms', colA: '35 Active', colB: '8 Verified Tutors', colC: '4.8 min', colD: '₹400 / hr', status: 'Surge Candidate' },
                             { name: 'University Macroeconomics', colA: '14 Active', colB: '9 Verified Tutors', colC: '1.2 min', colD: '₹420 / hr', status: 'Balanced' },
                           ].map((row, rIdx) => (
-                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
-                              <td className="p-3 font-bold text-white">{row.name}</td>
+                            <tr key={rIdx} className="hover:bg-[#EEF4FB] transition-colors">
+                              <td className="p-3 font-bold text-[#14213D]">{row.name}</td>
                               <td className="p-3 text-[#2684F7]">{row.colA}</td>
                               <td className="p-3 text-[#8495AE]">{row.colB}</td>
                               <td className="p-3 text-[#19A875] font-bold">{row.colC}</td>
@@ -552,8 +552,8 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                             { name: 'TechMatrix Global HQ', colA: '82 Meals', colB: 'Urban Green Bowl Hub', colC: '12:15 - 12:30 PM', colD: '₹58,200', status: 'Dispatched' },
                             { name: 'Innovate Studio Coworking', colA: '26 Meals', colB: 'Curry & Spice Bistro', colC: '12:30 - 12:45 PM', colD: '₹18,900', status: 'Active Recurring' },
                           ].map((row, rIdx) => (
-                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
-                              <td className="p-3 font-bold text-white">{row.name}</td>
+                            <tr key={rIdx} className="hover:bg-[#EEF4FB] transition-colors">
+                              <td className="p-3 font-bold text-[#14213D]">{row.name}</td>
                               <td className="p-3 text-[#2684F7]">{row.colA}</td>
                               <td className="p-3 text-[#8495AE]">{row.colB}</td>
                               <td className="p-3 text-[#19A875] font-bold">{row.colC}</td>
@@ -585,11 +585,11 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                             { name: 'Rule-Based Anomaly Resolver', colA: '1,420 triggers', colB: '$12.00 / mo', colC: '94.2%', colD: 'Zero False Positives', status: 'Optimal' },
                             { name: 'Third-party API Webhooks', colA: '9,840 syncs', colB: '$6.50 / mo', colC: '98.5%', colD: '<45ms Latency', status: 'Stable' },
                           ].map((row, rIdx) => (
-                            <tr key={rIdx} className="hover:bg-[#151E2B] transition-colors">
-                              <td className="p-3 font-bold text-white">{row.name}</td>
+                            <tr key={rIdx} className="hover:bg-[#EEF4FB] transition-colors">
+                              <td className="p-3 font-bold text-[#14213D]">{row.name}</td>
                               <td className="p-3 text-[#19A875]">{row.colA}</td>
                               <td className="p-3 text-[#8495AE]">{row.colB}</td>
-                              <td className="p-3 text-white font-bold">{row.colC}</td>
+                              <td className="p-3 text-[#14213D] font-bold">{row.colC}</td>
                               <td className="p-3 text-[#2684F7]">{row.colD}</td>
                               <td className="p-3">
                                 <span className="px-2 py-0.5 rounded text-[10px] bg-[#E8F8F1] text-[#19A875] font-bold">
@@ -671,7 +671,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                       placeholder="Search record title..."
                       value={customSearchQuery}
                       onChange={(e) => setCustomSearchQuery(e.target.value)}
-                      className="px-2.5 py-1 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs font-mono text-white placeholder-[#8495AE] focus:outline-none focus:border-[#2684F7]"
+                      className="px-2.5 py-1 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-xs font-mono text-[#14213D] placeholder-[#8495AE] focus:outline-none focus:border-[#2684F7]"
                     />
 
                     <div className="flex items-center gap-1 text-[11px] font-mono">
@@ -679,7 +679,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                       <button
                         type="button"
                         onClick={() => setFilterCategory('all')}
-                        className={`px-2 py-0.5 rounded ${filterCategory === 'all' ? 'bg-[#E2EAF4] text-white font-bold' : 'text-[#60738F]'}`}
+                        className={`px-2 py-0.5 rounded ${filterCategory === 'all' ? 'bg-[#2684F7] text-[#14213D] font-bold' : 'text-[#60738F]'}`}
                       >
                         All
                       </button>
@@ -698,7 +698,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
                         key={rec.id}
                         onClick={() => setSelectedRecord(rec)}
                         className={`p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer transition-colors ${
-                          isSelected ? 'bg-[#FFFFFF] border-l-4 border-l-[#2684F7]' : 'hover:bg-[#151E2B]'
+                          isSelected ? 'bg-[#FFFFFF] border-l-4 border-l-[#2684F7]' : 'hover:bg-[#EEF4FB]'
                         }`}
                       >
                         <div className="space-y-0.5">
@@ -719,7 +719,7 @@ export const SoftwareInteractivePrototypeView: React.FC<SoftwareInteractiveProto
 
                         <div className="flex items-center gap-4 text-xs font-mono shrink-0">
                           <span className="text-[#8495AE]">{rec.metricA}</span>
-                          <span className="text-white font-bold">{rec.metricB}</span>
+                          <span className="text-[#14213D] font-bold">{rec.metricB}</span>
                           <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                             isAnomaly 
                               ? 'bg-[#FFF3E7] text-[#F29A42] border border-[#F29A42]/30' 

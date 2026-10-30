@@ -23,7 +23,7 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
       case 'Potential differentiator':
         return 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/30';
       case 'Emerging opportunity':
-        return 'bg-[#14213D]/15 text-[#14213D] border-[#14213D]/30';
+        return 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30';
       case 'Evidence-supported gap':
         return 'bg-[#5B6B7F]/15 text-[#60738F] border-[#5B6B7F]/30';
       case 'Requires validation':
@@ -45,11 +45,11 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#FFFFFF] p-4 rounded-xl border border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-[#14213D]" />
+            <Zap className="w-4 h-4 text-[#2684F7]" />
             <h2 className="text-base font-semibold text-[#14213D]">
               Differentiator Engine
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#14213D]/10 text-[#14213D] border border-[#14213D]/20">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               Strategy Canvas
             </span>
           </div>
@@ -111,12 +111,12 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
         <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#E2EAF4] rounded-xl p-5 space-y-4 flex flex-col justify-between">
           <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E2EAF4]">
             <div className="flex items-center gap-2 text-xs font-mono">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-[#14213D]" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#2684F7]" />
               <span className="text-[#14213D] font-semibold">Competitive Curve: {ventureName} vs. Incumbents</span>
             </div>
             <div className="flex items-center gap-3 text-[11px] font-mono">
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded bg-[#14213D]" />
+                <span className="w-2.5 h-2.5 rounded bg-[#2684F7]" />
                 <span className="text-[#14213D]">{ventureName}</span>
               </div>
               <div className="flex items-center gap-1.5">
@@ -141,7 +141,7 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     <Link
                       to="/idea-lab"
-                      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
+                      className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#2684F7] underline underline-offset-2 hover:text-[#1769D2]"
                     >
                       Complete Stage 01 in Idea Lab →
                     </Link>
@@ -173,7 +173,7 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
                           delta > 25
                             ? 'text-[#19A875] bg-[#E8F8F1]'
                             : delta > 10
-                            ? 'text-[#14213D] bg-[#14213D]/10'
+                            ? 'text-[#2684F7] bg-[#E8F2FF]'
                             : 'text-[#60738F] bg-[#EEF4FB]'
                         }`}
                       >
@@ -193,7 +193,7 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
                     {/* Venture progress bar */}
                     <div
                       style={{ width: `${dim.ventureScore}%` }}
-                      className="h-1.5 rounded-full transition-all duration-700 bg-[#14213D]"
+                      className="h-1.5 rounded-full transition-all duration-700 bg-[#2684F7]"
                     />
                   </div>
                 </div>
@@ -222,7 +222,7 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
               action={
                 <Link
                   to="/idea-lab"
-                  className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
+                  className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#2684F7] underline underline-offset-2 hover:text-[#1769D2]"
                 >
                   Complete Stage 01 in Idea Lab →
                 </Link>
@@ -237,14 +237,14 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
                 onClick={() => setSelectedOpportunity(isSelected ? null : opp)}
                 className={`p-4 rounded-xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#EEF4FB] border-[#14213D] shadow-lg ring-1 ring-[#14213D]/30'
-                    : 'bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#14213D]/40'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] shadow-md ring-2 ring-[#2684F7]/25'
+                    : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/40'
                 }`}
               >
                 <div className="space-y-2">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-[#14213D]" />
+                      <Sparkles className="w-3.5 h-3.5 text-[#2684F7]" />
                       <h3 className="text-xs font-bold text-[#14213D]">{opp.differentiationArea}</h3>
                     </div>
                     <span
@@ -270,21 +270,21 @@ export const DifferentiatorEngineView: React.FC<DifferentiatorEngineViewProps> =
                         <p className="text-xs text-[#14213D] leading-snug">{opp.connectedMarketGap}</p>
                       </div>
 
-                      <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                      <div className="p-2.5 rounded bg-[#FFF0EF] border border-[#E46D68]/20">
                         <span className="text-[10px] font-mono text-[#E46D68] uppercase tracking-wider block mb-0.5">
                           2. Incumbent Vulnerability
                         </span>
                         <p className="text-xs text-[#60738F] leading-snug">{opp.currentCompetitiveSituation}</p>
                       </div>
 
-                      <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                      <div className="p-2.5 rounded bg-[#E8F8F1] border border-[#19A875]/20">
                         <span className="text-[10px] font-mono text-[#19A875] uppercase tracking-wider block mb-0.5">
                           3. Supporting Evidence
                         </span>
                         <p className="text-xs text-[#60738F] leading-snug">{opp.supportingEvidence}</p>
                       </div>
 
-                      <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#F29A42]/20">
+                      <div className="p-2.5 rounded bg-[#FFF3E7] border border-[#F29A42]/20">
                         <span className="text-[10px] font-mono text-[#F29A42] uppercase tracking-wider block mb-0.5">
                           4. Validation Requirement Before Capital Spend
                         </span>

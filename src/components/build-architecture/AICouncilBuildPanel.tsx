@@ -130,7 +130,7 @@ export const AICouncilBuildPanel: React.FC<AICouncilBuildPanelProps> = ({ counci
                 onClick={() => setActiveWorkflowStage(st.step)}
                 className={`p-3 rounded-xl border text-left transition-all relative ${
                   isActive
-                    ? 'bg-[#151E2B] border-purple-500 ring-1 ring-purple-500 shadow-md'
+                    ? 'bg-[#FFFFFF] border-[#9272DB] ring-1 ring-purple-500 shadow-md'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                 }`}
               >
@@ -177,7 +177,7 @@ export const AICouncilBuildPanel: React.FC<AICouncilBuildPanelProps> = ({ counci
                 onClick={() => setSelectedRole(agent.role)}
                 className={`p-3 rounded-xl border text-left transition-all ${
                   isSelected
-                    ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500 shadow-md'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] ring-1 ring-blue-500 shadow-md'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                 }`}
               >

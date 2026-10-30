@@ -640,7 +640,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
               <button
                 type="button"
                 onClick={handleUndo}
-                className="text-[11px] font-mono text-[#8495AE] hover:text-white flex items-center gap-1 transition-colors"
+                className="text-[11px] font-mono text-[#8495AE] hover:text-[#14213D] flex items-center gap-1 transition-colors"
                 title="Undo last change"
               >
                 <Undo2 className="w-3 h-3" />
@@ -704,7 +704,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
               className={`p-2 rounded-lg text-xs font-mono transition-all flex items-center justify-center ${
                 isListening
                   ? 'bg-[#E46D68] text-white animate-pulse shadow-lg'
-                  : 'bg-[#FFFFFF] hover:bg-[#E2EAF4] text-[#8495AE] hover:text-white border border-[#E2EAF4]'
+                  : 'bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#8495AE] hover:text-[#14213D] border border-[#E2EAF4]'
               }`}
               title={isListening ? 'Stop listening' : 'Click to speak change (Voice Recognition)'}
             >
@@ -758,7 +758,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
 
       {/* 3. Real-Time Visual Feedback Confirmation Banner */}
       {hasActiveOverrides && (
-        <div className="px-3.5 py-2 rounded-lg bg-[#0F172A] border border-[#3B82F6]/40 flex items-center justify-between gap-3 text-xs font-mono animate-fadeIn">
+        <div className="px-3.5 py-2 rounded-lg bg-[#E8F2FF] border border-[#2684F7]/40 text-[#14213D] flex items-center justify-between gap-3 text-xs font-mono animate-fadeIn">
           <div className="flex items-center gap-2 text-[#2684F7]">
             <CheckCircle2 className="w-4 h-4 text-[#19A875] shrink-0" />
             <span>
@@ -775,7 +775,7 @@ export const SimulationAgentBar: React.FC<SimulationAgentBarProps> = ({
                 onResetOverrides?.();
               }
             }}
-            className="text-[11px] text-[#8495AE] hover:text-white underline flex items-center gap-1 shrink-0"
+            className="text-[11px] text-[#8495AE] hover:text-[#14213D] underline flex items-center gap-1 shrink-0"
           >
             <RotateCcw className="w-3 h-3" />
             <span>Reset All</span>

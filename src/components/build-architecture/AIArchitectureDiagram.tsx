@@ -295,7 +295,7 @@ export const AIArchitectureDiagram: React.FC<AIArchitectureDiagramProps> = ({ ai
                 onClick={() => setSelectedPipelineStep(step)}
                 className={`p-4 rounded-xl border flex flex-col justify-between cursor-pointer transition-all ${
                   isSelected
-                    ? 'bg-[#151E2B] border-blue-500 shadow-md ring-1 ring-blue-500'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] shadow-md ring-1 ring-blue-500'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#34445A]'
                 }`}
               >

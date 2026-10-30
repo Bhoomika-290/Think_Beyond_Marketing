@@ -72,7 +72,7 @@ export const BuildSpecialistChat: React.FC<BuildSpecialistChatProps> = ({
               key={i}
               type="button"
               onClick={() => onSendMessage(prompt)}
-              className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-[#8495AE] hover:text-[#14213D] border border-[#E2EAF4] hover:border-blue-500/40 text-xs font-mono transition-colors"
+              className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#8495AE] hover:text-[#14213D] border border-[#E2EAF4] hover:border-blue-500/40 text-xs font-mono transition-colors"
             >
               {prompt}
             </button>
@@ -109,7 +109,7 @@ export const BuildSpecialistChat: React.FC<BuildSpecialistChatProps> = ({
               </div>
 
               {!isSpecialist && (
-                <div className="w-7 h-7 rounded-lg bg-[#151E2B] text-[#8495AE] border border-[#E2EAF4] flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-[#EEF4FB] text-[#60738F] border border-[#E2EAF4] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <User className="w-4 h-4" />
                 </div>
               )}

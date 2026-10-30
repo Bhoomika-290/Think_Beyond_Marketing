@@ -15,7 +15,7 @@ export const SimulationAssumptionsCard: React.FC<SimulationAssumptionsCardProps>
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full px-5 py-3 flex items-center justify-between gap-3 text-left hover:bg-[#151E2B] transition-colors"
+        className="w-full px-5 py-3 flex items-center justify-between gap-3 text-left hover:bg-[#EEF4FB] transition-colors"
       >
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-[#19A875]" />

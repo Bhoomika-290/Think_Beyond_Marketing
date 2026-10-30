@@ -16,7 +16,7 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
   return (
     <div id="section-strategic-decisions" className="space-y-6">
       {/* Strategic Direction Container */}
-      <div className="rounded-2xl bg-[#0F141C] border border-[#232F42] p-6 shadow-2xl space-y-6">
+      <div className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-sm space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2638] pb-4">
           <div>
             <div className="flex items-center gap-2">
@@ -32,7 +32,7 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
               Positioning wedge, differentiation moat, sequenced operational priorities, and pre-emptive risk governance for {ventureName}.
             </p>
           </div>
-          <div className="text-xs font-mono text-[#2684F7] bg-[#162132] px-3 py-1.5 rounded-lg border border-[#23354E]">
+          <div className="text-xs font-mono text-[#2684F7] bg-[#E8F2FF] px-3 py-1.5 rounded-lg border border-[#2684F7]/30">
             Pre-Build Alignment Locked
           </div>
         </div>
@@ -57,7 +57,7 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
           </div>
 
           {/* Differentiation Territory (Emerald/Green) */}
-          <div className="p-5 rounded-xl bg-[#062018] border border-[#065F46] flex flex-col justify-between shadow-md">
+          <div className="p-5 rounded-xl bg-[#E8F8F1] border border-[#19A875]/30 flex flex-col justify-between shadow-xs">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#19A875] mb-2.5">
                 <Compass className="w-4 h-4 text-[#19A875]" />
@@ -67,7 +67,7 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
                 {strategicDecisions.differentiationTerritory}
               </p>
             </div>
-            <div className="pt-3 border-t border-[#065F46]/80 flex items-center justify-between text-[11px] font-mono">
+            <div className="pt-3 border-t border-[#19A875]/30 flex items-center justify-between text-[11px] font-mono">
               <span className="text-[#8495AE]">Grounding: Market Whitespace</span>
               <span className="text-[#19A875] font-bold px-2 py-0.5 rounded bg-[#0A3326] border border-[#19A875]/30">Defensible Moat</span>
             </div>
@@ -102,21 +102,21 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
         </div>
 
         {/* Brand Risks & Mitigations Matrix (Crimson/Red Zone) */}
-        <div className="p-5 rounded-xl bg-[#1F0A11] border border-[#881337] shadow-md">
-          <div className="flex items-center justify-between mb-3.5 pb-2.5 border-b border-[#881337]/80">
-            <span className="text-xs font-mono font-bold uppercase text-[#FB7185] flex items-center gap-2">
-              <ShieldAlert className="w-4 h-4 text-[#F43F5E]" />
+        <div className="p-5 rounded-xl bg-[#FFF0EF] border border-[#E46D68]/30 shadow-xs">
+          <div className="flex items-center justify-between mb-3.5 pb-2.5 border-b border-[#E46D68]/20">
+            <span className="text-xs font-mono font-bold uppercase text-[#E46D68] flex items-center gap-2">
+              <ShieldAlert className="w-4 h-4 text-[#E46D68]" />
               Brand Strategic Risks & Pre-Emptive Mitigations
             </span>
-            <span className="text-[10px] font-mono text-[#FDA4AF] bg-[#4C0519] px-2 py-0.5 rounded border border-[#E11D48]/50">RISK GOVERNANCE</span>
+            <span className="text-[10px] font-mono text-[#E46D68] bg-[#FFFFFF] px-2 py-0.5 rounded border border-[#E46D68]/30">RISK GOVERNANCE</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {strategicDecisions.brandRisks.map((riskItem, rIdx) => (
-              <div key={rIdx} className="p-3.5 rounded-lg bg-[#2D0F18] border border-[#9F1239]/60 flex flex-col justify-between shadow-xs">
+              <div key={rIdx} className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E46D68]/20 flex flex-col justify-between shadow-xs">
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-[#FFF1F2]">{riskItem.risk}</span>
+                    <span className="text-xs font-bold text-[#14213D]">{riskItem.risk}</span>
                     <span
                       className={`text-[9px] font-mono px-1.5 py-0.5 rounded border uppercase font-bold ${
                         riskItem.severity === 'High'
@@ -142,7 +142,7 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
       </div>
 
       {/* 4-Quadrant Decision Reality Board (Violet/Purple Zone) */}
-      <div className="rounded-2xl bg-[#0F141C] border border-[#232F42] p-6 shadow-2xl space-y-4">
+      <div className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 shadow-sm space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2638] pb-4">
           <div>
             <h3 className="text-sm font-bold text-[#14213D] flex items-center gap-2">
@@ -153,15 +153,15 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
               Tracks decided baselines, strategic refinements, open questions, and operational blockers.
             </p>
           </div>
-          <span className="text-[10px] font-mono text-[#C084FC] bg-[#2E1065] px-2.5 py-1 rounded border border-[#9272DB]/30">
+          <span className="text-[10px] font-mono text-[#9272DB] bg-[#F2EDFF] px-2.5 py-1 rounded border border-[#9272DB]/30">
             CONTINUOUS VALIDATION
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Quadrant 1: DECIDED (Emerald) */}
-          <div className="p-4 rounded-xl bg-[#071F17] border border-[#065F46] shadow-sm">
-            <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#065F46]/80">
+          <div className="p-4 rounded-xl bg-[#E8F8F1] border border-[#19A875]/30 shadow-xs">
+            <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#19A875]/30">
               <span className="text-xs font-mono font-bold uppercase text-[#19A875] flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#19A875]" />
                 DECIDED (Locked Brand Baseline)
@@ -185,8 +185,8 @@ export const BrandStrategicDecisions: React.FC<BrandStrategicDecisionsProps> = (
           </div>
 
           {/* Quadrant 2: NEEDS REVIEW (Blue) */}
-          <div className="p-4 rounded-xl bg-[#091B30] border border-[#1E3A8A] shadow-sm">
-            <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#1E3A8A]/80">
+          <div className="p-4 rounded-xl bg-[#E8F2FF] border border-[#2684F7]/30 shadow-xs">
+            <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#2684F7]/30">
               <span className="text-xs font-mono font-bold uppercase text-[#2684F7] flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#2684F7]" />
                 NEEDS REVIEW (Strategic Refinement)

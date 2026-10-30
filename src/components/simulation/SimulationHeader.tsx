@@ -74,7 +74,7 @@ export const SimulationHeader: React.FC<SimulationHeaderProps> = ({
           <button
             type="button"
             onClick={onRefresh}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-mono font-medium text-[#8495AE] bg-[#151E2B] hover:bg-[#FFFFFF] hover:text-white border border-[#E2EAF4] transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-mono font-medium text-[#8495AE] bg-[#EEF4FB] hover:bg-[#FFFFFF] hover:text-white border border-[#E2EAF4] transition-colors shadow-sm"
             title="Recalculate simulation from project discovery tokens"
           >
             <RotateCw className="w-3.5 h-3.5 text-[#60738F]" />

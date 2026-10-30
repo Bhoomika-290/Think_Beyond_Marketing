@@ -25,8 +25,8 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
         };
       case 'Moderate':
         return {
-          bg: 'bg-[#14213D]/10 text-[#14213D] border-[#14213D]/30',
-          dot: 'bg-[#14213D]',
+          bg: 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30',
+          dot: 'bg-[#2684F7]',
         };
       case 'Weak':
         return {
@@ -70,7 +70,7 @@ export const MarketHeader: React.FC<MarketHeaderProps> = ({
             <CheckCircle2 className="w-3.5 h-3.5" /> Feasibility & Viability
           </Link>
           <span className="text-[#60738F]">→</span>
-          <span className="inline-flex items-center gap-1 text-[#14213D] font-semibold bg-[#14213D]/10 px-2 py-0.5 rounded border border-[#14213D]/30">
+          <span className="inline-flex items-center gap-1 text-[#14213D] font-semibold bg-[#E8F2FF] text-[#2684F7] px-2 py-0.5 rounded border border-[#2684F7]/30">
             ● 03 Market Intelligence
           </span>
           <span className="text-[#60738F]">→</span>

@@ -117,7 +117,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
   );
 
   return (
-    <section className="rounded-2xl bg-[#090D14] border border-[#EEF4FB] p-6 lg:p-8 shadow-2xl space-y-6">
+    <section className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 lg:p-8 shadow-sm space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#EEF4FB] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -149,7 +149,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Visual Brand DNA Connected Diagram (Left 8 cols) */}
         <div className="lg:col-span-8 flex flex-col gap-3">
-          <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#0B101B] border border-[#1F293D] relative min-h-[480px] shadow-inner overflow-hidden">
+          <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#EEF4FB] border border-[#E2EAF4] relative min-h-[480px] shadow-inner overflow-hidden">
             {/* Architectural blueprint dot grid background */}
             <div className="absolute inset-0 bg-[radial-gradient(#EEF4FB_1px,transparent_1px)] [background-size:20px_20px] opacity-70 pointer-events-none rounded-2xl" />
 
@@ -209,13 +209,13 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   onClick={() => setSelectedNodeId(purposeNode.id)}
                   onMouseEnter={() => setHoveredNodeId(purposeNode.id)}
                   onMouseLeave={() => setHoveredNodeId(null)}
-                  className={`px-5 py-3.5 rounded-2xl border transition-all flex items-center gap-3 shadow-md bg-[#0B1A2F]/95 ${getNodeOpacity(purposeNode.id)} ${
+                  className={`px-5 py-3.5 rounded-2xl border transition-all flex items-center gap-3 shadow-md bg-[#FFFFFF]/95 ${getNodeOpacity(purposeNode.id)} ${
                     selectedNodeId === purposeNode.id
                       ? 'border-[#2684F7] ring-2 ring-[#2684F7]/60 shadow-lg shadow-[#0284C7]/20 scale-105'
-                      : 'border-[#1E3A8A] hover:border-[#2684F7]/60'
+                      : 'border-[#2684F7]/40 hover:border-[#2684F7]'
                   }`}
                 >
-                  <div className="p-2 rounded-xl bg-[#1E3A8A]/50 text-[#2684F7] border border-[#2684F7]/30">
+                  <div className="p-2 rounded-xl bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/40">
                     <Compass className="w-4 h-4" />
                   </div>
                   <div className="text-left">
@@ -239,14 +239,14 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   onClick={() => setSelectedNodeId(valuesNode.id)}
                   onMouseEnter={() => setHoveredNodeId(valuesNode.id)}
                   onMouseLeave={() => setHoveredNodeId(null)}
-                  className={`flex-1 max-w-[195px] p-4 rounded-2xl border transition-all text-left shadow-md bg-[#062419]/95 ${getNodeOpacity(valuesNode.id)} ${
+                  className={`flex-1 max-w-[195px] p-4 rounded-2xl border transition-all text-left shadow-md bg-[#FFFFFF]/95 ${getNodeOpacity(valuesNode.id)} ${
                     selectedNodeId === valuesNode.id
                       ? 'border-[#10B981] ring-2 ring-[#10B981]/60 shadow-lg shadow-[#059669]/20 scale-105'
-                      : 'border-[#065F46] hover:border-[#10B981]/60'
+                      : 'border-[#19A875]/40 hover:border-[#19A875]'
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1.5">
-                    <div className="p-1.5 rounded-lg bg-[#065F46]/50 text-[#19A875] border border-[#19A875]/30">
+                    <div className="p-1.5 rounded-lg bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/40">
                       <Heart className="w-3.5 h-3.5" />
                     </div>
                     <span className="text-[10px] font-mono uppercase text-[#19A875] font-bold tracking-wider">
@@ -261,7 +261,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
 
               {/* CENTER NODE: BRAND NUCLEUS (High-Contrast Intelligence Anchor) */}
               <div className="flex-shrink-0 w-32 h-32 rounded-full bg-gradient-to-tr from-[#2684F7] via-[#8B5CF6] to-[#10B981] p-1 shadow-2xl flex items-center justify-center text-center animate-pulse">
-                <div className="w-full h-full rounded-full bg-[#080D16] flex flex-col items-center justify-center p-2.5 border border-[#2684F7]/30 shadow-inner">
+                <div className="w-full h-full rounded-full bg-[#FFFFFF] flex flex-col items-center justify-center p-2.5 border border-[#2684F7]/30 shadow-inner">
                   <Sparkles className="w-5 h-5 text-[#2684F7] mb-1" />
                   <span className="text-[9px] font-mono uppercase tracking-widest text-[#8495AE]">
                     BRAND NUCLEUS
@@ -279,7 +279,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   onClick={() => setSelectedNodeId(personalityNode.id)}
                   onMouseEnter={() => setHoveredNodeId(personalityNode.id)}
                   onMouseLeave={() => setHoveredNodeId(null)}
-                  className={`flex-1 max-w-[195px] p-4 rounded-2xl border transition-all text-left shadow-md bg-[#1C112C]/95 ${getNodeOpacity(personalityNode.id)} ${
+                  className={`flex-1 max-w-[195px] p-4 rounded-2xl border transition-all text-left shadow-md bg-[#FFFFFF]/95 ${getNodeOpacity(personalityNode.id)} ${
                     selectedNodeId === personalityNode.id
                       ? 'border-[#8B5CF6] ring-2 ring-[#8B5CF6]/60 shadow-lg shadow-[#7C3AED]/20 scale-105'
                       : 'border-[#6D28D9] hover:border-[#8B5CF6]/60'
@@ -308,7 +308,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   onClick={() => setSelectedNodeId(promiseNode.id)}
                   onMouseEnter={() => setHoveredNodeId(promiseNode.id)}
                   onMouseLeave={() => setHoveredNodeId(null)}
-                  className={`px-5 py-3.5 rounded-2xl border transition-all flex items-center gap-3 shadow-md bg-[#261705]/95 ${getNodeOpacity(promiseNode.id)} ${
+                  className={`px-5 py-3.5 rounded-2xl border transition-all flex items-center gap-3 shadow-md bg-[#FFFFFF]/95 ${getNodeOpacity(promiseNode.id)} ${
                     selectedNodeId === promiseNode.id
                       ? 'border-[#F59E0B] ring-2 ring-[#F59E0B]/60 shadow-lg shadow-[#D97706]/20 scale-105'
                       : 'border-[#92400E] hover:border-[#F59E0B]/60'
@@ -692,7 +692,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                             />
                             <span
                               className={`text-xs font-mono font-bold ${
-                                isActive ? 'text-[#2C3527]' : 'text-[#5E6857]'
+                                isActive ? 'text-[#14213D]' : 'text-[#60738F]'
                               }`}
                             >
                               {row.attribute}
@@ -706,7 +706,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                                 <div
                                   className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
                                     isActive
-                                      ? 'bg-[#2C3527] border-[#2C3527] ring-2 ring-[#2C3527]/20'
+                                      ? 'bg-[#2684F7] border-[#2684F7] ring-2 ring-[#2684F7]/25'
                                       : 'bg-[#FFFFFF] border-[#55634B]'
                                   }`}
                                 >
@@ -795,7 +795,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                   <span className="text-[11px] font-mono uppercase tracking-wider text-[#7D6536] font-bold">
                     Strategic Resonance // {activeRow.attribute}
                   </span>
-                  <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-[#2C3527]">
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-[#14213D]">
                     Pinned Vector
                   </span>
                 </div>
@@ -805,7 +805,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#55634B] block font-bold mb-0.5">
                       Brand Promise
                     </span>
-                    <p className="text-[#2C3527] text-[11px] font-medium leading-relaxed">
+                    <p className="text-[#14213D] text-[11px] font-medium leading-relaxed">
                       "{activeRow.brandPromise}"
                     </p>
                   </div>
@@ -814,7 +814,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block font-bold mb-0.5">
                       Audience Expectation
                     </span>
-                    <p className="text-[#3A4537] text-[11px] leading-relaxed">
+                    <p className="text-[#60738F] text-[11px] leading-relaxed">
                       {activeRow.audienceExpectation}
                     </p>
                   </div>
@@ -824,7 +824,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                       <span className="text-[9px] font-mono uppercase tracking-wider text-[#5E6857] block font-bold mb-0.5">
                         Positioning
                       </span>
-                      <p className="text-[#3A4537] text-[10px] leading-snug">
+                      <p className="text-[#60738F] text-[10px] leading-snug">
                         {activeRow.positioning}
                       </p>
                     </div>
@@ -833,7 +833,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                       <span className="text-[9px] font-mono uppercase tracking-wider text-[#7D6536] block font-bold mb-0.5">
                         Tone of Voice
                       </span>
-                      <p className="text-[#3A4537] text-[10px] leading-snug">
+                      <p className="text-[#60738F] text-[10px] leading-snug">
                         {activeRow.toneOfVoice}
                       </p>
                     </div>
@@ -844,7 +844,7 @@ export const BrandDNAMap: React.FC<BrandDNAMapProps> = ({ nodes }) => {
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#7D6536] block font-bold mb-0.5">
                       Underlying Strategic Reasoning
                     </span>
-                    <p className="text-[#3A4537] text-[11px] leading-relaxed italic">
+                    <p className="text-[#60738F] text-[11px] leading-relaxed italic">
                       {activeRow.underlyingReasoning}
                     </p>
                   </div>

@@ -42,8 +42,8 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
       case 'AI_INFERENCE':
         return {
           label: 'AI Inference',
-          bg: 'bg-[#14213D]/15 text-[#14213D] border-[#14213D]/30',
-          dot: 'bg-[#14213D]',
+          bg: 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30',
+          dot: 'bg-[#2684F7]',
         };
       case 'ASSUMPTION':
         return {
@@ -84,11 +84,11 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#14213D]" />
+            <ShieldCheck className="w-4 h-4 text-[#2684F7]" />
             <h2 className="text-base font-semibold text-[#14213D]">
               Market Evidence Integrity & Provenance Ledger
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#14213D]/10 text-[#14213D] border border-[#14213D]/20">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               Audit Grade
             </span>
           </div>
@@ -108,7 +108,7 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
           onClick={() => setFilterProvenance(filterProvenance === 'verified' ? 'all' : 'verified')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'verified'
-              ? 'bg-[#19A875]/40 border-[#19A875] ring-1 ring-[#14213D]'
+              ? 'bg-[#E8F8F1] border-[#19A875] ring-2 ring-[#19A875]/30 shadow-xs'
               : 'bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#19A875]/30'
           }`}
         >
@@ -124,8 +124,8 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
           onClick={() => setFilterProvenance(filterProvenance === 'inference' ? 'all' : 'inference')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'inference'
-              ? 'bg-[#9272DB]/25 border-[#9272DB] ring-1 ring-[#14213D]'
-              : 'bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#14213D]/40'
+              ? 'bg-[#F2EDFF] border-[#9272DB] ring-2 ring-[#9272DB]/30 shadow-xs'
+              : 'bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#9272DB]/40'
           }`}
         >
           <div className="flex items-center justify-between text-xs font-mono text-[#9272DB]">
@@ -140,7 +140,7 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
           onClick={() => setFilterProvenance(filterProvenance === 'assumption' ? 'all' : 'assumption')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'assumption'
-              ? 'bg-[#F29A42]/40 border-[#F29A42] ring-1 ring-[#14213D]'
+              ? 'bg-[#FFF3E7] border-[#F29A42] ring-2 ring-[#F29A42]/30 shadow-xs'
               : 'bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#F29A42]/30'
           }`}
         >
@@ -156,7 +156,7 @@ export const EvidenceIntegrityView: React.FC<EvidenceIntegrityViewProps> = ({
           onClick={() => setFilterProvenance(filterProvenance === 'needs_validation' ? 'all' : 'needs_validation')}
           className={`p-3 rounded-lg border cursor-pointer transition-all ${
             filterProvenance === 'needs_validation'
-              ? 'bg-[#EEF4FB] border-[#14213D] ring-1 ring-[#14213D]'
+              ? 'bg-[#EEF4FB] border-[#60738F] ring-2 ring-[#60738F]/30 shadow-xs'
               : 'bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#8495AE]'
           }`}
         >

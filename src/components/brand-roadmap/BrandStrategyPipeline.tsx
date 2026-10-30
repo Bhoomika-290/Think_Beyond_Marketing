@@ -119,7 +119,7 @@ export const BrandStrategyPipeline: React.FC<BrandStrategyPipelineProps> = ({
   ];
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#E2EAF4] p-5 shadow-xl relative overflow-hidden">
+    <section className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-5 shadow-sm relative overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#1C2636]">
         <div>
           <div className="flex items-center gap-2">

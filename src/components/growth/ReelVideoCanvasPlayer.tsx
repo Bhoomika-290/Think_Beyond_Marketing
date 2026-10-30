@@ -533,7 +533,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
             <button
               type="button"
               onClick={() => setCurrentTimeSec(0)}
-              className="p-2 rounded-xl bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
+              className="p-2 rounded-xl bg-[#EEF4FB] hover:bg-[#E8F2FF] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
               title="Replay from start"
             >
               <RotateCcw className="w-4 h-4" />
@@ -560,7 +560,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
                 <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#F2EDFF] text-[#9272DB]">
                   {reel.durationSeconds}s SOCIAL REEL
                 </span>
-                <span className="text-xs font-bold text-white truncate">{reel.title}</span>
+                <span className="text-xs font-bold text-[#14213D] truncate">{reel.title}</span>
               </div>
               <div className="text-[11px] text-[#2684F7] italic mt-0.5">
                 Hook: &ldquo;{reel.hookHeadline}&rdquo;
@@ -574,7 +574,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
 
           {/* Visual Scene Timeline Stepper */}
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-mono font-bold text-white">
+            <div className="flex items-center justify-between text-xs font-mono font-bold text-[#14213D]">
               <span>Scene Timeline ({reel.frames.length} Scenes)</span>
               <span className="text-[10px] text-[#60738F]">Click thumbnail to seek</span>
             </div>
@@ -592,7 +592,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
                     }}
                     className={`p-3 rounded-xl border cursor-pointer transition-all flex flex-col justify-between space-y-2 ${
                       isCurrent
-                        ? 'bg-[#151E2B] border-[#8B5CF6] ring-2 ring-[#8B5CF6]/40 shadow-lg'
+                        ? 'bg-[#FFFFFF] border-[#9272DB] ring-2 ring-[#9272DB]/25 shadow-md'
                         : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#384860]'
                     }`}
                   >
@@ -601,7 +601,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
                         <span className="font-bold text-[#9272DB]">0{frame.frameNumber}</span>
                         <span>{frame.timestamp}</span>
                       </div>
-                      <div className="text-xs font-bold text-white truncate">{frame.kineticHeadline}</div>
+                      <div className="text-xs font-bold text-[#14213D] truncate">{frame.kineticHeadline}</div>
                       <p className="text-[10px] text-[#8495AE] leading-snug line-clamp-2">{frame.visualDirection}</p>
                     </div>
 
@@ -624,28 +624,28 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Make the opening hook punchier')}
-                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#EEF4FB] hover:bg-[#E8F2FF] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
               >
                 ⚡ Punchier Hook
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Make it 15 seconds short')}
-                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#EEF4FB] hover:bg-[#E8F2FF] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
               >
                 ⏱ 15s High-Velocity
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Make tone ultra minimal and premium')}
-                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#EEF4FB] hover:bg-[#E8F2FF] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
               >
                 💎 Ultra-Minimal
               </button>
               <button
                 type="button"
                 onClick={() => handleApplyAgentEdit(undefined, 'Update closing CTA')}
-                className="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#FFFFFF] text-[#8495AE] hover:text-white border border-[#E2EAF4] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-[#EEF4FB] hover:bg-[#E8F2FF] text-[#60738F] hover:text-[#14213D] border border-[#E2EAF4] transition-colors"
               >
                 🎯 Refine CTA
               </button>
@@ -675,7 +675,7 @@ export const ReelVideoCanvasPlayer: React.FC<ReelVideoCanvasPlayerProps> = ({
                 placeholder="Tell the creative agent what to change in the video (e.g. 'Make opening more dramatic', 'Change CTA')..."
                 value={agentPrompt}
                 onChange={(e) => setAgentPrompt(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-white placeholder-[#8495AE]"
+                className="flex-1 px-3 py-2 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] text-xs text-[#14213D] placeholder-[#8495AE]"
               />
               <button
                 type="submit"

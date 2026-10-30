@@ -113,7 +113,7 @@ export const BuildHandoff: React.FC<BuildHandoffProps> = ({
           className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-mono text-xs font-bold transition-all ${
             isReady
               ? 'bg-[#2684F7] hover:bg-[#1769D2] text-white shadow-lg shadow-blue-500/20 cursor-pointer'
-              : 'bg-[#151E2B] text-[#60738F] border border-[#E2EAF4] cursor-not-allowed'
+              : 'bg-[#EEF4FB] text-[#60738F] border border-[#E2EAF4] cursor-not-allowed'
           }`}
         >
           <span>PROCEED TO STAGE 06: EXECUTION</span>

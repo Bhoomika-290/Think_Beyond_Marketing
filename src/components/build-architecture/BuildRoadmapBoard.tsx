@@ -158,7 +158,7 @@ export const BuildRoadmapBoard: React.FC<BuildRoadmapBoardProps> = ({
                       <div
                         key={task.id}
                         className={`p-3 rounded-lg flex items-start justify-between gap-3 transition-colors ${
-                          isDone ? 'bg-[#FFFFFF]/60 opacity-75' : 'hover:bg-[#151E2B]'
+                          isDone ? 'bg-[#FFFFFF]/60 opacity-75' : 'hover:bg-[#EEF4FB]'
                         }`}
                       >
                         <div className="flex items-start gap-3 min-w-0">
@@ -199,7 +199,7 @@ export const BuildRoadmapBoard: React.FC<BuildRoadmapBoardProps> = ({
                             className={`px-2 py-0.5 rounded font-bold uppercase ${
                               task.priority === 'High'
                                 ? 'bg-[#FFF3E7] text-amber-400 border border-amber-500/20'
-                                : 'bg-[#1A2332] text-[#8495AE]'
+                                : 'bg-[#EEF4FB] text-[#60738F]'
                             }`}
                           >
                             {task.priority}
@@ -312,7 +312,7 @@ export const BuildRoadmapBoard: React.FC<BuildRoadmapBoardProps> = ({
             <button
               type="button"
               onClick={() => setIsAddingTask(false)}
-              className="px-3 py-1.5 rounded-lg bg-[#151E2B] text-[#8495AE] text-xs font-mono"
+              className="px-3 py-1.5 rounded-lg bg-[#EEF4FB] text-[#60738F] text-xs font-mono"
             >
               Cancel
             </button>

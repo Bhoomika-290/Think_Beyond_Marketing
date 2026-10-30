@@ -19,9 +19,9 @@ export const MarketTrendsView: React.FC<MarketTrendsViewProps> = ({ trends }) =>
         };
       case 'emerging':
         return {
-          icon: <Sparkles className="w-4 h-4 text-[#14213D]" />,
+          icon: <Sparkles className="w-4 h-4 text-[#2684F7]" />,
           label: 'Emerging Shift',
-          bg: 'bg-[#14213D]/10 text-[#14213D] border-[#14213D]/30',
+          bg: 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30',
         };
       case 'stable':
         return {
@@ -50,11 +50,11 @@ export const MarketTrendsView: React.FC<MarketTrendsViewProps> = ({ trends }) =>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <Activity className="w-4 h-4 text-[#14213D]" />
+            <Activity className="w-4 h-4 text-[#2684F7]" />
             <h2 className="text-base font-semibold text-[#14213D]">
               Market Forces & Vector Signals
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#14213D]/10 text-[#14213D] border border-[#14213D]/20">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               Macro Vectors
             </span>
           </div>
@@ -74,7 +74,7 @@ export const MarketTrendsView: React.FC<MarketTrendsViewProps> = ({ trends }) =>
               action={
                 <Link
                   to="/idea-lab"
-                  className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#14213D] underline underline-offset-2 hover:text-[#F29A42]"
+                  className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#2684F7] underline underline-offset-2 hover:text-[#1769D2]"
                 >
                   Complete Stage 01 in Idea Lab →
                 </Link>
@@ -87,7 +87,7 @@ export const MarketTrendsView: React.FC<MarketTrendsViewProps> = ({ trends }) =>
           return (
             <div
               key={t.id}
-              className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col justify-between hover:border-[#14213D]/40 transition-colors"
+              className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] flex flex-col justify-between hover:border-[#2684F7]/40 transition-colors"
             >
               <div className="space-y-2.5">
                 <div className="flex items-start justify-between gap-2">

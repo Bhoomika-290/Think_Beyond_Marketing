@@ -152,14 +152,14 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
         <div>
           <div className="flex items-center gap-2">
             <Layers className="w-4 h-4 text-[#7A6438]" />
-            <h3 className="text-base font-semibold text-[#2C3527]">
+            <h3 className="text-base font-semibold text-[#14213D]">
               Market Sizing Architecture (TAM · SAM · SOM)
             </h3>
             <span
               className={`text-xs font-mono px-2 py-0.5 rounded border ${
                 hasSavedCustom
                   ? 'bg-[#3E6F4A]/10 text-[#3E6F4A] border-[#3E6F4A]/30'
-                  : 'bg-[#EFECE4] text-[#5E6857] border-[#E2EAF4]'
+                  : 'bg-[#EEF4FB] text-[#5E6857] border-[#E2EAF4]'
               }`}
             >
               {hasSavedCustom ? 'USER_PROVIDED' : 'CALCULATED_FRAMEWORK'}
@@ -173,9 +173,9 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
         <button
           type="button"
           onClick={handleStartEdit}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#EFECE4] text-xs font-mono text-[#2C3527] border border-[#E2EAF4] hover:bg-[#E8E4DA] hover:border-[#55634B]/40 transition-colors self-start sm:self-auto"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#EEF4FB] text-xs font-mono text-[#14213D] border border-[#E2EAF4] hover:bg-[#E8F2FF] hover:border-[#2684F7]/40 transition-colors self-start sm:self-auto"
         >
-          <Edit3 className="w-3.5 h-3.5 text-[#55634B]" />
+          <Edit3 className="w-3.5 h-3.5 text-[#2684F7]" />
           {isEditing ? 'Cancel Edit' : hasSavedCustom ? 'Update Sizing' : 'Edit Sizing Bounds'}
         </button>
       </div>
@@ -184,10 +184,10 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
       {isEditing && (
         <form
           onSubmit={handleSave}
-          className="p-4 rounded-lg bg-[#F2EFE8] border border-[#55634B]/40 space-y-3 animate-fade-in"
+          className="p-4 rounded-lg bg-[#F2EFE8] border border-[#2684F7]/40 space-y-3 animate-fade-in"
         >
-          <div className="flex items-center gap-2 text-xs font-mono text-[#2C3527] font-semibold">
-            <Edit3 className="w-3.5 h-3.5 text-[#55634B]" />
+          <div className="flex items-center gap-2 text-xs font-mono text-[#14213D] font-semibold">
+            <Edit3 className="w-3.5 h-3.5 text-[#2684F7]" />
             <span>Edit Market Size Sizing Bounds</span>
           </div>
 
@@ -201,7 +201,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 placeholder="e.g. ₹4,200 Cr ($510M)"
                 value={draftTam}
                 onChange={(e) => setDraftTam(e.target.value)}
-                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
+                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#14213D] focus:outline-none focus:border-[#2684F7]"
               />
             </div>
             <div>
@@ -213,7 +213,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 placeholder="e.g. ₹480 Cr ($58M)"
                 value={draftSam}
                 onChange={(e) => setDraftSam(e.target.value)}
-                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
+                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#14213D] focus:outline-none focus:border-[#2684F7]"
               />
             </div>
             <div>
@@ -225,7 +225,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 placeholder="e.g. ₹14.5 Cr ($1.75M)"
                 value={draftSom}
                 onChange={(e) => setDraftSom(e.target.value)}
-                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#2C3527] focus:outline-none focus:border-[#55634B]"
+                className="w-full bg-[#FFFFFF] border border-[#E2EAF4] rounded px-3 py-2 text-xs text-[#14213D] focus:outline-none focus:border-[#2684F7]"
               />
             </div>
           </div>
@@ -233,7 +233,7 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
           <div className="flex justify-end gap-2 pt-1">
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded bg-[#2C3527] text-[#14213D] text-xs font-medium hover:bg-[#3C4736] transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded bg-[#2684F7] text-white text-xs font-medium hover:bg-[#1769D2] transition-colors"
             >
               <Save className="w-3.5 h-3.5" />
               Save Bounds
@@ -251,19 +251,19 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
             onClick={() => setActiveLayer('TAM')}
             className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
               activeLayer === 'TAM'
-                ? 'bg-[#EFECE4] border-[#7D6536] shadow-sm ring-1 ring-[#7D6536]/30'
-                : 'bg-[#F5F2EB] border-[#D8D0C0] hover:border-[#BDB5A2]'
+                ? 'bg-[#EEF4FB] border-[#2684F7] shadow-sm ring-1 ring-[#2684F7]/30'
+                : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/40'
             }`}
           >
             <div className="flex items-center justify-between pb-2 border-b border-[#E2EAF4]/80 text-xs font-mono">
-              <span className="font-bold text-[#7D6536] flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-sm bg-[#7D6536]" />
+              <span className="font-bold text-[#2684F7] flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-sm bg-[#2684F7]" />
                 TAM · TOTAL ADDRESSABLE
               </span>
-              <span className="font-bold text-[#2C3527]">{effectiveTam}</span>
+              <span className="font-bold text-[#14213D]">{effectiveTam}</span>
             </div>
 
-            <p className="text-[11px] text-[#5E6857] my-2 leading-relaxed">
+            <p className="text-[11px] text-[#60738F] my-2 leading-relaxed">
               {isWinterApparel
                 ? 'Macro Category Universe: total winter wear & cold-weather accessories in addressable travel zones.'
                 : `Macro Category Universe: total accessible sector expenditure across ${targetAudience} within addressable markets.`}
@@ -277,16 +277,16 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
               }}
               className={`p-3.5 rounded-lg border transition-all duration-200 cursor-pointer my-1 ${
                 activeLayer === 'SAM'
-                  ? 'bg-[#E5E0D5] border-[#55634B] shadow-sm ring-1 ring-[#55634B]/30'
-                  : 'bg-[#EAE5DA] border-[#CDC4B2] hover:border-[#A89E8A]'
+                  ? 'bg-[#E8F2FF] border-[#2684F7] shadow-sm ring-1 ring-[#2684F7]/30'
+                  : 'bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#2684F7]/40'
               }`}
             >
-              <div className="flex items-center justify-between pb-1.5 border-b border-[#CDC4B2] text-xs font-mono">
-                <span className="font-bold text-[#55634B] flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-sm bg-[#55634B]" />
+              <div className="flex items-center justify-between pb-1.5 border-b border-[#E2EAF4] text-xs font-mono">
+                <span className="font-bold text-[#1769D2] flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-sm bg-[#2684F7]" />
                   SAM · SERVICEABLE ADDRESSABLE
                 </span>
-                <span className="font-bold text-[#2C3527]">{effectiveSam}</span>
+                <span className="font-bold text-[#14213D]">{effectiveSam}</span>
               </div>
 
               <p className="text-[11px] text-[#60738F] my-1.5 leading-relaxed">
@@ -303,18 +303,18 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
                 }}
                 className={`p-3 rounded-md border transition-all duration-200 cursor-pointer mt-2 ${
                   activeLayer === 'SOM'
-                    ? 'bg-[#2C3527] border-[#2C3527] text-[#14213D] shadow-md'
-                    : 'bg-[#3A4537] border-[#2C3527] text-[#14213D] hover:bg-[#2C3527]'
+                    ? 'bg-[#E8F8F1] border-[#19A875] text-[#14213D] shadow-sm ring-1 ring-[#19A875]/40'
+                    : 'bg-[#FFFFFF] border-[#E2EAF4] text-[#14213D] hover:border-[#19A875]/50'
                 }`}
               >
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="font-bold text-[#14213D] flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-sm bg-[#A3B899]" />
+                  <span className="font-bold text-[#19A875] flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-sm bg-[#19A875]" />
                     SOM · BEACHHEAD TARGET (Y1–2)
                   </span>
-                  <span className="font-bold text-[#A3B899]">{effectiveSom}</span>
+                  <span className="font-bold text-[#19A875]">{effectiveSom}</span>
                 </div>
-                <p className="text-[10px] text-[#D8E2D4] mt-1 leading-snug">
+                <p className="text-[10px] text-[#60738F] mt-1 leading-snug">
                   {isWinterApparel
                     ? 'Obtainable beachhead via targeted direct-to-consumer capsules and premier resort retail placements.'
                     : `Obtainable beachhead: acquiring and retaining early paying adopters in ${locationStr} to prove CAC payback.`}
@@ -325,68 +325,68 @@ export const MarketSizeFrameworkView: React.FC<MarketSizeFrameworkViewProps> = (
         </div>
 
         {/* Right: Layer Inspector Detail Panel */}
-        <div className="lg:col-span-5 flex flex-col justify-between p-4 rounded-xl bg-[#EFECE4] border border-[#E2EAF4] space-y-3">
+        <div className="lg:col-span-5 flex flex-col justify-between p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-3 shadow-sm">
           <div>
             <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#55634B] font-bold">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#2684F7] font-bold">
                 Tier Inspector // {currentLayer.code}
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FFFFFF] border border-[#E2EAF4] text-[#2C3527]">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EEF4FB] border border-[#E2EAF4] text-[#14213D]">
                 {currentLayer.shareOfTAM}
               </span>
             </div>
 
             <div className="mt-2.5">
-              <span className="text-[10px] font-mono text-[#5E6857] uppercase tracking-wider block">
+              <span className="text-[10px] font-mono text-[#8495AE] uppercase tracking-wider block">
                 {currentLayer.scopeTag}
               </span>
-              <h4 className="text-base font-bold text-[#2C3527] mt-0.5">{currentLayer.name}</h4>
-              <div className="text-xl font-extrabold text-[#2C3527] mt-1 font-mono">{currentLayer.value}</div>
+              <h4 className="text-base font-bold text-[#14213D] mt-0.5">{currentLayer.name}</h4>
+              <div className="text-xl font-extrabold text-[#2684F7] mt-1 font-mono">{currentLayer.value}</div>
             </div>
 
             <div className="mt-3 space-y-2 text-xs">
-              <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block mb-0.5 font-bold">
+              <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] block mb-0.5 font-bold">
                   1. Scope Definition
                 </span>
-                <p className="text-[#3A4537] text-[11px] leading-relaxed">{currentLayer.definition}</p>
+                <p className="text-[#14213D] text-[11px] leading-relaxed">{currentLayer.definition}</p>
               </div>
 
-              <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#55634B] block mb-0.5 font-bold">
+              <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#60738F] block mb-0.5 font-bold">
                   2. Underlying Assumptions
                 </span>
-                <p className="text-[#3A4537] text-[11px] leading-relaxed">{currentLayer.assumptions}</p>
+                <p className="text-[#14213D] text-[11px] leading-relaxed">{currentLayer.assumptions}</p>
               </div>
             </div>
           </div>
 
           <div className="pt-2 border-t border-[#E2EAF4] grid grid-cols-2 gap-2 text-[10px] font-mono">
-            <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
-              <span className="text-[#5E6857] block">Confidence Level</span>
-              <span className="font-bold text-[#2C3527] flex items-center gap-1 mt-0.5">
-                <CheckCircle2 className="w-3 h-3 text-[#3E6F4A]" /> {currentLayer.confidence}
+            <div className="p-2 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+              <span className="text-[#60738F] block">Confidence Level</span>
+              <span className="font-bold text-[#14213D] flex items-center gap-1 mt-0.5">
+                <CheckCircle2 className="w-3 h-3 text-[#19A875]" /> {currentLayer.confidence}
               </span>
             </div>
-            <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
-              <span className="text-[#5E6857] block">Validation Status</span>
-              <span className="font-bold text-[#2C3527] block mt-0.5">{currentLayer.status}</span>
+            <div className="p-2 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+              <span className="text-[#60738F] block">Validation Status</span>
+              <span className="font-bold text-[#14213D] block mt-0.5">{currentLayer.status}</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Validation Inputs Checklist */}
-      <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#7D6536]/30 space-y-2">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#7D6536] font-semibold">
+      <div className="p-3.5 rounded-lg bg-[#FFFFFF] border border-[#E2EAF4] space-y-2 shadow-xs">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#2684F7] font-semibold">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>Inputs Required to Ground Defensible Mathematical Market Sizing:</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs text-[#5E6857]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs text-[#60738F]">
           {marketSize.validationInputsRequired.map((inputReq, idx) => (
-            <div key={idx} className="flex items-start gap-1.5 p-2 rounded bg-[#EFECE4] border border-[#E2EAF4]">
-              <span className="text-[#2C3527] font-mono font-bold">{idx + 1}.</span>
-              <span className="text-[11px] leading-tight text-[#3A4537]">{inputReq}</span>
+            <div key={idx} className="flex items-start gap-1.5 p-2 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
+              <span className="text-[#2684F7] font-mono font-bold">{idx + 1}.</span>
+              <span className="text-[11px] leading-tight text-[#14213D]">{inputReq}</span>
             </div>
           ))}
         </div>

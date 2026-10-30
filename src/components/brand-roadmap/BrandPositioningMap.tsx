@@ -72,7 +72,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
               VISUAL POSITIONING ARCHITECTURE
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-[#2C3527] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#14213D] tracking-tight">
             Competitive Positioning Matrix
           </h2>
           <p className="text-xs sm:text-sm text-[#5E6857]">
@@ -87,8 +87,8 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             onClick={() => setFocusMode(!focusMode)}
             className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors ${
               focusMode
-                ? 'bg-[#2C3527] text-[#14213D] border-[#2C3527]'
-                : 'bg-[#EFECE4] text-[#2C3527] border-[#E2EAF4] hover:border-[#55634B]'
+                ? 'bg-[#2684F7] text-white border-[#1769D2]'
+                : 'bg-[#EFECE4] text-[#14213D] border-[#E2EAF4] hover:border-[#55634B]'
             }`}
           >
             {focusMode ? 'Focus Mode [ON]' : 'Focus Mode [OFF]'}
@@ -102,10 +102,10 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                 const found = availableAxes.find((a) => a.id === e.target.value);
                 if (found) onUpdateAxes(found, yAxis);
               }}
-              className="bg-transparent text-[#2C3527] font-mono text-xs focus:outline-none cursor-pointer"
+              className="bg-transparent text-[#14213D] font-mono text-xs focus:outline-none cursor-pointer"
             >
               {availableAxes.map((opt) => (
-                <option key={opt.id} value={opt.id} className="bg-[#FFFFFF] text-[#2C3527]">
+                <option key={opt.id} value={opt.id} className="bg-[#FFFFFF] text-[#14213D]">
                   {opt.label}
                 </option>
               ))}
@@ -120,10 +120,10 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                 const found = availableAxes.find((a) => a.id === e.target.value);
                 if (found) onUpdateAxes(xAxis, found);
               }}
-              className="bg-transparent text-[#2C3527] font-mono text-xs focus:outline-none cursor-pointer"
+              className="bg-transparent text-[#14213D] font-mono text-xs focus:outline-none cursor-pointer"
             >
               {availableAxes.map((opt) => (
-                <option key={opt.id} value={opt.id} className="bg-[#FFFFFF] text-[#2C3527]">
+                <option key={opt.id} value={opt.id} className="bg-[#FFFFFF] text-[#14213D]">
                   {opt.label}
                 </option>
               ))}
@@ -134,7 +134,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             <button
               type="button"
               onClick={() => setShowAddModal(true)}
-              className="px-3 py-1.5 rounded-lg bg-[#EFECE4] hover:bg-[#E8E4DA] text-[#2C3527] border border-[#E2EAF4] text-xs font-mono font-medium transition-colors flex items-center gap-1"
+              className="px-3 py-1.5 rounded-lg bg-[#EFECE4] hover:bg-[#E8E4DA] text-[#14213D] border border-[#E2EAF4] text-xs font-mono font-medium transition-colors flex items-center gap-1"
             >
               <span>+ Add Competitor</span>
             </button>
@@ -171,7 +171,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                     y1={`${focalY}%`}
                     x2={`${posX}%`}
                     y2={`${posY}%`}
-                    stroke={isSelected ? '#2C3527' : '#9E9484'}
+                    stroke={isSelected ? '#2684F7' : '#E2EAF4'}
                     strokeWidth={isSelected ? 1.8 : 1}
                     strokeDasharray={isSelected ? '3 3' : '2 4'}
                     opacity={isSelected ? 0.9 : 0.4}
@@ -195,7 +195,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             </div>
 
             {/* Axis Center Crosshairs & Axis Legends */}
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#2C3527] bg-[#FFFFFF]/90 px-2.5 py-0.5 rounded border border-[#E2EAF4] pointer-events-none font-semibold">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#14213D] bg-[#FFFFFF]/90 px-2.5 py-0.5 rounded border border-[#E2EAF4] pointer-events-none font-semibold">
               ▲ {yAxis.maxLabel}
             </div>
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-[#5E6857] bg-[#FFFFFF]/90 px-2.5 py-0.5 rounded border border-[#E2EAF4] pointer-events-none">
@@ -204,7 +204,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
             <div className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#5E6857] bg-[#FFFFFF]/90 px-2.5 py-0.5 rounded border border-[#E2EAF4] pointer-events-none">
               ◀ {xAxis.minLabel}
             </div>
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#2C3527] bg-[#FFFFFF]/90 px-2.5 py-0.5 rounded border border-[#E2EAF4] pointer-events-none font-semibold">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#14213D] bg-[#FFFFFF]/90 px-2.5 py-0.5 rounded border border-[#E2EAF4] pointer-events-none font-semibold">
               {xAxis.maxLabel} ▶
             </div>
 
@@ -215,11 +215,11 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
               onClick={() => setSelectedCompId('focal_brand')}
             >
               <div className="relative flex items-center justify-center">
-                <div className="w-8 h-8 rounded-full bg-[#2C3527] flex items-center justify-center text-[#14213D] font-black text-xs shadow-md border-2 border-[#FFFFFF]">
+                <div className="w-8 h-8 rounded-full bg-[#2684F7] flex items-center justify-center text-[#14213D] font-black text-xs shadow-md border-2 border-[#FFFFFF]">
                   ★
                 </div>
               </div>
-              <div className="mt-1.5 px-2.5 py-0.5 rounded bg-[#2C3527] border border-[#2C3527] text-[11px] font-bold text-[#14213D] text-center shadow-sm whitespace-nowrap">
+              <div className="mt-1.5 px-2.5 py-0.5 rounded bg-[#2684F7] border border-[#2684F7] text-[11px] font-bold text-[#14213D] text-center shadow-sm whitespace-nowrap">
                 {ventureName} (Proposed Wedge)
               </div>
             </div>
@@ -248,7 +248,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                     <div
                       className={`w-7 h-7 rounded flex items-center justify-center text-[10px] font-bold border transition-colors shadow-sm ${
                         isSelected
-                          ? 'bg-[#2C3527] text-[#14213D] border-[#2C3527]'
+                          ? 'bg-[#2684F7] text-white border-[#1769D2]'
                           : comp.isUserAdded
                           ? 'bg-[#3E6F4A] text-[#14213D] border-[#3E6F4A]'
                           : comp.category === 'direct'
@@ -264,8 +264,8 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                     <div
                       className={`mt-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-center whitespace-nowrap shadow-sm border ${
                         isSelected
-                          ? 'bg-[#2C3527] text-[#14213D] border-[#2C3527] font-bold'
-                          : 'bg-[#FFFFFF] text-[#2C3527] border-[#E2EAF4]'
+                          ? 'bg-[#2684F7] text-white border-[#1769D2] font-bold'
+                          : 'bg-[#FFFFFF] text-[#14213D] border-[#E2EAF4]'
                       }`}
                     >
                       {comp.name}
@@ -285,7 +285,7 @@ export const BrandPositioningMap: React.FC<BrandPositioningMapProps> = ({
                   <button
                     type="button"
                     onClick={() => setShowAddModal(true)}
-                    className="px-3 py-1.5 rounded-lg bg-[#2C3527] hover:bg-[#3C4736] text-[#14213D] text-xs font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-[#2684F7] hover:bg-[#1769D2] text-white text-xs font-semibold"
                   >
                     + Add First Competitor
                   </button>

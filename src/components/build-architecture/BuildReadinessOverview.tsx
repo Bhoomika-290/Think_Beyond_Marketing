@@ -193,7 +193,7 @@ export const BuildReadinessOverview: React.FC<BuildReadinessOverviewProps> = ({ 
               <button
                 type="button"
                 onClick={() => setSelectedMetric(null)}
-                className="p-1 rounded-lg text-[#60738F] hover:text-[#14213D] hover:bg-[#151E2B]"
+                className="p-1 rounded-lg text-[#60738F] hover:text-[#14213D] hover:bg-[#EEF4FB]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -227,7 +227,7 @@ export const BuildReadinessOverview: React.FC<BuildReadinessOverviewProps> = ({ 
             <button
               type="button"
               onClick={() => setSelectedMetric(null)}
-              className="w-full py-2 rounded-xl bg-[#FFFFFF] hover:bg-[#151E2B] text-[#14213D] text-xs font-mono font-medium border border-[#E2EAF4] transition-colors"
+              className="w-full py-2 rounded-xl bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#14213D] text-xs font-mono font-medium border border-[#E2EAF4] transition-colors"
             >
               Close Dossier
             </button>

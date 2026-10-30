@@ -37,7 +37,7 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
   };
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#E2EAF4] p-6 lg:p-8 shadow-xl space-y-6">
+    <section className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 lg:p-8 shadow-sm space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2636] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -190,7 +190,7 @@ export const CustomerExperienceMap: React.FC<CustomerExperienceMapProps> = ({
                 key={tp.stage}
                 className={`p-5 rounded-xl border transition-all ${
                   isExpanded
-                    ? 'bg-[#151E2B] border-blue-500 ring-1 ring-blue-500 shadow-md shadow-blue-500/10'
+                    ? 'bg-[#FFFFFF] border-[#2684F7] ring-2 ring-[#2684F7]/25 shadow-md'
                     : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-slate-500'
                 }`}
               >

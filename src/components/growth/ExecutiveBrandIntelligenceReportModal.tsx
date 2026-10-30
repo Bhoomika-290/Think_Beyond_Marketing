@@ -182,7 +182,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
             <button
               type="button"
               onClick={onClose}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#EEF4FB] hover:bg-[#334155] text-xs font-mono font-bold text-white border border-[#475569] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#EEF4FB] hover:bg-[#E8F2FF] text-xs font-mono font-bold text-white border border-[#475569] transition-colors"
               title="Close report and return to Launch & Growth (Esc)"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
@@ -200,7 +200,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
                   4-PAGE A4 DOCUMENT
                 </span>
               </div>
-              <h3 className="text-sm font-bold text-white tracking-tight">
+              <h3 className="text-sm font-bold text-[#14213D] tracking-tight">
                 Executive Brand Intelligence Report: <span className="text-[#2684F7]">{intelligenceReport.ventureName}</span>
               </h3>
             </div>
@@ -214,7 +214,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors ${
                 activePageView === 'all'
                   ? 'bg-[#2684F7] text-white shadow'
-                  : 'text-[#8495AE] hover:text-white'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5 inline mr-1" />
@@ -226,7 +226,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors ${
                 activePageView === 1
                   ? 'bg-[#2684F7] text-white shadow'
-                  : 'text-[#8495AE] hover:text-white'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
             >
               P1 Snapshot
@@ -237,7 +237,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors ${
                 activePageView === 2
                   ? 'bg-[#2684F7] text-white shadow'
-                  : 'text-[#8495AE] hover:text-white'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
             >
               P2 Market
@@ -248,7 +248,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors ${
                 activePageView === 3
                   ? 'bg-[#2684F7] text-white shadow'
-                  : 'text-[#8495AE] hover:text-white'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
             >
               P3 What We Built
@@ -259,7 +259,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
               className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors ${
                 activePageView === 4
                   ? 'bg-[#2684F7] text-white shadow'
-                  : 'text-[#8495AE] hover:text-white'
+                  : 'text-[#8495AE] hover:text-[#14213D]'
               }`}
             >
               P4 Action Plan
@@ -272,7 +272,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
               type="button"
               onClick={handleRegenerate}
               disabled={isSynthesizing}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111827] hover:bg-[#1F2937] text-xs font-mono text-[#14213D] hover:text-white border border-[#EEF4FB] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111827] hover:bg-[#1F2937] text-xs font-mono text-[#14213D] hover:text-[#14213D] border border-[#EEF4FB] transition-colors"
             >
               <RotateCcw className={`w-3.5 h-3.5 ${isSynthesizing ? 'animate-spin text-[#2684F7]' : ''}`} />
               <span>{isSynthesizing ? 'Synthesizing...' : 'Regenerate'}</span>
@@ -281,7 +281,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
             <button
               type="button"
               onClick={handleCopySummary}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111827] hover:bg-[#1F2937] text-xs font-mono text-[#14213D] hover:text-white border border-[#EEF4FB] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#111827] hover:bg-[#1F2937] text-xs font-mono text-[#14213D] hover:text-[#14213D] border border-[#EEF4FB] transition-colors"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-[#19A875]" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copied' : 'Copy Summary'}</span>
@@ -299,7 +299,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 rounded-lg text-[#8495AE] hover:text-white hover:bg-[#1F2937] transition-colors"
+              className="p-1.5 rounded-lg text-[#8495AE] hover:text-[#14213D] hover:bg-[#1F2937] transition-colors"
               aria-label="Close intelligence report"
             >
               <X className="w-5 h-5" />
@@ -317,7 +317,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
               <div className="text-xs font-mono uppercase text-[#2684F7] font-bold">
                 Synthesizing Multi-Stage Project Intelligence
               </div>
-              <div className="text-sm font-bold text-white max-w-md">
+              <div className="text-sm font-bold text-[#14213D] max-w-md">
                 {synthesisSteps[synthesisStep]}
               </div>
             </div>
@@ -391,7 +391,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
 
                 {/* 3. Connected Horizontal Flowchart: PROBLEM ➔ INSIGHT ➔ SOLUTION ➔ VALUE */}
                 <div className="space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1E3A8A] flex items-center gap-1.5">
+                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1769D2] flex items-center gap-1.5">
                     <TrendingUp className="w-3.5 h-3.5" />
                     <span>Strategic Transformation Flowchart</span>
                   </div>
@@ -475,7 +475,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
 
                       {/* Positioning Wedge Statement */}
                       <div className="sm:pl-3 space-y-1 pt-2 sm:pt-0">
-                        <div className="text-[9px] font-mono uppercase font-bold text-[#1E3A8A]">Positioning Wedge</div>
+                        <div className="text-[9px] font-mono uppercase font-bold text-[#1769D2]">Positioning Wedge</div>
                         <p className="text-[11px] text-[#14213D] font-semibold leading-snug">{p1.brand.positioningWedge}</p>
                       </div>
 
@@ -543,7 +543,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
 
                 {/* Section A: 2D Cartesian Competitor Positioning Quadrant Map */}
                 <div className="space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1E3A8A] flex items-center gap-1.5">
+                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1769D2] flex items-center gap-1.5">
                     <TrendingUp className="w-3.5 h-3.5" />
                     <span>2D Market Positioning Map (Quadrant Analysis)</span>
                   </div>
@@ -628,8 +628,8 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
                 {/* Section C: Differentiation Flow Banner */}
                 <div className="p-3 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="space-y-0.5">
-                    <div className="text-[8px] font-mono uppercase font-bold text-[#1E3A8A]">Our Positioning Wedge</div>
-                    <div className="text-xs font-black text-[#1E3A8A]">{p2.positioningWedge}</div>
+                    <div className="text-[8px] font-mono uppercase font-bold text-[#1769D2]">Our Positioning Wedge</div>
+                    <div className="text-xs font-black text-[#1769D2]">{p2.positioningWedge}</div>
                   </div>
                   <div className="text-left sm:text-right text-[10px] text-[#2684F7] font-mono font-semibold max-w-xs">
                     {p2.keyMarketOpportunity}
@@ -664,7 +664,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
                           ▲ High Impact // Strategic Opportunities
                         </div>
                         {p2.riskOpportunity2x2.highImpactOpportunities.map((o, i) => (
-                          <div key={i} className="text-[10px] text-[#064E3B] leading-snug">
+                          <div key={i} className="text-[10px] text-[#19A875] leading-snug">
                             <span className="font-bold">• {o.title}:</span> {o.rationale}
                           </div>
                         ))}
@@ -691,7 +691,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
                           ▼ Low Impact // Explore (Upside)
                         </div>
                         {p2.riskOpportunity2x2.exploreList.map((e, i) => (
-                          <div key={i} className="text-[10px] text-[#1E3A8A] leading-snug">
+                          <div key={i} className="text-[10px] text-[#1769D2] leading-snug">
                             <span className="font-bold">• {e.title}:</span> {e.rationale}
                           </div>
                         ))}
@@ -735,7 +735,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
 
                 {/* Section A: Linear Connected Venture Journey Flowchart (Stages 01 ➔ 08) */}
                 <div className="space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1E3A8A] flex items-center gap-1.5">
+                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1769D2] flex items-center gap-1.5">
                     <TrendingUp className="w-3.5 h-3.5" />
                     <span>Venture Creation Flowchart (Idea ➔ Launch)</span>
                   </div>
@@ -781,8 +781,8 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
                   <div className="space-y-2 p-3 bg-[#14213D] border border-[#14213D] rounded-xl">
                     {p3.builtSummary.architectureTiers.map((tier, idx) => (
                       <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-2.5 p-2 rounded-lg bg-white border border-[#E2E8F0] shadow-xs">
-                        <div className="w-36 text-[10px] font-mono font-black text-[#1E3A8A] uppercase shrink-0 flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded-full bg-[#EFF6FF] text-[#1E3A8A] flex items-center justify-center text-[8px] font-bold">
+                        <div className="w-36 text-[10px] font-mono font-black text-[#1769D2] uppercase shrink-0 flex items-center gap-1.5">
+                          <span className="w-4 h-4 rounded-full bg-[#EFF6FF] text-[#1769D2] flex items-center justify-center text-[8px] font-bold">
                             T{idx + 1}
                           </span>
                           <span>{tier.tierName}</span>
@@ -861,7 +861,7 @@ Generated: ${intelligenceReport.generatedAt} | ${intelligenceReport.version}
 
                 {/* Section A: 9-Step Sequential Startup Journey Flowchart */}
                 <div className="space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1E3A8A] flex items-center gap-1.5">
+                  <div className="text-[10px] font-mono uppercase tracking-wider font-extrabold text-[#1769D2] flex items-center gap-1.5">
                     <Target className="w-3.5 h-3.5" />
                     <span>9-Step Startup Flowchart (From Idea to Scale)</span>
                   </div>

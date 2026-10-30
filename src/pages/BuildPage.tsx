@@ -161,21 +161,21 @@ export const BuildPage: React.FC = () => {
             <button
               type="button"
               onClick={() => loadSampleVenture('skincare_d2c')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               🌿 Skincare D2C
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('restaurant_ai')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               ⚡ Restaurant AI
             </button>
             <button
               type="button"
               onClick={() => loadSampleVenture('tutoring_marketplace')}
-              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-[#F29A42] border border-[#F29A42]/30 text-xs font-mono font-medium transition-colors"
             >
               🎓 Tutoring Mkt
             </button>
@@ -399,7 +399,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowRoadmapSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-[#2684F7] hover:text-blue-300 border border-[#E2EAF4] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-xs font-mono text-[#2684F7] hover:text-blue-300 border border-[#E2EAF4] transition-colors"
               >
                 {showRoadmapSection || activeSection === 'roadmap' ? 'Collapse Details ▲' : '+ Expand Roadmap Details ▼'}
               </button>
@@ -433,7 +433,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowRiskSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-amber-400 hover:text-[#F29A42] border border-[#E2EAF4] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-xs font-mono text-amber-400 hover:text-[#F29A42] border border-[#E2EAF4] transition-colors"
               >
                 {showRiskSection ? 'Collapse Governance ▲' : '+ Expand Risk & Decisions ▼'}
               </button>
@@ -468,7 +468,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowConsistencySection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-purple-400 hover:text-purple-300 border border-[#E2EAF4] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-xs font-mono text-purple-400 hover:text-purple-300 border border-[#E2EAF4] transition-colors"
               >
                 {showConsistencySection ? 'Collapse Tokens ▲' : '+ Expand Token Translation ▼'}
               </button>
@@ -497,7 +497,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowCouncilSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-cyan-400 hover:text-cyan-300 border border-[#E2EAF4] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-xs font-mono text-cyan-400 hover:text-cyan-300 border border-[#E2EAF4] transition-colors"
               >
                 {showCouncilSection || activeSection === 'council' ? 'Collapse Advisory ▲' : '+ Expand Council & Specialist ▼'}
               </button>
@@ -531,7 +531,7 @@ export const BuildPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowHandoffSection((prev) => !prev)}
-                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#151E2B] text-xs font-mono text-[#19A875] hover:text-emerald-300 border border-[#E2EAF4] transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#EEF4FB] text-xs font-mono text-[#19A875] hover:text-emerald-300 border border-[#E2EAF4] transition-colors"
               >
                 {showHandoffSection || activeSection === 'handoff' ? 'Collapse Handoff ▲' : '+ Expand Handoff Dossier ▼'}
               </button>

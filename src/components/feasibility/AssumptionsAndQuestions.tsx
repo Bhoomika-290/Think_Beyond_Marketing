@@ -187,7 +187,7 @@ const SEMANTIC_STYLES: Record<
     label: 'ASSUMPTION',
     bg: '#F4F2EC',
     border: '#55634B',
-    text: '#2C3527',
+    text: '#14213D',
     tagBg: '#55634B',
     tagText: '#FFFFFF',
   },
@@ -518,7 +518,7 @@ const AssumptionTopologyGraph: React.FC<AssumptionTopologyGraphProps> = ({
             type="button"
             onClick={zoomOut}
             aria-label="Zoom out"
-            className="px-2 py-0.5 rounded border border-[#CFC7B7] bg-[#F7F5EE] text-[#2C3527] text-[11px] font-mono leading-none transition-colors duration-200 hover:border-[#55634B]"
+            className="px-2 py-0.5 rounded border border-[#E2EAF4] bg-[#EEF4FB] text-[#14213D] text-[11px] font-mono leading-none transition-colors duration-200 hover:border-[#55634B]"
           >
             −
           </button>
@@ -527,7 +527,7 @@ const AssumptionTopologyGraph: React.FC<AssumptionTopologyGraphProps> = ({
             type="button"
             onClick={zoomIn}
             aria-label="Zoom in"
-            className="px-2 py-0.5 rounded border border-[#CFC7B7] bg-[#F7F5EE] text-[#2C3527] text-[11px] font-mono leading-none transition-colors duration-200 hover:border-[#55634B]"
+            className="px-2 py-0.5 rounded border border-[#E2EAF4] bg-[#EEF4FB] text-[#14213D] text-[11px] font-mono leading-none transition-colors duration-200 hover:border-[#55634B]"
           >
             +
           </button>
@@ -535,7 +535,7 @@ const AssumptionTopologyGraph: React.FC<AssumptionTopologyGraphProps> = ({
             type="button"
             onClick={zoomReset}
             aria-label="Reset view"
-            className="px-2 py-0.5 rounded border border-[#CFC7B7] bg-[#F7F5EE] text-[#2C3527] text-[10px] font-mono leading-none transition-colors duration-200 hover:border-[#55634B]"
+            className="px-2 py-0.5 rounded border border-[#E2EAF4] bg-[#EEF4FB] text-[#14213D] text-[10px] font-mono leading-none transition-colors duration-200 hover:border-[#55634B]"
           >
             Reset
           </button>
@@ -569,7 +569,7 @@ const AssumptionTopologyGraph: React.FC<AssumptionTopologyGraphProps> = ({
             markerHeight={6}
             orient="auto-start-reverse"
           >
-            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2C3527" />
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#14213D" />
           </marker>
         </defs>
 
@@ -661,7 +661,7 @@ const AssumptionTopologyGraph: React.FC<AssumptionTopologyGraphProps> = ({
                   y1={startY}
                   x2={endX}
                   y2={endY}
-                  stroke={isActiveEdge ? '#2C3527' : '#9E9484'}
+                  stroke={isActiveEdge ? '#14213D' : '#9E9484'}
                   strokeWidth={
                     isActiveEdge
                       ? TOPOLOGY_EDGE_WIDTH[e.strength] + 1
@@ -921,8 +921,8 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                 onClick={() => toggleAssumption(assump.id)}
                 className={`p-3.5 rounded-lg border transition-all duration-150 cursor-pointer flex flex-col justify-between select-none ${
                   isExpanded
-                    ? 'bg-[#EFECE4] border-[#55634B] ring-1 ring-[#55634B]/30 shadow-md'
-                    : 'bg-[#FFFFFF] hover:bg-[#EFECE4] border-[#E2EAF4] hover:border-[#BDB5A2]'
+                    ? 'bg-[#EEF4FB] border-[#55634B] ring-1 ring-[#55634B]/30 shadow-md'
+                    : 'bg-[#FFFFFF] hover:bg-[#EEF4FB] border-[#E2EAF4] hover:border-[#BDB5A2]'
                 }`}
               >
                 <div>
@@ -948,14 +948,14 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                   </div>
 
                   {/* Assumption Statement */}
-                  <h3 className="text-xs font-bold text-[#2C3527] leading-snug mb-2">
+                  <h3 className="text-xs font-bold text-[#14213D] leading-snug mb-2">
                     "{assump.statement}"
                   </h3>
 
                   {/* Chain Preview Bar */}
-                  <div className="p-2 rounded bg-[#F2EFE8] border border-[#E2EAF4] flex items-center justify-between text-[10px] font-mono text-[#5E6857]">
+                  <div className="p-2 rounded bg-[#EEF4FB] border border-[#E2EAF4] flex items-center justify-between text-[10px] font-mono text-[#5E6857]">
                     <span className="text-[#7A7568]">Evidence → Test → Decision</span>
-                    <span className="text-[#2C3527] truncate max-w-[240px]">
+                    <span className="text-[#14213D] truncate max-w-[240px]">
                       {linkedDim ? `${linkedDim.evidence.length} signals · ${linkedDim.confidence} confidence` : 'No linked evidence yet'}
                     </span>
                   </div>
@@ -963,7 +963,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
 
                 {/* Click cue */}
                 <div className="mt-3 pt-2 border-t border-[#E2EAF4]/80 flex items-center justify-between text-[10px] font-mono text-[#5E6857]">
-                  <span className="text-[#2C3527]">
+                  <span className="text-[#14213D]">
                     {isExpanded ? 'Hide Validation Chain' : 'View Full Validation Chain'}
                   </span>
                   {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -975,7 +975,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                     className="mt-3 pt-3 border-t border-[#E2EAF4] space-y-2 text-left animate-fade-in text-xs"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-1">
                       <span className="text-[10px] font-mono uppercase text-[#F29A42] font-semibold block">
                         1. Assumption
                       </span>
@@ -986,8 +986,8 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
-                      <span className="text-[10px] font-mono uppercase text-[#2C3527] font-semibold block">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-1">
+                      <span className="text-[10px] font-mono uppercase text-[#14213D] font-semibold block">
                         2. Why it matters
                       </span>
                       <p className="text-[#60738F] text-[11px]">
@@ -1001,7 +1001,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1.5">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-1.5">
                       <span className="text-[10px] font-mono uppercase text-[#3E6F4A] font-semibold block">
                         3. Current evidence · Confidence: {linkedDim ? linkedDim.confidence.toUpperCase() : 'UNKNOWN'}
                       </span>
@@ -1011,7 +1011,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                             <li key={ev.id} className="flex items-start gap-1.5 text-[11px] text-[#60738F]">
                               <span className={`w-1.5 h-1.5 rounded-full mt-1 shrink-0 ${EVIDENCE_DOT[ev.type] ?? 'bg-[#5E6857]'}`} />
                               <span>
-                                <span className="font-semibold text-[#2C3527]">{ev.label}:</span> {ev.content}
+                                <span className="font-semibold text-[#14213D]">{ev.label}:</span> {ev.content}
                               </span>
                             </li>
                           ))}
@@ -1025,11 +1025,11 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-1">
                       <span className="text-[10px] font-mono uppercase text-[#4A5B6C] font-semibold block">
                         4. Validation test
                       </span>
-                      <p className="text-[#2C3527] text-[11px] font-medium">
+                      <p className="text-[#14213D] text-[11px] font-medium">
                         {assump.validationMethod}
                       </p>
                     </div>
@@ -1038,7 +1038,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                       <ArrowRight className="w-3 h-3 rotate-90" />
                     </div>
 
-                    <div className="p-2.5 rounded bg-[#F2EFE8] border border-[#E2EAF4] space-y-1">
+                    <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-1">
                       <span className="text-[10px] font-mono uppercase text-[#9C4738] font-semibold block">
                         5. Decision rule
                       </span>
@@ -1057,7 +1057,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
         {/* Assumption Dependency Graph with Stage 02 warm stone palette */}
         <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-[#2C3527] font-bold">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#14213D] font-bold">
               Assumption → Dependency → Evidence → Risk Topology
             </span>
             <span className="text-[10px] font-mono text-[#5E6857]">
@@ -1082,7 +1082,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
 
           {activeGraphEdge && !activeGraphNode && (
             <div className="pt-1">
-              <div className="text-xs text-[#2C3527] p-2.5 rounded-lg bg-[#F2EFE8] border border-[#E2EAF4]">
+              <div className="text-xs text-[#14213D] p-2.5 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4]">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#5E6857] block mb-1">
                   Why connected
                 </span>
@@ -1094,18 +1094,18 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
           {/* 4-Tier Node Causal Inspector Breakdown */}
           {activeGraphNode && (
             <div className="pt-1 space-y-2.5">
-              <div className="p-3 rounded-lg bg-[#EFECE4] border border-[#CFC7B7] space-y-2">
+              <div className="p-3 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
                 <div className="flex items-center justify-between border-b border-[#E2EAF4] pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#2C3527] text-[#14213D]">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#2684F7] text-white">
                       {activeGraphNode.semanticType}
                     </span>
-                    <span className="text-sm font-bold text-[#2C3527]">{activeGraphNode.label}</span>
+                    <span className="text-sm font-bold text-[#14213D]">{activeGraphNode.label}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setActiveGraphNodeId(null)}
-                    className="text-[10px] font-mono text-[#7A7568] hover:text-[#2C3527]"
+                    className="text-[10px] font-mono text-[#7A7568] hover:text-[#14213D]"
                   >
                     Clear inspection [✕]
                   </button>
@@ -1117,25 +1117,25 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#55634B] font-bold block mb-1">
                       1. Why this exists
                     </span>
-                    <p className="text-[#3A4537] text-[11px] leading-relaxed">{activeGraphNode.whyExists}</p>
+                    <p className="text-[#60738F] text-[11px] leading-relaxed">{activeGraphNode.whyExists}</p>
                   </div>
                   <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#4A5B6C] font-bold block mb-1">
                       2. What assumption creates it
                     </span>
-                    <p className="text-[#3A4537] text-[11px] leading-relaxed">{activeGraphNode.createdByAssumption}</p>
+                    <p className="text-[#60738F] text-[11px] leading-relaxed">{activeGraphNode.createdByAssumption}</p>
                   </div>
                   <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#3E6F4A] font-bold block mb-1">
                       3. What evidence supports it
                     </span>
-                    <p className="text-[#3A4537] text-[11px] leading-relaxed">{activeGraphNode.evidenceSupport}</p>
+                    <p className="text-[#60738F] text-[11px] leading-relaxed">{activeGraphNode.evidenceSupport}</p>
                   </div>
                   <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#9C4738] font-bold block mb-1">
                       4. What still needs validation
                     </span>
-                    <p className="text-[#3A4537] text-[11px] leading-relaxed">{activeGraphNode.needsValidation}</p>
+                    <p className="text-[#60738F] text-[11px] leading-relaxed">{activeGraphNode.needsValidation}</p>
                   </div>
                 </div>
 
@@ -1144,7 +1144,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                   <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="uppercase tracking-wider text-[#5E6857] block mb-0.5">Depends on</span>
                     {dependsOnLabels.length > 0 ? (
-                      <span className="text-[#2C3527] font-semibold">{dependsOnLabels.join(', ')}</span>
+                      <span className="text-[#14213D] font-semibold">{dependsOnLabels.join(', ')}</span>
                     ) : (
                       <span className="text-[#7A7568] italic">Root hypothesis (no upstream nodes)</span>
                     )}
@@ -1152,7 +1152,7 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                   <div className="p-2 rounded bg-[#FFFFFF] border border-[#E2EAF4]">
                     <span className="uppercase tracking-wider text-[#5E6857] block mb-0.5">Feeds into</span>
                     {feedsIntoLabels.length > 0 ? (
-                      <span className="text-[#2C3527] font-semibold">{feedsIntoLabels.join(', ')}</span>
+                      <span className="text-[#14213D] font-semibold">{feedsIntoLabels.join(', ')}</span>
                     ) : (
                       <span className="text-[#7A7568] italic">Terminal node (capital exposure endpoint)</span>
                     )}
@@ -1168,10 +1168,10 @@ export const AssumptionsAndQuestions: React.FC<AssumptionsAndQuestionsProps> = (
                   <ul className="space-y-1.5">
                     {graphLinkedAssumptions.map((a) => {
                       return (
-                        <li key={a.id} className="text-xs text-[#3A4537] p-2 rounded bg-[#F2EFE8] border border-[#E2EAF4] flex items-start gap-2">
-                          <span className={`font-bold shrink-0 ${a.impact === 'critical' ? 'text-[#F29A42]' : 'text-[#2C3527]'}`}>•</span>
+                        <li key={a.id} className="text-xs text-[#60738F] p-2 rounded bg-[#EEF4FB] border border-[#E2EAF4] flex items-start gap-2">
+                          <span className={`font-bold shrink-0 ${a.impact === 'critical' ? 'text-[#F29A42]' : 'text-[#14213D]'}`}>•</span>
                           <span className="min-w-0">
-                            <span className="font-semibold text-[#2C3527]" title={a.statement}>"{a.statement}"</span>
+                            <span className="font-semibold text-[#14213D]" title={a.statement}>"{a.statement}"</span>
                             <span className="block text-[10px] font-mono text-[#5E6857] mt-0.5">
                               {a.dimension} · {a.impact} impact · Test: {a.validationMethod}
                             </span>

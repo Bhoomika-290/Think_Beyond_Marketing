@@ -97,7 +97,7 @@ export const MarketSpecialistChat: React.FC<MarketSpecialistChatProps> = ({
               className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs ${
                 msg.sender === 'user'
                   ? 'bg-[#EEF4FB] border border-[#E2EAF4] text-[#60738F]'
-                  : 'bg-[#14213D]/20 border border-[#14213D]/40 text-[#14213D]'
+                  : 'bg-[#E8F2FF] border border-[#2684F7]/30 text-[#2684F7]'
               }`}
             >
               {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
@@ -106,7 +106,7 @@ export const MarketSpecialistChat: React.FC<MarketSpecialistChatProps> = ({
             <div
               className={`max-w-[82%] p-3.5 rounded-xl text-xs space-y-1 ${
                 msg.sender === 'user'
-                  ? 'bg-[#EEF4FB] text-[#14213D] border border-[#E2EAF4] rounded-tr-none'
+                  ? 'bg-[#2684F7] text-white rounded-tr-none shadow-xs'
                   : 'bg-[#EEF4FB] text-[#14213D] border border-[#E2EAF4] rounded-tl-none leading-relaxed'
               }`}
             >

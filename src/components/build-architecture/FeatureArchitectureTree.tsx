@@ -93,7 +93,7 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                           className={`p-3 rounded-lg flex items-center justify-between gap-3 cursor-pointer transition-colors ${
                             isSelected
                               ? 'bg-[#2684F7]/10 border border-blue-500/50'
-                              : 'hover:bg-[#151E2B] border border-transparent'
+                              : 'hover:bg-[#EEF4FB] border border-transparent'
                           }`}
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
@@ -114,7 +114,7 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                                 MVP
                               </span>
                             )}
-                            <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#1A2332] text-[#8495AE] border border-[#E2EAF4]">
+                            <span className="px-2 py-0.5 rounded text-[9px] font-mono bg-[#EEF4FB] text-[#60738F] border border-[#E2EAF4]">
                               {feature.technicalComplexity}
                             </span>
                           </div>
@@ -139,7 +139,7 @@ export const FeatureArchitectureTree: React.FC<FeatureArchitectureTreeProps> = (
                 className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
                   selectedFeature.mvpStatus
                     ? 'bg-[#E8F8F1] text-[#19A875] border border-[#19A875]/30'
-                    : 'bg-[#1A2332] text-[#8495AE]'
+                    : 'bg-[#EEF4FB] text-[#60738F]'
                 }`}
               >
                 {selectedFeature.priority.replace('_', ' ')}

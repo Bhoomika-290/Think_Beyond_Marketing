@@ -174,7 +174,7 @@ export const BuildHeader: React.FC<BuildHeaderProps> = ({
               </span>
               <span className="text-[11px] text-[#7D8B9F]">Score</span>
             </div>
-            <div className="w-full bg-[#1A2332] h-1.5 rounded-full mt-2 overflow-hidden">
+            <div className="w-full bg-[#EEF4FB] h-1.5 rounded-full mt-2 overflow-hidden">
               <div
                 className="bg-[#8495AE] h-full rounded-full transition-all duration-500"
                 style={{ width: `${readinessOverview.overallScore}%` }}

@@ -15,11 +15,11 @@ export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E2EAF4]">
         <div>
           <div className="flex items-center gap-2">
-            <Users2 className="w-4 h-4 text-[#14213D]" />
+            <Users2 className="w-4 h-4 text-[#2684F7]" />
             <h3 className="text-base font-semibold text-[#14213D]">
               AI Strategic Council — Market Deliberation
             </h3>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#14213D]/15 text-[#14213D] border border-[#14213D]/30">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               Synthesized Multi-Agent
             </span>
           </div>
@@ -31,7 +31,7 @@ export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => 
         <button
           type="button"
           onClick={() => setIsDebateExpanded(!isDebateExpanded)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#EEF4FB] text-xs font-mono text-[#14213D] border border-[#E2EAF4] hover:bg-[#E8E1D3] hover:border-[#14213D]/40 transition-colors self-start sm:self-auto"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#EEF4FB] text-xs font-mono text-[#14213D] border border-[#E2EAF4] hover:bg-[#E8F2FF] hover:border-[#2684F7]/40 transition-colors self-start sm:self-auto"
         >
           <span>{isDebateExpanded ? 'Hide Specialist Debate' : 'Inspect Council Debate'}</span>
           {isDebateExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -41,8 +41,8 @@ export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => 
       {/* Synthesized Founder-Facing Insight (Conclusion, Why, Main Risk, Next Action) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
         {/* Council Conclusion */}
-        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#14213D]/30 space-y-2">
-          <div className="flex items-center gap-1.5 text-[#14213D] font-mono text-[11px] font-semibold">
+        <div className="p-4 rounded-lg bg-[#E8F8F1] border border-[#19A875]/30 space-y-2">
+          <div className="flex items-center gap-1.5 text-[#19A875] font-mono text-[11px] font-semibold">
             <CheckCircle className="w-3.5 h-3.5 text-[#19A875]" />
             <span>COUNCIL CONCLUSION</span>
           </div>
@@ -63,7 +63,7 @@ export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => 
         </div>
 
         {/* Main Risk */}
-        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#F29A42]/30 space-y-2">
+        <div className="p-4 rounded-lg bg-[#FFF3E7] border border-[#F29A42]/30 space-y-2">
           <div className="flex items-center gap-1.5 text-[#F29A42] font-mono text-[11px] font-semibold">
             <AlertTriangle className="w-3.5 h-3.5" />
             <span>MAIN RISK &amp; UNKNOWNS</span>
@@ -74,9 +74,9 @@ export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => 
         </div>
 
         {/* Next Action */}
-        <div className="p-4 rounded-lg bg-[#EEF4FB] border border-[#19A875]/30 space-y-2">
-          <div className="flex items-center gap-1.5 text-[#19A875] font-mono text-[11px] font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-[#19A875]" />
+        <div className="p-4 rounded-lg bg-[#E8F2FF] border border-[#2684F7]/30 space-y-2">
+          <div className="flex items-center gap-1.5 text-[#2684F7] font-mono text-[11px] font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-[#2684F7]" />
             <span>RECOMMENDED NEXT ACTION</span>
           </div>
           <p className="text-xs text-[#14213D] leading-relaxed">
@@ -109,14 +109,14 @@ export const AICouncilPanel: React.FC<AICouncilPanelProps> = ({ synthesis }) => 
                   </span>
                 </div>
 
-                <div className="text-xs text-[#14213D] bg-[#EEF4FB] p-2 rounded border border-[#E2EAF4]">
-                  <span className="text-[10px] font-mono text-[#14213D] block mb-0.5">
+                <div className="text-xs text-[#14213D] bg-[#FFFFFF] p-2 rounded border border-[#E2EAF4]">
+                  <span className="text-[10px] font-mono text-[#2684F7] block mb-0.5">
                     STRATEGIC STANCE
                   </span>
                   {spec.keyPerspective}
                 </div>
 
-                <div className="text-xs text-[#60738F] bg-[#EEF4FB] p-2 rounded border border-[#E2EAF4]">
+                <div className="text-xs text-[#60738F] bg-[#FFFFFF] p-2 rounded border border-[#E2EAF4]">
                   <span className="text-[10px] font-mono text-[#F29A42] block mb-0.5">
                     CAVEAT / CHALLENGE
                   </span>

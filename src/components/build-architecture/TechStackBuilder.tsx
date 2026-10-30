@@ -81,8 +81,8 @@ export const TechStackBuilder: React.FC<TechStackBuilderProps> = ({
                 onClick={() => setActiveFilter(cat.id)}
                 className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-semibold transition-all whitespace-nowrap ${
                   isActive
-                    ? 'bg-[#1E3A8A] text-white border border-[#4D8BFF]'
-                    : 'bg-[#0A1017] text-[#8495AE] hover:text-[#14213D] hover:bg-[#1C2433] border border-[#E2EAF4]'
+                    ? 'bg-[#2684F7] text-white font-bold shadow-xs'
+                    : 'bg-[#EEF4FB] text-[#60738F] hover:text-[#14213D] hover:bg-[#E8F2FF] border border-[#E2EAF4]'
                 }`}
                 title={cat.label}
               >
@@ -142,7 +142,7 @@ export const TechStackBuilder: React.FC<TechStackBuilderProps> = ({
               {/* Decision System Breakdown */}
               <div className="space-y-2 text-xs">
                 {item.whyExists && (
-                  <div className="bg-[#0A1017] p-2.5 rounded-lg border border-[#1A2332]">
+                  <div className="bg-[#EEF4FB] p-2.5 rounded-lg border border-[#E2EAF4]">
                     <span className="text-[9px] font-mono uppercase font-bold text-[#8495AE] block mb-0.5">
                       WHY THIS EXISTS
                     </span>
@@ -153,7 +153,7 @@ export const TechStackBuilder: React.FC<TechStackBuilderProps> = ({
                 )}
 
                 {item.whatItDoes && (
-                  <div className="bg-[#0A1017] p-2.5 rounded-lg border border-[#1A2332]">
+                  <div className="bg-[#EEF4FB] p-2.5 rounded-lg border border-[#E2EAF4]">
                     <span className="text-[9px] font-mono uppercase font-bold text-[#8495AE] block mb-0.5">
                       WHAT IT DOES
                     </span>
@@ -163,7 +163,7 @@ export const TechStackBuilder: React.FC<TechStackBuilderProps> = ({
                   </div>
                 )}
 
-                <div className="bg-[#0A1017] p-2.5 rounded-lg border border-[#1A2332]">
+                <div className="bg-[#EEF4FB] p-2.5 rounded-lg border border-[#E2EAF4]">
                   <span className="text-[9px] font-mono uppercase font-bold text-[#2684F7] block mb-0.5">
                     WHY IT FITS THIS VENTURE
                   </span>

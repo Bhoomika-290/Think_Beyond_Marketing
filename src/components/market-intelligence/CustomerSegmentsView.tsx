@@ -14,7 +14,7 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
       case 'High':
         return 'bg-[#E8F8F1] text-[#19A875] border-[#19A875]/30';
       case 'Medium':
-        return 'bg-[#14213D]/10 text-[#14213D] border-[#14213D]/30';
+        return 'bg-[#E8F2FF] text-[#2684F7] border-[#2684F7]/30';
       case 'Niche':
       default:
         return 'bg-[#F2EDFF] text-[#9272DB] border-[#9272DB]/30';
@@ -38,11 +38,11 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <Users className="w-4 h-4 text-[#14213D]" />
+            <Users className="w-4 h-4 text-[#2684F7]" />
             <h2 className="text-base font-semibold text-[#14213D]">
               Customer Segmentation & Audience Signals
             </h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#14213D]/10 text-[#14213D] border border-[#14213D]/20">
+            <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#E8F2FF] text-[#2684F7] border border-[#2684F7]/30">
               Dynamic Clusters
             </span>
           </div>
@@ -60,10 +60,10 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
             <div
               key={seg.id}
               onClick={() => setActiveSegment(isSelected ? null : seg)}
-              className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col justify-between hover:border-[#14213D]/60 ${
+              className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col justify-between hover:border-[#2684F7]/40 ${
                 isSelected
-                  ? 'bg-[#EEF4FB] border-[#14213D] shadow-lg ring-1 ring-[#14213D]/30'
-                  : 'bg-[#FFFFFF] border-[#E2EAF4]'
+                  ? 'bg-[#FFFFFF] border-[#2684F7] shadow-md ring-2 ring-[#2684F7]/25'
+                  : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/40'
               }`}
             >
               <div className="space-y-3">
@@ -96,7 +96,7 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
                         seg.relativeRelevance >= 80
                           ? 'bg-[#19A875]'
                           : seg.relativeRelevance >= 65
-                          ? 'bg-[#14213D]'
+                          ? 'bg-[#2684F7]'
                           : 'bg-[#F29A42]'
                       }`}
                       style={{ width: `${seg.relativeRelevance}%` }}
@@ -125,7 +125,7 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
                   </div>
 
                   <div className="p-2.5 rounded bg-[#EEF4FB] border border-[#E2EAF4]">
-                    <span className="text-[10px] font-mono text-[#14213D] block mb-0.5">
+                    <span className="text-[10px] font-mono text-[#60738F] block mb-0.5">
                       PRIMARY BUYING TRIGGER
                     </span>
                     <p className="text-xs text-[#60738F] leading-snug">{seg.buyingTrigger}</p>
@@ -136,7 +136,7 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
               {/* Card Footer */}
               <div className="mt-3 pt-2.5 border-t border-[#E2EAF4] flex items-center justify-between text-[11px] font-mono text-[#60738F]">
                 <span>Click for interview prompts</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#14213D]" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#2684F7]" />
               </div>
             </div>
           );
@@ -145,7 +145,7 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
 
       {/* Expanded Segment Intelligence Drawer/Modal */}
       {activeSegment && (
-        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#14213D]/40 space-y-3 animate-fade-in shadow-sm">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2EAF4] space-y-3 animate-fade-in shadow-md">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
@@ -183,20 +183,20 @@ export const CustomerSegmentsView: React.FC<CustomerSegmentsViewProps> = ({ segm
             </div>
 
             <div className="p-3 rounded bg-[#EEF4FB] border border-[#E2EAF4] space-y-2">
-              <span className="text-[10px] font-mono text-[#14213D] uppercase tracking-wide block">
+              <span className="text-[10px] font-mono text-[#2684F7] uppercase tracking-wide block">
                 Validation Interview Prompts
               </span>
               <ul className="space-y-1.5 text-xs text-[#60738F]">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#14213D] font-bold">Q1:</span>
+                  <span className="text-[#2684F7] font-bold">Q1:</span>
                   <span>"How are you currently handling {activeSegment.coreNeed.toLowerCase()}?"</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#14213D] font-bold">Q2:</span>
+                  <span className="text-[#2684F7] font-bold">Q2:</span>
                   <span>"What made you actively look for an alternative rather than sticking to your current setup?"</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#14213D] font-bold">Q3:</span>
+                  <span className="text-[#2684F7] font-bold">Q3:</span>
                   <span>"If this solution saved you 5 hours or guaranteed peak freshness, what would you consider a fair price?"</span>
                 </li>
               </ul>

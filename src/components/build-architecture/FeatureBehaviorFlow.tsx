@@ -84,7 +84,7 @@ export const FeatureBehaviorFlow: React.FC<FeatureBehaviorFlowProps> = ({ flows 
               onClick={() => setActiveFlowId(flow.id)}
               className={`px-4 py-2 rounded-xl text-xs font-mono font-bold whitespace-nowrap border transition-all ${
                 isSelected
-                  ? 'bg-[#151E2B] border-cyan-500 text-cyan-300 shadow-md ring-1 ring-cyan-500/40'
+                  ? 'bg-[#FFFFFF] border-[#2684F7] text-cyan-300 shadow-md ring-1 ring-cyan-500/40'
                   : 'bg-[#FFFFFF] border-[#E2EAF4] text-[#8495AE] hover:text-[#14213D] hover:border-[#34445A]'
               }`}
             >

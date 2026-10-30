@@ -48,7 +48,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
   };
 
   return (
-    <section className="rounded-2xl bg-[#0B1017] border border-[#E2EAF4] p-6 lg:p-8 shadow-xl space-y-6">
+    <section className="rounded-2xl bg-[#FFFFFF] border border-[#E2EAF4] p-6 lg:p-8 shadow-sm space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1C2636] pb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -91,7 +91,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
             </span>
             <span className="font-mono text-rose-400 font-bold">{existingMarketCoveragePct}%</span>
           </div>
-          <div className="w-full h-3 bg-[#0B1017] rounded-full overflow-hidden border border-[#E2EAF4] p-0.5">
+          <div className="w-full h-3 bg-[#EEF4FB] rounded-full overflow-hidden border border-[#E2EAF4] p-0.5">
             <div
               className="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-500"
               style={{ width: `${existingMarketCoveragePct}%` }}
@@ -113,7 +113,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
             </span>
             <span className="font-mono text-amber-400 font-bold">{underservedPct}%</span>
           </div>
-          <div className="w-full h-3 bg-[#0B1017] rounded-full overflow-hidden border border-[#E2EAF4] p-0.5">
+          <div className="w-full h-3 bg-[#EEF4FB] rounded-full overflow-hidden border border-[#E2EAF4] p-0.5">
             <div
               className="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full transition-all duration-500"
               style={{ width: `${underservedPct}%` }}
@@ -135,7 +135,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
               {potentialOpportunityPct}%
             </span>
           </div>
-          <div className="w-full h-3.5 bg-[#0B1017] rounded-full overflow-hidden border border-[#E2EAF4] p-0.5">
+          <div className="w-full h-3.5 bg-[#EEF4FB] rounded-full overflow-hidden border border-[#E2EAF4] p-0.5">
             <div
               className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full transition-all duration-500 shadow-md shadow-emerald-500/20"
               style={{ width: `${potentialOpportunityPct}%` }}
@@ -171,7 +171,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
                   }}
                   className={`p-4 rounded-xl border transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-[#151E2B] border-purple-500/80 shadow-lg shadow-purple-500/10 ring-1 ring-purple-500/50'
+                      ? 'bg-[#FFFFFF] border-[#9272DB] ring-2 ring-[#9272DB]/25 shadow-md'
                       : 'bg-[#FFFFFF] border-[#E2EAF4] hover:border-[#2684F7]/30'
                   }`}
                 >
@@ -189,7 +189,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs font-mono p-2.5 rounded-lg bg-[#0B1017] border border-[#1C2636] mb-2">
+                  <div className="grid grid-cols-2 gap-2 text-xs font-mono p-2.5 rounded-lg bg-[#EEF4FB] border border-[#E2EAF4] mb-2">
                     <div>
                       <span className="text-[10px] text-[#8495AE] block uppercase">Incumbent Flaw</span>
                       <span className="text-rose-400/90 truncate block text-[11px]">
@@ -237,7 +237,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
               <span className="text-[10px] font-mono uppercase text-[#8495AE] block">
                 1. WHY THIS OPPORTUNITY EXISTS
               </span>
-              <p className="text-xs text-[#14213D] leading-relaxed bg-[#0B1017] p-3 rounded-lg border border-[#1C2636]">
+              <p className="text-xs text-[#14213D] leading-relaxed bg-[#EEF4FB] p-3 rounded-lg border border-[#E2EAF4]">
                 {activeCandidate.marketGap}: Incumbents cannot easily replicate this due to structural legacy models ({activeCandidate.competitorPattern}).
               </p>
             </div>
@@ -247,7 +247,7 @@ export const MarketWhitespaceMap: React.FC<MarketWhitespaceMapProps> = ({
               <span className="text-[10px] font-mono uppercase text-[#8495AE] block">
                 2. AFFECTED CUSTOMER SEGMENT
               </span>
-              <p className="text-xs text-[#8495AE] bg-[#0B1017] p-2.5 rounded-lg border border-[#1C2636]">
+              <p className="text-xs text-[#60738F] bg-[#EEF4FB] p-2.5 rounded-lg border border-[#E2EAF4]">
                 {idea.targetAudience || 'Primary adopters with acute frustration towards current market offerings.'}
               </p>
             </div>
